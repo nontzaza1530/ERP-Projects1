@@ -1,0 +1,8 @@
+{
+  "/api/inventory/products/route": "app/api/inventory/products/route.js",
+  "/api/me/route": "app/api/me/route.js",
+  "/api/production/cost-upload/route": "app/api/production/cost-upload/route.js",
+  "/api/production/projects/[id]/route": "app/api/production/projects/[id]/route.js",
+  "/api/production/tasks/route": "app/api/production/tasks/route.js",
+  "/production/project/[id]/page": "app/production/project/[id]/page.js"
+}
