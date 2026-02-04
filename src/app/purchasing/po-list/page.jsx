@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Sidebar from '../../../components/Sidebar';
-import { Search, Plus, Eye, FileText, Printer, Ban, Loader2, Calendar, ShoppingBag, Filter, CheckCircle, Clock, XCircle } from 'lucide-react';
+import Sidebar from '../../../components/Sidebar'; // ตรวจสอบ path ให้ถูกต้อง
+import { 
+  Search, Plus, Eye, FileText, Printer, Ban, Loader2, Calendar, ShoppingBag, Filter, CheckCircle, Clock, XCircle, Menu
+} from 'lucide-react'; // ✅ เพิ่ม Menu Icon
 import Link from 'next/link';
 import Swal from 'sweetalert2'; 
 
@@ -11,8 +13,11 @@ export default function POListPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   
-  // 🆕 State สำหรับเลือก Tab (ค่าเริ่มต้นเป็น 'active' คือดูงานที่ต้องทำ)
+  // State สำหรับเลือก Tab (ค่าเริ่มต้นเป็น 'active' คือดูงานที่ต้องทำ)
   const [activeTab, setActiveTab] = useState('active'); 
+
+  // ✅ เพิ่ม State สำหรับเปิด/ปิด Sidebar ในมือถือ
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // 1. โหลดข้อมูล
   useEffect(() => {
@@ -36,7 +41,7 @@ export default function POListPage() {
 
   const handlePrint = (po) => window.open(`/purchasing/print/${po.id}`, '_blank');
 
-  // ✅ แก้ไขส่วนแสดงผล Popup (View) ให้โชว์ที่อยู่ครบ
+  // แก้ไขส่วนแสดงผล Popup (View) ให้โชว์ที่อยู่ครบ
   const handleView = async (po) => {
     Swal.fire({ title: 'กำลังโหลดข้อมูล...', didOpen: () => Swal.showLoading() });
     try {
@@ -163,13 +168,12 @@ export default function POListPage() {
     }
   };
 
-  // 🔍 Logic การกรองข้อมูลตาม Tab และ Search
+  // Logic การกรองข้อมูลตาม Tab และ Search
   const filteredList = poList.filter(po => {
     const status = po.status.toLowerCase();
     const matchesSearch = po.po_number.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           (po.supplier_name || '').toLowerCase().includes(searchTerm.toLowerCase());
     
-    // กรองตาม Tab
     let matchesTab = true;
     if (activeTab === 'active') {
         matchesTab = status === 'pending' || status === 'partially received';
@@ -184,18 +188,42 @@ export default function POListPage() {
   });
 
   return (
-    <div className="flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900">
-      <Sidebar />
-      <main className="flex-1 ml-64 p-8 w-[calc(100%-16rem)]">
+    <div className="flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900 overflow-x-hidden">
+      
+      {/* ✅ 1. Mobile Overlay: ฉากหลังมืดเวลาเปิด Sidebar */}
+      <div 
+        className={`fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`} 
+        onClick={() => setIsSidebarOpen(false)} 
+      />
+
+      {/* ✅ 2. Sidebar Container: กล่อง Sidebar ที่เลื่อนได้ */}
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:shadow-none lg:border-r lg:border-slate-800 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="h-full relative flex flex-col">
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
+               <Sidebar onClose={() => setIsSidebarOpen(false)} />
+            </div>
+          </div>
+      </aside>
+
+      {/* ✅ 3. Main Content: ปรับ Margin ให้ถูกต้อง */}
+      <main className="flex-1 w-full lg:ml-64 p-4 md:p-8 transition-all duration-300 min-h-screen flex flex-col">
 
         {/* Header */}
-        <div className="flex justify-between items-end mb-8">
-          <div>
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">รายการใบสั่งซื้อ (PO List)</h1>
-            <p className="text-slate-500 text-sm mt-1">ติดตามสถานะและจัดการเอกสารสั่งซื้อ</p>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
+          <div className="flex items-center gap-3">
+            {/* ✅ ปุ่มเมนูมือถือ */}
+            <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition">
+                <Menu size={24} />
+            </button>
+            
+            <div>
+                <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">รายการใบสั่งซื้อ (PO List)</h1>
+                <p className="text-slate-500 text-xs md:text-sm mt-1">ติดตามสถานะและจัดการเอกสารสั่งซื้อ</p>
+            </div>
           </div>
+          
           <Link href="/purchasing/create-po">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transition active:scale-95">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 md:py-3 rounded-xl font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transition active:scale-95 text-sm md:text-base whitespace-nowrap">
               <Plus size={20} strokeWidth={3} /> เปิดบิลใหม่
             </button>
           </Link>
@@ -207,53 +235,45 @@ export default function POListPage() {
           <input
             type="text"
             placeholder="ค้นหาเลขที่ PO หรือ ชื่อผู้ขาย..."
-            className="flex-1 outline-none text-slate-700 placeholder:text-slate-400 font-medium"
+            className="flex-1 outline-none text-slate-700 placeholder:text-slate-400 font-medium bg-transparent"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
-        {/* 🔥 Tabs Selection (แยกประเภทบิล) */}
-        <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
-            <button 
-                onClick={() => setActiveTab('all')}
-                className={`px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 transition ${activeTab === 'all' ? 'bg-slate-800 text-white shadow-md' : 'bg-white text-slate-500 hover:bg-slate-100'}`}
-            >
-                <Filter size={16}/> ทั้งหมด
-            </button>
-            <button 
-                onClick={() => setActiveTab('active')}
-                className={`px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 transition ${activeTab === 'active' ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-500 hover:bg-slate-100'}`}
-            >
-                <Clock size={16}/> รอรับของ
-            </button>
-            <button 
-                onClick={() => setActiveTab('history')}
-                className={`px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 transition ${activeTab === 'history' ? 'bg-green-600 text-white shadow-md' : 'bg-white text-slate-500 hover:bg-slate-100'}`}
-            >
-                <CheckCircle size={16}/> ประวัติ/สำเร็จ
-            </button>
-            <button 
-                onClick={() => setActiveTab('cancelled')}
-                className={`px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 transition ${activeTab === 'cancelled' ? 'bg-red-500 text-white shadow-md' : 'bg-white text-slate-500 hover:bg-slate-100'}`}
-            >
-                <XCircle size={16}/> รายการที่ยกเลิก
-            </button>
+        {/* Tabs Selection */}
+        <div className="flex gap-2 mb-4 overflow-x-auto pb-2 custom-scrollbar">
+            {[
+                { id: 'all', label: 'ทั้งหมด', icon: <Filter size={16}/>, activeClass: 'bg-slate-800 text-white' },
+                { id: 'active', label: 'รอรับของ', icon: <Clock size={16}/>, activeClass: 'bg-blue-600 text-white' },
+                { id: 'history', label: 'ประวัติ/สำเร็จ', icon: <CheckCircle size={16}/>, activeClass: 'bg-green-600 text-white' },
+                { id: 'cancelled', label: 'รายการที่ยกเลิก', icon: <XCircle size={16}/>, activeClass: 'bg-red-500 text-white' },
+            ].map(tab => (
+                <button 
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 transition whitespace-nowrap shadow-sm
+                        ${activeTab === tab.id ? tab.activeClass : 'bg-white text-slate-500 hover:bg-slate-100'}
+                    `}
+                >
+                    {tab.icon} {tab.label}
+                </button>
+            ))}
         </div>
 
         {/* Table */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-lg overflow-hidden min-h-[400px]">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left border-collapse">
+          <div className="overflow-x-auto custom-scrollbar">
+            <table className="w-full text-sm text-left border-collapse min-w-[800px]">
               <thead className="bg-slate-50 text-slate-500 font-bold uppercase text-[11px] tracking-wider border-b border-slate-200">
                 <tr>
-                  <th className="p-4 pl-6">เลขที่ PO</th>
-                  <th className="p-4">วันที่สั่ง</th>
-                  <th className="p-4">ผู้ขาย (Supplier)</th>
-                  <th className="p-4 text-center">รายการ</th>
-                  <th className="p-4 text-right">ยอดรวม</th>
-                  <th className="p-4">สถานะ</th>
-                  <th className="p-4 text-center">จัดการ</th>
+                  <th className="p-4 pl-6 w-[15%]">เลขที่ PO</th>
+                  <th className="p-4 w-[15%]">วันที่สั่ง</th>
+                  <th className="p-4 w-[25%]">ผู้ขาย (Supplier)</th>
+                  <th className="p-4 text-center w-[10%]">รายการ</th>
+                  <th className="p-4 text-right w-[15%]">ยอดรวม</th>
+                  <th className="p-4 w-[10%]">สถานะ</th>
+                  <th className="p-4 text-center w-[10%]">จัดการ</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">

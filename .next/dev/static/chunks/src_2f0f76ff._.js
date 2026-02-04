@@ -33,17 +33,17 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-function Sidebar({ isOpen, onClose }) {
+function Sidebar({ onClose }) {
     _s();
+    // ไม่ต้องรับ isOpen แล้ว เพราะ Parent จัดการให้
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [role, setRole] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [isMounted, setIsMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [expandedMenu, setExpandedMenu] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true); // เพิ่ม Loading state
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Sidebar.useEffect": ()=>{
-            setIsMounted(true);
             const fetchUser = {
                 "Sidebar.useEffect.fetchUser": async ()=>{
                     try {
@@ -61,6 +61,8 @@ function Sidebar({ isOpen, onClose }) {
                         }
                     } catch (error) {
                         console.error("Error fetching user role", error);
+                    } finally{
+                        setLoading(false);
                     }
                 }
             }["Sidebar.useEffect.fetchUser"];
@@ -126,7 +128,6 @@ function Sidebar({ isOpen, onClose }) {
                     'admin',
                     'employee'
                 ],
-                // Employee เห็นหัวข้อนี้
                 subItems: [
                     {
                         name: role === 'employee' ? 'ข้อมูลส่วนตัว' : 'รายชื่อพนักงาน',
@@ -155,7 +156,6 @@ function Sidebar({ isOpen, onClose }) {
                             'employee'
                         ]
                     },
-                    // 👇 พวกนี้ Employee จะไม่เห็นเลย
                     {
                         name: 'อนุมัติวันลา',
                         href: '/hr/approve-leave',
@@ -200,7 +200,6 @@ function Sidebar({ isOpen, onClose }) {
                     'super_admin',
                     'admin'
                 ],
-                // ❌ Employee ไม่เห็นทั้งก้อน
                 subItems: [
                     {
                         name: 'ภาพรวม (Dashboard)',
@@ -252,7 +251,7 @@ function Sidebar({ isOpen, onClose }) {
                 roles: [
                     'super_admin',
                     'admin'
-                ] // ❌ Employee ไม่เห็น
+                ]
             },
             {
                 name: 'การขาย (POS)',
@@ -261,7 +260,7 @@ function Sidebar({ isOpen, onClose }) {
                 roles: [
                     'super_admin',
                     'admin'
-                ] // ❌ Employee ไม่เห็น
+                ]
             },
             {
                 name: 'บัญชี',
@@ -272,7 +271,6 @@ function Sidebar({ isOpen, onClose }) {
                     'admin',
                     'employee'
                 ],
-                // ✅ Employee เห็นหัวข้อนี้ (เพราะมีเมนูย่อยให้เข้า)
                 subItems: [
                     {
                         name: 'ภาพรวมบัญชี',
@@ -280,7 +278,7 @@ function Sidebar({ isOpen, onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // ❌ ไม่เห็น
+                        ]
                     },
                     {
                         name: 'ต้นทุนโครงการ',
@@ -288,7 +286,7 @@ function Sidebar({ isOpen, onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // ❌ ไม่เห็น
+                        ]
                     },
                     {
                         name: 'ขอเบิกเงิน (Reimbursement)',
@@ -297,7 +295,7 @@ function Sidebar({ isOpen, onClose }) {
                             'super_admin',
                             'admin',
                             'employee'
-                        ] // ✅ เห็นแค่อันนี้!
+                        ]
                     },
                     {
                         name: 'ตรวจสอบการเบิก (Approval)',
@@ -305,7 +303,7 @@ function Sidebar({ isOpen, onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // ❌ ไม่เห็น
+                        ]
                     }
                 ]
             },
@@ -321,15 +319,12 @@ function Sidebar({ isOpen, onClose }) {
             }
         ];
     };
-    // 🔥 Logic กรองเมนู (Filter) แบบเฟี้ยวๆ
     const getVisibleMenu = ()=>{
-        if (!role) return []; // ถ้ายังไม่รู้ Role ไม่โชว์อะไรเลย
+        if (!role) return [];
         const allItems = getMenuItems();
         return allItems.map((item)=>{
-            // 1. ถ้ามีเมนูย่อย ให้กรองเมนูย่อยก่อน
             if (item.subItems) {
                 const filteredSub = item.subItems.filter((sub)=>sub.roles.includes(role));
-                // คืนค่า item ใหม่ที่มีเฉพาะเมนูย่อยที่เข้าได้
                 return {
                     ...item,
                     subItems: filteredSub
@@ -337,334 +332,347 @@ function Sidebar({ isOpen, onClose }) {
             }
             return item;
         }).filter((item_0)=>{
-            // 2. กรองเมนูหลักทิ้ง ถ้า Role ไม่ถึง
             const isParentAllowed = item_0.roles.includes(role);
-            // ถ้าเมนูหลักไม่ผ่าน -> ตัดทิ้ง
             if (!isParentAllowed) return false;
-            // พิเศษ: ถ้าเป็นเมนูแบบ Dropdown (มี subItems) แต่กรองแล้วไม่เหลือลูกเลย -> ตัดแม่ทิ้งด้วย (จะได้ไม่รก)
-            if (item_0.subItems && item_0.subItems.length === 0) {
-                return false;
-            }
+            if (item_0.subItems && item_0.subItems.length === 0) return false;
             return true;
         });
     };
     const visibleMenu = getVisibleMenu();
-    if (!isMounted) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
-        className: "w-64 bg-slate-900 h-screen fixed left-0 top-0 hidden lg:block"
-    }, void 0, false, {
-        fileName: "[project]/src/components/Sidebar.jsx",
-        lineNumber: 216,
-        columnNumber: 26
-    }, this);
-    if (!role) return null;
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+    return(// ✅ แก้ไข 1: เปลี่ยนจาก <aside fixed...> เป็น <div> ธรรมดาเต็มพื้นที่
+    // เพื่อให้มันอยู่ในกล่องที่หน้า Dashboard เตรียมไว้ให้แล้ว
+    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "flex flex-col h-full w-full bg-slate-900 text-slate-300",
         children: [
-            isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity",
-                onClick: onClose
-            }, void 0, false, {
-                fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 219,
-                columnNumber: 18
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
-                className: `
-        fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-slate-300 h-screen 
-        transform transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none
-        flex flex-col border-r border-slate-800
-        ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `,
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "p-6 border-b border-slate-800 shrink-0 flex flex-col items-center relative",
                 children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: onClose,
+                        className: "absolute top-4 right-4 p-1 text-slate-500 hover:text-white lg:hidden",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                            size: 20
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 211,
+                            columnNumber: 17
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Sidebar.jsx",
+                        lineNumber: 210,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                        className: "text-2xl font-bold text-white tracking-wider",
+                        children: "ERP SYSTEM"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Sidebar.jsx",
+                        lineNumber: 214,
+                        columnNumber: 11
+                    }, this),
+                    loading ? // Skeleton Loader ตอนโหลดข้อมูล
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-6 border-b border-slate-800 shrink-0 flex flex-col items-center relative",
+                        className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700 animate-pulse",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: onClose,
-                                className: "absolute top-4 right-4 p-1 text-slate-500 hover:text-white lg:hidden",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                    size: 20
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 231,
-                                    columnNumber: 17
-                                }, this)
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-8 h-8 rounded-full bg-slate-700"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 230,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                className: "text-2xl font-bold text-white tracking-wider",
-                                children: "ERP SYSTEM"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 234,
-                                columnNumber: 11
+                                lineNumber: 220,
+                                columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white text-sm uppercase shrink-0",
-                                        children: user?.first_name?.charAt(0) || 'U'
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 236,
-                                        columnNumber: 14
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "overflow-hidden min-w-0",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-sm font-bold text-white truncate",
-                                                children: user?.first_name
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 240,
-                                                columnNumber: 18
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-[10px] font-bold uppercase text-blue-400 tracking-wide block truncate",
-                                                children: role.replace('_', ' ')
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 241,
-                                                columnNumber: 18
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 239,
-                                        columnNumber: 14
-                                    }, this)
-                                ]
-                            }, void 0, true, {
+                                className: "flex-1 h-4 bg-slate-700 rounded"
+                            }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 235,
-                                columnNumber: 11
+                                lineNumber: 221,
+                                columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 229,
+                        lineNumber: 219,
                         columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                        className: "flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar flex flex-col",
-                        children: visibleMenu.map((item_1)=>{
-                            const isExpanded = expandedMenu === item_1.name;
-                            // ใช้ subItems ที่กรองมาแล้ว
-                            const subItemsToRender = item_1.subItems;
-                            const isActive = item_1.href === pathname || subItemsToRender?.some((sub_0)=>sub_0.href === pathname);
-                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mb-1",
-                                children: subItemsToRender ? // --- 📂 Dropdown Menu (สำหรับเมนูที่มีลูก) ---
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            onClick: ()=>toggleMenu(item_1.name),
-                                            className: `w-full flex items-center justify-between px-3 py-3 rounded-xl transition-all duration-200 group
-                        ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}
-                      `,
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-center gap-3 min-w-0",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item_1.icon, {
-                                                            size: 20,
-                                                            className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'} shrink-0`
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                                            lineNumber: 263,
-                                                            columnNumber: 25
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "font-medium text-sm md:text-base truncate flex items-center gap-2",
-                                                            children: item_1.name
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                                            lineNumber: 264,
-                                                            columnNumber: 25
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 262,
-                                                    columnNumber: 23
-                                                }, this),
-                                                isExpanded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
-                                                    size: 16,
-                                                    className: "shrink-0"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 268,
-                                                    columnNumber: 37
-                                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
-                                                    size: 16,
-                                                    className: "shrink-0"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 268,
-                                                    columnNumber: 86
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 259,
-                                            columnNumber: 21
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: `overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-96 opacity-100 mt-1' : 'max-h-0 opacity-0'}`,
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "ml-4 pl-3 border-l border-slate-700 space-y-1 py-1",
-                                                children: subItemsToRender.map((sub_1)=>{
-                                                    const isSubActive = pathname === sub_1.href;
-                                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                        href: sub_1.href,
-                                                        onClick: handleLinkClick,
-                                                        className: `flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-colors mb-1
-                                  ${isSubActive ? 'text-blue-400 bg-blue-900/20 font-bold' : 'text-slate-500 hover:text-slate-200 hover:bg-slate-800/50'}
-                                `,
-                                                        children: [
-                                                            sub_1.icon ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(sub_1.icon, {
-                                                                size: 16,
-                                                                className: isSubActive ? 'text-blue-400' : 'text-slate-600'
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                                lineNumber: 278,
-                                                                columnNumber: 47
-                                                            }, this) : sub_1.name === 'ข้อมูลส่วนตัว' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
-                                                                size: 14,
-                                                                className: isSubActive ? 'text-blue-400' : 'opacity-50'
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                                lineNumber: 278,
-                                                                columnNumber: 168
-                                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
-                                                                size: 8,
-                                                                className: isSubActive ? 'fill-current' : 'opacity-50'
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                                lineNumber: 278,
-                                                                columnNumber: 246
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "truncate",
-                                                                children: sub_1.name
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                                lineNumber: 280,
-                                                                columnNumber: 33
-                                                            }, this)
-                                                        ]
-                                                    }, sub_1.href, true, {
-                                                        fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 275,
-                                                        columnNumber: 28
-                                                    }, this);
-                                                })
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 272,
-                                                columnNumber: 23
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 271,
-                                            columnNumber: 21
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 258,
-                                    columnNumber: 13
-                                }, this) : // --- 🔗 Single Link Menu (สำหรับเมนูเดี่ยว) ---
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                    href: item_1.href,
-                                    onClick: handleLinkClick,
-                                    className: `flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/50' : 'hover:bg-slate-800 hover:text-white text-slate-400'}`,
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400 transition-colors'} shrink-0`,
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item_1.icon, {
-                                                size: 20
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 289,
-                                                columnNumber: 23
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 288,
-                                            columnNumber: 21
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "font-medium text-sm md:text-base truncate flex items-center gap-2",
-                                            children: item_1.name
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 291,
-                                            columnNumber: 21
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 287,
-                                    columnNumber: 13
-                                }, this)
-                            }, item_1.name, false, {
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white text-sm uppercase shrink-0",
+                                children: user?.first_name?.charAt(0) || 'U'
+                            }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 255,
-                                columnNumber: 18
-                            }, this);
-                        })
-                    }, void 0, false, {
+                                lineNumber: 223,
+                                columnNumber: 17
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "overflow-hidden min-w-0",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-sm font-bold text-white truncate",
+                                        children: user?.first_name
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                        lineNumber: 227,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-[10px] font-bold uppercase text-blue-400 tracking-wide block truncate",
+                                        children: role?.replace('_', ' ')
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                        lineNumber: 228,
+                                        columnNumber: 21
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/components/Sidebar.jsx",
+                                lineNumber: 226,
+                                columnNumber: 17
+                            }, this)
+                        ]
+                    }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 249,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-4 border-t border-slate-800 bg-slate-900 shrink-0",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            onClick: handleLogout,
-                            className: "flex items-center gap-3 px-4 py-3 w-full hover:bg-red-500/10 rounded-xl text-red-400 hover:text-red-300 transition active:scale-[0.98]",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$out$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LogOut$3e$__["LogOut"], {
-                                    size: 20
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 302,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "font-medium",
-                                    children: "ออกจากระบบ"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 303,
-                                    columnNumber: 17
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 301,
-                            columnNumber: 13
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 300,
-                        columnNumber: 9
+                        lineNumber: 222,
+                        columnNumber: 23
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 221,
-                columnNumber: 7
+                lineNumber: 207,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+                className: "flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar flex flex-col",
+                children: loading ? // Skeleton Loader เมนู
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "space-y-3 px-2",
+                    children: [
+                        1,
+                        2,
+                        3,
+                        4
+                    ].map((i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "h-10 bg-slate-800/50 rounded-xl animate-pulse"
+                        }, i, false, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 240,
+                            columnNumber: 40
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/src/components/Sidebar.jsx",
+                    lineNumber: 239,
+                    columnNumber: 9
+                }, this) : visibleMenu.map((item_1)=>{
+                    const isExpanded = expandedMenu === item_1.name;
+                    const subItemsToRender = item_1.subItems;
+                    const isActive = item_1.href === pathname || subItemsToRender?.some((sub_0)=>sub_0.href === pathname);
+                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mb-1",
+                        children: subItemsToRender ? // --- 📂 Dropdown Menu ---
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>toggleMenu(item_1.name),
+                                    className: `w-full flex items-center justify-between px-3 py-3 rounded-xl transition-all duration-200 group
+                            ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}
+                        `,
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex items-center gap-3 min-w-0",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item_1.icon, {
+                                                    size: 20,
+                                                    className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'} shrink-0`
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                                    lineNumber: 253,
+                                                    columnNumber: 29
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "font-medium text-sm md:text-base truncate flex items-center gap-2",
+                                                    children: item_1.name
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                                    lineNumber: 254,
+                                                    columnNumber: 29
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/components/Sidebar.jsx",
+                                            lineNumber: 252,
+                                            columnNumber: 25
+                                        }, this),
+                                        isExpanded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
+                                            size: 16,
+                                            className: "shrink-0"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Sidebar.jsx",
+                                            lineNumber: 258,
+                                            columnNumber: 39
+                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
+                                            size: 16,
+                                            className: "shrink-0"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Sidebar.jsx",
+                                            lineNumber: 258,
+                                            columnNumber: 88
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                    lineNumber: 249,
+                                    columnNumber: 25
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: `overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-96 opacity-100 mt-1' : 'max-h-0 opacity-0'}`,
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "ml-4 pl-3 border-l border-slate-700 space-y-1 py-1",
+                                        children: subItemsToRender.map((sub_1)=>{
+                                            const isSubActive = pathname === sub_1.href;
+                                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                href: sub_1.href,
+                                                onClick: handleLinkClick,
+                                                className: `flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-colors mb-1
+                                    ${isSubActive ? 'text-blue-400 bg-blue-900/20 font-bold' : 'text-slate-500 hover:text-slate-200 hover:bg-slate-800/50'}
+                                    `,
+                                                children: [
+                                                    sub_1.icon ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(sub_1.icon, {
+                                                        size: 16,
+                                                        className: isSubActive ? 'text-blue-400' : 'text-slate-600'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                                        lineNumber: 268,
+                                                        columnNumber: 51
+                                                    }, this) : sub_1.name === 'ข้อมูลส่วนตัว' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
+                                                        size: 14,
+                                                        className: isSubActive ? 'text-blue-400' : 'opacity-50'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                                        lineNumber: 268,
+                                                        columnNumber: 172
+                                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
+                                                        size: 8,
+                                                        className: isSubActive ? 'fill-current' : 'opacity-50'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                                        lineNumber: 268,
+                                                        columnNumber: 250
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "truncate",
+                                                        children: sub_1.name
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                                        lineNumber: 269,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, sub_1.href, true, {
+                                                fileName: "[project]/src/components/Sidebar.jsx",
+                                                lineNumber: 265,
+                                                columnNumber: 28
+                                            }, this);
+                                        })
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                        lineNumber: 262,
+                                        columnNumber: 25
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                    lineNumber: 261,
+                                    columnNumber: 25
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 248,
+                            columnNumber: 13
+                        }, this) : // --- 🔗 Single Link Menu ---
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            href: item_1.href,
+                            onClick: handleLinkClick,
+                            className: `flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/50' : 'hover:bg-slate-800 hover:text-white text-slate-400'}`,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400 transition-colors'} shrink-0`,
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item_1.icon, {
+                                        size: 20
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                        lineNumber: 278,
+                                        columnNumber: 25
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                    lineNumber: 277,
+                                    columnNumber: 25
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "font-medium text-sm md:text-base truncate flex items-center gap-2",
+                                    children: item_1.name
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                    lineNumber: 280,
+                                    columnNumber: 25
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 276,
+                            columnNumber: 13
+                        }, this)
+                    }, item_1.name, false, {
+                        fileName: "[project]/src/components/Sidebar.jsx",
+                        lineNumber: 245,
+                        columnNumber: 18
+                    }, this);
+                })
+            }, void 0, false, {
+                fileName: "[project]/src/components/Sidebar.jsx",
+                lineNumber: 236,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "p-4 border-t border-slate-800 bg-slate-900 shrink-0",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    onClick: handleLogout,
+                    className: "flex items-center gap-3 px-4 py-3 w-full hover:bg-red-500/10 rounded-xl text-red-400 hover:text-red-300 transition active:scale-[0.98]",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$out$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LogOut$3e$__["LogOut"], {
+                            size: 20
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 291,
+                            columnNumber: 17
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "font-medium",
+                            children: "ออกจากระบบ"
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 292,
+                            columnNumber: 17
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/components/Sidebar.jsx",
+                    lineNumber: 290,
+                    columnNumber: 13
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/components/Sidebar.jsx",
+                lineNumber: 289,
+                columnNumber: 9
             }, this)
         ]
-    }, void 0, true);
+    }, void 0, true, {
+        fileName: "[project]/src/components/Sidebar.jsx",
+        lineNumber: 204,
+        columnNumber: 5
+    }, this));
 }
-_s(Sidebar, "fk/lk6qz/2u0SNHGDRbIF+qe1Cs=", false, function() {
+_s(Sidebar, "44EUgPEOFIYLqfkbuSz1ZJFsr04=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
@@ -700,6 +708,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-right.js [app-client] (ecmascript) <export default as ChevronRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-client] (ecmascript) <export default as Trash2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/eye.js [app-client] (ecmascript) <export default as Eye>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-client] (ecmascript) <export default as Menu>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/sweetalert2/dist/sweetalert2.all.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
@@ -725,8 +734,10 @@ function ReimbursementPage() {
         description: ''
     });
     const [selectedFiles, setSelectedFiles] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    // ✅ เพิ่ม State สำหรับดูรูปภาพ (Gallery)
+    // State สำหรับดูรูปภาพ (Gallery)
     const [viewingImages, setViewingImages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    // State สำหรับเปิด/ปิด Sidebar ในมือถือ
+    const [isSidebarOpen, setIsSidebarOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ReimbursementPage.useEffect": ()=>{
             fetchRequests(currentPage);
@@ -766,14 +777,14 @@ function ReimbursementPage() {
         if (user.first_name) return `${user.first_name} ${user.last_name || ''}`.trim();
         return user.username || 'Unknown';
     };
-    // ✅ Helper: แสดงปุ่มดูรูป (กดแล้วเปิด Modal Grid)
+    // Helper: แสดงปุ่มดูรูป
     const renderSlipButton = (slipImages)=>{
         if (!slipImages || slipImages === 'null') return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
             className: "text-slate-300",
             children: "-"
         }, void 0, false, {
             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-            lineNumber: 65,
+            lineNumber: 68,
             columnNumber: 54
         }, this);
         try {
@@ -799,7 +810,7 @@ function ReimbursementPage() {
                 children: "-"
             }, void 0, false, {
                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                lineNumber: 78,
+                lineNumber: 81,
                 columnNumber: 39
             }, this);
             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -811,14 +822,14 @@ function ReimbursementPage() {
                         size: 14
                     }, void 0, false, {
                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                        lineNumber: 81,
+                        lineNumber: 83,
                         columnNumber: 17
                     }, this),
                     images.length > 1 ? `ดูหลักฐาน (${images.length})` : 'ดูหลักฐาน'
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                lineNumber: 79,
+                lineNumber: 82,
                 columnNumber: 14
             }, this);
         } catch (e) {
@@ -827,7 +838,7 @@ function ReimbursementPage() {
                 children: "Error"
             }, void 0, false, {
                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                lineNumber: 85,
+                lineNumber: 87,
                 columnNumber: 14
             }, this);
         }
@@ -906,75 +917,130 @@ function ReimbursementPage() {
     const inputClass = "w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 focus:bg-white outline-none transition-all";
     const labelClass = "block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-1";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900",
+        className: "flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900 overflow-x-hidden",
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Sidebar$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: `fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`,
+                onClick: ()=>setIsSidebarOpen(false)
+            }, void 0, false, {
                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                lineNumber: 157,
+                lineNumber: 161,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
+                className: `fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:shadow-none lg:border-r lg:border-slate-800 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`,
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "h-full relative flex flex-col",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1 overflow-y-auto custom-scrollbar",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Sidebar$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            onClose: ()=>setIsSidebarOpen(false)
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                            lineNumber: 167,
+                            columnNumber: 16
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                        lineNumber: 166,
+                        columnNumber: 13
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                    lineNumber: 165,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                lineNumber: 164,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-                className: "flex-1 ml-64 p-8 w-[calc(100%-16rem)] flex flex-col h-screen overflow-hidden",
+                className: "flex-1 w-full lg:ml-64 p-4 md:p-8 transition-all duration-300 min-h-screen flex flex-col h-screen overflow-hidden",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex justify-between items-end mb-8 shrink-0",
+                        className: "flex flex-col md:flex-row justify-between items-start md:items-end mb-8 shrink-0 gap-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-3",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                        className: "text-3xl font-extrabold text-slate-900 tracking-tight",
-                                        children: "ระบบเบิกเงิน"
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setIsSidebarOpen(true),
+                                        className: "lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
+                                            size: 24
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                                            lineNumber: 180,
+                                            columnNumber: 17
+                                        }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 163,
+                                        lineNumber: 179,
                                         columnNumber: 13
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-slate-500 text-sm mt-1 font-medium",
-                                        children: "จัดการและติดตามสถานะการเบิกจ่ายค่าใช้จ่าย"
-                                    }, void 0, false, {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                                                className: "text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight",
+                                                children: "ระบบเบิกเงิน"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                                                lineNumber: 184,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-slate-500 text-xs md:text-sm mt-1 font-medium",
+                                                children: "จัดการและติดตามสถานะการเบิกจ่ายค่าใช้จ่าย"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                                                lineNumber: 185,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 164,
+                                        lineNumber: 183,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                lineNumber: 162,
+                                lineNumber: 177,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>setShowModal(true),
-                                className: "bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transition-all active:scale-95",
+                                className: "bg-blue-600 hover:bg-blue-700 text-white px-4 md:px-6 py-2.5 md:py-3 rounded-xl font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transition-all active:scale-95 text-sm md:text-base",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
                                         size: 20,
                                         strokeWidth: 3
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 167,
+                                        lineNumber: 190,
                                         columnNumber: 13
                                     }, this),
                                     " สร้างรายการใหม่"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                lineNumber: 166,
+                                lineNumber: 189,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                        lineNumber: 161,
+                        lineNumber: 176,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "bg-white rounded-3xl border border-slate-200 shadow-lg flex flex-col flex-1 overflow-hidden",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex-1 overflow-auto",
+                                className: "flex-1 overflow-auto custom-scrollbar",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                    className: "w-full text-sm text-left border-collapse",
+                                    className: "w-full text-sm text-left border-collapse min-w-[800px]",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
                                             className: "bg-slate-100 text-slate-700 font-bold uppercase text-[11px] tracking-wider border-b-2 border-slate-200 sticky top-0 z-10",
@@ -985,7 +1051,7 @@ function ReimbursementPage() {
                                                         children: "วันที่"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 179,
+                                                        lineNumber: 202,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -993,7 +1059,7 @@ function ReimbursementPage() {
                                                         children: "ผู้ขอเบิก"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 180,
+                                                        lineNumber: 203,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1001,7 +1067,7 @@ function ReimbursementPage() {
                                                         children: "รายการ"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 181,
+                                                        lineNumber: 204,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1009,7 +1075,7 @@ function ReimbursementPage() {
                                                         children: "หลักฐาน"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 182,
+                                                        lineNumber: 205,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1017,7 +1083,7 @@ function ReimbursementPage() {
                                                         children: "สถานะ"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 183,
+                                                        lineNumber: 206,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1025,18 +1091,18 @@ function ReimbursementPage() {
                                                         children: "จำนวนเงิน"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 184,
+                                                        lineNumber: 207,
                                                         columnNumber: 29
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 178,
+                                                lineNumber: 201,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                            lineNumber: 177,
+                                            lineNumber: 200,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1052,12 +1118,12 @@ function ReimbursementPage() {
                                                                 className: "h-4 bg-slate-100 rounded w-24"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 191,
+                                                                lineNumber: 213,
                                                                 columnNumber: 61
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 191,
+                                                            lineNumber: 213,
                                                             columnNumber: 36
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1067,20 +1133,20 @@ function ReimbursementPage() {
                                                                     className: "h-10 w-10 bg-slate-100 rounded-full inline-block mr-3"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                    lineNumber: 192,
+                                                                    lineNumber: 214,
                                                                     columnNumber: 56
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "h-4 bg-slate-100 rounded w-24 inline-block"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                    lineNumber: 192,
+                                                                    lineNumber: 214,
                                                                     columnNumber: 133
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 192,
+                                                            lineNumber: 214,
                                                             columnNumber: 36
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1089,12 +1155,12 @@ function ReimbursementPage() {
                                                                 className: "h-4 bg-slate-100 rounded w-32"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 193,
+                                                                lineNumber: 215,
                                                                 columnNumber: 56
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 193,
+                                                            lineNumber: 215,
                                                             columnNumber: 36
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1103,12 +1169,12 @@ function ReimbursementPage() {
                                                                 className: "h-6 w-16 bg-slate-100 rounded-lg mx-auto"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 194,
+                                                                lineNumber: 216,
                                                                 columnNumber: 56
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 194,
+                                                            lineNumber: 216,
                                                             columnNumber: 36
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1117,12 +1183,12 @@ function ReimbursementPage() {
                                                                 className: "h-6 w-20 bg-slate-100 rounded-full"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 195,
+                                                                lineNumber: 217,
                                                                 columnNumber: 56
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 195,
+                                                            lineNumber: 217,
                                                             columnNumber: 36
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1131,27 +1197,25 @@ function ReimbursementPage() {
                                                                 className: "h-4 bg-slate-100 rounded w-16 ml-auto"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 196,
+                                                                lineNumber: 218,
                                                                 columnNumber: 72
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 196,
+                                                            lineNumber: 218,
                                                             columnNumber: 36
                                                         }, this)
                                                     ]
                                                 }, i, true, {
                                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                    lineNumber: 190,
+                                                    lineNumber: 212,
                                                     columnNumber: 66
                                                 }, this)) : requests.length > 0 ? requests.map((req)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                    // ✅ Hilight: สีพื้นหลังขาว, แถวคู่เป็นสีเทาอ่อน, เอาเมาส์ชี้เป็นสีฟ้า
                                                     className: "bg-white even:bg-slate-50 hover:bg-blue-50/60 transition-colors duration-150",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                             className: "p-4 pl-8 align-top border-r border-transparent",
                                                             children: [
-                                                                " ",
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "font-bold text-slate-700",
                                                                     children: new Date(req.expense_date || req.created_at).toLocaleDateString('th-TH', {
@@ -1161,7 +1225,7 @@ function ReimbursementPage() {
                                                                     })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                    lineNumber: 201,
+                                                                    lineNumber: 221,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1175,13 +1239,13 @@ function ReimbursementPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                    lineNumber: 206,
+                                                                    lineNumber: 226,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 200,
+                                                            lineNumber: 220,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1194,7 +1258,7 @@ function ReimbursementPage() {
                                                                         children: (req.requester_name || 'U').charAt(0)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                        lineNumber: 214,
+                                                                        lineNumber: 234,
                                                                         columnNumber: 45
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1211,13 +1275,13 @@ function ReimbursementPage() {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                                        lineNumber: 220,
+                                                                                        lineNumber: 240,
                                                                                         columnNumber: 70
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                                lineNumber: 218,
+                                                                                lineNumber: 238,
                                                                                 columnNumber: 49
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1225,24 +1289,24 @@ function ReimbursementPage() {
                                                                                 children: req.position || req.role || 'Employee'
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                                lineNumber: 222,
+                                                                                lineNumber: 242,
                                                                                 columnNumber: 49
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                        lineNumber: 217,
+                                                                        lineNumber: 237,
                                                                         columnNumber: 45
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 213,
+                                                                lineNumber: 233,
                                                                 columnNumber: 42
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 212,
+                                                            lineNumber: 232,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1253,7 +1317,7 @@ function ReimbursementPage() {
                                                                     children: req.title
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                    lineNumber: 228,
+                                                                    lineNumber: 248,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 req.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1261,13 +1325,13 @@ function ReimbursementPage() {
                                                                     children: req.description
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                    lineNumber: 229,
+                                                                    lineNumber: 249,
                                                                     columnNumber: 61
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 227,
+                                                            lineNumber: 247,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1275,7 +1339,7 @@ function ReimbursementPage() {
                                                             children: renderSlipButton(req.slip_images)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 232,
+                                                            lineNumber: 252,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1287,14 +1351,14 @@ function ReimbursementPage() {
                                                                         size: 12
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                        lineNumber: 237,
+                                                                        lineNumber: 257,
                                                                         columnNumber: 216
                                                                     }, this),
                                                                     " รอตรวจสอบ"
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 237,
+                                                                lineNumber: 257,
                                                                 columnNumber: 69
                                                             }, this) : req.status === 'approved' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 className: "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-200",
@@ -1303,14 +1367,14 @@ function ReimbursementPage() {
                                                                         size: 12
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                        lineNumber: 237,
+                                                                        lineNumber: 257,
                                                                         columnNumber: 427
                                                                     }, this),
                                                                     " อนุมัติแล้ว"
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 237,
+                                                                lineNumber: 257,
                                                                 columnNumber: 283
                                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 className: "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800 border border-red-200",
@@ -1319,19 +1383,19 @@ function ReimbursementPage() {
                                                                         size: 12
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                        lineNumber: 237,
+                                                                        lineNumber: 257,
                                                                         columnNumber: 612
                                                                     }, this),
                                                                     " ไม่อนุมัติ"
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 237,
+                                                                lineNumber: 257,
                                                                 columnNumber: 474
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 236,
+                                                            lineNumber: 256,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1344,18 +1408,18 @@ function ReimbursementPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 241,
+                                                                lineNumber: 261,
                                                                 columnNumber: 41
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 240,
+                                                            lineNumber: 260,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, req.id, true, {
                                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                    lineNumber: 197,
+                                                    lineNumber: 219,
                                                     columnNumber: 83
                                                 }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1371,51 +1435,51 @@ function ReimbursementPage() {
                                                                     className: "text-slate-300"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                    lineNumber: 243,
+                                                                    lineNumber: 263,
                                                                     columnNumber: 211
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 243,
+                                                                lineNumber: 263,
                                                                 columnNumber: 165
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                                 children: "ยังไม่มีรายการขอเบิก"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 243,
+                                                                lineNumber: 263,
                                                                 columnNumber: 266
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 243,
+                                                        lineNumber: 263,
                                                         columnNumber: 115
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                    lineNumber: 243,
+                                                    lineNumber: 263,
                                                     columnNumber: 46
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 243,
+                                                lineNumber: 263,
                                                 columnNumber: 42
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                            lineNumber: 189,
+                                            lineNumber: 211,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                    lineNumber: 174,
+                                    lineNumber: 198,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                lineNumber: 173,
+                                lineNumber: 196,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1431,7 +1495,7 @@ function ReimbursementPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 250,
+                                        lineNumber: 270,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1446,14 +1510,14 @@ function ReimbursementPage() {
                                                         size: 16
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 252,
+                                                        lineNumber: 272,
                                                         columnNumber: 300
                                                     }, this),
                                                     " ก่อนหน้า"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 252,
+                                                lineNumber: 272,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1466,37 +1530,37 @@ function ReimbursementPage() {
                                                         size: 16
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 253,
+                                                        lineNumber: 273,
                                                         columnNumber: 324
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 253,
+                                                lineNumber: 273,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 251,
+                                        lineNumber: 271,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                lineNumber: 249,
+                                lineNumber: 269,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                        lineNumber: 172,
+                        lineNumber: 195,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                lineNumber: 158,
+                lineNumber: 173,
                 columnNumber: 7
             }, this),
             viewingImages && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1515,12 +1579,12 @@ function ReimbursementPage() {
                                             size: 20
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                            lineNumber: 266,
+                                            lineNumber: 284,
                                             columnNumber: 25
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 265,
+                                        lineNumber: 283,
                                         columnNumber: 21
                                     }, this),
                                     "หลักฐานแนบ (",
@@ -1529,7 +1593,7 @@ function ReimbursementPage() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                lineNumber: 264,
+                                lineNumber: 282,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1539,97 +1603,94 @@ function ReimbursementPage() {
                                     size: 24
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                    lineNumber: 271,
+                                    lineNumber: 289,
                                     columnNumber: 21
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                lineNumber: 270,
+                                lineNumber: 288,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                        lineNumber: 263,
+                        lineNumber: 281,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex-1 overflow-y-auto p-6 md:p-10",
                         onClick: (e_2)=>e_2.stopPropagation(),
-                        children: [
-                            " ",
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto",
-                                onClick: (e_3)=>e_3.stopPropagation(),
-                                children: viewingImages.map((img, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "group relative aspect-square bg-slate-800 rounded-2xl overflow-hidden border border-white/10 shadow-2xl",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                src: img,
-                                                alt: `evidence-${idx}`,
-                                                className: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                            }, void 0, false, {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto",
+                            onClick: (e_3)=>e_3.stopPropagation(),
+                            children: viewingImages.map((img, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "group relative aspect-square bg-slate-800 rounded-2xl overflow-hidden border border-white/10 shadow-2xl",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                            src: img,
+                                            alt: `evidence-${idx}`,
+                                            className: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                                            lineNumber: 296,
+                                            columnNumber: 29
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/10",
+                                            children: idx + 1
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                                            lineNumber: 297,
+                                            columnNumber: 29
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-[2px]",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                                href: img,
+                                                target: "_blank",
+                                                rel: "noreferrer",
+                                                className: "transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 bg-white text-slate-900 hover:bg-blue-50 px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 shadow-lg",
+                                                onClick: (e_4)=>e_4.stopPropagation(),
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
+                                                        size: 16
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                                                        lineNumber: 302,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    " ดูภาพต้นฉบับ"
+                                                ]
+                                            }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 283,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/10",
-                                                children: idx + 1
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 286,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-[2px]",
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                                    href: img,
-                                                    target: "_blank",
-                                                    rel: "noreferrer",
-                                                    className: "transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 bg-white text-slate-900 hover:bg-blue-50 px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 shadow-lg",
-                                                    onClick: (e_4)=>e_4.stopPropagation(),
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
-                                                            size: 16
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                            lineNumber: 293,
-                                                            columnNumber: 37
-                                                        }, this),
-                                                        " ดูภาพต้นฉบับ"
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                    lineNumber: 292,
-                                                    columnNumber: 33
-                                                }, this)
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 291,
-                                                columnNumber: 29
+                                                lineNumber: 301,
+                                                columnNumber: 33
                                             }, this)
-                                        ]
-                                    }, idx, true, {
-                                        fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 281,
-                                        columnNumber: 54
-                                    }, this))
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                lineNumber: 279,
-                                columnNumber: 17
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                                            lineNumber: 300,
+                                            columnNumber: 29
+                                        }, this)
+                                    ]
+                                }, idx, true, {
+                                    fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                                    lineNumber: 295,
+                                    columnNumber: 54
+                                }, this))
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
+                            lineNumber: 294,
+                            columnNumber: 17
+                        }, this)
+                    }, void 0, false, {
                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                        lineNumber: 276,
+                        lineNumber: 293,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                lineNumber: 260,
+                lineNumber: 280,
                 columnNumber: 25
             }, this),
             showModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1649,19 +1710,19 @@ function ReimbursementPage() {
                                                 size: 24
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 308,
+                                                lineNumber: 316,
                                                 columnNumber: 82
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                            lineNumber: 308,
+                                            lineNumber: 316,
                                             columnNumber: 25
                                         }, this),
                                         "สร้างรายการขอเบิก"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                    lineNumber: 307,
+                                    lineNumber: 315,
                                     columnNumber: 21
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1672,18 +1733,18 @@ function ReimbursementPage() {
                                         strokeWidth: 2.5
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 312,
+                                        lineNumber: 320,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                    lineNumber: 311,
+                                    lineNumber: 319,
                                     columnNumber: 21
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                            lineNumber: 306,
+                            lineNumber: 314,
                             columnNumber: 17
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1700,7 +1761,7 @@ function ReimbursementPage() {
                                                 children: getDisplayName(currentUser).charAt(0).toUpperCase()
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 320,
+                                                lineNumber: 327,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1710,7 +1771,7 @@ function ReimbursementPage() {
                                                         children: "ผู้ขอเบิก (Requester)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 324,
+                                                        lineNumber: 331,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1723,13 +1784,13 @@ function ReimbursementPage() {
                                                                 className: "text-green-500"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 326,
+                                                                lineNumber: 333,
                                                                 columnNumber: 67
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 325,
+                                                        lineNumber: 332,
                                                         columnNumber: 33
                                                     }, this),
                                                     currentUser?.emp_code && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1740,19 +1801,19 @@ function ReimbursementPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 328,
+                                                        lineNumber: 335,
                                                         columnNumber: 59
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 323,
+                                                lineNumber: 330,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 319,
+                                        lineNumber: 326,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1766,13 +1827,13 @@ function ReimbursementPage() {
                                                         children: "*"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 333,
+                                                        lineNumber: 340,
                                                         columnNumber: 72
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 333,
+                                                lineNumber: 340,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1788,13 +1849,13 @@ function ReimbursementPage() {
                                                 disabled: isSubmitting
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 334,
+                                                lineNumber: 341,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 332,
+                                        lineNumber: 339,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1811,13 +1872,13 @@ function ReimbursementPage() {
                                                                 children: "*"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 342,
+                                                                lineNumber: 349,
                                                                 columnNumber: 79
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 342,
+                                                        lineNumber: 349,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1833,13 +1894,13 @@ function ReimbursementPage() {
                                                         disabled: isSubmitting
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 343,
+                                                        lineNumber: 350,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 341,
+                                                lineNumber: 348,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1853,13 +1914,13 @@ function ReimbursementPage() {
                                                                 children: "*"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 349,
+                                                                lineNumber: 356,
                                                                 columnNumber: 80
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 349,
+                                                        lineNumber: 356,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1874,19 +1935,19 @@ function ReimbursementPage() {
                                                         disabled: isSubmitting
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 350,
+                                                        lineNumber: 357,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 348,
+                                                lineNumber: 355,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 340,
+                                        lineNumber: 347,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1896,7 +1957,7 @@ function ReimbursementPage() {
                                                 children: "รายละเอียดเพิ่มเติม"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 358,
+                                                lineNumber: 365,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1911,13 +1972,13 @@ function ReimbursementPage() {
                                                 disabled: isSubmitting
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 359,
+                                                lineNumber: 366,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 357,
+                                        lineNumber: 364,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1931,13 +1992,13 @@ function ReimbursementPage() {
                                                         children: "*"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 366,
+                                                        lineNumber: 373,
                                                         columnNumber: 90
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 366,
+                                                lineNumber: 373,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1952,7 +2013,7 @@ function ReimbursementPage() {
                                                         disabled: isSubmitting
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 368,
+                                                        lineNumber: 375,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1964,12 +2025,12 @@ function ReimbursementPage() {
                                                                     size: 24
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                    lineNumber: 370,
+                                                                    lineNumber: 377,
                                                                     columnNumber: 127
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 370,
+                                                                lineNumber: 377,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1979,7 +2040,7 @@ function ReimbursementPage() {
                                                                         children: "คลิกเพื่ออัปโหลดรูปภาพ"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                        lineNumber: 372,
+                                                                        lineNumber: 379,
                                                                         columnNumber: 41
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1987,25 +2048,25 @@ function ReimbursementPage() {
                                                                         children: "รองรับ JPG, PNG (สูงสุด 10 รูป)"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                        lineNumber: 373,
+                                                                        lineNumber: 380,
                                                                         columnNumber: 41
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 371,
+                                                                lineNumber: 378,
                                                                 columnNumber: 37
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 369,
+                                                        lineNumber: 376,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 367,
+                                                lineNumber: 374,
                                                 columnNumber: 29
                                             }, this),
                                             selectedFiles.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2018,7 +2079,7 @@ function ReimbursementPage() {
                                                                 className: "w-full h-full object-cover transition-transform group-hover:scale-110 duration-500"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 380,
+                                                                lineNumber: 387,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2030,40 +2091,40 @@ function ReimbursementPage() {
                                                                     size: 12
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                    lineNumber: 382,
+                                                                    lineNumber: 389,
                                                                     columnNumber: 49
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                                lineNumber: 381,
+                                                                lineNumber: 388,
                                                                 columnNumber: 45
                                                             }, this)
                                                         ]
                                                     }, index_0, true, {
                                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                        lineNumber: 379,
+                                                        lineNumber: 386,
                                                         columnNumber: 77
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                                lineNumber: 378,
+                                                lineNumber: 385,
                                                 columnNumber: 58
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                        lineNumber: 365,
+                                        lineNumber: 372,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                lineNumber: 317,
+                                lineNumber: 325,
                                 columnNumber: 21
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                            lineNumber: 316,
+                            lineNumber: 324,
                             columnNumber: 17
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2079,7 +2140,7 @@ function ReimbursementPage() {
                                             className: "animate-spin"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                            lineNumber: 392,
+                                            lineNumber: 399,
                                             columnNumber: 43
                                         }, this),
                                         " กำลังบันทึก..."
@@ -2087,33 +2148,33 @@ function ReimbursementPage() {
                                 }, void 0, true) : 'ยืนยันส่งเรื่องเบิก'
                             }, void 0, false, {
                                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                                lineNumber: 391,
+                                lineNumber: 398,
                                 columnNumber: 21
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                            lineNumber: 390,
+                            lineNumber: 397,
                             columnNumber: 17
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                    lineNumber: 303,
+                    lineNumber: 312,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-                lineNumber: 302,
+                lineNumber: 311,
                 columnNumber: 21
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/accounting/reimbursement/page.jsx",
-        lineNumber: 156,
+        lineNumber: 158,
         columnNumber: 10
     }, this);
 }
-_s(ReimbursementPage, "iNzRgIMRkOeVqPSVcCFh4OR2pw8=");
+_s(ReimbursementPage, "mcl2L1gjaheYjgG2oVFy1tbqHpY=");
 _c = ReimbursementPage;
 var _c;
 __turbopack_context__.k.register(_c, "ReimbursementPage");

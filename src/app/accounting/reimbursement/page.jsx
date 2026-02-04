@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Sidebar from '../../../components/Sidebar';
 import { 
   Plus, Upload, X, Image as ImageIcon, CheckCircle, 
-  Clock, ShieldCheck, Loader2, FileText, ChevronLeft, ChevronRight, AlertCircle, Trash2, Eye 
+  Clock, ShieldCheck, Loader2, FileText, ChevronLeft, ChevronRight, AlertCircle, Trash2, Eye, Menu
 } from 'lucide-react';
 import Swal from 'sweetalert2';
 
@@ -22,8 +22,11 @@ export default function ReimbursementPage() {
   const [formData, setFormData] = useState({ title: '', amount: '', date: '', description: '' });
   const [selectedFiles, setSelectedFiles] = useState([]); 
 
-  // ✅ เพิ่ม State สำหรับดูรูปภาพ (Gallery)
+  // State สำหรับดูรูปภาพ (Gallery)
   const [viewingImages, setViewingImages] = useState(null); 
+
+  // State สำหรับเปิด/ปิด Sidebar ในมือถือ
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
       fetchRequests(currentPage);
@@ -58,7 +61,7 @@ export default function ReimbursementPage() {
     return user.username || 'Unknown';
   };
 
-  // ✅ Helper: แสดงปุ่มดูรูป (กดแล้วเปิด Modal Grid)
+  // Helper: แสดงปุ่มดูรูป
   const renderSlipButton = (slipImages) => {
     if (!slipImages || slipImages === 'null') return <span className="text-slate-300">-</span>;
     try {
@@ -76,7 +79,7 @@ export default function ReimbursementPage() {
         return (
             <button 
                type="button"
-               onClick={() => setViewingImages(images)} // <-- กดแล้วส่งรูปไปเก็บใน State เพื่อโชว์ Modal
+               onClick={() => setViewingImages(images)} 
                className="bg-white text-blue-600 hover:bg-blue-50 hover:text-blue-700 px-3 py-1.5 rounded-lg text-xs font-bold inline-flex items-center gap-2 border border-blue-200 transition shadow-sm active:scale-95"
             >
                 <ImageIcon size={14}/> 
@@ -153,27 +156,51 @@ export default function ReimbursementPage() {
   const labelClass = "block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-1";
 
   return (
-    <div className="flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900">
-      <Sidebar />
-      <main className="flex-1 ml-64 p-8 w-[calc(100%-16rem)] flex flex-col h-screen overflow-hidden">
+    <div className="flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900 overflow-x-hidden">
+      
+      {/* Mobile Overlay */}
+      <div 
+        className={`fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`} 
+        onClick={() => setIsSidebarOpen(false)} 
+      />
+
+      {/* Sidebar Container */}
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:shadow-none lg:border-r lg:border-slate-800 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="h-full relative flex flex-col">
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
+               <Sidebar onClose={() => setIsSidebarOpen(false)} />
+            </div>
+          </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 w-full lg:ml-64 p-4 md:p-8 transition-all duration-300 min-h-screen flex flex-col h-screen overflow-hidden">
         
         {/* Header Section */}
-        <div className="flex justify-between items-end mb-8 shrink-0">
-          <div>
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">ระบบเบิกเงิน</h1>
-            <p className="text-slate-500 text-sm mt-1 font-medium">จัดการและติดตามสถานะการเบิกจ่ายค่าใช้จ่าย</p>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 shrink-0 gap-4">
+          <div className="flex items-center gap-3">
+            {/* Mobile Menu Button */}
+            <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition">
+                <Menu size={24} />
+            </button>
+            
+            <div>
+                <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">ระบบเบิกเงิน</h1>
+                <p className="text-slate-500 text-xs md:text-sm mt-1 font-medium">จัดการและติดตามสถานะการเบิกจ่ายค่าใช้จ่าย</p>
+            </div>
           </div>
-          <button onClick={() => setShowModal(true)} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transition-all active:scale-95">
+
+          <button onClick={() => setShowModal(true)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 md:px-6 py-2.5 md:py-3 rounded-xl font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transition-all active:scale-95 text-sm md:text-base">
             <Plus size={20} strokeWidth={3}/> สร้างรายการใหม่
           </button>
         </div>
 
-        {/* Table Card (ปรับดีไซน์ใหม่: มีเส้นแบ่ง + สีสลับบรรทัด) */}
+        {/* Table Card */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-lg flex flex-col flex-1 overflow-hidden">
-            <div className="flex-1 overflow-auto">
-                <table className="w-full text-sm text-left border-collapse">
+            <div className="flex-1 overflow-auto custom-scrollbar">
+                {/* ❌ ลบ Comment ออกจากแท็ก Table แล้ว เพื่อป้องกัน Error */}
+                <table className="w-full text-sm text-left border-collapse min-w-[800px]">
                     
-                    {/* ✅ Header: ปรับสีพื้นหลังให้เข้มขึ้น และมีเส้นขอบหนาขึ้น */}
                     <thead className="bg-slate-100 text-slate-700 font-bold uppercase text-[11px] tracking-wider border-b-2 border-slate-200 sticky top-0 z-10">
                         <tr>
                             <th className="p-4 pl-8 w-[15%]">วันที่</th>
@@ -185,7 +212,6 @@ export default function ReimbursementPage() {
                         </tr>
                     </thead>
 
-                    {/* ✅ Body: เพิ่มเส้นแบ่ง (divide) และสีสลับบรรทัด (even:bg) */}
                     <tbody className="divide-y divide-slate-200">
                         {isLoading ? (
                            [...Array(5)].map((_, i) => (
@@ -202,10 +228,9 @@ export default function ReimbursementPage() {
                             requests.map((req) => (
                                 <tr 
                                     key={req.id} 
-                                    // ✅ Hilight: สีพื้นหลังขาว, แถวคู่เป็นสีเทาอ่อน, เอาเมาส์ชี้เป็นสีฟ้า
                                     className="bg-white even:bg-slate-50 hover:bg-blue-50/60 transition-colors duration-150"
                                 >
-                                    <td className="p-4 pl-8 align-top border-r border-transparent"> {/* เพิ่ม border-r transparent เพื่อให้ spacing สวย */}
+                                    <td className="p-4 pl-8 align-top border-r border-transparent">
                                         <div className="font-bold text-slate-700">{new Date(req.expense_date || req.created_at).toLocaleDateString('th-TH', {day: 'numeric', month: 'short', year: '2-digit'})}</div>
                                         <div className="text-[10px] text-slate-400 mt-0.5">{new Date(req.created_at).toLocaleTimeString('th-TH', {hour: '2-digit', minute:'2-digit'})} น.</div>
                                     </td>
@@ -263,14 +288,12 @@ export default function ReimbursementPage() {
         </div>
       </main>
 
-      {/* --- 🖼️ NEW: Image Gallery Modal (แบบ Grid สวยงาม) --- */}
+      {/* Image Gallery Modal */}
       {viewingImages && (
         <div 
             className="fixed inset-0 z-100 bg-black/95 backdrop-blur-md flex flex-col animate-in fade-in duration-200" 
             onClick={() => setViewingImages(null)}
         >
-            
-            {/* Toolbar ด้านบน */}
             <div className="flex justify-between items-center px-6 py-4 text-white bg-black/40 border-b border-white/10 shrink-0">
                 <h3 className="font-bold text-lg flex items-center gap-3">
                     <div className="bg-white/10 p-2 rounded-lg">
@@ -286,32 +309,24 @@ export default function ReimbursementPage() {
                 </button>
             </div>
 
-            {/* Area แสดงรูปภาพแบบ Grid */}
-            <div className="flex-1 overflow-y-auto p-6 md:p-10" onClick={(e) => e.stopPropagation()}> {/* คลิกพื้นหลังว่างๆ เพื่อปิดได้ */}
-                
-                {/* ✅ Grid Layout: ปรับให้เรียงสวยงามตามขนาดจอ */}
+            <div className="flex-1 overflow-y-auto p-6 md:p-10" onClick={(e) => e.stopPropagation()}> 
                 <div 
                     className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto"
-                    onClick={(e) => e.stopPropagation()} // ป้องกันคลิกช่องว่างระหว่างรูปแล้วปิด
+                    onClick={(e) => e.stopPropagation()} 
                 >
                     {viewingImages.map((img, idx) => (
                         <div 
                             key={idx} 
                             className="group relative aspect-square bg-slate-800 rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
                         >
-                            {/* รูปภาพ (Object Cover ให้เต็มช่องสวยๆ) */}
                             <img 
                                 src={img} 
                                 alt={`evidence-${idx}`} 
                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
-
-                            {/* Badge บอกลำดับรูป */}
                             <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/10">
                                 {idx + 1}
                             </div>
-
-                            {/* Overlay ตอนเอาเมาส์ชี้ */}
                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-[2px]">
                                 <a 
                                     href={img} 
@@ -335,7 +350,6 @@ export default function ReimbursementPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-all duration-300">
             <div className="bg-white w-full max-w-lg rounded-3xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden animate-in fade-in zoom-in duration-200 ring-1 ring-white/20">
                 
-                {/* Modal Header */}
                 <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
                     <h2 className="text-xl font-bold text-slate-800 flex items-center gap-3">
                         <div className="bg-blue-50 p-2 rounded-xl text-blue-600"><FileText size={24}/></div>
@@ -348,7 +362,6 @@ export default function ReimbursementPage() {
                 
                 <div className="p-8 overflow-y-auto custom-scrollbar bg-white">
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        {/* User Card */}
                         <div className="bg-slate-50/80 border border-slate-100 rounded-2xl p-4 flex items-center gap-4">
                             <div className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-blue-600 font-bold text-lg shadow-sm">
                                 {getDisplayName(currentUser).charAt(0).toUpperCase()}

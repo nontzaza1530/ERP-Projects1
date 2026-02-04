@@ -33,17 +33,17 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-function Sidebar({ isOpen, onClose }) {
+function Sidebar({ onClose }) {
     _s();
+    // ไม่ต้องรับ isOpen แล้ว เพราะ Parent จัดการให้
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [role, setRole] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [isMounted, setIsMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [expandedMenu, setExpandedMenu] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true); // เพิ่ม Loading state
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Sidebar.useEffect": ()=>{
-            setIsMounted(true);
             const fetchUser = {
                 "Sidebar.useEffect.fetchUser": async ()=>{
                     try {
@@ -61,6 +61,8 @@ function Sidebar({ isOpen, onClose }) {
                         }
                     } catch (error) {
                         console.error("Error fetching user role", error);
+                    } finally{
+                        setLoading(false);
                     }
                 }
             }["Sidebar.useEffect.fetchUser"];
@@ -126,7 +128,6 @@ function Sidebar({ isOpen, onClose }) {
                     'admin',
                     'employee'
                 ],
-                // Employee เห็นหัวข้อนี้
                 subItems: [
                     {
                         name: role === 'employee' ? 'ข้อมูลส่วนตัว' : 'รายชื่อพนักงาน',
@@ -155,7 +156,6 @@ function Sidebar({ isOpen, onClose }) {
                             'employee'
                         ]
                     },
-                    // 👇 พวกนี้ Employee จะไม่เห็นเลย
                     {
                         name: 'อนุมัติวันลา',
                         href: '/hr/approve-leave',
@@ -200,7 +200,6 @@ function Sidebar({ isOpen, onClose }) {
                     'super_admin',
                     'admin'
                 ],
-                // ❌ Employee ไม่เห็นทั้งก้อน
                 subItems: [
                     {
                         name: 'ภาพรวม (Dashboard)',
@@ -252,7 +251,7 @@ function Sidebar({ isOpen, onClose }) {
                 roles: [
                     'super_admin',
                     'admin'
-                ] // ❌ Employee ไม่เห็น
+                ]
             },
             {
                 name: 'การขาย (POS)',
@@ -261,7 +260,7 @@ function Sidebar({ isOpen, onClose }) {
                 roles: [
                     'super_admin',
                     'admin'
-                ] // ❌ Employee ไม่เห็น
+                ]
             },
             {
                 name: 'บัญชี',
@@ -272,7 +271,6 @@ function Sidebar({ isOpen, onClose }) {
                     'admin',
                     'employee'
                 ],
-                // ✅ Employee เห็นหัวข้อนี้ (เพราะมีเมนูย่อยให้เข้า)
                 subItems: [
                     {
                         name: 'ภาพรวมบัญชี',
@@ -280,7 +278,7 @@ function Sidebar({ isOpen, onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // ❌ ไม่เห็น
+                        ]
                     },
                     {
                         name: 'ต้นทุนโครงการ',
@@ -288,7 +286,7 @@ function Sidebar({ isOpen, onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // ❌ ไม่เห็น
+                        ]
                     },
                     {
                         name: 'ขอเบิกเงิน (Reimbursement)',
@@ -297,7 +295,7 @@ function Sidebar({ isOpen, onClose }) {
                             'super_admin',
                             'admin',
                             'employee'
-                        ] // ✅ เห็นแค่อันนี้!
+                        ]
                     },
                     {
                         name: 'ตรวจสอบการเบิก (Approval)',
@@ -305,7 +303,7 @@ function Sidebar({ isOpen, onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // ❌ ไม่เห็น
+                        ]
                     }
                 ]
             },
@@ -321,15 +319,12 @@ function Sidebar({ isOpen, onClose }) {
             }
         ];
     };
-    // 🔥 Logic กรองเมนู (Filter) แบบเฟี้ยวๆ
     const getVisibleMenu = ()=>{
-        if (!role) return []; // ถ้ายังไม่รู้ Role ไม่โชว์อะไรเลย
+        if (!role) return [];
         const allItems = getMenuItems();
         return allItems.map((item)=>{
-            // 1. ถ้ามีเมนูย่อย ให้กรองเมนูย่อยก่อน
             if (item.subItems) {
                 const filteredSub = item.subItems.filter((sub)=>sub.roles.includes(role));
-                // คืนค่า item ใหม่ที่มีเฉพาะเมนูย่อยที่เข้าได้
                 return {
                     ...item,
                     subItems: filteredSub
@@ -337,334 +332,347 @@ function Sidebar({ isOpen, onClose }) {
             }
             return item;
         }).filter((item_0)=>{
-            // 2. กรองเมนูหลักทิ้ง ถ้า Role ไม่ถึง
             const isParentAllowed = item_0.roles.includes(role);
-            // ถ้าเมนูหลักไม่ผ่าน -> ตัดทิ้ง
             if (!isParentAllowed) return false;
-            // พิเศษ: ถ้าเป็นเมนูแบบ Dropdown (มี subItems) แต่กรองแล้วไม่เหลือลูกเลย -> ตัดแม่ทิ้งด้วย (จะได้ไม่รก)
-            if (item_0.subItems && item_0.subItems.length === 0) {
-                return false;
-            }
+            if (item_0.subItems && item_0.subItems.length === 0) return false;
             return true;
         });
     };
     const visibleMenu = getVisibleMenu();
-    if (!isMounted) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
-        className: "w-64 bg-slate-900 h-screen fixed left-0 top-0 hidden lg:block"
-    }, void 0, false, {
-        fileName: "[project]/src/components/Sidebar.jsx",
-        lineNumber: 216,
-        columnNumber: 26
-    }, this);
-    if (!role) return null;
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+    return(// ✅ แก้ไข 1: เปลี่ยนจาก <aside fixed...> เป็น <div> ธรรมดาเต็มพื้นที่
+    // เพื่อให้มันอยู่ในกล่องที่หน้า Dashboard เตรียมไว้ให้แล้ว
+    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "flex flex-col h-full w-full bg-slate-900 text-slate-300",
         children: [
-            isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity",
-                onClick: onClose
-            }, void 0, false, {
-                fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 219,
-                columnNumber: 18
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
-                className: `
-        fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-slate-300 h-screen 
-        transform transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none
-        flex flex-col border-r border-slate-800
-        ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `,
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "p-6 border-b border-slate-800 shrink-0 flex flex-col items-center relative",
                 children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: onClose,
+                        className: "absolute top-4 right-4 p-1 text-slate-500 hover:text-white lg:hidden",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                            size: 20
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 211,
+                            columnNumber: 17
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Sidebar.jsx",
+                        lineNumber: 210,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                        className: "text-2xl font-bold text-white tracking-wider",
+                        children: "ERP SYSTEM"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Sidebar.jsx",
+                        lineNumber: 214,
+                        columnNumber: 11
+                    }, this),
+                    loading ? // Skeleton Loader ตอนโหลดข้อมูล
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-6 border-b border-slate-800 shrink-0 flex flex-col items-center relative",
+                        className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700 animate-pulse",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: onClose,
-                                className: "absolute top-4 right-4 p-1 text-slate-500 hover:text-white lg:hidden",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                    size: 20
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 231,
-                                    columnNumber: 17
-                                }, this)
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-8 h-8 rounded-full bg-slate-700"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 230,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                className: "text-2xl font-bold text-white tracking-wider",
-                                children: "ERP SYSTEM"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 234,
-                                columnNumber: 11
+                                lineNumber: 220,
+                                columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white text-sm uppercase shrink-0",
-                                        children: user?.first_name?.charAt(0) || 'U'
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 236,
-                                        columnNumber: 14
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "overflow-hidden min-w-0",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-sm font-bold text-white truncate",
-                                                children: user?.first_name
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 240,
-                                                columnNumber: 18
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-[10px] font-bold uppercase text-blue-400 tracking-wide block truncate",
-                                                children: role.replace('_', ' ')
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 241,
-                                                columnNumber: 18
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 239,
-                                        columnNumber: 14
-                                    }, this)
-                                ]
-                            }, void 0, true, {
+                                className: "flex-1 h-4 bg-slate-700 rounded"
+                            }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 235,
-                                columnNumber: 11
+                                lineNumber: 221,
+                                columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 229,
+                        lineNumber: 219,
                         columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                        className: "flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar flex flex-col",
-                        children: visibleMenu.map((item_1)=>{
-                            const isExpanded = expandedMenu === item_1.name;
-                            // ใช้ subItems ที่กรองมาแล้ว
-                            const subItemsToRender = item_1.subItems;
-                            const isActive = item_1.href === pathname || subItemsToRender?.some((sub_0)=>sub_0.href === pathname);
-                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mb-1",
-                                children: subItemsToRender ? // --- 📂 Dropdown Menu (สำหรับเมนูที่มีลูก) ---
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            onClick: ()=>toggleMenu(item_1.name),
-                                            className: `w-full flex items-center justify-between px-3 py-3 rounded-xl transition-all duration-200 group
-                        ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}
-                      `,
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-center gap-3 min-w-0",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item_1.icon, {
-                                                            size: 20,
-                                                            className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'} shrink-0`
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                                            lineNumber: 263,
-                                                            columnNumber: 25
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "font-medium text-sm md:text-base truncate flex items-center gap-2",
-                                                            children: item_1.name
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                                            lineNumber: 264,
-                                                            columnNumber: 25
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 262,
-                                                    columnNumber: 23
-                                                }, this),
-                                                isExpanded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
-                                                    size: 16,
-                                                    className: "shrink-0"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 268,
-                                                    columnNumber: 37
-                                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
-                                                    size: 16,
-                                                    className: "shrink-0"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 268,
-                                                    columnNumber: 86
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 259,
-                                            columnNumber: 21
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: `overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-96 opacity-100 mt-1' : 'max-h-0 opacity-0'}`,
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "ml-4 pl-3 border-l border-slate-700 space-y-1 py-1",
-                                                children: subItemsToRender.map((sub_1)=>{
-                                                    const isSubActive = pathname === sub_1.href;
-                                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                        href: sub_1.href,
-                                                        onClick: handleLinkClick,
-                                                        className: `flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-colors mb-1
-                                  ${isSubActive ? 'text-blue-400 bg-blue-900/20 font-bold' : 'text-slate-500 hover:text-slate-200 hover:bg-slate-800/50'}
-                                `,
-                                                        children: [
-                                                            sub_1.icon ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(sub_1.icon, {
-                                                                size: 16,
-                                                                className: isSubActive ? 'text-blue-400' : 'text-slate-600'
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                                lineNumber: 278,
-                                                                columnNumber: 47
-                                                            }, this) : sub_1.name === 'ข้อมูลส่วนตัว' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
-                                                                size: 14,
-                                                                className: isSubActive ? 'text-blue-400' : 'opacity-50'
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                                lineNumber: 278,
-                                                                columnNumber: 168
-                                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
-                                                                size: 8,
-                                                                className: isSubActive ? 'fill-current' : 'opacity-50'
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                                lineNumber: 278,
-                                                                columnNumber: 246
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "truncate",
-                                                                children: sub_1.name
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                                lineNumber: 280,
-                                                                columnNumber: 33
-                                                            }, this)
-                                                        ]
-                                                    }, sub_1.href, true, {
-                                                        fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 275,
-                                                        columnNumber: 28
-                                                    }, this);
-                                                })
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 272,
-                                                columnNumber: 23
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 271,
-                                            columnNumber: 21
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 258,
-                                    columnNumber: 13
-                                }, this) : // --- 🔗 Single Link Menu (สำหรับเมนูเดี่ยว) ---
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                    href: item_1.href,
-                                    onClick: handleLinkClick,
-                                    className: `flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/50' : 'hover:bg-slate-800 hover:text-white text-slate-400'}`,
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400 transition-colors'} shrink-0`,
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item_1.icon, {
-                                                size: 20
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 289,
-                                                columnNumber: 23
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 288,
-                                            columnNumber: 21
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "font-medium text-sm md:text-base truncate flex items-center gap-2",
-                                            children: item_1.name
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 291,
-                                            columnNumber: 21
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 287,
-                                    columnNumber: 13
-                                }, this)
-                            }, item_1.name, false, {
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white text-sm uppercase shrink-0",
+                                children: user?.first_name?.charAt(0) || 'U'
+                            }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 255,
-                                columnNumber: 18
-                            }, this);
-                        })
-                    }, void 0, false, {
+                                lineNumber: 223,
+                                columnNumber: 17
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "overflow-hidden min-w-0",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-sm font-bold text-white truncate",
+                                        children: user?.first_name
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                        lineNumber: 227,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-[10px] font-bold uppercase text-blue-400 tracking-wide block truncate",
+                                        children: role?.replace('_', ' ')
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                        lineNumber: 228,
+                                        columnNumber: 21
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/components/Sidebar.jsx",
+                                lineNumber: 226,
+                                columnNumber: 17
+                            }, this)
+                        ]
+                    }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 249,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-4 border-t border-slate-800 bg-slate-900 shrink-0",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            onClick: handleLogout,
-                            className: "flex items-center gap-3 px-4 py-3 w-full hover:bg-red-500/10 rounded-xl text-red-400 hover:text-red-300 transition active:scale-[0.98]",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$out$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LogOut$3e$__["LogOut"], {
-                                    size: 20
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 302,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "font-medium",
-                                    children: "ออกจากระบบ"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 303,
-                                    columnNumber: 17
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 301,
-                            columnNumber: 13
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 300,
-                        columnNumber: 9
+                        lineNumber: 222,
+                        columnNumber: 23
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 221,
-                columnNumber: 7
+                lineNumber: 207,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+                className: "flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar flex flex-col",
+                children: loading ? // Skeleton Loader เมนู
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "space-y-3 px-2",
+                    children: [
+                        1,
+                        2,
+                        3,
+                        4
+                    ].map((i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "h-10 bg-slate-800/50 rounded-xl animate-pulse"
+                        }, i, false, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 240,
+                            columnNumber: 40
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/src/components/Sidebar.jsx",
+                    lineNumber: 239,
+                    columnNumber: 9
+                }, this) : visibleMenu.map((item_1)=>{
+                    const isExpanded = expandedMenu === item_1.name;
+                    const subItemsToRender = item_1.subItems;
+                    const isActive = item_1.href === pathname || subItemsToRender?.some((sub_0)=>sub_0.href === pathname);
+                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mb-1",
+                        children: subItemsToRender ? // --- 📂 Dropdown Menu ---
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>toggleMenu(item_1.name),
+                                    className: `w-full flex items-center justify-between px-3 py-3 rounded-xl transition-all duration-200 group
+                            ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}
+                        `,
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex items-center gap-3 min-w-0",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item_1.icon, {
+                                                    size: 20,
+                                                    className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'} shrink-0`
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                                    lineNumber: 253,
+                                                    columnNumber: 29
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "font-medium text-sm md:text-base truncate flex items-center gap-2",
+                                                    children: item_1.name
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                                    lineNumber: 254,
+                                                    columnNumber: 29
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/components/Sidebar.jsx",
+                                            lineNumber: 252,
+                                            columnNumber: 25
+                                        }, this),
+                                        isExpanded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
+                                            size: 16,
+                                            className: "shrink-0"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Sidebar.jsx",
+                                            lineNumber: 258,
+                                            columnNumber: 39
+                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
+                                            size: 16,
+                                            className: "shrink-0"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Sidebar.jsx",
+                                            lineNumber: 258,
+                                            columnNumber: 88
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                    lineNumber: 249,
+                                    columnNumber: 25
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: `overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-96 opacity-100 mt-1' : 'max-h-0 opacity-0'}`,
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "ml-4 pl-3 border-l border-slate-700 space-y-1 py-1",
+                                        children: subItemsToRender.map((sub_1)=>{
+                                            const isSubActive = pathname === sub_1.href;
+                                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                href: sub_1.href,
+                                                onClick: handleLinkClick,
+                                                className: `flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-colors mb-1
+                                    ${isSubActive ? 'text-blue-400 bg-blue-900/20 font-bold' : 'text-slate-500 hover:text-slate-200 hover:bg-slate-800/50'}
+                                    `,
+                                                children: [
+                                                    sub_1.icon ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(sub_1.icon, {
+                                                        size: 16,
+                                                        className: isSubActive ? 'text-blue-400' : 'text-slate-600'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                                        lineNumber: 268,
+                                                        columnNumber: 51
+                                                    }, this) : sub_1.name === 'ข้อมูลส่วนตัว' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
+                                                        size: 14,
+                                                        className: isSubActive ? 'text-blue-400' : 'opacity-50'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                                        lineNumber: 268,
+                                                        columnNumber: 172
+                                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
+                                                        size: 8,
+                                                        className: isSubActive ? 'fill-current' : 'opacity-50'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                                        lineNumber: 268,
+                                                        columnNumber: 250
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "truncate",
+                                                        children: sub_1.name
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                                        lineNumber: 269,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, sub_1.href, true, {
+                                                fileName: "[project]/src/components/Sidebar.jsx",
+                                                lineNumber: 265,
+                                                columnNumber: 28
+                                            }, this);
+                                        })
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                        lineNumber: 262,
+                                        columnNumber: 25
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                    lineNumber: 261,
+                                    columnNumber: 25
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 248,
+                            columnNumber: 13
+                        }, this) : // --- 🔗 Single Link Menu ---
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            href: item_1.href,
+                            onClick: handleLinkClick,
+                            className: `flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/50' : 'hover:bg-slate-800 hover:text-white text-slate-400'}`,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400 transition-colors'} shrink-0`,
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item_1.icon, {
+                                        size: 20
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                        lineNumber: 278,
+                                        columnNumber: 25
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                    lineNumber: 277,
+                                    columnNumber: 25
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "font-medium text-sm md:text-base truncate flex items-center gap-2",
+                                    children: item_1.name
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                    lineNumber: 280,
+                                    columnNumber: 25
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 276,
+                            columnNumber: 13
+                        }, this)
+                    }, item_1.name, false, {
+                        fileName: "[project]/src/components/Sidebar.jsx",
+                        lineNumber: 245,
+                        columnNumber: 18
+                    }, this);
+                })
+            }, void 0, false, {
+                fileName: "[project]/src/components/Sidebar.jsx",
+                lineNumber: 236,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "p-4 border-t border-slate-800 bg-slate-900 shrink-0",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    onClick: handleLogout,
+                    className: "flex items-center gap-3 px-4 py-3 w-full hover:bg-red-500/10 rounded-xl text-red-400 hover:text-red-300 transition active:scale-[0.98]",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$out$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LogOut$3e$__["LogOut"], {
+                            size: 20
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 291,
+                            columnNumber: 17
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "font-medium",
+                            children: "ออกจากระบบ"
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 292,
+                            columnNumber: 17
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/components/Sidebar.jsx",
+                    lineNumber: 290,
+                    columnNumber: 13
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/components/Sidebar.jsx",
+                lineNumber: 289,
+                columnNumber: 9
             }, this)
         ]
-    }, void 0, true);
+    }, void 0, true, {
+        fileName: "[project]/src/components/Sidebar.jsx",
+        lineNumber: 204,
+        columnNumber: 5
+    }, this));
 }
-_s(Sidebar, "fk/lk6qz/2u0SNHGDRbIF+qe1Cs=", false, function() {
+_s(Sidebar, "44EUgPEOFIYLqfkbuSz1ZJFsr04=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
@@ -687,11 +695,12 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Sidebar$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/Sidebar.jsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/file-text.js [app-client] (ecmascript) <export default as FileText>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/file-text.js [app-client] (ecmascript) <export default as FileText>"); // ✅ เพิ่ม Menu Icon
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/clock.js [app-client] (ecmascript) <export default as Clock>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-check-big.js [app-client] (ecmascript) <export default as CheckCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__XCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-x.js [app-client] (ecmascript) <export default as XCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-client] (ecmascript) <export default as Menu>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/calendar.js [app-client] (ecmascript) <export default as Calendar>");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
@@ -702,7 +711,7 @@ function LeaveHistoryPage() {
     _s();
     const [requests, setRequests] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
-    const [isSidebarOpen, setIsSidebarOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false); // State สำหรับ Sidebar มือถือ
+    const [isSidebarOpen, setIsSidebarOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false); // ✅ State สำหรับ Sidebar มือถือ
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "LeaveHistoryPage.useEffect": ()=>{
             const fetchHistory = {
@@ -723,65 +732,66 @@ function LeaveHistoryPage() {
             fetchHistory();
         }
     }["LeaveHistoryPage.useEffect"], []);
-    // ฟังก์ชันแปลงสถานะเป็น Badge
+    // ฟังก์ชันแปลงสถานะเป็น Badge ภาษาไทย
     const getStatusBadge = (status)=>{
         switch(status){
             case 'approved':
                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "inline-flex items-center gap-1 text-green-600 bg-green-100 px-3 py-1 rounded-full text-xs font-bold",
+                    className: "inline-flex items-center gap-1 text-green-600 bg-green-100 px-3 py-1 rounded-full text-xs font-bold border border-green-200",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
                             size: 14
                         }, void 0, false, {
                             fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                            lineNumber: 32,
-                            columnNumber: 134
+                            lineNumber: 33,
+                            columnNumber: 158
                         }, this),
                         " อนุมัติแล้ว"
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                    lineNumber: 32,
+                    lineNumber: 33,
                     columnNumber: 16
                 }, this);
             case 'rejected':
                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "inline-flex items-center gap-1 text-red-600 bg-red-100 px-3 py-1 rounded-full text-xs font-bold",
+                    className: "inline-flex items-center gap-1 text-red-600 bg-red-100 px-3 py-1 rounded-full text-xs font-bold border border-red-200",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__XCircle$3e$__["XCircle"], {
                             size: 14
                         }, void 0, false, {
                             fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                            lineNumber: 34,
-                            columnNumber: 130
+                            lineNumber: 35,
+                            columnNumber: 152
                         }, this),
                         " ถูกปฏิเสธ"
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                    lineNumber: 34,
+                    lineNumber: 35,
                     columnNumber: 16
                 }, this);
             default:
                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "inline-flex items-center gap-1 text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full text-xs font-bold",
+                    className: "inline-flex items-center gap-1 text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full text-xs font-bold border border-yellow-200",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
                             size: 14
                         }, void 0, false, {
                             fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                            lineNumber: 36,
-                            columnNumber: 136
+                            lineNumber: 37,
+                            columnNumber: 161
                         }, this),
                         " รออนุมัติ"
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                    lineNumber: 36,
+                    lineNumber: 37,
                     columnNumber: 16
                 }, this);
         }
     };
+    // แปลงประเภทการลาเป็นไทย
     const getLeaveTypeName = (type)=>{
         const types = {
             sick: '🤒 ลาป่วย',
@@ -792,185 +802,213 @@ function LeaveHistoryPage() {
         return types[type] || type;
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "flex min-h-screen bg-slate-50 font-sans",
+        className: "flex min-h-screen bg-slate-50 font-sans overflow-x-hidden",
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Sidebar$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                isOpen: isSidebarOpen,
-                onClose: ()=>setIsSidebarOpen(false)
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: `fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`,
+                onClick: ()=>setIsSidebarOpen(false)
             }, void 0, false, {
                 fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                lineNumber: 51,
+                lineNumber: 54,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
+                className: `fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:shadow-none lg:border-r lg:border-slate-800 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`,
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "h-full relative flex flex-col",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1 overflow-y-auto custom-scrollbar",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Sidebar$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            onClose: ()=>setIsSidebarOpen(false)
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                            lineNumber: 60,
+                            columnNumber: 16
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                        lineNumber: 59,
+                        columnNumber: 13
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                    lineNumber: 58,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                lineNumber: 57,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-                className: "flex-1 w-full min-w-0 flex flex-col min-h-screen lg:ml-64 transition-all duration-300",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "p-4 sm:p-6 lg:p-8",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex items-center gap-3 mb-6",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>setIsSidebarOpen(true),
-                                    className: "lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
-                                        size: 24
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                        lineNumber: 61,
-                                        columnNumber: 21
-                                    }, this)
+                className: "flex-1 w-full lg:ml-64 p-4 md:p-8 transition-all duration-300 min-h-screen flex flex-col",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center gap-3 mb-6",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>setIsSidebarOpen(true),
+                                className: "lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
+                                    size: 24
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                    lineNumber: 60,
+                                    lineNumber: 72,
                                     columnNumber: 17
-                                }, this),
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                                lineNumber: 71,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                                        className: "text-xl sm:text-2xl font-bold text-slate-800 flex items-center gap-2",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
+                                                className: "text-blue-600"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                                                lineNumber: 77,
+                                                columnNumber: 21
+                                            }, this),
+                                            " รายการคำขอลาของฉัน"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                                        lineNumber: 76,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-slate-500 text-xs sm:text-sm mt-1",
+                                        children: "ติดตามสถานะและประวัติการลางานทั้งหมด"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                                        lineNumber: 79,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                                lineNumber: 75,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                        lineNumber: 69,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden min-h-[400px] flex flex-col",
+                        children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "p-12 text-center text-slate-500 flex flex-col items-center gap-2 m-auto",
+                            children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                            className: "text-xl sm:text-2xl font-bold text-slate-800 flex items-center gap-2",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
-                                                    className: "text-blue-600"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                    lineNumber: 66,
-                                                    columnNumber: 25
-                                                }, this),
-                                                " รายการคำขอลาของฉัน"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                            lineNumber: 65,
-                                            columnNumber: 21
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                            className: "text-slate-500 text-xs sm:text-sm mt-1",
-                                            children: "ติดตามสถานะและประวัติการลางานทั้งหมด"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                            lineNumber: 68,
-                                            columnNumber: 21
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
+                                    className: "w-8 h-8 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin"
+                                }, void 0, false, {
                                     fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                    lineNumber: 64,
-                                    columnNumber: 17
+                                    lineNumber: 86,
+                                    columnNumber: 21
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "text-sm",
+                                    children: "กำลังโหลดข้อมูล..."
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                                    lineNumber: 87,
+                                    columnNumber: 21
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                            lineNumber: 58,
-                            columnNumber: 13
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden",
-                            children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-12 text-center text-slate-500 flex flex-col items-center gap-2",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "w-8 h-8 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                        lineNumber: 75,
-                                        columnNumber: 25
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-sm",
-                                        children: "กำลังโหลดข้อมูล..."
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                        lineNumber: 76,
-                                        columnNumber: 25
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                lineNumber: 74,
-                                columnNumber: 28
-                            }, this) : requests.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-12 text-center text-slate-400 flex flex-col items-center gap-2",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
-                                        size: 48,
-                                        className: "opacity-20 mb-2"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                        lineNumber: 78,
-                                        columnNumber: 25
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        children: "ยังไม่มีประวัติการขอลา"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                        lineNumber: 79,
-                                        columnNumber: 25
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                lineNumber: 77,
-                                columnNumber: 54
-                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "overflow-x-auto",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                    className: "w-full text-sm text-left text-slate-600 whitespace-nowrap",
+                            lineNumber: 85,
+                            columnNumber: 24
+                        }, this) : requests.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "p-12 text-center text-slate-400 flex flex-col items-center gap-2 m-auto",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
+                                    size: 48,
+                                    className: "opacity-20 mb-2"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                                    lineNumber: 89,
+                                    columnNumber: 21
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    children: "ยังไม่มีประวัติการขอลา"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                                    lineNumber: 90,
+                                    columnNumber: 21
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                            lineNumber: 88,
+                            columnNumber: 50
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "overflow-x-auto custom-scrollbar",
+                            children: [
+                                " ",
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
+                                    className: "w-full text-sm text-left text-slate-600 whitespace-nowrap min-w-[800px]",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                            className: "bg-slate-50 text-slate-700 font-bold uppercase text-xs border-b border-slate-100",
+                                            className: "bg-slate-50 text-slate-700 font-bold uppercase text-[11px] border-b border-slate-100 tracking-wider",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                        className: "px-6 py-4",
+                                                        className: "px-6 py-4 w-[20%]",
                                                         children: "ประเภท"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                        lineNumber: 84,
-                                                        columnNumber: 37
+                                                        lineNumber: 95,
+                                                        columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                        className: "px-6 py-4",
-                                                        children: "วันที่ลา"
+                                                        className: "px-6 py-4 w-[25%]",
+                                                        children: "ช่วงเวลาที่ลา"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                        lineNumber: 85,
-                                                        columnNumber: 37
+                                                        lineNumber: 96,
+                                                        columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                        className: "px-6 py-4",
+                                                        className: "px-6 py-4 w-[25%]",
                                                         children: "เหตุผล"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                        lineNumber: 86,
-                                                        columnNumber: 37
+                                                        lineNumber: 97,
+                                                        columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                        className: "px-6 py-4",
+                                                        className: "px-6 py-4 w-[15%]",
                                                         children: "วันที่ยื่นเรื่อง"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                        lineNumber: 87,
-                                                        columnNumber: 37
+                                                        lineNumber: 98,
+                                                        columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                        className: "px-6 py-4 text-center",
+                                                        className: "px-6 py-4 w-[15%] text-center",
                                                         children: "สถานะ"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                        lineNumber: 88,
-                                                        columnNumber: 37
+                                                        lineNumber: 99,
+                                                        columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                lineNumber: 83,
-                                                columnNumber: 33
+                                                lineNumber: 94,
+                                                columnNumber: 29
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                            lineNumber: 82,
-                                            columnNumber: 29
+                                            lineNumber: 93,
+                                            columnNumber: 25
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
                                             className: "divide-y divide-slate-100",
@@ -978,115 +1016,121 @@ function LeaveHistoryPage() {
                                                     className: "hover:bg-slate-50 transition group",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-6 py-4 font-bold text-slate-800 group-hover:text-blue-600 transition-colors",
+                                                            className: "px-6 py-4 font-bold text-slate-800 group-hover:text-blue-600 transition-colors align-top",
                                                             children: getLeaveTypeName(req.leave_type)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                            lineNumber: 93,
-                                                            columnNumber: 41
+                                                            lineNumber: 104,
+                                                            columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-6 py-4",
+                                                            className: "px-6 py-4 align-top",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "flex flex-col",
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                        className: "font-medium text-slate-700",
-                                                                        children: new Date(req.start_date).toLocaleDateString('th-TH')
-                                                                    }, void 0, false, {
+                                                                        className: "font-bold text-slate-700 flex items-center gap-1",
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__["Calendar"], {
+                                                                                size: 12,
+                                                                                className: "text-slate-400"
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                                                                                lineNumber: 110,
+                                                                                columnNumber: 49
+                                                                            }, this),
+                                                                            new Date(req.start_date).toLocaleDateString('th-TH')
+                                                                        ]
+                                                                    }, void 0, true, {
                                                                         fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                                        lineNumber: 98,
-                                                                        columnNumber: 49
+                                                                        lineNumber: 109,
+                                                                        columnNumber: 45
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                        className: "text-xs text-slate-400",
+                                                                        className: "text-xs text-slate-400 mt-0.5",
                                                                         children: [
                                                                             "ถึง ",
                                                                             new Date(req.end_date).toLocaleDateString('th-TH')
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                                        lineNumber: 99,
-                                                                        columnNumber: 49
+                                                                        lineNumber: 113,
+                                                                        columnNumber: 45
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                                lineNumber: 97,
-                                                                columnNumber: 45
+                                                                lineNumber: 108,
+                                                                columnNumber: 41
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                            lineNumber: 96,
-                                                            columnNumber: 41
+                                                            lineNumber: 107,
+                                                            columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-6 py-4 max-w-xs truncate",
+                                                            className: "px-6 py-4 max-w-xs truncate align-top",
                                                             title: req.reason,
                                                             children: req.reason || '-'
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                            lineNumber: 102,
-                                                            columnNumber: 41
+                                                            lineNumber: 116,
+                                                            columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-6 py-4 text-slate-400 text-xs",
+                                                            className: "px-6 py-4 text-slate-400 text-xs align-top",
                                                             children: new Date(req.created_at).toLocaleString('th-TH')
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                            lineNumber: 105,
-                                                            columnNumber: 41
+                                                            lineNumber: 119,
+                                                            columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-6 py-4 text-center",
+                                                            className: "px-6 py-4 text-center align-top",
                                                             children: getStatusBadge(req.status)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                            lineNumber: 108,
-                                                            columnNumber: 41
+                                                            lineNumber: 122,
+                                                            columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, req.id, true, {
                                                     fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                                    lineNumber: 92,
-                                                    columnNumber: 54
+                                                    lineNumber: 103,
+                                                    columnNumber: 50
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                            lineNumber: 91,
-                                            columnNumber: 29
+                                            lineNumber: 102,
+                                            columnNumber: 25
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                    lineNumber: 81,
-                                    columnNumber: 25
+                                    lineNumber: 92,
+                                    columnNumber: 21
                                 }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                                lineNumber: 80,
-                                columnNumber: 30
-                            }, this)
-                        }, void 0, false, {
+                            ]
+                        }, void 0, true, {
                             fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                            lineNumber: 73,
-                            columnNumber: 13
+                            lineNumber: 91,
+                            columnNumber: 26
                         }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                    lineNumber: 56,
-                    columnNumber: 9
-                }, this)
-            }, void 0, false, {
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/hr/leave-history/page.jsx",
+                        lineNumber: 84,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
                 fileName: "[project]/src/app/hr/leave-history/page.jsx",
-                lineNumber: 54,
+                lineNumber: 66,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/hr/leave-history/page.jsx",
-        lineNumber: 48,
+        lineNumber: 51,
         columnNumber: 10
     }, this);
 }

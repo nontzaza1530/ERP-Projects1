@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import Sidebar from '../../components/Sidebar';
 import { 
   Folder, FileText, Image as ImageIcon, MoreVertical, 
-  Search, Upload, FolderPlus, ArrowLeft, Home, Loader2, Trash2, Eye, X, Download, LayoutGrid, List, Edit, CloudUpload 
-} from 'lucide-react';
+  Search, Upload, FolderPlus, ArrowLeft, Home, Loader2, Trash2, Eye, X, Download, LayoutGrid, List, Edit, CloudUpload, Menu 
+} from 'lucide-react'; // ✅ เพิ่ม import Menu
 import Swal from 'sweetalert2';
 
 export default function DocumentPage() {
@@ -18,11 +18,13 @@ export default function DocumentPage() {
   const [viewMode, setViewMode] = useState('grid'); 
   const [searchTerm, setSearchTerm] = useState('');
   
-  // ✅ แก้ไข 1: เปลี่ยนชื่อตัวแปรให้สื่อความหมาย (เก็บค่าเป็น 'folder-1' หรือ 'file-1')
   const [activeMenu, setActiveMenu] = useState(null); 
   
   const [previewFile, setPreviewFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
+
+  // ✅ เพิ่ม State สำหรับเปิด/ปิด Sidebar ในมือถือ
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const fileInputRef = useRef(null);
 
@@ -31,7 +33,7 @@ export default function DocumentPage() {
   }, [currentFolder]);
 
   useEffect(() => {
-    const handleClickOutside = () => setActiveMenu(null); // ✅ แก้ไข
+    const handleClickOutside = () => setActiveMenu(null); 
     window.addEventListener('click', handleClickOutside);
     return () => window.removeEventListener('click', handleClickOutside);
   }, []);
@@ -54,7 +56,7 @@ export default function DocumentPage() {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('folderId', currentFolder?.id || null);
-    formData.append('userId', 34);
+    formData.append('userId', 34); 
 
     Swal.fire({ title: 'กำลังอัปโหลด...', didOpen: () => Swal.showLoading() });
 
@@ -83,7 +85,7 @@ export default function DocumentPage() {
   };
 
   const handleRename = async (id, currentName, type) => {
-    setActiveMenu(null); // ✅ ปิดเมนู
+    setActiveMenu(null); 
     const { value: newName } = await Swal.fire({
         title: `เปลี่ยนชื่อ ${type === 'file' ? 'ไฟล์' : 'โฟลเดอร์'}`,
         input: 'text',
@@ -109,7 +111,7 @@ export default function DocumentPage() {
   };
 
   const handleDelete = async (id, type) => {
-    setActiveMenu(null); // ✅ ปิดเมนู
+    setActiveMenu(null); 
     const result = await Swal.fire({
         title: 'ยืนยันการลบ?',
         text: "ข้อมูลจะถูกลบถาวร ไม่สามารถกู้คืนได้",
@@ -172,10 +174,8 @@ export default function DocumentPage() {
     return <FileText className="text-slate-400" size={40} />;
   };
 
-  // ✅ Helper Function: สร้าง Key สำหรับเมนู (ป้องกัน ID ซ้ำ)
-  const getMenuKey = (type, id) => `${type}-${id}`; // ผลลัพธ์จะเป็น "folder-1" หรือ "file-1"
+  const getMenuKey = (type, id) => `${type}-${id}`; 
 
-  // ✅ Helper Function: จัดการการกดปุ่มเมนู
   const toggleMenu = (e, type, id) => {
       e.stopPropagation();
       const key = getMenuKey(type, id);
@@ -186,57 +186,84 @@ export default function DocumentPage() {
   const filteredFiles = files.filter(f => f.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
-    <div className="flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900">
-      <Sidebar />
-      <main className="flex-1 ml-64 p-8 w-[calc(100%-16rem)] flex flex-col h-screen overflow-hidden">
+    <div className="flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900 overflow-x-hidden">
+      
+      {/* ✅ 1. Mobile Overlay: ฉากหลังมืดเวลาเปิด Sidebar */}
+      <div 
+        className={`fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`} 
+        onClick={() => setIsSidebarOpen(false)} 
+      />
+
+      {/* ✅ 2. Sidebar Container: กล่อง Sidebar ที่เลื่อนได้ */}
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:shadow-none lg:border-r lg:border-slate-800 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="h-full relative flex flex-col">
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
+               <Sidebar onClose={() => setIsSidebarOpen(false)} />
+            </div>
+          </div>
+      </aside>
+
+      {/* ✅ 3. Main Content: ปรับ Margin ให้ถูกต้อง */}
+      <main className="flex-1 w-full lg:ml-64 p-4 md:p-8 transition-all duration-300 min-h-screen flex flex-col h-screen overflow-hidden">
         
         {/* Header */}
-        <div className="flex justify-between items-end mb-6 shrink-0">
-          <div>
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">ระบบจัดเก็บเอกสาร</h1>
-            <p className="text-slate-500 text-sm mt-1">Document Management System (DMS)</p>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 shrink-0 gap-4">
+          <div className="flex items-center gap-3">
+            {/* ✅ ปุ่มเปิดเมนูในมือถือ */}
+            <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition">
+                <Menu size={24} />
+            </button>
+            
+            <div>
+                <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">ระบบจัดเก็บเอกสาร</h1>
+                <p className="text-slate-500 text-xs md:text-sm mt-1">Document Management System (DMS)</p>
+            </div>
           </div>
-          <div className="flex gap-3">
-             <button onClick={handleCreateFolder} className="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 font-bold text-slate-600 transition shadow-sm active:scale-95">
+
+          <div className="flex gap-2 md:gap-3 w-full md:w-auto">
+             <button onClick={handleCreateFolder} className="flex-1 md:flex-none justify-center items-center gap-2 px-3 md:px-4 py-2.5 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 font-bold text-slate-600 transition shadow-sm active:scale-95 text-sm md:text-base">
                 <FolderPlus size={18}/> สร้างโฟลเดอร์
              </button>
              <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileChange} />
-             <button onClick={() => fileInputRef.current.click()} className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 font-bold transition shadow-lg shadow-blue-200 active:scale-95">
+             <button onClick={() => fileInputRef.current.click()} className="flex-1 md:flex-none justify-center items-center gap-2 px-3 md:px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 font-bold transition shadow-lg shadow-blue-200 active:scale-95 text-sm md:text-base">
                 <Upload size={18}/> อัปโหลดไฟล์
              </button>
           </div>
         </div>
 
         {/* Toolbar */}
-        <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 mb-6 shrink-0">
-            <div className="flex gap-1">
+        <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-wrap md:flex-nowrap items-center gap-3 md:gap-4 mb-6 shrink-0">
+            <div className="flex gap-1 shrink-0">
                 <button onClick={handleGoBack} disabled={!currentFolder} className="p-2 rounded-lg hover:bg-slate-100 disabled:opacity-30 transition"><ArrowLeft size={20}/></button>
                 <button onClick={handleGoHome} className={`p-2 rounded-lg hover:bg-slate-100 transition ${!currentFolder ? 'text-blue-600 bg-blue-50' : ''}`}><Home size={20}/></button>
             </div>
-            <div className="flex items-center gap-2 text-sm text-slate-500 overflow-hidden whitespace-nowrap">
-                <span className="cursor-pointer hover:text-blue-600" onClick={handleGoHome}>หน้าหลัก</span>
+            
+            <div className="flex items-center gap-2 text-sm text-slate-500 overflow-hidden whitespace-nowrap flex-1 min-w-0">
+                <span className="cursor-pointer hover:text-blue-600 shrink-0" onClick={handleGoHome}>หน้าหลัก</span>
                 {history.map((folder, idx) => (
-                    <div key={folder.id} className="flex items-center gap-2">
-                        <span>/</span>
-                        <span className={`cursor-pointer hover:text-blue-600 ${idx === history.length - 1 ? 'font-bold text-slate-800' : ''}`}>{folder.name}</span>
+                    <div key={folder.id} className="flex items-center gap-2 overflow-hidden">
+                        <span className="shrink-0">/</span>
+                        <span className={`cursor-pointer hover:text-blue-600 truncate ${idx === history.length - 1 ? 'font-bold text-slate-800' : ''}`}>{folder.name}</span>
                     </div>
                 ))}
             </div>
 
-            <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200 ml-auto">
-                <button onClick={() => setViewMode('grid')} className={`p-1.5 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white shadow text-blue-600' : 'text-slate-400 hover:text-slate-600'}`}><LayoutGrid size={18} /></button>
-                <button onClick={() => setViewMode('list')} className={`p-1.5 rounded-md transition-all ${viewMode === 'list' ? 'bg-white shadow text-blue-600' : 'text-slate-400 hover:text-slate-600'}`}><List size={18} /></button>
-            </div>
+            <div className="flex items-center gap-3 ml-auto shrink-0 w-full md:w-auto justify-end">
+                <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200 shrink-0">
+                    <button onClick={() => setViewMode('grid')} className={`p-1.5 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white shadow text-blue-600' : 'text-slate-400 hover:text-slate-600'}`}><LayoutGrid size={18} /></button>
+                    <button onClick={() => setViewMode('list')} className={`p-1.5 rounded-md transition-all ${viewMode === 'list' ? 'bg-white shadow text-blue-600' : 'text-slate-400 hover:text-slate-600'}`}><List size={18} /></button>
+                </div>
 
-            <div className="relative w-64">
-                <Search size={16} className="absolute left-3 top-3 text-slate-400"/>
-                <input type="text" placeholder="ค้นหาเอกสาร..." className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 transition" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                <div className="relative w-full md:w-64">
+                    <Search size={16} className="absolute left-3 top-3 text-slate-400"/>
+                    <input type="text" placeholder="ค้นหาเอกสาร..." className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 transition" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                </div>
             </div>
         </div>
 
         {/* Drop Zone */}
         <div 
-            className={`flex-1 bg-white rounded-3xl border ${isDragging ? 'border-4 border-dashed border-blue-400 bg-blue-50' : 'border-slate-200'} shadow-sm p-6 overflow-y-auto min-h-0 relative transition-all`}
+            className={`flex-1 bg-white rounded-3xl border ${isDragging ? 'border-4 border-dashed border-blue-400 bg-blue-50' : 'border-slate-200'} shadow-sm p-4 md:p-6 overflow-y-auto min-h-0 relative transition-all custom-scrollbar`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
@@ -265,7 +292,7 @@ export default function DocumentPage() {
                                                 <span className="text-sm font-bold text-slate-700 group-hover:text-blue-700 truncate w-full">{folder.name}</span>
                                             </div>
                                             
-                                            {/* ✅ Button & Menu: ใช้ toggleMenu แบบใหม่ */}
+                                            {/* ✅ Button & Menu */}
                                             <button 
                                                 onClick={(e) => toggleMenu(e, 'folder', folder.id)} 
                                                 className="absolute top-2 right-2 p-1 text-slate-300 hover:text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity z-20 bg-white/80 rounded-full"
@@ -273,7 +300,6 @@ export default function DocumentPage() {
                                                 <MoreVertical size={16}/>
                                             </button>
                                             
-                                            {/* ✅ Condition: เช็ค activeMenu === 'folder-1' */}
                                             {activeMenu === getMenuKey('folder', folder.id) && (
                                                 <div className="absolute top-8 right-2 bg-white rounded-lg shadow-xl border border-slate-100 z-30 w-32 py-1 animate-in fade-in zoom-in duration-100">
                                                     <button onClick={(e) => { e.stopPropagation(); handleRename(folder.id, folder.name, 'folder'); }} className="flex items-center gap-2 px-3 py-2 text-xs text-slate-600 hover:bg-slate-50 w-full text-left"><Edit size={14}/> เปลี่ยนชื่อ</button>
@@ -331,7 +357,6 @@ export default function DocumentPage() {
                                                 </div>
                                             </div>
                                             
-                                            {/* ✅ Button & Menu: ใช้ toggleMenu แบบใหม่ */}
                                             <button 
                                                 onClick={(e) => toggleMenu(e, 'file', file.id)} 
                                                 className="absolute top-2 right-2 p-1 text-slate-300 hover:text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity z-20 hover:bg-slate-100 rounded"
@@ -339,7 +364,6 @@ export default function DocumentPage() {
                                                 <MoreVertical size={16}/>
                                             </button>
                                             
-                                            {/* ✅ Condition: เช็ค activeMenu === 'file-1' */}
                                             {activeMenu === getMenuKey('file', file.id) && (
                                                 <div className="absolute top-8 right-2 bg-white rounded-lg shadow-xl border border-slate-100 z-30 w-32 py-1 animate-in fade-in zoom-in duration-100">
                                                     <button onClick={(e) => { e.stopPropagation(); setPreviewFile(file); setActiveMenu(null); }} className="flex items-center gap-2 px-3 py-2 text-xs text-slate-600 hover:bg-slate-50 w-full text-left"><Eye size={14}/> เปิดดู</button>
@@ -354,7 +378,7 @@ export default function DocumentPage() {
                                 <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
                                     <table className="w-full text-sm text-left">
                                         <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200">
-                                            <tr><th className="p-3 pl-4">ชื่อไฟล์</th><th className="p-3 w-32">วันที่</th><th className="p-3 w-24 text-right">ขนาด</th><th className="p-3 w-16 text-center"></th></tr>
+                                            <tr><th className="p-3 pl-4">ชื่อไฟล์</th><th className="p-3 w-32 hidden md:table-cell">วันที่</th><th className="p-3 w-24 text-right hidden md:table-cell">ขนาด</th><th className="p-3 w-16 text-center"></th></tr>
                                         </thead>
                                         <tbody className="divide-y divide-slate-100">
                                             {filteredFiles.map(file => (
@@ -364,11 +388,11 @@ export default function DocumentPage() {
                                                             <div className="w-8 h-8 flex items-center justify-center bg-slate-100 rounded-lg text-slate-500 shrink-0">
                                                                 {(() => { const Icon = getFileIcon(file.file_type).type; const props = getFileIcon(file.file_type).props; return <Icon {...props} size={18} />; })()}
                                                             </div>
-                                                            <span className="font-medium text-slate-700 group-hover:text-blue-600 truncate max-w-[200px] md:max-w-md">{file.name}</span>
+                                                            <span className="font-medium text-slate-700 group-hover:text-blue-600 truncate max-w-[150px] md:max-w-md">{file.name}</span>
                                                         </div>
                                                     </td>
-                                                    <td className="p-3 text-slate-500 text-xs">{new Date(file.created_at).toLocaleDateString('th-TH', { day: '2-digit', month: 'short', year: '2-digit' })}</td>
-                                                    <td className="p-3 text-slate-500 text-xs text-right font-mono">{file.file_size ? (file.file_size / 1024).toFixed(0) + ' KB' : '-'}</td>
+                                                    <td className="p-3 text-slate-500 text-xs hidden md:table-cell">{new Date(file.created_at).toLocaleDateString('th-TH', { day: '2-digit', month: 'short', year: '2-digit' })}</td>
+                                                    <td className="p-3 text-slate-500 text-xs text-right font-mono hidden md:table-cell">{file.file_size ? (file.file_size / 1024).toFixed(0) + ' KB' : '-'}</td>
                                                     <td className="p-3 text-center relative">
                                                         <button onClick={(e) => toggleMenu(e, 'file', file.id)} className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-full transition"><MoreVertical size={16}/></button>
                                                         

@@ -13,14 +13,13 @@ export async function POST(request) {
             [project_id, data.action, data.note, data.employee_id || 'System']
         );
     } 
-    // ✅✅✅ 2. บันทึก Cost และ ตัดสต็อก (แก้ไขจุดนี้) ✅✅✅
+    // 2. บันทึก Cost และ ตัดสต็อก
     else if (type === 'cost') {
         const connection = await pool.getConnection();
         try {
             await connection.beginTransaction();
 
             // 2.1 บันทึกรายการต้นทุน
-            // ⚠️ ต้องแน่ใจว่าตาราง project_costs มีคอลัมน์ product_id และ quantity แล้วนะครับ
             await connection.query(
                 `INSERT INTO project_costs (project_id, cost_type, description, amount, recorded_date, recorded_by, product_id, quantity) 
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -36,7 +35,7 @@ export async function POST(request) {
                 ]
             );
 
-            // 2.2 🔥 ตัดสต็อก: แก้ชื่อคอลัมน์จาก stock เป็น quantity ให้ตรงกับ DB ของคุณ
+            // 2.2 ตัดสต็อก
             if (data.cost_type === 'material' && data.product_id) {
                 await connection.query(
                     `UPDATE products SET quantity = quantity - ? WHERE id = ?`, 
@@ -47,7 +46,7 @@ export async function POST(request) {
             await connection.commit();
         } catch (err) {
             await connection.rollback();
-            console.error("Database Transaction Error:", err); // เพิ่ม log เพื่อดู error ชัดๆ
+            console.error("Database Transaction Error:", err);
             throw err;
         } finally {
             connection.release();
@@ -71,7 +70,7 @@ export async function POST(request) {
             [project_id, `ทำงานตามแผนเสร็จ: ${data.task_name}`, 'Completed from Plan', 'System']
         );
     }
-    // 5. เปลี่ยนสถานะงาน
+    // 5. เปลี่ยนสถานะงาน (Update Status)
     else if (type === 'update_project_status') {
         await pool.query(
             `UPDATE projects SET status = ? WHERE id = ?`,
@@ -82,7 +81,34 @@ export async function POST(request) {
             [project_id, `เปลี่ยนสถานะเป็น: ${data.status}`, 'Status Update', 'System']
         );
     }
-    // 6. ส่งข้อมูลเข้าบัญชี
+    // ✅ 6. จัดเก็บโปรเจค (Archive Project) - พร้อมจำสถานะเดิม
+    else if (type === 'archive_project') {
+        await pool.query(
+            `UPDATE projects 
+             SET previous_status = status, status = 'archived' 
+             WHERE id = ?`,
+            [project_id]
+        );
+        await pool.query(
+            `INSERT INTO production_logs (project_id, action, note, employee_id) VALUES (?, ?, ?, ?)`,
+            [project_id, 'จัดเก็บโปรเจค (Archived)', 'Moved to Archive', 'Admin']
+        );
+    }
+    // ✅ 7. กู้คืนโปรเจค (Restore Project) - คืนค่าสถานะเดิม
+    else if (type === 'restore_project') {
+        // ใช้ COALESCE เพื่อกันเหนียว: ถ้า previous_status เป็น NULL ให้ใช้ 'pending' แทน
+        await pool.query(
+            `UPDATE projects 
+             SET status = COALESCE(previous_status, 'pending'), previous_status = NULL 
+             WHERE id = ?`,
+            [project_id]
+        );
+        await pool.query(
+            `INSERT INTO production_logs (project_id, action, note, employee_id) VALUES (?, ?, ?, ?)`,
+            [project_id, 'กู้คืนโปรเจค (Restored)', 'Restored from Archive', 'Admin']
+        );
+    }
+    // 8. ส่งข้อมูลเข้าบัญชี
     else if (type === 'send_to_accounting') {
         const [projectData] = await pool.query(
             `SELECT p.sale_price, p.project_name, COALESCE(SUM(c.amount), 0) as total_cost 
@@ -124,13 +150,12 @@ export async function POST(request) {
             [project_id, 'ปิดงานสมบูรณ์: บันทึกบัญชีเรียบร้อย', 'Project Closed', 'Admin']
         );
     }
-    // ✅ 7. เพิ่มสมาชิกเข้าทีม (Add Member)
+    // 9. เพิ่มสมาชิกเข้าทีม
     else if (type === 'add_member') {
         await pool.query(
             `INSERT INTO project_members (project_id, employee_name, role) VALUES (?, ?, ?)`,
             [project_id, data.employee_name, data.role]
         );
-        // Log การเพิ่มคน
         await pool.query(
             `INSERT INTO production_logs (project_id, action, note, employee_id) VALUES (?, ?, ?, ?)`,
             [project_id, `เพิ่มสมาชิกทีม: ${data.employee_name}`, `ตำแหน่ง: ${data.role}`, 'Admin']
@@ -140,7 +165,7 @@ export async function POST(request) {
     return NextResponse.json({ success: true });
 
   } catch (error) {
-    console.error("Action API Error:", error); // ดู Error ที่ Terminal
+    console.error("Action API Error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

@@ -33,17 +33,17 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-function Sidebar({ isOpen, onClose }) {
+function Sidebar({ onClose }) {
     _s();
+    // ไม่ต้องรับ isOpen แล้ว เพราะ Parent จัดการให้
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [role, setRole] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [isMounted, setIsMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [expandedMenu, setExpandedMenu] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true); // เพิ่ม Loading state
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Sidebar.useEffect": ()=>{
-            setIsMounted(true);
             const fetchUser = {
                 "Sidebar.useEffect.fetchUser": async ()=>{
                     try {
@@ -61,6 +61,8 @@ function Sidebar({ isOpen, onClose }) {
                         }
                     } catch (error) {
                         console.error("Error fetching user role", error);
+                    } finally{
+                        setLoading(false);
                     }
                 }
             }["Sidebar.useEffect.fetchUser"];
@@ -126,7 +128,6 @@ function Sidebar({ isOpen, onClose }) {
                     'admin',
                     'employee'
                 ],
-                // Employee เห็นหัวข้อนี้
                 subItems: [
                     {
                         name: role === 'employee' ? 'ข้อมูลส่วนตัว' : 'รายชื่อพนักงาน',
@@ -155,7 +156,6 @@ function Sidebar({ isOpen, onClose }) {
                             'employee'
                         ]
                     },
-                    // 👇 พวกนี้ Employee จะไม่เห็นเลย
                     {
                         name: 'อนุมัติวันลา',
                         href: '/hr/approve-leave',
@@ -200,7 +200,6 @@ function Sidebar({ isOpen, onClose }) {
                     'super_admin',
                     'admin'
                 ],
-                // ❌ Employee ไม่เห็นทั้งก้อน
                 subItems: [
                     {
                         name: 'ภาพรวม (Dashboard)',
@@ -252,7 +251,7 @@ function Sidebar({ isOpen, onClose }) {
                 roles: [
                     'super_admin',
                     'admin'
-                ] // ❌ Employee ไม่เห็น
+                ]
             },
             {
                 name: 'การขาย (POS)',
@@ -261,7 +260,7 @@ function Sidebar({ isOpen, onClose }) {
                 roles: [
                     'super_admin',
                     'admin'
-                ] // ❌ Employee ไม่เห็น
+                ]
             },
             {
                 name: 'บัญชี',
@@ -272,7 +271,6 @@ function Sidebar({ isOpen, onClose }) {
                     'admin',
                     'employee'
                 ],
-                // ✅ Employee เห็นหัวข้อนี้ (เพราะมีเมนูย่อยให้เข้า)
                 subItems: [
                     {
                         name: 'ภาพรวมบัญชี',
@@ -280,7 +278,7 @@ function Sidebar({ isOpen, onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // ❌ ไม่เห็น
+                        ]
                     },
                     {
                         name: 'ต้นทุนโครงการ',
@@ -288,7 +286,7 @@ function Sidebar({ isOpen, onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // ❌ ไม่เห็น
+                        ]
                     },
                     {
                         name: 'ขอเบิกเงิน (Reimbursement)',
@@ -297,7 +295,7 @@ function Sidebar({ isOpen, onClose }) {
                             'super_admin',
                             'admin',
                             'employee'
-                        ] // ✅ เห็นแค่อันนี้!
+                        ]
                     },
                     {
                         name: 'ตรวจสอบการเบิก (Approval)',
@@ -305,7 +303,7 @@ function Sidebar({ isOpen, onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // ❌ ไม่เห็น
+                        ]
                     }
                 ]
             },
@@ -321,15 +319,12 @@ function Sidebar({ isOpen, onClose }) {
             }
         ];
     };
-    // 🔥 Logic กรองเมนู (Filter) แบบเฟี้ยวๆ
     const getVisibleMenu = ()=>{
-        if (!role) return []; // ถ้ายังไม่รู้ Role ไม่โชว์อะไรเลย
+        if (!role) return [];
         const allItems = getMenuItems();
         return allItems.map((item)=>{
-            // 1. ถ้ามีเมนูย่อย ให้กรองเมนูย่อยก่อน
             if (item.subItems) {
                 const filteredSub = item.subItems.filter((sub)=>sub.roles.includes(role));
-                // คืนค่า item ใหม่ที่มีเฉพาะเมนูย่อยที่เข้าได้
                 return {
                     ...item,
                     subItems: filteredSub
@@ -337,334 +332,347 @@ function Sidebar({ isOpen, onClose }) {
             }
             return item;
         }).filter((item_0)=>{
-            // 2. กรองเมนูหลักทิ้ง ถ้า Role ไม่ถึง
             const isParentAllowed = item_0.roles.includes(role);
-            // ถ้าเมนูหลักไม่ผ่าน -> ตัดทิ้ง
             if (!isParentAllowed) return false;
-            // พิเศษ: ถ้าเป็นเมนูแบบ Dropdown (มี subItems) แต่กรองแล้วไม่เหลือลูกเลย -> ตัดแม่ทิ้งด้วย (จะได้ไม่รก)
-            if (item_0.subItems && item_0.subItems.length === 0) {
-                return false;
-            }
+            if (item_0.subItems && item_0.subItems.length === 0) return false;
             return true;
         });
     };
     const visibleMenu = getVisibleMenu();
-    if (!isMounted) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
-        className: "w-64 bg-slate-900 h-screen fixed left-0 top-0 hidden lg:block"
-    }, void 0, false, {
-        fileName: "[project]/src/components/Sidebar.jsx",
-        lineNumber: 216,
-        columnNumber: 26
-    }, this);
-    if (!role) return null;
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+    return(// ✅ แก้ไข 1: เปลี่ยนจาก <aside fixed...> เป็น <div> ธรรมดาเต็มพื้นที่
+    // เพื่อให้มันอยู่ในกล่องที่หน้า Dashboard เตรียมไว้ให้แล้ว
+    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "flex flex-col h-full w-full bg-slate-900 text-slate-300",
         children: [
-            isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity",
-                onClick: onClose
-            }, void 0, false, {
-                fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 219,
-                columnNumber: 18
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
-                className: `
-        fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-slate-300 h-screen 
-        transform transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none
-        flex flex-col border-r border-slate-800
-        ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `,
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "p-6 border-b border-slate-800 shrink-0 flex flex-col items-center relative",
                 children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: onClose,
+                        className: "absolute top-4 right-4 p-1 text-slate-500 hover:text-white lg:hidden",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                            size: 20
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 211,
+                            columnNumber: 17
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Sidebar.jsx",
+                        lineNumber: 210,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                        className: "text-2xl font-bold text-white tracking-wider",
+                        children: "ERP SYSTEM"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Sidebar.jsx",
+                        lineNumber: 214,
+                        columnNumber: 11
+                    }, this),
+                    loading ? // Skeleton Loader ตอนโหลดข้อมูล
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-6 border-b border-slate-800 shrink-0 flex flex-col items-center relative",
+                        className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700 animate-pulse",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: onClose,
-                                className: "absolute top-4 right-4 p-1 text-slate-500 hover:text-white lg:hidden",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                    size: 20
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 231,
-                                    columnNumber: 17
-                                }, this)
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-8 h-8 rounded-full bg-slate-700"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 230,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                className: "text-2xl font-bold text-white tracking-wider",
-                                children: "ERP SYSTEM"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 234,
-                                columnNumber: 11
+                                lineNumber: 220,
+                                columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white text-sm uppercase shrink-0",
-                                        children: user?.first_name?.charAt(0) || 'U'
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 236,
-                                        columnNumber: 14
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "overflow-hidden min-w-0",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-sm font-bold text-white truncate",
-                                                children: user?.first_name
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 240,
-                                                columnNumber: 18
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-[10px] font-bold uppercase text-blue-400 tracking-wide block truncate",
-                                                children: role.replace('_', ' ')
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 241,
-                                                columnNumber: 18
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 239,
-                                        columnNumber: 14
-                                    }, this)
-                                ]
-                            }, void 0, true, {
+                                className: "flex-1 h-4 bg-slate-700 rounded"
+                            }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 235,
-                                columnNumber: 11
+                                lineNumber: 221,
+                                columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 229,
+                        lineNumber: 219,
                         columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                        className: "flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar flex flex-col",
-                        children: visibleMenu.map((item_1)=>{
-                            const isExpanded = expandedMenu === item_1.name;
-                            // ใช้ subItems ที่กรองมาแล้ว
-                            const subItemsToRender = item_1.subItems;
-                            const isActive = item_1.href === pathname || subItemsToRender?.some((sub_0)=>sub_0.href === pathname);
-                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mb-1",
-                                children: subItemsToRender ? // --- 📂 Dropdown Menu (สำหรับเมนูที่มีลูก) ---
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            onClick: ()=>toggleMenu(item_1.name),
-                                            className: `w-full flex items-center justify-between px-3 py-3 rounded-xl transition-all duration-200 group
-                        ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}
-                      `,
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-center gap-3 min-w-0",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item_1.icon, {
-                                                            size: 20,
-                                                            className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'} shrink-0`
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                                            lineNumber: 263,
-                                                            columnNumber: 25
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "font-medium text-sm md:text-base truncate flex items-center gap-2",
-                                                            children: item_1.name
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                                            lineNumber: 264,
-                                                            columnNumber: 25
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 262,
-                                                    columnNumber: 23
-                                                }, this),
-                                                isExpanded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
-                                                    size: 16,
-                                                    className: "shrink-0"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 268,
-                                                    columnNumber: 37
-                                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
-                                                    size: 16,
-                                                    className: "shrink-0"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 268,
-                                                    columnNumber: 86
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 259,
-                                            columnNumber: 21
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: `overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-96 opacity-100 mt-1' : 'max-h-0 opacity-0'}`,
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "ml-4 pl-3 border-l border-slate-700 space-y-1 py-1",
-                                                children: subItemsToRender.map((sub_1)=>{
-                                                    const isSubActive = pathname === sub_1.href;
-                                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                        href: sub_1.href,
-                                                        onClick: handleLinkClick,
-                                                        className: `flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-colors mb-1
-                                  ${isSubActive ? 'text-blue-400 bg-blue-900/20 font-bold' : 'text-slate-500 hover:text-slate-200 hover:bg-slate-800/50'}
-                                `,
-                                                        children: [
-                                                            sub_1.icon ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(sub_1.icon, {
-                                                                size: 16,
-                                                                className: isSubActive ? 'text-blue-400' : 'text-slate-600'
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                                lineNumber: 278,
-                                                                columnNumber: 47
-                                                            }, this) : sub_1.name === 'ข้อมูลส่วนตัว' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
-                                                                size: 14,
-                                                                className: isSubActive ? 'text-blue-400' : 'opacity-50'
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                                lineNumber: 278,
-                                                                columnNumber: 168
-                                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
-                                                                size: 8,
-                                                                className: isSubActive ? 'fill-current' : 'opacity-50'
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                                lineNumber: 278,
-                                                                columnNumber: 246
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "truncate",
-                                                                children: sub_1.name
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                                lineNumber: 280,
-                                                                columnNumber: 33
-                                                            }, this)
-                                                        ]
-                                                    }, sub_1.href, true, {
-                                                        fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 275,
-                                                        columnNumber: 28
-                                                    }, this);
-                                                })
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 272,
-                                                columnNumber: 23
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 271,
-                                            columnNumber: 21
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 258,
-                                    columnNumber: 13
-                                }, this) : // --- 🔗 Single Link Menu (สำหรับเมนูเดี่ยว) ---
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                    href: item_1.href,
-                                    onClick: handleLinkClick,
-                                    className: `flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/50' : 'hover:bg-slate-800 hover:text-white text-slate-400'}`,
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400 transition-colors'} shrink-0`,
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item_1.icon, {
-                                                size: 20
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 289,
-                                                columnNumber: 23
-                                            }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 288,
-                                            columnNumber: 21
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "font-medium text-sm md:text-base truncate flex items-center gap-2",
-                                            children: item_1.name
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 291,
-                                            columnNumber: 21
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 287,
-                                    columnNumber: 13
-                                }, this)
-                            }, item_1.name, false, {
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white text-sm uppercase shrink-0",
+                                children: user?.first_name?.charAt(0) || 'U'
+                            }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 255,
-                                columnNumber: 18
-                            }, this);
-                        })
-                    }, void 0, false, {
+                                lineNumber: 223,
+                                columnNumber: 17
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "overflow-hidden min-w-0",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-sm font-bold text-white truncate",
+                                        children: user?.first_name
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                        lineNumber: 227,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-[10px] font-bold uppercase text-blue-400 tracking-wide block truncate",
+                                        children: role?.replace('_', ' ')
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                        lineNumber: 228,
+                                        columnNumber: 21
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/components/Sidebar.jsx",
+                                lineNumber: 226,
+                                columnNumber: 17
+                            }, this)
+                        ]
+                    }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 249,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-4 border-t border-slate-800 bg-slate-900 shrink-0",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            onClick: handleLogout,
-                            className: "flex items-center gap-3 px-4 py-3 w-full hover:bg-red-500/10 rounded-xl text-red-400 hover:text-red-300 transition active:scale-[0.98]",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$out$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LogOut$3e$__["LogOut"], {
-                                    size: 20
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 302,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "font-medium",
-                                    children: "ออกจากระบบ"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 303,
-                                    columnNumber: 17
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 301,
-                            columnNumber: 13
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 300,
-                        columnNumber: 9
+                        lineNumber: 222,
+                        columnNumber: 23
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 221,
-                columnNumber: 7
+                lineNumber: 207,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+                className: "flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar flex flex-col",
+                children: loading ? // Skeleton Loader เมนู
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "space-y-3 px-2",
+                    children: [
+                        1,
+                        2,
+                        3,
+                        4
+                    ].map((i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "h-10 bg-slate-800/50 rounded-xl animate-pulse"
+                        }, i, false, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 240,
+                            columnNumber: 40
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/src/components/Sidebar.jsx",
+                    lineNumber: 239,
+                    columnNumber: 9
+                }, this) : visibleMenu.map((item_1)=>{
+                    const isExpanded = expandedMenu === item_1.name;
+                    const subItemsToRender = item_1.subItems;
+                    const isActive = item_1.href === pathname || subItemsToRender?.some((sub_0)=>sub_0.href === pathname);
+                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mb-1",
+                        children: subItemsToRender ? // --- 📂 Dropdown Menu ---
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>toggleMenu(item_1.name),
+                                    className: `w-full flex items-center justify-between px-3 py-3 rounded-xl transition-all duration-200 group
+                            ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}
+                        `,
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex items-center gap-3 min-w-0",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item_1.icon, {
+                                                    size: 20,
+                                                    className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'} shrink-0`
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                                    lineNumber: 253,
+                                                    columnNumber: 29
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "font-medium text-sm md:text-base truncate flex items-center gap-2",
+                                                    children: item_1.name
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                                    lineNumber: 254,
+                                                    columnNumber: 29
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/components/Sidebar.jsx",
+                                            lineNumber: 252,
+                                            columnNumber: 25
+                                        }, this),
+                                        isExpanded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
+                                            size: 16,
+                                            className: "shrink-0"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Sidebar.jsx",
+                                            lineNumber: 258,
+                                            columnNumber: 39
+                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
+                                            size: 16,
+                                            className: "shrink-0"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Sidebar.jsx",
+                                            lineNumber: 258,
+                                            columnNumber: 88
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                    lineNumber: 249,
+                                    columnNumber: 25
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: `overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-96 opacity-100 mt-1' : 'max-h-0 opacity-0'}`,
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "ml-4 pl-3 border-l border-slate-700 space-y-1 py-1",
+                                        children: subItemsToRender.map((sub_1)=>{
+                                            const isSubActive = pathname === sub_1.href;
+                                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                href: sub_1.href,
+                                                onClick: handleLinkClick,
+                                                className: `flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-colors mb-1
+                                    ${isSubActive ? 'text-blue-400 bg-blue-900/20 font-bold' : 'text-slate-500 hover:text-slate-200 hover:bg-slate-800/50'}
+                                    `,
+                                                children: [
+                                                    sub_1.icon ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(sub_1.icon, {
+                                                        size: 16,
+                                                        className: isSubActive ? 'text-blue-400' : 'text-slate-600'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                                        lineNumber: 268,
+                                                        columnNumber: 51
+                                                    }, this) : sub_1.name === 'ข้อมูลส่วนตัว' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
+                                                        size: 14,
+                                                        className: isSubActive ? 'text-blue-400' : 'opacity-50'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                                        lineNumber: 268,
+                                                        columnNumber: 172
+                                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
+                                                        size: 8,
+                                                        className: isSubActive ? 'fill-current' : 'opacity-50'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                                        lineNumber: 268,
+                                                        columnNumber: 250
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "truncate",
+                                                        children: sub_1.name
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                                        lineNumber: 269,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, sub_1.href, true, {
+                                                fileName: "[project]/src/components/Sidebar.jsx",
+                                                lineNumber: 265,
+                                                columnNumber: 28
+                                            }, this);
+                                        })
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                        lineNumber: 262,
+                                        columnNumber: 25
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                    lineNumber: 261,
+                                    columnNumber: 25
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 248,
+                            columnNumber: 13
+                        }, this) : // --- 🔗 Single Link Menu ---
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            href: item_1.href,
+                            onClick: handleLinkClick,
+                            className: `flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/50' : 'hover:bg-slate-800 hover:text-white text-slate-400'}`,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400 transition-colors'} shrink-0`,
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item_1.icon, {
+                                        size: 20
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Sidebar.jsx",
+                                        lineNumber: 278,
+                                        columnNumber: 25
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                    lineNumber: 277,
+                                    columnNumber: 25
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "font-medium text-sm md:text-base truncate flex items-center gap-2",
+                                    children: item_1.name
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Sidebar.jsx",
+                                    lineNumber: 280,
+                                    columnNumber: 25
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 276,
+                            columnNumber: 13
+                        }, this)
+                    }, item_1.name, false, {
+                        fileName: "[project]/src/components/Sidebar.jsx",
+                        lineNumber: 245,
+                        columnNumber: 18
+                    }, this);
+                })
+            }, void 0, false, {
+                fileName: "[project]/src/components/Sidebar.jsx",
+                lineNumber: 236,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "p-4 border-t border-slate-800 bg-slate-900 shrink-0",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    onClick: handleLogout,
+                    className: "flex items-center gap-3 px-4 py-3 w-full hover:bg-red-500/10 rounded-xl text-red-400 hover:text-red-300 transition active:scale-[0.98]",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$out$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LogOut$3e$__["LogOut"], {
+                            size: 20
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 291,
+                            columnNumber: 17
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "font-medium",
+                            children: "ออกจากระบบ"
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Sidebar.jsx",
+                            lineNumber: 292,
+                            columnNumber: 17
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/components/Sidebar.jsx",
+                    lineNumber: 290,
+                    columnNumber: 13
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/components/Sidebar.jsx",
+                lineNumber: 289,
+                columnNumber: 9
             }, this)
         ]
-    }, void 0, true);
+    }, void 0, true, {
+        fileName: "[project]/src/components/Sidebar.jsx",
+        lineNumber: 204,
+        columnNumber: 5
+    }, this));
 }
-_s(Sidebar, "fk/lk6qz/2u0SNHGDRbIF+qe1Cs=", false, function() {
+_s(Sidebar, "44EUgPEOFIYLqfkbuSz1ZJFsr04=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
@@ -1157,6 +1165,7 @@ function DashboardPage() {
     const [currentTime, setCurrentTime] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [activityTab, setActivityTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('all');
     const [isNotiOpen, setIsNotiOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    // ✅ State สำหรับเปิด/ปิด Sidebar ในมือถือ
     const [isSidebarOpen, setIsSidebarOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [notifications, setNotifications] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [unreadCount, setUnreadCount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
@@ -1180,7 +1189,6 @@ function DashboardPage() {
                         if (dashRes.ok) setDashboardData(await dashRes.json());
                         if (leaveRes.ok) setLeaveStats(await leaveRes.json());
                         await fetchNotifications();
-                        // ✅ ดึงข้อมูล Activity ของ "ทั้งระบบ" มาโชว์
                         const timelineRes = await fetch('/api/system-activity');
                         if (timelineRes.ok) {
                             setSystemActivities(await timelineRes.json());
@@ -1266,7 +1274,7 @@ function DashboardPage() {
             columnNumber: 12
         }, this);
     }
-    // ฟังก์ชันเลือก Icon ตาม Type
+    // ฟังก์ชันเลือก Icon และ สี
     const getActivityIcon = (type)=>{
         switch(type){
             case 'attendance':
@@ -1303,7 +1311,6 @@ function DashboardPage() {
                 }, this);
         }
     };
-    // ฟังก์ชันเลือกสีตาม Type
     const getActivityColor = (type_0)=>{
         switch(type_0){
             case 'attendance':
@@ -1317,52 +1324,42 @@ function DashboardPage() {
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "flex min-h-screen bg-slate-50 font-sans",
+        className: "flex min-h-screen bg-slate-50 font-sans overflow-x-hidden",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: `fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`,
                 onClick: ()=>setIsSidebarOpen(false)
             }, void 0, false, {
                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                lineNumber: 133,
+                lineNumber: 131,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
                 className: `fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:shadow-none lg:border-r lg:border-slate-800 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`,
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "h-full relative",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            onClick: ()=>setIsSidebarOpen(false),
-                            className: "lg:hidden absolute top-4 right-4 p-2 text-slate-400 hover:text-white transition z-50",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                size: 24
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/Dashboard/page.jsx",
-                                lineNumber: 138,
-                                columnNumber: 158
-                            }, this)
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/Dashboard/page.jsx",
-                            lineNumber: 138,
-                            columnNumber: 13
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Sidebar$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                    className: "h-full relative flex flex-col",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1 overflow-y-auto",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Sidebar$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             onClose: ()=>setIsSidebarOpen(false)
                         }, void 0, false, {
                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                            lineNumber: 139,
-                            columnNumber: 13
+                            lineNumber: 141,
+                            columnNumber: 16
                         }, this)
-                    ]
-                }, void 0, true, {
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/Dashboard/page.jsx",
+                        lineNumber: 140,
+                        columnNumber: 13
+                    }, this)
+                }, void 0, false, {
                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                    lineNumber: 137,
+                    lineNumber: 135,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                lineNumber: 136,
+                lineNumber: 134,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1371,7 +1368,7 @@ function DashboardPage() {
                     className: "p-4 md:p-8 w-full max-w-7xl mx-auto",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
-                            className: "flex flex-col-reverse gap-4 md:flex-row md:justify-between md:items-center mb-8",
+                            className: "flex flex-col gap-4 md:flex-row md:justify-between md:items-center mb-6 md:mb-8",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex items-center gap-3",
@@ -1383,26 +1380,26 @@ function DashboardPage() {
                                                 size: 24
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 150,
+                                                lineNumber: 154,
                                                 columnNumber: 152
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                            lineNumber: 150,
+                                            lineNumber: 154,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                                    className: "text-2xl md:text-3xl font-bold text-slate-800",
+                                                    className: "text-xl md:text-3xl font-bold text-slate-800",
                                                     children: "ภาพรวมระบบ"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                    lineNumber: 152,
+                                                    lineNumber: 157,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                    className: "text-slate-500 text-sm mt-1",
+                                                    className: "text-slate-500 text-xs md:text-sm mt-1",
                                                     children: [
                                                         "ยินดีต้อนรับกลับ, ",
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1410,7 +1407,7 @@ function DashboardPage() {
                                                             children: user?.first_name || 'Guest'
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 154,
+                                                            lineNumber: 159,
                                                             columnNumber: 43
                                                         }, this),
                                                         " (",
@@ -1419,76 +1416,76 @@ function DashboardPage() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                    lineNumber: 153,
+                                                    lineNumber: 158,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                            lineNumber: 151,
+                                            lineNumber: 156,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                    lineNumber: 149,
+                                    lineNumber: 152,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex items-center justify-end gap-3 md:gap-4",
+                                    className: "flex items-center justify-end gap-2 md:gap-4 self-end md:self-auto",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: "hidden md:inline-block text-sm text-slate-500 font-mono bg-white px-3 py-1 rounded-full shadow-sm border border-slate-200",
                                             children: currentTime ? currentTime.toLocaleTimeString('th-TH') : '...'
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                            lineNumber: 160,
+                                            lineNumber: 165,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                             href: "/attendance",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "hidden md:flex items-center gap-2 bg-linear-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all text-sm font-bold",
+                                                    className: "hidden md:flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all text-sm font-bold whitespace-nowrap",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
                                                             size: 18
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 167,
+                                                            lineNumber: 172,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             children: "ลงเวลาเข้างาน"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 168,
+                                                            lineNumber: 173,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                    lineNumber: 166,
+                                                    lineNumber: 171,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "md:hidden p-2 bg-blue-600 text-white rounded-full shadow-md",
+                                                    className: "md:hidden p-2.5 bg-blue-600 text-white rounded-full shadow-md",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
                                                         size: 20
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 170,
-                                                        columnNumber: 97
+                                                        lineNumber: 175,
+                                                        columnNumber: 99
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                    lineNumber: 170,
+                                                    lineNumber: 175,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                            lineNumber: 165,
+                                            lineNumber: 170,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1502,20 +1499,20 @@ function DashboardPage() {
                                                             size: 20
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 176,
+                                                            lineNumber: 181,
                                                             columnNumber: 23
                                                         }, this),
                                                         unreadCount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             className: "absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-pulse"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 177,
+                                                            lineNumber: 182,
                                                             columnNumber: 43
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                    lineNumber: 175,
+                                                    lineNumber: 180,
                                                     columnNumber: 19
                                                 }, this),
                                                 isNotiOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1525,11 +1522,11 @@ function DashboardPage() {
                                                             onClick: ()=>setIsNotiOpen(false)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 180,
+                                                            lineNumber: 185,
                                                             columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "absolute right-0 mt-3 w-80 md:w-96 bg-white rounded-xl shadow-xl border border-slate-100 z-20 overflow-hidden animate-in fade-in slide-in-from-top-2",
+                                                            className: "absolute right-0 mt-3 w-72 md:w-96 bg-white rounded-xl shadow-xl border border-slate-100 z-20 overflow-hidden animate-in fade-in slide-in-from-top-2",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "px-4 py-3 border-b border-slate-50 flex justify-between items-center bg-slate-50/50",
@@ -1543,7 +1540,7 @@ function DashboardPage() {
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                            lineNumber: 183,
+                                                                            lineNumber: 188,
                                                                             columnNumber: 35
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1553,28 +1550,28 @@ function DashboardPage() {
                                                                                 size: 16
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                lineNumber: 184,
+                                                                                lineNumber: 189,
                                                                                 columnNumber: 128
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                            lineNumber: 184,
+                                                                            lineNumber: 189,
                                                                             columnNumber: 35
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                    lineNumber: 182,
+                                                                    lineNumber: 187,
                                                                     columnNumber: 31
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "max-h-[400px] overflow-y-auto custom-scrollbar",
+                                                                    className: "max-h-[300px] md:max-h-[400px] overflow-y-auto custom-scrollbar",
                                                                     children: notifications.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "p-8 text-center text-slate-400 text-sm",
                                                                         children: "ไม่มีการแจ้งเตือนใหม่"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                        lineNumber: 187,
+                                                                        lineNumber: 192,
                                                                         columnNumber: 65
                                                                     }, this) : notifications.map((noti)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             onClick: ()=>markAsRead(noti.id, noti.link),
@@ -1586,18 +1583,18 @@ function DashboardPage() {
                                                                                         size: 14
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                        lineNumber: 189,
+                                                                                        lineNumber: 194,
                                                                                         columnNumber: 77
                                                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Info$3e$__["Info"], {
                                                                                         size: 14
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                        lineNumber: 189,
+                                                                                        lineNumber: 194,
                                                                                         columnNumber: 107
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                    lineNumber: 188,
+                                                                                    lineNumber: 193,
                                                                                     columnNumber: 47
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1607,7 +1604,7 @@ function DashboardPage() {
                                                                                             children: noti.title
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                            lineNumber: 192,
+                                                                                            lineNumber: 197,
                                                                                             columnNumber: 51
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1615,30 +1612,30 @@ function DashboardPage() {
                                                                                             children: noti.message
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                            lineNumber: 193,
+                                                                                            lineNumber: 198,
                                                                                             columnNumber: 51
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                    lineNumber: 191,
+                                                                                    lineNumber: 196,
                                                                                     columnNumber: 47
                                                                                 }, this)
                                                                             ]
                                                                         }, noti.id, true, {
                                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                            lineNumber: 187,
+                                                                            lineNumber: 192,
                                                                             columnNumber: 177
                                                                         }, this))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                    lineNumber: 186,
+                                                                    lineNumber: 191,
                                                                     columnNumber: 31
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 181,
+                                                            lineNumber: 186,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
@@ -1646,36 +1643,43 @@ function DashboardPage() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                            lineNumber: 174,
+                                            lineNumber: 179,
                                             columnNumber: 15
                                         }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$UserProfile$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                            user: user
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "shrink-0",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$UserProfile$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                user: user
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/Dashboard/page.jsx",
+                                                lineNumber: 206,
+                                                columnNumber: 19
+                                            }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                            lineNumber: 200,
+                                            lineNumber: 205,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                    lineNumber: 159,
+                                    lineNumber: 164,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                            lineNumber: 148,
+                            lineNumber: 151,
                             columnNumber: 11
                         }, this),
                         user?.role === 'super_admin' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8",
+                            className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/hr",
                                     className: "block h-full group",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "bg-linear-to-r from-pink-500 to-rose-500 p-6 rounded-2xl shadow-lg shadow-pink-200 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 relative overflow-hidden text-white",
+                                        className: "bg-gradient-to-r from-pink-500 to-rose-500 p-4 md:p-6 rounded-2xl shadow-lg shadow-pink-200 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 relative overflow-hidden text-white h-full",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "relative z-10 flex justify-between items-start",
@@ -1683,81 +1687,82 @@ function DashboardPage() {
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-pink-100 text-sm font-medium mb-1",
+                                                                className: "text-pink-100 text-xs md:text-sm font-medium mb-1",
                                                                 children: "พนักงานทั้งหมด"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 213,
+                                                                lineNumber: 220,
                                                                 columnNumber: 33
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                                className: "text-3xl font-bold",
+                                                                className: "text-2xl md:text-3xl font-bold",
                                                                 children: [
                                                                     loading ? "..." : dashboardData.employeeCount,
                                                                     " ",
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                        className: "text-sm font-normal text-pink-100",
+                                                                        className: "text-xs md:text-sm font-normal text-pink-100",
                                                                         children: "คน"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                        lineNumber: 214,
-                                                                        columnNumber: 116
+                                                                        lineNumber: 221,
+                                                                        columnNumber: 128
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 214,
+                                                                lineNumber: 221,
                                                                 columnNumber: 33
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 212,
+                                                        lineNumber: 219,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "p-3 bg-white/20 rounded-xl backdrop-blur-sm",
+                                                        className: "p-2 md:p-3 bg-white/20 rounded-xl backdrop-blur-sm",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Users$3e$__["Users"], {
-                                                            size: 24
+                                                            size: 20,
+                                                            className: "md:w-6 md:h-6"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 217,
+                                                            lineNumber: 224,
                                                             columnNumber: 33
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 216,
+                                                        lineNumber: 223,
                                                         columnNumber: 29
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 211,
+                                                lineNumber: 218,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "absolute -bottom-6 -right-6 w-24 h-24 bg-white/10 rounded-full"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 220,
+                                                lineNumber: 227,
                                                 columnNumber: 25
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                        lineNumber: 210,
+                                        lineNumber: 217,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                    lineNumber: 209,
+                                    lineNumber: 216,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/inventory",
                                     className: "block h-full group",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "bg-linear-to-r from-orange-400 to-amber-500 p-6 rounded-2xl shadow-lg shadow-orange-200 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 relative overflow-hidden text-white",
+                                        className: "bg-gradient-to-r from-orange-400 to-amber-500 p-4 md:p-6 rounded-2xl shadow-lg shadow-orange-200 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 relative overflow-hidden text-white h-full",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "relative z-10 flex justify-between items-start",
@@ -1765,81 +1770,82 @@ function DashboardPage() {
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-orange-100 text-sm font-medium mb-1",
+                                                                className: "text-orange-100 text-xs md:text-sm font-medium mb-1",
                                                                 children: "สินค้าใกล้หมด"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 229,
+                                                                lineNumber: 236,
                                                                 columnNumber: 33
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                                className: "text-3xl font-bold",
+                                                                className: "text-2xl md:text-3xl font-bold",
                                                                 children: [
                                                                     loading ? "..." : dashboardData.stockAlert,
                                                                     " ",
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                        className: "text-sm font-normal text-orange-100",
+                                                                        className: "text-xs md:text-sm font-normal text-orange-100",
                                                                         children: "รายการ"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                        lineNumber: 230,
-                                                                        columnNumber: 113
+                                                                        lineNumber: 237,
+                                                                        columnNumber: 125
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 230,
+                                                                lineNumber: 237,
                                                                 columnNumber: 33
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 228,
+                                                        lineNumber: 235,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "p-3 bg-white/20 rounded-xl backdrop-blur-sm",
+                                                        className: "p-2 md:p-3 bg-white/20 rounded-xl backdrop-blur-sm",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$package$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Package$3e$__["Package"], {
-                                                            size: 24
+                                                            size: 20,
+                                                            className: "md:w-6 md:h-6"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 233,
+                                                            lineNumber: 240,
                                                             columnNumber: 33
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 232,
+                                                        lineNumber: 239,
                                                         columnNumber: 29
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 227,
+                                                lineNumber: 234,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "absolute -bottom-6 -right-6 w-24 h-24 bg-white/10 rounded-full"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 236,
+                                                lineNumber: 243,
                                                 columnNumber: 25
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                        lineNumber: 226,
+                                        lineNumber: 233,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                    lineNumber: 225,
+                                    lineNumber: 232,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/sales",
                                     className: "block h-full group",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "bg-linear-to-r from-purple-500 to-indigo-600 p-6 rounded-2xl shadow-lg shadow-purple-200 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 relative overflow-hidden text-white",
+                                        className: "bg-gradient-to-r from-purple-500 to-indigo-600 p-4 md:p-6 rounded-2xl shadow-lg shadow-purple-200 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 relative overflow-hidden text-white h-full",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "relative z-10 flex justify-between items-start",
@@ -1847,73 +1853,74 @@ function DashboardPage() {
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-purple-100 text-sm font-medium mb-1",
+                                                                className: "text-purple-100 text-xs md:text-sm font-medium mb-1",
                                                                 children: "ยอดขายวันนี้"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 245,
+                                                                lineNumber: 252,
                                                                 columnNumber: 33
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                                className: "text-3xl font-bold",
+                                                                className: "text-2xl md:text-3xl font-bold",
                                                                 children: [
                                                                     "฿",
                                                                     loading ? "..." : Number(dashboardData.todaysSales).toLocaleString()
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 246,
+                                                                lineNumber: 253,
                                                                 columnNumber: 33
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 244,
+                                                        lineNumber: 251,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "p-3 bg-white/20 rounded-xl backdrop-blur-sm",
+                                                        className: "p-2 md:p-3 bg-white/20 rounded-xl backdrop-blur-sm",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$dollar$2d$sign$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__DollarSign$3e$__["DollarSign"], {
-                                                            size: 24
+                                                            size: 20,
+                                                            className: "md:w-6 md:h-6"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 249,
+                                                            lineNumber: 256,
                                                             columnNumber: 33
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 248,
+                                                        lineNumber: 255,
                                                         columnNumber: 29
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 243,
+                                                lineNumber: 250,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "absolute -bottom-6 -right-6 w-24 h-24 bg-white/10 rounded-full"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 252,
+                                                lineNumber: 259,
                                                 columnNumber: 25
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                        lineNumber: 242,
+                                        lineNumber: 249,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                    lineNumber: 241,
+                                    lineNumber: 248,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/hr/approve-leave",
                                     className: "block h-full group",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "bg-linear-to-r from-cyan-400 to-teal-500 p-6 rounded-2xl shadow-lg shadow-cyan-200 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 relative overflow-hidden text-white",
+                                        className: "bg-gradient-to-r from-cyan-400 to-teal-500 p-4 md:p-6 rounded-2xl shadow-lg shadow-cyan-200 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 relative overflow-hidden text-white h-full",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "relative z-10 flex justify-between items-start",
@@ -1921,69 +1928,70 @@ function DashboardPage() {
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-cyan-100 text-sm font-medium mb-1",
+                                                                className: "text-cyan-100 text-xs md:text-sm font-medium mb-1",
                                                                 children: "คำขอลา (รออนุมัติ)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 261,
+                                                                lineNumber: 268,
                                                                 columnNumber: 33
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                                className: "text-3xl font-bold",
+                                                                className: "text-2xl md:text-3xl font-bold",
                                                                 children: loading ? "..." : leaveStats.pendingLeaves
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 262,
+                                                                lineNumber: 269,
                                                                 columnNumber: 33
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 260,
+                                                        lineNumber: 267,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "p-3 bg-white/20 rounded-xl backdrop-blur-sm",
+                                                        className: "p-2 md:p-3 bg-white/20 rounded-xl backdrop-blur-sm",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
-                                                            size: 24
+                                                            size: 20,
+                                                            className: "md:w-6 md:h-6"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 265,
+                                                            lineNumber: 272,
                                                             columnNumber: 33
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 264,
+                                                        lineNumber: 271,
                                                         columnNumber: 29
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 259,
+                                                lineNumber: 266,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "absolute -bottom-6 -right-6 w-24 h-24 bg-white/10 rounded-full"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 268,
+                                                lineNumber: 275,
                                                 columnNumber: 25
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                        lineNumber: 258,
+                                        lineNumber: 265,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                    lineNumber: 257,
+                                    lineNumber: 264,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                            lineNumber: 207,
+                            lineNumber: 214,
                             columnNumber: 44
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1991,10 +1999,10 @@ function DashboardPage() {
                             children: user?.role === 'super_admin' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-6",
+                                        className: "lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-4 md:p-6",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex items-center justify-between mb-6",
+                                                className: "flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
@@ -2006,14 +2014,14 @@ function DashboardPage() {
                                                                         className: "text-indigo-500"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                        lineNumber: 283,
+                                                                        lineNumber: 289,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     "ภาพรวมรายรับ (Revenue)"
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 282,
+                                                                lineNumber: 288,
                                                                 columnNumber: 29
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2021,37 +2029,37 @@ function DashboardPage() {
                                                                 children: "กราฟแสดงยอดขายเปรียบเทียบ 6 เดือนย้อนหลัง"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 286,
+                                                                lineNumber: 292,
                                                                 columnNumber: 29
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 281,
+                                                        lineNumber: 287,
                                                         columnNumber: 27
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        className: "text-slate-400 hover:text-slate-600 bg-slate-50 p-2 rounded-lg",
+                                                        className: "text-slate-400 hover:text-slate-600 bg-slate-50 p-2 rounded-lg self-end sm:self-auto",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$ellipsis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MoreHorizontal$3e$__["MoreHorizontal"], {
                                                             size: 20
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 288,
-                                                            columnNumber: 110
+                                                            lineNumber: 294,
+                                                            columnNumber: 132
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 288,
+                                                        lineNumber: 294,
                                                         columnNumber: 27
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 280,
+                                                lineNumber: 286,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "relative h-64 w-full bg-indigo-50/30 rounded-2xl overflow-hidden border border-indigo-100",
+                                                className: "relative h-48 md:h-64 w-full bg-indigo-50/30 rounded-2xl overflow-hidden border border-indigo-100",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                                     viewBox: "0 0 500 150",
                                                     className: "w-full h-full preserve-3d",
@@ -2070,7 +2078,7 @@ function DashboardPage() {
                                                                         stopOpacity: "0.5"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                        lineNumber: 295,
+                                                                        lineNumber: 302,
                                                                         columnNumber: 36
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
@@ -2079,18 +2087,18 @@ function DashboardPage() {
                                                                         stopOpacity: "0"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                        lineNumber: 296,
+                                                                        lineNumber: 303,
                                                                         columnNumber: 36
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 294,
+                                                                lineNumber: 301,
                                                                 columnNumber: 33
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 293,
+                                                            lineNumber: 300,
                                                             columnNumber: 30
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("line", {
@@ -2103,7 +2111,7 @@ function DashboardPage() {
                                                             strokeDasharray: "5,5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 299,
+                                                            lineNumber: 306,
                                                             columnNumber: 30
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("line", {
@@ -2116,7 +2124,7 @@ function DashboardPage() {
                                                             strokeDasharray: "5,5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 300,
+                                                            lineNumber: 307,
                                                             columnNumber: 30
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("line", {
@@ -2129,7 +2137,7 @@ function DashboardPage() {
                                                             strokeDasharray: "5,5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 301,
+                                                            lineNumber: 308,
                                                             columnNumber: 30
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -2137,7 +2145,7 @@ function DashboardPage() {
                                                             fill: "url(#gradient)"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 302,
+                                                            lineNumber: 309,
                                                             columnNumber: 30
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -2148,7 +2156,7 @@ function DashboardPage() {
                                                             strokeLinecap: "round"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 303,
+                                                            lineNumber: 310,
                                                             columnNumber: 30
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -2158,7 +2166,7 @@ function DashboardPage() {
                                                             fill: "#6366f1"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 304,
+                                                            lineNumber: 311,
                                                             columnNumber: 30
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -2168,7 +2176,7 @@ function DashboardPage() {
                                                             fill: "#6366f1"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 305,
+                                                            lineNumber: 312,
                                                             columnNumber: 30
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -2178,22 +2186,22 @@ function DashboardPage() {
                                                             fill: "#6366f1"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 306,
+                                                            lineNumber: 313,
                                                             columnNumber: 30
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                    lineNumber: 292,
+                                                    lineNumber: 299,
                                                     columnNumber: 28
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 290,
+                                                lineNumber: 298,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "grid grid-cols-2 gap-4 mt-6",
+                                                className: "grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "p-4 rounded-xl bg-slate-50 border border-slate-100 flex items-center gap-3",
@@ -2204,12 +2212,12 @@ function DashboardPage() {
                                                                     size: 20
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                    lineNumber: 311,
+                                                                    lineNumber: 318,
                                                                     columnNumber: 92
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 311,
+                                                                lineNumber: 318,
                                                                 columnNumber: 30
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2219,27 +2227,27 @@ function DashboardPage() {
                                                                         children: "รายรับรวม"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                        lineNumber: 312,
+                                                                        lineNumber: 319,
                                                                         columnNumber: 35
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                        className: "text-xl font-bold text-slate-800",
+                                                                        className: "text-lg md:text-xl font-bold text-slate-800",
                                                                         children: "฿425,000"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                        lineNumber: 312,
+                                                                        lineNumber: 319,
                                                                         columnNumber: 86
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 312,
+                                                                lineNumber: 319,
                                                                 columnNumber: 30
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 310,
+                                                        lineNumber: 317,
                                                         columnNumber: 27
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2251,12 +2259,12 @@ function DashboardPage() {
                                                                     size: 20
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                    lineNumber: 315,
+                                                                    lineNumber: 322,
                                                                     columnNumber: 92
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 315,
+                                                                lineNumber: 322,
                                                                 columnNumber: 30
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2266,43 +2274,43 @@ function DashboardPage() {
                                                                         children: "กำไรสุทธิ"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                        lineNumber: 316,
+                                                                        lineNumber: 323,
                                                                         columnNumber: 35
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                        className: "text-xl font-bold text-slate-800",
+                                                                        className: "text-lg md:text-xl font-bold text-slate-800",
                                                                         children: "฿120,500"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                        lineNumber: 316,
+                                                                        lineNumber: 323,
                                                                         columnNumber: 86
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 316,
+                                                                lineNumber: 323,
                                                                 columnNumber: 30
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 314,
+                                                        lineNumber: 321,
                                                         columnNumber: 27
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 309,
+                                                lineNumber: 316,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                        lineNumber: 278,
+                                        lineNumber: 285,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "lg:col-span-1 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col h-full min-h-[500px]",
+                                        className: "lg:col-span-1 bg-white rounded-2xl shadow-sm border border-slate-200 p-4 md:p-6 flex flex-col h-full min-h-[400px] md:min-h-[500px]",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "flex items-center justify-between mb-4",
@@ -2317,14 +2325,14 @@ function DashboardPage() {
                                                                         className: "text-pink-500"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                        lineNumber: 326,
+                                                                        lineNumber: 333,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     "ภาพรวมระบบ"
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 325,
+                                                                lineNumber: 332,
                                                                 columnNumber: 29
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2332,13 +2340,13 @@ function DashboardPage() {
                                                                 children: "กิจกรรมล่าสุดจากพนักงานทุกคน"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 329,
+                                                                lineNumber: 336,
                                                                 columnNumber: 29
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 324,
+                                                        lineNumber: 331,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2350,7 +2358,7 @@ function DashboardPage() {
                                                                 children: "All"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 332,
+                                                                lineNumber: 339,
                                                                 columnNumber: 29
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2359,19 +2367,19 @@ function DashboardPage() {
                                                                 children: "Doc"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 333,
+                                                                lineNumber: 340,
                                                                 columnNumber: 29
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 331,
+                                                        lineNumber: 338,
                                                         columnNumber: 25
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 323,
+                                                lineNumber: 330,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2386,7 +2394,7 @@ function DashboardPage() {
                                                                     children: getActivityIcon(act_0.type)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                    lineNumber: 341,
+                                                                    lineNumber: 347,
                                                                     columnNumber: 42
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2396,36 +2404,36 @@ function DashboardPage() {
                                                                             className: "flex justify-between items-start mb-1",
                                                                             children: [
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                                    className: "text-xs font-bold text-slate-800",
+                                                                                    className: "text-xs font-bold text-slate-800 line-clamp-1",
                                                                                     children: act_0.title
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                    lineNumber: 346,
-                                                                                    columnNumber: 49
+                                                                                    lineNumber: 352,
+                                                                                    columnNumber: 50
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                    className: `text-[9px] font-bold px-1.5 rounded uppercase ${act_0.status === 'success' ? 'bg-green-100 text-green-600' : 'bg-slate-200'}`,
+                                                                                    className: `text-[9px] font-bold px-1.5 rounded uppercase shrink-0 ${act_0.status === 'success' ? 'bg-green-100 text-green-600' : 'bg-slate-200'}`,
                                                                                     children: act_0.status
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                    lineNumber: 347,
-                                                                                    columnNumber: 49
+                                                                                    lineNumber: 353,
+                                                                                    columnNumber: 50
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                            lineNumber: 345,
-                                                                            columnNumber: 46
+                                                                            lineNumber: 351,
+                                                                            columnNumber: 47
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            className: "flex items-center gap-1.5 mt-1 mb-1",
+                                                                            className: "flex items-center gap-1.5 mt-1 mb-1 flex-wrap",
                                                                             children: [
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
                                                                                     size: 10,
                                                                                     className: "text-slate-400"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                    lineNumber: 352,
+                                                                                    lineNumber: 357,
                                                                                     columnNumber: 50
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2433,7 +2441,7 @@ function DashboardPage() {
                                                                                     children: act_0.user
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                    lineNumber: 353,
+                                                                                    lineNumber: 358,
                                                                                     columnNumber: 50
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2445,14 +2453,14 @@ function DashboardPage() {
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                    lineNumber: 354,
+                                                                                    lineNumber: 359,
                                                                                     columnNumber: 50
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                            lineNumber: 351,
-                                                                            columnNumber: 46
+                                                                            lineNumber: 356,
+                                                                            columnNumber: 47
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                                             className: "text-[10px] text-slate-500 flex items-center gap-2",
@@ -2461,7 +2469,7 @@ function DashboardPage() {
                                                                                     children: act_0.time
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                    lineNumber: 358,
+                                                                                    lineNumber: 363,
                                                                                     columnNumber: 50
                                                                                 }, this),
                                                                                 " • ",
@@ -2469,33 +2477,32 @@ function DashboardPage() {
                                                                                     children: act_0.date
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                                    lineNumber: 358,
+                                                                                    lineNumber: 363,
                                                                                     columnNumber: 78
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                            lineNumber: 357,
-                                                                            columnNumber: 46
+                                                                            lineNumber: 362,
+                                                                            columnNumber: 47
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                    lineNumber: 344,
+                                                                    lineNumber: 350,
                                                                     columnNumber: 42
                                                                 }, this)
                                                             ]
                                                         }, act_0.id, true, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 340,
+                                                            lineNumber: 346,
                                                             columnNumber: 67
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                    lineNumber: 339,
+                                                    lineNumber: 345,
                                                     columnNumber: 59
-                                                }, this) : // Empty State
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "h-full flex flex-col items-center justify-center text-slate-300 gap-3 min-h-[200px]",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2505,12 +2512,12 @@ function DashboardPage() {
                                                                 className: "opacity-50"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 366,
+                                                                lineNumber: 369,
                                                                 columnNumber: 38
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 365,
+                                                            lineNumber: 368,
                                                             columnNumber: 34
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2518,18 +2525,18 @@ function DashboardPage() {
                                                             children: "ยังไม่มีกิจกรรมในระบบ"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 368,
+                                                            lineNumber: 371,
                                                             columnNumber: 34
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                    lineNumber: 364,
-                                                    columnNumber: 17
+                                                    lineNumber: 367,
+                                                    columnNumber: 39
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 338,
+                                                lineNumber: 344,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2542,7 +2549,7 @@ function DashboardPage() {
                                                                 size: 18
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 375,
+                                                                lineNumber: 377,
                                                                 columnNumber: 29
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2550,13 +2557,13 @@ function DashboardPage() {
                                                                 children: "สร้าง PO"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                lineNumber: 376,
+                                                                lineNumber: 378,
                                                                 columnNumber: 29
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 374,
+                                                        lineNumber: 376,
                                                         columnNumber: 26
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2569,7 +2576,7 @@ function DashboardPage() {
                                                                     size: 18
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                    lineNumber: 380,
+                                                                    lineNumber: 382,
                                                                     columnNumber: 33
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2577,34 +2584,34 @@ function DashboardPage() {
                                                                     children: "เพิ่มสินค้า"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                                    lineNumber: 381,
+                                                                    lineNumber: 383,
                                                                     columnNumber: 33
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                            lineNumber: 379,
+                                                            lineNumber: 381,
                                                             columnNumber: 29
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 378,
+                                                        lineNumber: 380,
                                                         columnNumber: 26
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 373,
+                                                lineNumber: 375,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                        lineNumber: 322,
+                                        lineNumber: 329,
                                         columnNumber: 19
                                     }, this)
                                 ]
-                            }, void 0, true) : // 🔵 Employee View (อันเดิม ไม่ต้องแก้)
+                            }, void 0, true) : // Employee View
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "lg:col-span-1 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 min-h-[500px] flex flex-col",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2619,14 +2626,14 @@ function DashboardPage() {
                                                         className: "text-blue-600"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                        lineNumber: 392,
+                                                        lineNumber: 394,
                                                         columnNumber: 33
                                                     }, this),
                                                     "ไทม์ไลน์การทำงาน"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 391,
+                                                lineNumber: 393,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2634,45 +2641,45 @@ function DashboardPage() {
                                                 children: "ประวัติกิจกรรมล่าสุดของคุณ"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                                lineNumber: 395,
+                                                lineNumber: 397,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/Dashboard/page.jsx",
-                                        lineNumber: 390,
+                                        lineNumber: 392,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                                    lineNumber: 389,
+                                    lineNumber: 391,
                                     columnNumber: 21
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                                lineNumber: 388,
+                                lineNumber: 390,
                                 columnNumber: 11
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/Dashboard/page.jsx",
-                            lineNumber: 274,
+                            lineNumber: 281,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/Dashboard/page.jsx",
-                    lineNumber: 145,
+                    lineNumber: 148,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/Dashboard/page.jsx",
-                lineNumber: 144,
+                lineNumber: 147,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/Dashboard/page.jsx",
-        lineNumber: 130,
+        lineNumber: 128,
         columnNumber: 10
     }, this);
 }

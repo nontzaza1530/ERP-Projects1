@@ -132,7 +132,7 @@ const dbConfig = {
     connectionLimit: 30,
     queueLimit: 0,
     enableKeepAlive: true,
-    keepAliveInitialDelay: 0
+    keepAliveInitialDelay: 10000
 };
 // --- เทคนิค Singleton ---
 // เช็คว่ามี pool อยู่ในตัวแปร Global หรือยัง? ถ้ามีแล้วให้ใช้ตัวเดิม
@@ -162,22 +162,31 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/headers.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jose$2f$dist$2f$webapi$2f$jwt$2f$verify$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/jose/dist/webapi/jwt/verify.js [app-route] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/lib/db.js [app-route] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/lib/db.js [app-route] (ecmascript)"); // ⚠️ ตรวจสอบว่า path นี้ถูกต้องตามโครงสร้างโปรเจกต์ของคุณ
 ;
 ;
 ;
 ;
 async function GET(request) {
     try {
+        // 1. รับ Token จาก Cookies
         const token = request.cookies.get('token')?.value;
-        if (!token) return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: 'Unauthorized'
-        }, {
-            status: 401
-        });
-        const secret = new TextEncoder().encode('MY_SECRET_KEY_1234');
+        if (!token) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'Unauthorized: No token provided'
+            }, {
+                status: 401
+            });
+        }
+        // 2. ✅ แก้ไขจุดที่ผิด: ดึงค่าจาก Environment Variable โดยตรง (เอาเครื่องหมายคำพูดออก)
+        // และใส่ Fallback Key ไว้กันพลาด (ต้องตรงกับหน้า Login นะครับ)
+        const secretKey = process.env.JWT_SECRET || 'MY_SECRET_KEY_1234';
+        const secret = new TextEncoder().encode(secretKey);
+        // 3. ตรวจสอบ Token
         const { payload } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jose$2f$dist$2f$webapi$2f$jwt$2f$verify$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["jwtVerify"])(token, secret);
-        // 🔍 Step 1: ค้นหา emp_code จากตาราง employees โดยใช้อีเมล (เพื่อความชัวร์ 100%)
+        // Debug: ดูว่า User คือใคร (ลบออกได้ตอนใช้งานจริง)
+        console.log("✅ Token Verified for User:", payload.email);
+        // 4. ค้นหา emp_code จากตาราง employees
         const [empRows] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(`SELECT emp_code FROM employees WHERE email = ?`, [
             payload.email
         ]);
@@ -185,22 +194,26 @@ async function GET(request) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
                 error: 'Employee not found',
                 requests: []
+            }, {
+                status: 404
             });
         }
         const currentEmpCode = empRows[0].emp_code;
-        console.log("Fetching history for Emp Code:", currentEmpCode); // ดู Log ได้ว่าหาถูกคนไหม
-        // 🔍 Step 2: เอา emp_code ที่ได้ ไปดึงประวัติการลา
+        console.log("🔍 Fetching leave history for Emp Code:", currentEmpCode);
+        // 5. ดึงประวัติการลา (ใช้ currentEmpCode ที่หามาได้)
         const [rows] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(`SELECT * FROM leave_requests WHERE employee_id = ? ORDER BY created_at DESC`, [
             currentEmpCode
         ]);
+        // ส่งข้อมูลกลับไปหน้าบ้าน
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             requests: rows
         });
     } catch (error) {
-        console.error("History API Error:", error);
+        // 🛑 แสดง Error ที่แท้จริงใน Terminal ฝั่ง Server
+        console.error("❌ History API Error Detailed:", error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: error.message,
-            requests: []
+            error: 'Internal Server Error',
+            message: error.message
         }, {
             status: 500
         });

@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import Sidebar from '../../../components/Sidebar';
 import { 
   Plus, Search, Phone, MapPin, User, Edit, Trash2, 
-  X, Save, Loader2, Building2, Mail 
-} from 'lucide-react';
+  X, Save, Loader2, Building2, Mail, Menu 
+} from 'lucide-react'; // ✅ เพิ่ม Menu icon
 import Swal from 'sweetalert2';
-// นำเข้า Component เลือกที่อยู่
+// นำเข้า Component เลือกที่อยู่ (ถ้ามีไฟล์นี้อยู่แล้ว)
 import ThaiAddressInput from '@/components/ThaiAddressInput';
 
 export default function SuppliersPage() {
@@ -18,7 +18,9 @@ export default function SuppliersPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
 
-  // ✅ 1. อัปเดต State ให้มีฟิลด์ที่อยู่ครบถ้วน
+  // ✅ State สำหรับเปิด/ปิด Sidebar ในมือถือ
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const [formData, setFormData] = useState({
     id: null,
     code: '',
@@ -28,11 +30,11 @@ export default function SuppliersPage() {
     email: '',
     tax_id: '',
     credit_term: 30,
-    address: '',        // เก็บรายละเอียด (เลขที่/หมู่/ซอย/ถนน)
-    sub_district: '',   // ตำบล
-    district: '',       // อำเภอ
-    province: '',       // จังหวัด
-    zipcode: ''         // รหัสไปรษณีย์
+    address: '',        
+    sub_district: '',   
+    district: '',       
+    province: '',       
+    zipcode: ''         
   });
 
   useEffect(() => {
@@ -53,12 +55,12 @@ export default function SuppliersPage() {
     }
   };
 
-  // ✅ 2. ฟังก์ชันรับค่าจาก Dropdown (Auto-fill)
+  // ฟังก์ชันรับค่าจาก Dropdown (Auto-fill)
   const handleAddressSelect = (addressData) => {
     setFormData(prev => ({
       ...prev,
-      sub_district: addressData.district, // Library ส่งค่ามาชื่อ district คือ ตำบล
-      district: addressData.amphoe,       // Library ส่งค่ามาชื่อ amphoe คือ อำเภอ
+      sub_district: addressData.district, 
+      district: addressData.amphoe,       
       province: addressData.province,
       zipcode: addressData.zipcode
     }));
@@ -94,7 +96,6 @@ export default function SuppliersPage() {
           email: supplier.email || '',
           tax_id: supplier.tax_id || '',
           credit_term: supplier.credit_term || 30,
-          // ดึงข้อมูลที่อยู่เดิมมาใส่ (ถ้ามี)
           address: supplier.address || '', 
           sub_district: supplier.sub_district || '',
           district: supplier.district || '',
@@ -175,19 +176,43 @@ export default function SuppliersPage() {
   );
 
   return (
-    <div className="flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900">
-      <Sidebar />
-      <main className="flex-1 ml-64 p-8 w-[calc(100%-16rem)]">
+    <div className="flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900 overflow-x-hidden">
+      
+      {/* ✅ 1. Mobile Overlay */}
+      <div 
+        className={`fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`} 
+        onClick={() => setIsSidebarOpen(false)} 
+      />
+
+      {/* ✅ 2. Sidebar Container */}
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:shadow-none lg:border-r lg:border-slate-800 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="h-full relative flex flex-col">
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
+               <Sidebar onClose={() => setIsSidebarOpen(false)} />
+            </div>
+          </div>
+      </aside>
+
+      {/* ✅ 3. Main Content Area */}
+      <main className="flex-1 w-full lg:ml-64 p-4 md:p-8 transition-all duration-300 min-h-screen flex flex-col">
         
         {/* Header Section */}
-        <div className="flex justify-between items-end mb-8">
-          <div>
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">ข้อมูลคู่ค้า (Suppliers)</h1>
-            <p className="text-slate-500 text-sm mt-1">จัดการรายชื่อร้านค้าและผู้จำหน่ายวัตถุดิบ</p>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
+          <div className="flex items-center gap-3">
+            {/* ✅ ปุ่มเมนูมือถือ */}
+            <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition">
+                <Menu size={24} />
+            </button>
+            
+            <div>
+                <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">ข้อมูลคู่ค้า (Suppliers)</h1>
+                <p className="text-slate-500 text-xs md:text-sm mt-1">จัดการรายชื่อร้านค้าและผู้จำหน่ายวัตถุดิบ</p>
+            </div>
           </div>
+
           <button 
             onClick={openAddModal} 
-            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transition-all active:scale-95"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 md:py-3 rounded-xl font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transition-all active:scale-95 text-sm md:text-base whitespace-nowrap"
           >
             <Plus size={20} strokeWidth={3}/> เพิ่มคู่ค้าใหม่
           </button>
@@ -199,16 +224,16 @@ export default function SuppliersPage() {
             <input 
                 type="text" 
                 placeholder="ค้นหารหัส หรือ ชื่อร้านค้า..." 
-                className="flex-1 outline-none text-slate-700 placeholder:text-slate-400"
+                className="flex-1 outline-none text-slate-700 placeholder:text-slate-400 bg-transparent"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
         </div>
 
         {/* Table Card */}
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-lg overflow-hidden">
-            <div className="overflow-x-auto">
-                <table className="w-full text-sm text-left border-collapse">
+        <div className="bg-white rounded-3xl border border-slate-200 shadow-lg overflow-hidden flex flex-col flex-1 min-h-[400px]">
+            <div className="overflow-x-auto custom-scrollbar">
+                <table className="w-full text-sm text-left border-collapse min-w-[900px]">
                     <thead className="bg-slate-100 text-slate-700 font-bold uppercase text-[11px] tracking-wider border-b-2 border-slate-200">
                         <tr>
                             <th className="p-4 pl-6 w-[15%]">รหัส (Code)</th>
@@ -243,10 +268,9 @@ export default function SuppliersPage() {
                                         </div>
                                     </td>
                                     <td className="p-4">
-                                        <div className="space-y-1">
+                                        <div className="space-y-1.5">
                                             {s.phone && <p className="flex items-center gap-2 text-slate-600 text-xs"><Phone size={12}/> {s.phone}</p>}
                                             {s.email && <p className="flex items-center gap-2 text-slate-500 text-xs"><Mail size={12}/> {s.email}</p>}
-                                            {/* แสดงที่อยู่แบบรวม */}
                                             {(s.address || s.province) && (
                                                 <p className="flex items-start gap-2 text-slate-400 text-[10px] mt-1">
                                                     <MapPin size={12} className="shrink-0 mt-0.5"/> 
@@ -255,15 +279,20 @@ export default function SuppliersPage() {
                                             )}
                                         </div>
                                     </td>
-                                    <td className="p-4 text-center">
+                                    <td className="p-4 text-center align-top">
                                         <div className="flex justify-center gap-2">
                                             <button 
                                                 onClick={() => openEditModal(s)} 
-                                                className="p-2 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition"
+                                                className="p-2 rounded-lg border border-slate-200 text-slate-400 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 transition shadow-sm"
                                             >
                                                 <Edit size={16}/>
                                             </button>
-                                            <button onClick={() => handleDelete(s.id)} className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition"><Trash2 size={16}/></button>
+                                            <button 
+                                                onClick={() => handleDelete(s.id)}
+                                                className="p-2 rounded-lg border border-slate-200 text-slate-400 hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition shadow-sm"
+                                            >
+                                                <Trash2 size={16}/>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -281,10 +310,10 @@ export default function SuppliersPage() {
       {/* --- Modal Form --- */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-all">
-            <div className="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto">
+            <div className="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 max-h-[90vh] flex flex-col">
                 
                 {/* Header */}
-                <div className="px-8 py-5 border-b border-slate-100 flex justify-between items-center bg-white sticky top-0 z-10">
+                <div className="px-8 py-5 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
                     <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
                         {isEditMode ? <Edit className="text-blue-600"/> : <Building2 className="text-green-600"/>}
                         {isEditMode ? 'แก้ไขข้อมูลคู่ค้า' : 'เพิ่มคู่ค้าใหม่'}
@@ -295,9 +324,9 @@ export default function SuppliersPage() {
                 </div>
 
                 {/* Form Body */}
-                <div className="p-8 bg-slate-50/50">
+                <div className="p-8 bg-slate-50/50 overflow-y-auto custom-scrollbar">
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="grid grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div className="col-span-1">
                                 <label className="block text-xs font-bold text-slate-600 uppercase mb-1">รหัส (Code) <span className="text-red-500">*</span></label>
                                 <input 
@@ -310,7 +339,7 @@ export default function SuppliersPage() {
                                     disabled={isEditMode}
                                 />
                             </div>
-                            <div className="col-span-2">
+                            <div className="col-span-1 md:col-span-2">
                                 <label className="block text-xs font-bold text-slate-600 uppercase mb-1">ชื่อร้านค้า / บริษัท <span className="text-red-500">*</span></label>
                                 <input 
                                     type="text" 
@@ -323,7 +352,7 @@ export default function SuppliersPage() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-xs font-bold text-slate-600 uppercase mb-1">ชื่อผู้ติดต่อ</label>
                                 <input 
@@ -357,7 +386,7 @@ export default function SuppliersPage() {
                             />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-xs font-bold text-slate-600 uppercase mb-1">เลขผู้เสียภาษี (Tax ID)</label>
                                 <input 
@@ -380,9 +409,8 @@ export default function SuppliersPage() {
                             </div>
                         </div>
 
-                        {/* ✅ 3. ส่วนที่อยู่แบบใหม่ (Smart Address) */}
+                        {/* Smart Address Section */}
                         <div className="space-y-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm mt-2">
-                            {/* ช่องกรอกรายละเอียด */}
                             <div>
                                 <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
                                     รายละเอียดที่อยู่ (เลขที่, หมู่บ้าน, ซอย, ถนน)
@@ -401,10 +429,11 @@ export default function SuppliersPage() {
                                 <p className="text-xs font-bold text-blue-600 mb-2 flex items-center gap-1">
                                     📍 ค้นหาพื้นที่ (พิมพ์ชื่อตำบล/แขวง ระบบจะขึ้นให้เลือกเอง)
                                 </p>
+                                {/* เรียกใช้ Component เดิมที่ user มีอยู่ */}
                                 <ThaiAddressInput onAddressSelect={handleAddressSelect} />
                             </div>
                             
-                            {/* แสดงผลค่าที่เลือก (Read-only) */}
+                            {/* แสดงผลค่าที่เลือก */}
                             {(formData.sub_district || formData.district) && (
                                 <div className="text-xs text-slate-500 bg-slate-100 p-2 rounded-lg flex flex-wrap gap-2 items-center">
                                     <span className="font-bold text-slate-700">ที่เลือก:</span>

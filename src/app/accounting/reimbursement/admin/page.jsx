@@ -5,7 +5,7 @@ import Sidebar from '../../../../components/Sidebar';
 import { 
   CheckCircle, XCircle, Clock, Filter, 
   User, Calendar, FileText, X, Eye, ImageIcon,
-  ChevronLeft, ChevronRight, Search, AlertCircle
+  ChevronLeft, ChevronRight, Search, AlertCircle, Menu
 } from 'lucide-react';
 import Swal from 'sweetalert2';
 
@@ -15,9 +15,12 @@ export default function AdminReimbursementPage() {
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // Pagination (ถ้าข้อมูลเยอะในอนาคต)
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+
+  // State for mobile sidebar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => { fetchData(); }, []);
 
@@ -106,26 +109,49 @@ export default function AdminReimbursementPage() {
   const tdClass = "p-4 text-sm text-slate-700 border-b border-slate-100 align-top";
 
   return (
-    <div className="flex min-h-screen bg-[#F8FAFC] font-sans">
-      <Sidebar />
-      <main className="flex-1 ml-64 p-8 w-[calc(100%-16rem)]">
+    <div className="flex min-h-screen bg-[#F8FAFC] font-sans overflow-x-hidden">
+      
+      {/* Mobile Overlay */}
+      <div 
+        className={`fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`} 
+        onClick={() => setIsSidebarOpen(false)} 
+      />
+
+      {/* Sidebar Container */}
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:shadow-none lg:border-r lg:border-slate-800 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="h-full relative flex flex-col">
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
+               <Sidebar onClose={() => setIsSidebarOpen(false)} />
+            </div>
+          </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 w-full lg:ml-64 p-4 md:p-8 transition-all duration-300 min-h-screen flex flex-col">
         
         {/* Header */}
-        <div className="flex justify-between items-end mb-8">
-            <div>
-                <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">ตรวจสอบการเบิกจ่าย</h1>
-                <p className="text-slate-500 text-sm mt-1">Admin Approval Dashboard</p>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
+            <div className="flex items-center gap-3">
+                {/* ปุ่มเมนูมือถือ */}
+                <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition">
+                    <Menu size={24} />
+                </button>
+                
+                <div>
+                    <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">ตรวจสอบการเบิกจ่าย</h1>
+                    <p className="text-slate-500 text-xs md:text-sm mt-1">Admin Approval Dashboard</p>
+                </div>
             </div>
             
             {/* Stats Card */}
-            <div className="bg-white px-6 py-4 rounded-2xl shadow-sm border border-slate-200 text-right min-w-[200px]">
+            <div className="bg-white px-6 py-4 rounded-2xl shadow-sm border border-slate-200 text-right min-w-[200px] w-full md:w-auto">
                 <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">ยอดรออนุมัติรวม</p>
                 <p className="text-3xl font-bold text-blue-600">฿{pendingAmount.toLocaleString()}</p>
             </div>
         </div>
 
         {/* Filter Tabs */}
-        <div className="bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm w-fit flex gap-1 mb-6">
+        <div className="bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm w-full md:w-fit flex gap-1 mb-6 overflow-x-auto custom-scrollbar">
             {[
                 { id: 'pending', label: 'รอตรวจสอบ', icon: Clock, activeClass: 'bg-orange-50 text-orange-700 shadow-sm ring-1 ring-orange-200' },
                 { id: 'approved', label: 'อนุมัติแล้ว', icon: CheckCircle, activeClass: 'bg-green-50 text-green-700 shadow-sm ring-1 ring-green-200' },
@@ -135,7 +161,7 @@ export default function AdminReimbursementPage() {
                 <button 
                     key={tab.id}
                     onClick={() => { setFilterStatus(tab.id); setCurrentPage(1); }}
-                    className={`px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-all duration-200 ${filterStatus === tab.id ? tab.activeClass : 'text-slate-500 hover:bg-slate-50'}`}
+                    className={`flex-1 md:flex-none px-4 py-2 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition-all duration-200 whitespace-nowrap ${filterStatus === tab.id ? tab.activeClass : 'text-slate-500 hover:bg-slate-50'}`}
                 >
                     <tab.icon size={16}/> {tab.label}
                 </button>
@@ -144,8 +170,9 @@ export default function AdminReimbursementPage() {
 
         {/* Table Container */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden min-h-[400px] flex flex-col">
-            <div className="overflow-x-auto flex-1">
-                <table className="w-full text-left">
+            <div className="overflow-x-auto flex-1 custom-scrollbar">
+                {/* ❌ เอา Comment ออกจากตรงนี้แล้วครับ */}
+                <table className="w-full text-left min-w-[900px]">
                     <thead className="bg-slate-50/80 backdrop-blur sticky top-0 z-10">
                         <tr>
                             <th className={`${thClass} pl-8 w-[15%]`}>วันที่</th>

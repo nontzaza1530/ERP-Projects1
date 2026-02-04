@@ -10,7 +10,7 @@ const dbConfig = {
   connectionLimit: 30, // จำนวน connection สูงสุดใน pool
   queueLimit: 0,
   enableKeepAlive: true,
-  keepAliveInitialDelay: 0,
+  keepAliveInitialDelay: 10000,
 
 
 };

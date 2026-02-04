@@ -126,7 +126,7 @@ const dbConfig = {
     connectionLimit: 30,
     queueLimit: 0,
     enableKeepAlive: true,
-    keepAliveInitialDelay: 0
+    keepAliveInitialDelay: 10000
 };
 // --- เทคนิค Singleton ---
 // เช็คว่ามี pool อยู่ในตัวแปร Global หรือยัง? ถ้ามีแล้วให้ใช้ตัวเดิม

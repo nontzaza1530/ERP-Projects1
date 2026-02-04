@@ -220,13 +220,10 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/lib/db.js [app-route] (ecmascript)");
-// ✅ แก้ 1: Import จากไฟล์ minio.js ที่คุณมีอยู่แล้ว
-// (ถ้าในไฟล์ minio.js คุณใช้ export default ให้เอาวงเล็บปีกกา {} ออกนะครับ)
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$minio$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/minio.js [app-route] (ecmascript)");
 ;
 ;
 ;
-// ✅ แก้ 2: ใช้ชื่อ Bucket ว่า 'erp' ตามที่คุณตั้ง
 const BUCKET_NAME = 'erp';
 async function POST(request) {
     try {
@@ -245,23 +242,22 @@ async function POST(request) {
         if (file && file !== 'undefined') {
             const bytes = await file.arrayBuffer();
             const buffer = Buffer.from(bytes);
-            // ตั้งชื่อไฟล์: costs/ประเภท/เวลา-ชื่อไฟล์
             const subFolder = costType || 'general';
             const timestamp = Date.now();
             const objectName = `costs/${subFolder}/${timestamp}-${file.name.replace(/\s/g, '_')}`;
-            // ส่งเข้า MinIO
+            // ส่งรูปเข้าถังเก็บ (Bucket) ใน MinIO
             await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$minio$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["minioClient"].putObject(BUCKET_NAME, objectName, buffer, file.size, {
                 'Content-Type': file.type
             });
-            // สร้าง Link URL
-            const minioConfig = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$minio$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["minioClient"].transport; // ดึง config ที่คุณตั้งไว้ใน minio.js
-            const protocol = minioConfig.useSSL ? 'https' : 'http';
-            const host = minioConfig.endPoint;
-            const port = minioConfig.port ? `:${minioConfig.port}` : '';
-            // URL ผลลัพธ์: http://localhost:9000/erp/costs/material/xxxx.jpg
-            fileUrl = `${protocol}://${host}${port}/${BUCKET_NAME}/${objectName}`;
+            // -----------------------------------------------------------------------
+            // ✅ แก้ไขจุดนี้: เปลี่ยนจาก localhost เป็น DDNS ของคุณ
+            // เพื่อให้ลิงก์เหมือนกับตาราง reimbursements และกดดูได้จริง
+            // -----------------------------------------------------------------------
+            const publicUrl = 'http://smartg.trueddns.com:29454';
+            // สร้างลิงก์ที่ถูกต้อง
+            fileUrl = `${publicUrl}/${BUCKET_NAME}/${objectName}`;
         }
-        // 3. บันทึกลง Database (ใช้ชื่อตาราง project_costs)
+        // 3. บันทึกลง Database
         await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(`INSERT INTO project_costs 
       (project_id, cost_type, description, amount, quantity, recorded_by, recorded_date, evidence_path) 
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, [
