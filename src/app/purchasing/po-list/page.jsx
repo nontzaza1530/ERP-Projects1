@@ -1,25 +1,23 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Sidebar from '../../../components/Sidebar'; // ตรวจสอบ path ให้ถูกต้อง
+import Sidebar from '../../../components/Sidebar'; 
 import { 
-  Search, Plus, Eye, FileText, Printer, Ban, Loader2, Calendar, ShoppingBag, Filter, CheckCircle, Clock, XCircle, Menu
-} from 'lucide-react'; // ✅ เพิ่ม Menu Icon
+  Search, Plus, Eye, FileText, Printer, Ban, Loader2, Calendar, ShoppingBag, Filter, CheckCircle, Clock, XCircle, Menu, Edit 
+} from 'lucide-react'; // ✅ เพิ่มไอคอน Edit
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'; // ✅ เพิ่ม useRouter สำหรับเปลี่ยนหน้า
 import Swal from 'sweetalert2'; 
 
 export default function POListPage() {
+  const router = useRouter(); // ✅ เรียกใช้งาน router
   const [poList, setPoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   
-  // State สำหรับเลือก Tab (ค่าเริ่มต้นเป็น 'active' คือดูงานที่ต้องทำ)
   const [activeTab, setActiveTab] = useState('active'); 
-
-  // ✅ เพิ่ม State สำหรับเปิด/ปิด Sidebar ในมือถือ
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // 1. โหลดข้อมูล
   useEffect(() => {
     fetchPO();
   }, []);
@@ -41,7 +39,6 @@ export default function POListPage() {
 
   const handlePrint = (po) => window.open(`/purchasing/print/${po.id}`, '_blank');
 
-  // แก้ไขส่วนแสดงผล Popup (View) ให้โชว์ที่อยู่ครบ
   const handleView = async (po) => {
     Swal.fire({ title: 'กำลังโหลดข้อมูล...', didOpen: () => Swal.showLoading() });
     try {
@@ -60,7 +57,6 @@ export default function POListPage() {
             </tr>
         `).join('');
 
-        // จัดรูปแบบ HTML ใน Popup ใหม่ให้สวยงาม
         Swal.fire({
             title: `<div style="text-align: left; font-size: 20px; color: #1e293b;">ใบสั่งซื้อ: <span style="color: #2563eb;">${data.po_number}</span></div>`,
             html: `
@@ -168,7 +164,6 @@ export default function POListPage() {
     }
   };
 
-  // Logic การกรองข้อมูลตาม Tab และ Search
   const filteredList = poList.filter(po => {
     const status = po.status.toLowerCase();
     const matchesSearch = po.po_number.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -182,7 +177,6 @@ export default function POListPage() {
     } else if (activeTab === 'cancelled') {
         matchesTab = status === 'cancelled';
     }
-    // (ถ้า activeTab === 'all' ก็ให้ผ่านหมด)
 
     return matchesSearch && matchesTab;
   });
@@ -190,13 +184,11 @@ export default function POListPage() {
   return (
     <div className="flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900 overflow-x-hidden">
       
-      {/* ✅ 1. Mobile Overlay: ฉากหลังมืดเวลาเปิด Sidebar */}
       <div 
         className={`fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`} 
         onClick={() => setIsSidebarOpen(false)} 
       />
 
-      {/* ✅ 2. Sidebar Container: กล่อง Sidebar ที่เลื่อนได้ */}
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:shadow-none lg:border-r lg:border-slate-800 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="h-full relative flex flex-col">
             <div className="flex-1 overflow-y-auto custom-scrollbar">
@@ -205,13 +197,10 @@ export default function POListPage() {
           </div>
       </aside>
 
-      {/* ✅ 3. Main Content: ปรับ Margin ให้ถูกต้อง */}
       <main className="flex-1 w-full lg:ml-64 p-4 md:p-8 transition-all duration-300 min-h-screen flex flex-col">
 
-        {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
           <div className="flex items-center gap-3">
-            {/* ✅ ปุ่มเมนูมือถือ */}
             <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition">
                 <Menu size={24} />
             </button>
@@ -229,7 +218,6 @@ export default function POListPage() {
           </Link>
         </div>
 
-        {/* Search Bar */}
         <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-6 flex items-center gap-3">
           <Search className="text-slate-400" size={20} />
           <input
@@ -241,7 +229,6 @@ export default function POListPage() {
           />
         </div>
 
-        {/* Tabs Selection */}
         <div className="flex gap-2 mb-4 overflow-x-auto pb-2 custom-scrollbar">
             {[
                 { id: 'all', label: 'ทั้งหมด', icon: <Filter size={16}/>, activeClass: 'bg-slate-800 text-white' },
@@ -261,7 +248,6 @@ export default function POListPage() {
             ))}
         </div>
 
-        {/* Table */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-lg overflow-hidden min-h-[400px]">
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-sm text-left border-collapse min-w-[800px]">
@@ -302,6 +288,20 @@ export default function POListPage() {
                           
                           <button onClick={() => handleView(po)} className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition" title="ดูรายละเอียด">
                             <Eye size={18} />
+                          </button>
+
+                          {/* ✅ เพิ่มปุ่มแก้ไข (Edit) ตรงนี้ */}
+                          <button 
+                              onClick={() => router.push(`/purchasing/edit-po/${po.id}`)}
+                              disabled={po.status !== 'Pending'} 
+                              className={`p-2 rounded-lg transition ${
+                                  po.status === 'Pending' 
+                                  ? 'text-slate-400 hover:text-green-600 hover:bg-green-50' 
+                                  : 'text-slate-200 cursor-not-allowed'
+                              }`} 
+                              title={po.status === 'Pending' ? "แก้ไขใบสั่งซื้อ" : "ไม่สามารถแก้ไขได้"}
+                          >
+                              <Edit size={18} />
                           </button>
 
                           <button onClick={() => handlePrint(po)} className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition" title="พิมพ์ใบสั่งซื้อ">

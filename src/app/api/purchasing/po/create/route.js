@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
-import pool from '../../../../lib/db'; // ปรับ path
+import pool from '../../../../lib/db'; // ปรับ path ตามจริง
 
 export async function POST(request) {
   let connection;
   try {
     const body = await request.json();
-    const { supplier_id, order_date, expected_date, items, total_amount, user_id } = body;
+    // ✅ เพิ่ม remarks มารับค่าจากหน้าบ้าน
+    const { supplier_id, order_date, expected_date, items, total_amount, user_id, remarks } = body;
 
     // 1. สร้างเลขที่ PO (รันนัมเบอร์)
     const datePart = new Date().toISOString().slice(0, 7).replace('-', ''); 
@@ -23,11 +24,11 @@ export async function POST(request) {
     await connection.beginTransaction();
 
     // 3. บันทึกหัวบิล 
-    // ⚠️ แก้ตรงนี้: เปลี่ยน user_id เป็น created_by ตาม Database คุณ
+    // ✅ แก้ไขตรงนี้: เพิ่มคอลัมน์ remarks และส่งค่า remarks เข้าไปใน Database
     const [resHeader] = await connection.query(
-        `INSERT INTO purchase_orders (po_number, supplier_id, order_date, expected_date, total_amount, created_by, status) 
-         VALUES (?, ?, ?, ?, ?, ?, 'Pending')`,
-        [poNumber, supplier_id, order_date, expected_date, total_amount, user_id]
+        `INSERT INTO purchase_orders (po_number, supplier_id, order_date, expected_date, total_amount, created_by, status, remarks) 
+         VALUES (?, ?, ?, ?, ?, ?, 'Pending', ?)`,
+        [poNumber, supplier_id, order_date, expected_date, total_amount, user_id, remarks || null]
     );
     const poId = resHeader.insertId; 
 

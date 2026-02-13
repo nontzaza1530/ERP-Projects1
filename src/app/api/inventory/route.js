@@ -1,17 +1,15 @@
 import { NextResponse } from 'next/server';
-
-// ⚠️ แก้ไข Path: ถอยหลัง 3 ชั้น เพื่อไปหา src/lib/db
-// (inventory -> api -> app -> src -> เจอ lib)
 import pool from '../../lib/db'; 
 
-// --- GET: ดึงรายการสินค้า ---
+// --- GET: ดึงรายการสินค้า (กรองเฉพาะที่ยังไม่ถูกลบ) ---
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
     const search = searchParams.get('search');
 
-    let sql = 'SELECT * FROM products';
+    // ✅ แก้ไข: เริ่มต้นด้วยการกรองเฉพาะ is_deleted = 0
+    let sql = 'SELECT * FROM products WHERE is_deleted = 0';
     const values = [];
     const conditions = [];
 
@@ -28,8 +26,9 @@ export async function GET(request) {
       values.push(searchPattern, searchPattern);
     }
 
+    // ถ้ามีการส่ง filter มา ให้ใช้ AND ต่อจาก WHERE is_deleted = 0
     if (conditions.length > 0) {
-      sql += ' WHERE ' + conditions.join(' AND ');
+      sql += ' AND ' + conditions.join(' AND ');
     }
 
     sql += ' ORDER BY id DESC';
@@ -44,19 +43,14 @@ export async function GET(request) {
   }
 }
 
-// --- POST: เพิ่มสินค้าใหม่ (รองรับ Quick Add) ---
+// --- POST: เพิ่มสินค้าใหม่ ---
 export async function POST(request) {
   try {
     const body = await request.json();
 
-    // 🛠️ Mapping ตัวแปรให้ยืดหยุ่น (รับค่าได้ทั้งจากหน้าคลัง และหน้า Quick Add)
     const product_code = body.product_code || body.code;
     const name = body.name;
-    
-    // ✅ สำคัญ: ถ้าไม่ระบุหมวดหมู่ ให้เป็น 'General'
-    // (ต้องมั่นใจว่าแก้ Database เป็น VARCHAR แล้วนะครับ ไม่งั้นคำว่า General จะทำให้ error)
     const category = body.category || 'General'; 
-    
     const quantity = body.quantity || body.stock_quantity || 0;
     const unit = body.unit || 'ชิ้น';
     const price = body.price || body.cost_price || 0;
@@ -68,16 +62,16 @@ export async function POST(request) {
       return NextResponse.json({ error: 'กรุณากรอกรหัสและชื่อสินค้า' }, { status: 400 });
     }
 
-    // 2. เช็คสินค้าซ้ำ
-    const [existing] = await pool.query('SELECT id FROM products WHERE product_code = ?', [product_code]);
+    // 2. เช็คสินค้าซ้ำ (เช็คเฉพาะสินค้าที่ยังไม่ถูกลบ เพื่อให้สามารถนำรหัสสินค้าเก่าที่ลบไปแล้วกลับมาใช้ใหม่ได้ ถ้าต้องการ)
+    const [existing] = await pool.query('SELECT id FROM products WHERE product_code = ? AND is_deleted = 0', [product_code]);
     if (existing.length > 0) {
-        return NextResponse.json({ error: 'รหัสสินค้านี้มีอยู่ในระบบแล้ว' }, { status: 400 });
+        return NextResponse.json({ error: 'รหัสสินค้านี้มีอยู่ในคลังแล้ว' }, { status: 400 });
     }
 
-    // 3. บันทึก (Insert)
+    // 3. บันทึก (Insert) พร้อมกำหนด is_deleted = 0
     const sql = `
-      INSERT INTO products (product_code, name, category, quantity, unit, price, location, min_level)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO products (product_code, name, category, quantity, unit, price, location, min_level, is_deleted)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)
     `;
     const values = [product_code, name, category, quantity, unit, price, location, min_level];
 

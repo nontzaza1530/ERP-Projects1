@@ -5,7 +5,7 @@ import Sidebar from '../../components/Sidebar';
 import {
   Hammer, Plus, Calendar, Clock,
   MoreVertical, Archive, RefreshCcw, Trash2, FileBox, Menu
-} from 'lucide-react'; // ✅ เพิ่ม import Menu
+} from 'lucide-react'; 
 import Link from 'next/link';
 import Swal from 'sweetalert2';
 
@@ -26,9 +26,15 @@ export default function ProductionPage() {
     try {
       const res = await fetch('/api/production/projects');
       const data = await res.json();
-      setProjects(data);
+      
+      // ✅ แก้ไขจุดที่ 1: ตรวจสอบและดึง array ออกมาจาก object
+      // API ใหม่อาจส่งมาเป็น { projects: [...] } หรือ [...]
+      const projectList = Array.isArray(data) ? data : (data.projects || []);
+      
+      setProjects(projectList);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching projects:", error);
+      setProjects([]); // กันเหนียวไว้ก่อน ถ้า error ให้เป็น array ว่าง
     } finally {
       setLoading(false);
     }
@@ -89,7 +95,7 @@ export default function ProductionPage() {
         });
 
         if (res.ok) {
-          fetchProjects();
+          fetchProjects(); // โหลดข้อมูลใหม่เพื่อให้ได้สถานะล่าสุด
           Swal.fire('สำเร็จ', 'กู้คืนโปรเจกต์แล้ว', 'success');
         } else {
           throw new Error('Restore failed');
@@ -135,30 +141,41 @@ export default function ProductionPage() {
       pending: 'bg-slate-100 text-slate-600',
       in_progress: 'bg-blue-100 text-blue-600',
       qc: 'bg-orange-100 text-orange-600',
-      completed: 'bg-green-100 text-green-600',
+      done: 'bg-green-100 text-green-600', // ปรับ completed เป็น done ให้ตรงกับ API ใหม่
+      completed: 'bg-green-100 text-green-600', // เผื่อไว้
       canceled: 'bg-red-100 text-red-600',
       archived: 'bg-gray-200 text-gray-500 line-through'
     };
     const labels = {
       pending: 'รอเริ่มงาน',
       in_progress: 'กำลังผลิต',
+      doing: 'กำลังผลิต', // เพิ่ม doing
       qc: 'ตรวจสอบ (QC)',
+      done: 'เสร็จสิ้น', // ปรับ completed เป็น done
       completed: 'เสร็จสิ้น',
       canceled: 'ยกเลิก',
       archived: 'เก็บถาวร'
     };
+    // ใช้ status ตัวเล็กเสมอเพื่อความชัวร์
+    const normalizedStatus = status?.toLowerCase() || 'pending';
     return (
-      <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${styles[status] || styles.pending}`}>
-        {labels[status] || status}
+      <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${styles[normalizedStatus] || styles.pending}`}>
+        {labels[normalizedStatus] || status}
       </span>
     );
   };
 
-  const filteredProjects = projects.filter(p => {
+  // กรอง projects อย่างปลอดภัย (เช็คว่าเป็น array ก่อน)
+  const filteredProjects = Array.isArray(projects) ? projects.filter(p => {
     if (filterStatus === 'archived') return p.status === 'archived';
     if (filterStatus === 'all') return p.status !== 'archived';
+    
+    // แปลง status ให้ตรงกัน (เช่น API ส่ง 'done' แต่ filter เราใช้ 'completed')
+    if (filterStatus === 'completed' && p.status === 'done') return true;
+    if (filterStatus === 'in_progress' && p.status === 'doing') return true;
+    
     return p.status === filterStatus;
-  });
+  }) : [];
 
   return (
     <div className="flex min-h-screen bg-slate-50 font-sans overflow-x-hidden">
@@ -212,7 +229,7 @@ export default function ProductionPage() {
                 key={status}
                 onClick={() => setFilterStatus(status)}
                 className={`px-4 py-2 rounded-t-lg text-sm font-bold border-b-2 transition whitespace-nowrap flex items-center gap-2
-                    ${filterStatus === status
+                  ${filterStatus === status
                   ? 'border-orange-600 text-orange-600 bg-orange-50'
                   : 'border-transparent text-slate-500 hover:bg-slate-100 hover:text-slate-700'}`}
               >

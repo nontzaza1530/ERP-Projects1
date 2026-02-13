@@ -169,7 +169,16 @@ async function PUT(request, { params }) {
     try {
         const { id } = await params;
         const body = await request.json();
+        // ดึงค่าจาก body
         const { product_code, name, category, quantity, unit, price, location, min_level } = body;
+        // ตรวจสอบค่าเบื้องต้น (Validation)
+        if (!product_code || !name) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'กรุณาระบุรหัสและชื่อสินค้า'
+            }, {
+                status: 400
+            });
+        }
         const sql = `
       UPDATE products 
       SET product_code=?, name=?, category=?, quantity=?, unit=?, price=?, location=?, min_level=?
@@ -187,17 +196,20 @@ async function PUT(request, { params }) {
             id
         ];
         const [result] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(sql, values);
-        if (result.affectedRows === 0) return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: 'ไม่พบสินค้า'
-        }, {
-            status: 404
-        });
+        if (result.affectedRows === 0) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'ไม่พบรหัสสินค้าที่ต้องการแก้ไข'
+            }, {
+                status: 404
+            });
+        }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            message: 'แก้ไขข้อมูลสำเร็จ'
+            message: 'แก้ไขข้อมูลสินค้าสำเร็จ'
         });
     } catch (error) {
+        console.error("❌ PUT Error:", error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: error.message
+            error: 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล: ' + error.message
         }, {
             status: 500
         });
@@ -206,20 +218,26 @@ async function PUT(request, { params }) {
 async function DELETE(request, { params }) {
     try {
         const { id } = await params;
-        const [result] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query('DELETE FROM products WHERE id = ?', [
+        // เปลี่ยนจาก DELETE FROM products ... 
+        // เป็นการ UPDATE แทน เพื่อเก็บประวัติไว้ในระบบ
+        const sql = `UPDATE products SET is_deleted = 1 WHERE id = ?`;
+        const [result] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(sql, [
             id
         ]);
-        if (result.affectedRows === 0) return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: 'ไม่พบสินค้า'
-        }, {
-            status: 404
-        });
+        if (result.affectedRows === 0) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: 'ไม่พบสินค้าในระบบ'
+            }, {
+                status: 404
+            });
+        }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            message: 'ลบสินค้าสำเร็จ'
+            message: 'ลบสินค้าสำเร็จ (ซ่อนรายการเรียบร้อย)'
         });
     } catch (error) {
+        console.error("❌ Soft Delete Error:", error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            error: error.message
+            error: 'เกิดข้อผิดพลาด: ' + error.message
         }, {
             status: 500
         });

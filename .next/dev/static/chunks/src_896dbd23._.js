@@ -35,13 +35,12 @@ var _s = __turbopack_context__.k.signature();
 ;
 function Sidebar({ onClose }) {
     _s();
-    // ไม่ต้องรับ isOpen แล้ว เพราะ Parent จัดการให้
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [role, setRole] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [expandedMenu, setExpandedMenu] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true); // เพิ่ม Loading state
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Sidebar.useEffect": ()=>{
             const fetchUser = {
@@ -272,9 +271,27 @@ function Sidebar({ onClose }) {
                     'employee'
                 ],
                 subItems: [
+                    // ✅ เพิ่มตรงนี้: เมนูใบแจ้งหนี้ (Invoices)
                     {
                         name: 'ภาพรวมบัญชี',
                         href: '/accounting',
+                        roles: [
+                            'super_admin',
+                            'admin'
+                        ]
+                    },
+                    {
+                        name: 'ใบแจ้งหนี้ (Invoices)',
+                        href: '/accounting/invoices',
+                        roles: [
+                            'super_admin',
+                            'admin'
+                        ] // จำกัดสิทธิ์เฉพาะ Admin
+                    },
+                    // ✅ เพิ่มตรงนี้: เมนูใบเสร็จ (เตรียมไว้ให้อนาคต)
+                    {
+                        name: 'ใบเสร็จรับเงิน (Receipts)',
+                        href: '/accounting/receipts',
                         roles: [
                             'super_admin',
                             'admin'
@@ -339,9 +356,7 @@ function Sidebar({ onClose }) {
         });
     };
     const visibleMenu = getVisibleMenu();
-    return(// ✅ แก้ไข 1: เปลี่ยนจาก <aside fixed...> เป็น <div> ธรรมดาเต็มพื้นที่
-    // เพื่อให้มันอยู่ในกล่องที่หน้า Dashboard เตรียมไว้ให้แล้ว
-    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex flex-col h-full w-full bg-slate-900 text-slate-300",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -354,12 +369,12 @@ function Sidebar({ onClose }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 211,
+                            lineNumber: 220,
                             columnNumber: 17
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 210,
+                        lineNumber: 219,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -367,32 +382,31 @@ function Sidebar({ onClose }) {
                         children: "ERP SYSTEM"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 214,
+                        lineNumber: 223,
                         columnNumber: 11
                     }, this),
-                    loading ? // Skeleton Loader ตอนโหลดข้อมูล
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700 animate-pulse",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "w-8 h-8 rounded-full bg-slate-700"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 220,
+                                lineNumber: 227,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex-1 h-4 bg-slate-700 rounded"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 221,
+                                lineNumber: 228,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 219,
-                        columnNumber: 9
+                        lineNumber: 226,
+                        columnNumber: 22
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700",
                         children: [
@@ -401,7 +415,7 @@ function Sidebar({ onClose }) {
                                 children: user?.first_name?.charAt(0) || 'U'
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 223,
+                                lineNumber: 230,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -412,7 +426,7 @@ function Sidebar({ onClose }) {
                                         children: user?.first_name
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 227,
+                                        lineNumber: 234,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -420,31 +434,30 @@ function Sidebar({ onClose }) {
                                         children: role?.replace('_', ' ')
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 228,
+                                        lineNumber: 235,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 226,
+                                lineNumber: 233,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 222,
+                        lineNumber: 229,
                         columnNumber: 23
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 207,
+                lineNumber: 216,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
                 className: "flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar flex flex-col",
-                children: loading ? // Skeleton Loader เมนู
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "space-y-3 px-2",
                     children: [
                         1,
@@ -455,13 +468,13 @@ function Sidebar({ onClose }) {
                             className: "h-10 bg-slate-800/50 rounded-xl animate-pulse"
                         }, i, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 240,
+                            lineNumber: 245,
                             columnNumber: 40
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/Sidebar.jsx",
-                    lineNumber: 239,
-                    columnNumber: 9
+                    lineNumber: 244,
+                    columnNumber: 22
                 }, this) : visibleMenu.map((item_1)=>{
                     const isExpanded = expandedMenu === item_1.name;
                     const subItemsToRender = item_1.subItems;
@@ -485,7 +498,7 @@ function Sidebar({ onClose }) {
                                                     className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'} shrink-0`
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 253,
+                                                    lineNumber: 258,
                                                     columnNumber: 29
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -493,13 +506,13 @@ function Sidebar({ onClose }) {
                                                     children: item_1.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 254,
+                                                    lineNumber: 259,
                                                     columnNumber: 29
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 252,
+                                            lineNumber: 257,
                                             columnNumber: 25
                                         }, this),
                                         isExpanded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
@@ -507,20 +520,20 @@ function Sidebar({ onClose }) {
                                             className: "shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 258,
+                                            lineNumber: 263,
                                             columnNumber: 39
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                             size: 16,
                                             className: "shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 258,
+                                            lineNumber: 263,
                                             columnNumber: 88
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 249,
+                                    lineNumber: 254,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -541,21 +554,21 @@ function Sidebar({ onClose }) {
                                                         className: isSubActive ? 'text-blue-400' : 'text-slate-600'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 268,
+                                                        lineNumber: 273,
                                                         columnNumber: 51
                                                     }, this) : sub_1.name === 'ข้อมูลส่วนตัว' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
                                                         size: 14,
                                                         className: isSubActive ? 'text-blue-400' : 'opacity-50'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 268,
+                                                        lineNumber: 273,
                                                         columnNumber: 172
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
                                                         size: 8,
                                                         className: isSubActive ? 'fill-current' : 'opacity-50'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 268,
+                                                        lineNumber: 273,
                                                         columnNumber: 250
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -563,31 +576,31 @@ function Sidebar({ onClose }) {
                                                         children: sub_1.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 269,
+                                                        lineNumber: 274,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, sub_1.href, true, {
                                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 265,
-                                                columnNumber: 28
+                                                lineNumber: 270,
+                                                columnNumber: 26
                                             }, this);
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 262,
+                                        lineNumber: 267,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 261,
+                                    lineNumber: 266,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 248,
-                            columnNumber: 13
+                            lineNumber: 253,
+                            columnNumber: 11
                         }, this) : // --- 🔗 Single Link Menu ---
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             href: item_1.href,
@@ -600,12 +613,12 @@ function Sidebar({ onClose }) {
                                         size: 20
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 278,
+                                        lineNumber: 283,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 277,
+                                    lineNumber: 282,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -613,24 +626,24 @@ function Sidebar({ onClose }) {
                                     children: item_1.name
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 280,
+                                    lineNumber: 285,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 276,
-                            columnNumber: 13
+                            lineNumber: 281,
+                            columnNumber: 11
                         }, this)
                     }, item_1.name, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 245,
-                        columnNumber: 18
+                        lineNumber: 250,
+                        columnNumber: 16
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 236,
+                lineNumber: 243,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -643,7 +656,7 @@ function Sidebar({ onClose }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 291,
+                            lineNumber: 296,
                             columnNumber: 17
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -651,26 +664,26 @@ function Sidebar({ onClose }) {
                             children: "ออกจากระบบ"
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 292,
+                            lineNumber: 297,
                             columnNumber: 17
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/Sidebar.jsx",
-                    lineNumber: 290,
+                    lineNumber: 295,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 289,
+                lineNumber: 294,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Sidebar.jsx",
-        lineNumber: 204,
-        columnNumber: 5
-    }, this));
+        lineNumber: 213,
+        columnNumber: 10
+    }, this);
 }
 _s(Sidebar, "44EUgPEOFIYLqfkbuSz1ZJFsr04=", false, function() {
     return [
@@ -1789,7 +1802,7 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Sidebar$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/Sidebar.jsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-left.js [app-client] (ecmascript) <export default as ArrowLeft>"); // ✅ เพิ่ม Menu Icon
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-left.js [app-client] (ecmascript) <export default as ArrowLeft>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/calendar.js [app-client] (ecmascript) <export default as Calendar>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$dollar$2d$sign$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__DollarSign$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/dollar-sign.js [app-client] (ecmascript) <export default as DollarSign>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/clock.js [app-client] (ecmascript) <export default as Clock>");
@@ -1806,8 +1819,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$send$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Send$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/send.js [app-client] (ecmascript) <export default as Send>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$triangle$2d$alert$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertTriangle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/triangle-alert.js [app-client] (ecmascript) <export default as AlertTriangle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/upload.js [app-client] (ecmascript) <export default as Upload>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-client] (ecmascript) <export default as Menu>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/eye.js [app-client] (ecmascript) <export default as Eye>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$download$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Download$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/download.js [app-client] (ecmascript) <export default as Download>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-client] (ecmascript) <export default as Trash2>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$folder$2d$open$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FolderOpen$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/folder-open.js [app-client] (ecmascript) <export default as FolderOpen>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/loader-circle.js [app-client] (ecmascript) <export default as Loader2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/sweetalert2/dist/sweetalert2.all.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ProductionTimeline$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ProductionTimeline.jsx [app-client] (ecmascript)");
@@ -1827,21 +1844,24 @@ function ProjectDetailPage({ params }) {
     const [data, setData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [activeTab, setActiveTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('timeline');
-    // --- State สำหรับ Smart Form ---
+    // --- 📂 State สำหรับระบบจัดการเอกสาร (เพิ่มใหม่) ---
+    const [documents, setDocuments] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [isUploadingDoc, setIsUploadingDoc] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    // --- State สำหรับ Smart Form (เดิม) ---
     const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [costType, setCostType] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('material');
     const [selectedItem, setSelectedItem] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [evidenceFile, setEvidenceFile] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    // State สำหรับคำนวณค่าแรง
+    // State สำหรับคำนวณค่าแรง (เดิม)
     const [hourlyRate, setHourlyRate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(50);
     const [otMultiplier, setOtMultiplier] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
-    // ✅ State สำหรับเปิด/ปิด Sidebar ในมือถือ
+    // State สำหรับเปิด/ปิด Sidebar ในมือถือ (เดิม)
     const [isSidebarOpen, setIsSidebarOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    // Helper Function: คำนวณยอดเงิน
+    // Helper Function: คำนวณยอดเงิน (เดิม)
     const calculateLaborTotal = (rate, mult, hours)=>{
         return rate * mult * hours;
     };
-    // Form States
+    // Form States (เดิม)
     const [costForm, setCostForm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         description: '',
         amount: '',
@@ -1849,12 +1869,13 @@ function ProjectDetailPage({ params }) {
         product_id: '',
         recorded_date: new Date().toISOString().split('T')[0]
     });
-    // Load Data
+    // Load Data (เดิม + เพิ่มโหลดเอกสาร)
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ProjectDetailPage.useEffect": ()=>{
             if (!id) return;
             fetchData();
             fetchProducts();
+            fetchDocuments(); // ✅ โหลดรายการไฟล์
         }
     }["ProjectDetailPage.useEffect"], [
         id
@@ -1880,9 +1901,77 @@ function ProjectDetailPage({ params }) {
             setProducts([]);
         }
     };
-    // Smart Select Logic
-    const handleSmartSelect = (e)=>{
-        const selectedId = e.target.value;
+    // ✅ ฟังก์ชันดึงรายการเอกสาร (เพิ่มใหม่)
+    const fetchDocuments = async ()=>{
+        try {
+            const res_1 = await fetch(`/api/production/projects/${id}/documents`);
+            if (res_1.ok) {
+                const json_1 = await res_1.json();
+                setDocuments(json_1.files || []);
+            }
+        } catch (err_0) {
+            console.error("Fetch docs error:", err_0);
+        }
+    };
+    // ✅ ฟังก์ชันอัปโหลดเอกสาร (เพิ่มใหม่)
+    const handleUploadDocument = async (e)=>{
+        const file = e.target.files[0];
+        if (!file) return;
+        setIsUploadingDoc(true);
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('projectId', id);
+        formData.append('uploaded_by', 'Admin');
+        try {
+            const res_2 = await fetch('/api/production/projects/upload-doc', {
+                method: 'POST',
+                body: formData
+            });
+            if (res_2.ok) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire({
+                    icon: 'success',
+                    title: 'แนบเอกสารสำเร็จ',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                fetchDocuments(); // รีโหลดรายการไฟล์
+            } else {
+                throw new Error("Upload failed");
+            }
+        } catch (err_1) {
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire('Error', 'ไม่สามารถอัปโหลดไฟล์ได้', 'error');
+        } finally{
+            setIsUploadingDoc(false);
+        }
+    };
+    // ✅ ฟังก์ชันลบเอกสาร (เพิ่มใหม่)
+    const handleDeleteDocument = async (docId)=>{
+        const result = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire({
+            title: 'ลบเอกสารนี้?',
+            text: "ไฟล์จะถูกลบออกจากโปรเจกต์อย่างถาวร",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'ยืนยันการลบ',
+            cancelButtonText: 'ยกเลิก'
+        });
+        if (result.isConfirmed) {
+            try {
+                const res_3 = await fetch(`/api/production/documents/${docId}`, {
+                    method: 'DELETE'
+                });
+                if (res_3.ok) {
+                    fetchDocuments();
+                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire('ลบสำเร็จ', 'เอกสารถูกลบเรียบร้อย', 'success');
+                }
+            } catch (err_2) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire('Error', 'ลบไม่สำเร็จ', 'error');
+            }
+        }
+    };
+    // Smart Select Logic (เดิม)
+    const handleSmartSelect = (e_0)=>{
+        const selectedId = e_0.target.value;
         setSelectedItem(selectedId);
         let newDesc = '';
         let newPrice = '';
@@ -1912,7 +2001,7 @@ function ProjectDetailPage({ params }) {
                 product_id: newProdId
             }));
     };
-    // Actions
+    // Actions (เดิม)
     const handleStatusChange = async (newStatus)=>{
         let confirmTitle = '', confirmText = '', confirmColor = '';
         if (newStatus === 'in_progress') {
@@ -1928,7 +2017,7 @@ function ProjectDetailPage({ params }) {
             confirmText = 'ยืนยันว่างานเรียบร้อยสมบูรณ์แล้ว';
             confirmColor = '#16a34a';
         }
-        const result = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire({
+        const result_0 = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire({
             title: confirmTitle,
             text: confirmText,
             icon: 'question',
@@ -1938,7 +2027,7 @@ function ProjectDetailPage({ params }) {
             confirmButtonText: 'ยืนยัน',
             cancelButtonText: 'ยกเลิก'
         });
-        if (result.isConfirmed) {
+        if (result_0.isConfirmed) {
             try {
                 await fetch('/api/production/action', {
                     method: 'POST',
@@ -1955,13 +2044,13 @@ function ProjectDetailPage({ params }) {
                     timer: 1000,
                     showConfirmButton: false
                 });
-            } catch (err_0) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire('Error', err_0.message, 'error');
+            } catch (err_3) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire('Error', err_3.message, 'error');
             }
         }
     };
     const handleSendToAccounting = async ()=>{
-        const result_0 = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire({
+        const result_1 = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire({
             title: 'ยืนยันการส่งยอดบัญชี?',
             text: "เมื่อส่งแล้วจะไม่สามารถแก้ไขต้นทุนได้อีก",
             icon: 'warning',
@@ -1971,7 +2060,7 @@ function ProjectDetailPage({ params }) {
             confirmButtonText: 'ยืนยัน',
             cancelButtonText: 'ยกเลิก'
         });
-        if (result_0.isConfirmed) {
+        if (result_1.isConfirmed) {
             try {
                 await fetch('/api/production/action', {
                     method: 'POST',
@@ -1982,29 +2071,29 @@ function ProjectDetailPage({ params }) {
                 });
                 fetchData();
                 __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire('สำเร็จ!', 'ข้อมูลถูกส่งไปยังฝ่ายบัญชีแล้ว', 'success');
-            } catch (err_1) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire('Error', err_1.message, 'error');
+            } catch (err_4) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire('Error', err_4.message, 'error');
             }
         }
     };
-    const handleAddCost = async (e_0)=>{
-        e_0.preventDefault();
-        const formData = new FormData();
-        formData.append('project_id', id);
-        formData.append('cost_type', costType);
-        formData.append('description', costForm.description);
-        formData.append('amount', costForm.amount);
-        formData.append('quantity', costForm.quantity);
-        formData.append('product_id', costForm.product_id);
-        formData.append('recorded_by', 'Admin');
-        formData.append('recorded_date', costForm.recorded_date);
-        if (evidenceFile) formData.append('evidence_file', evidenceFile);
+    const handleAddCost = async (e_1)=>{
+        e_1.preventDefault();
+        const formData_0 = new FormData();
+        formData_0.append('project_id', id);
+        formData_0.append('cost_type', costType);
+        formData_0.append('description', costForm.description);
+        formData_0.append('amount', costForm.amount);
+        formData_0.append('quantity', costForm.quantity);
+        formData_0.append('product_id', costForm.product_id);
+        formData_0.append('recorded_by', 'Admin');
+        formData_0.append('recorded_date', costForm.recorded_date);
+        if (evidenceFile) formData_0.append('evidence_file', evidenceFile);
         try {
-            const res_1 = await fetch('/api/production/cost-upload', {
+            const res_4 = await fetch('/api/production/cost-upload', {
                 method: 'POST',
-                body: formData
+                body: formData_0
             });
-            if (!res_1.ok) throw new Error('Upload failed');
+            if (!res_4.ok) throw new Error('Upload failed');
             setCostForm({
                 description: '',
                 amount: '',
@@ -2023,8 +2112,8 @@ function ProjectDetailPage({ params }) {
                 timer: 1000,
                 showConfirmButton: false
             });
-        } catch (err_2) {
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire('Error', err_2.message, 'error');
+        } catch (err_5) {
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].fire('Error', err_5.message, 'error');
         }
     };
     if (loading || !data) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2032,7 +2121,7 @@ function ProjectDetailPage({ params }) {
         children: "กำลังโหลดข้อมูล..."
     }, void 0, false, {
         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-        lineNumber: 223,
+        lineNumber: 300,
         columnNumber: 32
     }, this);
     const { project, costs, logs, members } = data;
@@ -2066,7 +2155,7 @@ function ProjectDetailPage({ params }) {
                 onClick: ()=>setIsSidebarOpen(false)
             }, void 0, false, {
                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                lineNumber: 255,
+                lineNumber: 332,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
@@ -2079,22 +2168,22 @@ function ProjectDetailPage({ params }) {
                             onClose: ()=>setIsSidebarOpen(false)
                         }, void 0, false, {
                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                            lineNumber: 261,
-                            columnNumber: 24
+                            lineNumber: 337,
+                            columnNumber: 25
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                        lineNumber: 260,
+                        lineNumber: 336,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                    lineNumber: 259,
+                    lineNumber: 335,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                lineNumber: 258,
+                lineNumber: 334,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -2113,12 +2202,12 @@ function ProjectDetailPage({ params }) {
                                             size: 24
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                            lineNumber: 274,
+                                            lineNumber: 348,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                        lineNumber: 273,
+                                        lineNumber: 347,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2131,25 +2220,25 @@ function ProjectDetailPage({ params }) {
                                                     size: 16
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 277,
+                                                    lineNumber: 351,
                                                     columnNumber: 147
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 277,
+                                                lineNumber: 351,
                                                 columnNumber: 29
                                             }, this),
                                             " กลับหน้ารวม"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                        lineNumber: 276,
+                                        lineNumber: 350,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                lineNumber: 271,
+                                lineNumber: 346,
                                 columnNumber: 21
                             }, this),
                             (()=>{
@@ -2166,7 +2255,7 @@ function ProjectDetailPage({ params }) {
                                                 className: "text-red-500"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 288,
+                                                lineNumber: 361,
                                                 columnNumber: 171
                                             }, this),
                                             " ล่าช้า ",
@@ -2175,7 +2264,7 @@ function ProjectDetailPage({ params }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                        lineNumber: 288,
+                                        lineNumber: 361,
                                         columnNumber: 20
                                     }, this);
                                 } else if (diffDays <= 3 && diffDays >= 0 && project.status !== 'completed' && !project.is_sent_to_accounting) {
@@ -2187,7 +2276,7 @@ function ProjectDetailPage({ params }) {
                                                 className: "text-orange-500"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 290,
+                                                lineNumber: 363,
                                                 columnNumber: 166
                                             }, this),
                                             " เหลือ ",
@@ -2196,7 +2285,7 @@ function ProjectDetailPage({ params }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                        lineNumber: 290,
+                                        lineNumber: 363,
                                         columnNumber: 20
                                     }, this);
                                 }
@@ -2205,7 +2294,7 @@ function ProjectDetailPage({ params }) {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                        lineNumber: 270,
+                        lineNumber: 345,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2224,7 +2313,7 @@ function ProjectDetailPage({ params }) {
                                                     children: project.status.replace('_', ' ')
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 301,
+                                                    lineNumber: 374,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2235,7 +2324,7 @@ function ProjectDetailPage({ params }) {
                                                             className: "text-slate-400"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 302,
+                                                            lineNumber: 375,
                                                             columnNumber: 160
                                                         }, this),
                                                         " Deadline: ",
@@ -2243,13 +2332,13 @@ function ProjectDetailPage({ params }) {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 302,
+                                                    lineNumber: 375,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                            lineNumber: 300,
+                                            lineNumber: 373,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -2257,7 +2346,7 @@ function ProjectDetailPage({ params }) {
                                             children: project.project_name
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                            lineNumber: 304,
+                                            lineNumber: 377,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2271,7 +2360,7 @@ function ProjectDetailPage({ params }) {
                                                             className: "text-indigo-400"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 306,
+                                                            lineNumber: 379,
                                                             columnNumber: 111
                                                         }, this),
                                                         " ",
@@ -2279,7 +2368,7 @@ function ProjectDetailPage({ params }) {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 306,
+                                                    lineNumber: 379,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2290,7 +2379,7 @@ function ProjectDetailPage({ params }) {
                                                             className: "text-slate-400"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 308,
+                                                            lineNumber: 381,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2301,121 +2390,118 @@ function ProjectDetailPage({ params }) {
                                                                     children: m_0.first_name ? m_0.first_name.charAt(0) : '?'
                                                                 }, i, false, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 310,
+                                                                    lineNumber: 383,
                                                                     columnNumber: 110
                                                                 }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 className: "text-xs text-slate-400",
                                                                 children: "-"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 310,
+                                                                lineNumber: 383,
                                                                 columnNumber: 374
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 309,
+                                                            lineNumber: 382,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 307,
+                                                    lineNumber: 380,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                            lineNumber: 305,
+                                            lineNumber: 378,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "overflow-x-auto pb-2",
-                                            children: [
-                                                " ",
-                                                !project.is_sent_to_accounting ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex gap-3 min-w-max",
-                                                    children: [
-                                                        project.status === 'pending' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                            onClick: ()=>handleStatusChange('in_progress'),
-                                                            className: "bg-linear-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-8 py-3 rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center gap-2 transform hover:scale-105",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$hammer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Hammer$3e$__["Hammer"], {
-                                                                    size: 20
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 317,
-                                                                    columnNumber: 370
-                                                                }, this),
-                                                                " เริ่มการผลิต (Start)"
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 317,
-                                                            columnNumber: 74
-                                                        }, this),
-                                                        project.status === 'in_progress' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                            onClick: ()=>handleStatusChange('qc'),
-                                                            className: "bg-linear-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-6 md:px-8 py-3 rounded-xl font-bold shadow-lg shadow-orange-200 transition-all flex items-center gap-2 transform hover:scale-105",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$send$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Send$3e$__["Send"], {
-                                                                    size: 20
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 318,
-                                                                    columnNumber: 367
-                                                                }, this),
-                                                                " ผลิตเสร็จ / ส่งตรวจสอบ (Send to QC)"
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 318,
-                                                            columnNumber: 78
-                                                        }, this),
-                                                        project.status === 'qc' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                            onClick: ()=>handleStatusChange('completed'),
-                                                            className: "bg-linear-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 md:px-8 py-3 rounded-xl font-bold shadow-lg shadow-green-200 transition-all flex items-center gap-2 transform hover:scale-105",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckSquare$3e$__["CheckSquare"], {
-                                                                    size: 20
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 319,
-                                                                    columnNumber: 366
-                                                                }, this),
-                                                                " ผ่านตรวจสอบ / จบงาน (Complete)"
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 319,
-                                                            columnNumber: 69
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 316,
-                                                    columnNumber: 67
-                                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "inline-flex items-center gap-2 px-5 py-2.5 bg-green-50 border border-green-200 text-green-700 rounded-xl font-bold",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
-                                                            size: 20,
-                                                            className: "text-green-600"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 320,
-                                                            columnNumber: 178
-                                                        }, this),
-                                                        " โปรเจกต์นี้ปิดบัญชีแล้ว"
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 320,
-                                                    columnNumber: 46
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
+                                            children: !project.is_sent_to_accounting ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "flex gap-3 min-w-max",
+                                                children: [
+                                                    project.status === 'pending' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: ()=>handleStatusChange('in_progress'),
+                                                        className: "bg-linear-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white px-6 md:px-8 py-3 rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all flex items-center gap-2 transform hover:scale-105",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$hammer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Hammer$3e$__["Hammer"], {
+                                                                size: 20
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                lineNumber: 390,
+                                                                columnNumber: 370
+                                                            }, this),
+                                                            " เริ่มการผลิต (Start)"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                        lineNumber: 390,
+                                                        columnNumber: 74
+                                                    }, this),
+                                                    project.status === 'in_progress' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: ()=>handleStatusChange('qc'),
+                                                        className: "bg-linear-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-6 md:px-8 py-3 rounded-xl font-bold shadow-lg shadow-orange-200 transition-all flex items-center gap-2 transform hover:scale-105",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$send$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Send$3e$__["Send"], {
+                                                                size: 20
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                lineNumber: 391,
+                                                                columnNumber: 367
+                                                            }, this),
+                                                            " ผลิตเสร็จ / ส่งตรวจสอบ (Send to QC)"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                        lineNumber: 391,
+                                                        columnNumber: 78
+                                                    }, this),
+                                                    project.status === 'qc' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: ()=>handleStatusChange('completed'),
+                                                        className: "bg-linear-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 md:px-8 py-3 rounded-xl font-bold shadow-lg shadow-green-200 transition-all flex items-center gap-2 transform hover:scale-105",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckSquare$3e$__["CheckSquare"], {
+                                                                size: 20
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                lineNumber: 392,
+                                                                columnNumber: 366
+                                                            }, this),
+                                                            " ผ่านตรวจสอบ / จบงาน (Complete)"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                        lineNumber: 392,
+                                                        columnNumber: 69
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                lineNumber: 389,
+                                                columnNumber: 67
+                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "inline-flex items-center gap-2 px-5 py-2.5 bg-green-50 border border-green-200 text-green-700 rounded-xl font-bold",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
+                                                        size: 20,
+                                                        className: "text-green-600"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                        lineNumber: 393,
+                                                        columnNumber: 178
+                                                    }, this),
+                                                    " โปรเจกต์นี้ปิดบัญชีแล้ว"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                lineNumber: 393,
+                                                columnNumber: 46
+                                            }, this)
+                                        }, void 0, false, {
                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                            lineNumber: 315,
+                                            lineNumber: 388,
                                             columnNumber: 29
                                         }, this),
                                         project.status === 'completed' && !project.is_sent_to_accounting && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2430,12 +2516,12 @@ function ProjectDetailPage({ params }) {
                                                                 size: 20
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 324,
+                                                                lineNumber: 397,
                                                                 columnNumber: 155
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 324,
+                                                            lineNumber: 397,
                                                             columnNumber: 93
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2445,7 +2531,7 @@ function ProjectDetailPage({ params }) {
                                                                     children: "งานเสร็จสิ้น! พร้อมส่งบัญชี"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 324,
+                                                                    lineNumber: 397,
                                                                     columnNumber: 190
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2453,19 +2539,19 @@ function ProjectDetailPage({ params }) {
                                                                     children: "ตรวจสอบความถูกต้องก่อนส่งข้อมูล"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 324,
+                                                                    lineNumber: 397,
                                                                     columnNumber: 246
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 324,
+                                                            lineNumber: 397,
                                                             columnNumber: 185
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 324,
+                                                    lineNumber: 397,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2476,26 +2562,26 @@ function ProjectDetailPage({ params }) {
                                                             size: 18
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 325,
+                                                            lineNumber: 398,
                                                             columnNumber: 296
                                                         }, this),
                                                         " ยืนยันส่ง"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 325,
+                                                    lineNumber: 398,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                            lineNumber: 323,
+                                            lineNumber: 396,
                                             columnNumber: 98
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                    lineNumber: 299,
+                                    lineNumber: 372,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2507,12 +2593,12 @@ function ProjectDetailPage({ params }) {
                                                 size: 200
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 331,
+                                                lineNumber: 403,
                                                 columnNumber: 123
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                            lineNumber: 331,
+                                            lineNumber: 403,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2528,19 +2614,19 @@ function ProjectDetailPage({ params }) {
                                                                 size: 20
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 333,
+                                                                lineNumber: 405,
                                                                 columnNumber: 154
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 333,
+                                                            lineNumber: 405,
                                                             columnNumber: 103
                                                         }, this),
                                                         " สรุปสถานะการเงิน"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 333,
+                                                    lineNumber: 405,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2554,7 +2640,7 @@ function ProjectDetailPage({ params }) {
                                                                     children: "การใช้งบประมาณ"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 335,
+                                                                    lineNumber: 407,
                                                                     columnNumber: 88
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2565,13 +2651,13 @@ function ProjectDetailPage({ params }) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 335,
+                                                                    lineNumber: 407,
                                                                     columnNumber: 152
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 335,
+                                                            lineNumber: 407,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2583,12 +2669,12 @@ function ProjectDetailPage({ params }) {
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 336,
+                                                                lineNumber: 408,
                                                                 columnNumber: 116
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 336,
+                                                            lineNumber: 408,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2601,7 +2687,7 @@ function ProjectDetailPage({ params }) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 339,
+                                                                    lineNumber: 411,
                                                                     columnNumber: 115
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2611,19 +2697,19 @@ function ProjectDetailPage({ params }) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 339,
+                                                                    lineNumber: 411,
                                                                     columnNumber: 158
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 339,
+                                                            lineNumber: 411,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 334,
+                                                    lineNumber: 406,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2634,7 +2720,7 @@ function ProjectDetailPage({ params }) {
                                                             children: "งบคงเหลือสุทธิ"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 342,
+                                                            lineNumber: 414,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2648,19 +2734,19 @@ function ProjectDetailPage({ params }) {
                                                                     children: "฿"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 343,
+                                                                    lineNumber: 415,
                                                                     columnNumber: 266
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 343,
+                                                            lineNumber: 415,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 341,
+                                                    lineNumber: 413,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2673,7 +2759,7 @@ function ProjectDetailPage({ params }) {
                                                                     children: "ราคาขาย"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 346,
+                                                                    lineNumber: 418,
                                                                     columnNumber: 42
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2684,13 +2770,13 @@ function ProjectDetailPage({ params }) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 346,
+                                                                    lineNumber: 418,
                                                                     columnNumber: 111
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 346,
+                                                            lineNumber: 418,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2705,7 +2791,7 @@ function ProjectDetailPage({ params }) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 347,
+                                                                    lineNumber: 419,
                                                                     columnNumber: 96
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2716,42 +2802,42 @@ function ProjectDetailPage({ params }) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 347,
+                                                                    lineNumber: 419,
                                                                     columnNumber: 198
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 347,
+                                                            lineNumber: 419,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 345,
+                                                    lineNumber: 417,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                            lineNumber: 332,
+                                            lineNumber: 404,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                    lineNumber: 330,
+                                    lineNumber: 402,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                            lineNumber: 298,
+                            lineNumber: 371,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                        lineNumber: 297,
+                        lineNumber: 370,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2766,14 +2852,14 @@ function ProjectDetailPage({ params }) {
                                         className: activeTab === 'timeline' ? 'text-indigo-600' : 'text-slate-400'
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                        lineNumber: 356,
+                                        lineNumber: 428,
                                         columnNumber: 382
                                     }, this),
                                     " ไทม์ไลน์ & แผนงาน"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                lineNumber: 356,
+                                lineNumber: 428,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2785,20 +2871,39 @@ function ProjectDetailPage({ params }) {
                                         className: activeTab === 'cost' ? 'text-indigo-600' : 'text-slate-400'
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                        lineNumber: 357,
+                                        lineNumber: 429,
                                         columnNumber: 374
                                     }, this),
                                     " ต้นทุนการผลิต"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                lineNumber: 357,
+                                lineNumber: 429,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>setActiveTab('documents'),
+                                className: `flex-1 md:flex-none px-6 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all duration-200 whitespace-nowrap ${activeTab === 'documents' ? 'bg-indigo-50 text-indigo-700 shadow-sm border border-indigo-100' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'}`,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$folder$2d$open$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FolderOpen$3e$__["FolderOpen"], {
+                                        size: 18,
+                                        className: activeTab === 'documents' ? 'text-indigo-600' : 'text-slate-400'
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                        lineNumber: 431,
+                                        columnNumber: 384
+                                    }, this),
+                                    " เอกสารโครงการ"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                lineNumber: 431,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                        lineNumber: 355,
+                        lineNumber: 427,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2807,6 +2912,236 @@ function ProjectDetailPage({ params }) {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "lg:col-span-2 space-y-8",
                                 children: [
+                                    activeTab === 'documents' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: cardStyle,
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "flex justify-between items-center mb-6",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                        className: "font-bold text-xl text-slate-900 flex items-center gap-3",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "p-2.5 rounded-xl bg-blue-100 text-blue-600 shadow-sm",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
+                                                                    size: 22
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                    lineNumber: 441,
+                                                                    columnNumber: 111
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                lineNumber: 441,
+                                                                columnNumber: 41
+                                                            }, this),
+                                                            "คลังเอกสารแนบโครงการ"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                        lineNumber: 440,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        className: "cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg active:scale-95",
+                                                        children: [
+                                                            isUploadingDoc ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__["Loader2"], {
+                                                                className: "animate-spin",
+                                                                size: 18
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                lineNumber: 447,
+                                                                columnNumber: 59
+                                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__["Upload"], {
+                                                                size: 18
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                lineNumber: 447,
+                                                                columnNumber: 108
+                                                            }, this),
+                                                            isUploadingDoc ? 'กำลังอัปโหลด...' : 'แนบเอกสารใหม่',
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "file",
+                                                                className: "hidden",
+                                                                onChange: handleUploadDocument,
+                                                                disabled: isUploadingDoc
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                lineNumber: 449,
+                                                                columnNumber: 41
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                        lineNumber: 446,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                lineNumber: 439,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+                                                children: documents.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "text-center py-12 border-2 border-dashed border-slate-100 rounded-3xl col-span-2",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$folder$2d$open$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FolderOpen$3e$__["FolderOpen"], {
+                                                                size: 32
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                lineNumber: 455,
+                                                                columnNumber: 158
+                                                            }, this)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                            lineNumber: 455,
+                                                            columnNumber: 45
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-slate-400 font-medium italic",
+                                                            children: "ยังไม่มีข้อมูล Requirement หรือไฟล์แนบในโปรเจกต์นี้"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                            lineNumber: 456,
+                                                            columnNumber: 45
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                    lineNumber: 454,
+                                                    columnNumber: 63
+                                                }, this) : documents.map((doc)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "p-4 rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-md transition-all group relative",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex items-start gap-4",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: `p-3 rounded-xl bg-blue-100 text-blue-600`,
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
+                                                                        size: 24
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                        lineNumber: 460,
+                                                                        columnNumber: 57
+                                                                    }, this)
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                    lineNumber: 459,
+                                                                    columnNumber: 53
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex-1 min-w-0",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                            className: "font-bold text-slate-800 truncate text-sm",
+                                                                            title: doc.file_name,
+                                                                            children: doc.file_name
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                            lineNumber: 463,
+                                                                            columnNumber: 57
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                            className: "text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-widest",
+                                                                            children: new Date(doc.created_at).toLocaleDateString('th-TH')
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                            lineNumber: 464,
+                                                                            columnNumber: 57
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "flex gap-2 mt-3",
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                                                                    href: doc.file_path,
+                                                                                    target: "_blank",
+                                                                                    className: "text-[10px] font-black bg-white border border-slate-200 px-3 py-1.5 rounded-lg text-blue-600 hover:bg-blue-50 transition flex items-center gap-1",
+                                                                                    children: [
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
+                                                                                            size: 12
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                                            lineNumber: 466,
+                                                                                            columnNumber: 258
+                                                                                        }, this),
+                                                                                        " เปิดดู"
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                                    lineNumber: 466,
+                                                                                    columnNumber: 61
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                                                                    href: `${doc.file_path}?download=true`,
+                                                                                    className: "text-[10px] font-black bg-white border border-slate-200 px-3 py-1.5 rounded-lg text-green-600 hover:bg-green-50 transition flex items-center gap-1",
+                                                                                    children: [
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$download$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Download$3e$__["Download"], {
+                                                                                            size: 12
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                                            lineNumber: 467,
+                                                                                            columnNumber: 263
+                                                                                        }, this),
+                                                                                        " โหลด"
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                                    lineNumber: 467,
+                                                                                    columnNumber: 61
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                                    onClick: ()=>handleDeleteDocument(doc.id),
+                                                                                    className: "text-[10px] font-black bg-white border border-slate-200 px-3 py-1.5 rounded-lg text-red-500 hover:bg-red-50 transition ml-auto",
+                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                                                                        size: 12
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                                        lineNumber: 468,
+                                                                                        columnNumber: 253
+                                                                                    }, this)
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                                    lineNumber: 468,
+                                                                                    columnNumber: 61
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                            lineNumber: 465,
+                                                                            columnNumber: 57
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                    lineNumber: 462,
+                                                                    columnNumber: 53
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                            lineNumber: 458,
+                                                            columnNumber: 49
+                                                        }, this)
+                                                    }, doc.id, false, {
+                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                        lineNumber: 457,
+                                                        columnNumber: 71
+                                                    }, this))
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                lineNumber: 453,
+                                                columnNumber: 33
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                        lineNumber: 438,
+                                        columnNumber: 55
+                                    }, this),
                                     activeTab === 'cost' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: cardStyle,
                                         children: [
@@ -2821,24 +3156,24 @@ function ProjectDetailPage({ params }) {
                                                                 size: 22
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 363,
+                                                                lineNumber: 477,
                                                                 columnNumber: 238
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 363,
+                                                            lineNumber: 477,
                                                             columnNumber: 162
                                                         }, this),
                                                         " บันทึกต้นทุนการผลิต"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 363,
+                                                    lineNumber: 477,
                                                     columnNumber: 89
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 363,
+                                                lineNumber: 477,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -2879,12 +3214,12 @@ function ProjectDetailPage({ params }) {
                                                                 children: tab.label
                                                             }, tab.id, false, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 380,
+                                                                lineNumber: 494,
                                                                 columnNumber: 31
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                        lineNumber: 367,
+                                                        lineNumber: 481,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2903,20 +3238,20 @@ function ProjectDetailPage({ params }) {
                                                                                 children: "*"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 395,
+                                                                                lineNumber: 507,
                                                                                 columnNumber: 212
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 395,
+                                                                        lineNumber: 507,
                                                                         columnNumber: 45
                                                                     }, this),
                                                                     costType === 'material' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "relative",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                                                className: "w-full p-3.5 border border-slate-300 rounded-xl bg-white text-slate-900 font-medium outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm appearance-none",
+                                                                                className: "w-full p-3.5 border border-slate-300 rounded-xl bg-white text-slate-900 font-medium outline-none focus:border-indigo-500 transition shadow-sm appearance-none",
                                                                                 value: selectedItem,
                                                                                 onChange: handleSmartSelect,
                                                                                 children: [
@@ -2926,8 +3261,8 @@ function ProjectDetailPage({ params }) {
                                                                                         children: "-- พิมพ์เอง (ไม่ตัดสต็อก) --"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                        lineNumber: 396,
-                                                                                        columnNumber: 364
+                                                                                        lineNumber: 508,
+                                                                                        columnNumber: 326
                                                                                     }, this),
                                                                                     products.map((p_0)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                                             value: p_0.id,
@@ -2940,13 +3275,13 @@ function ProjectDetailPage({ params }) {
                                                                                             ]
                                                                                         }, p_0.id, true, {
                                                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 396,
-                                                                                            columnNumber: 466
+                                                                                            lineNumber: 508,
+                                                                                            columnNumber: 428
                                                                                         }, this))
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 396,
+                                                                                lineNumber: 508,
                                                                                 columnNumber: 98
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2954,19 +3289,19 @@ function ProjectDetailPage({ params }) {
                                                                                 children: "▼"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 396,
-                                                                                columnNumber: 585
+                                                                                lineNumber: 508,
+                                                                                columnNumber: 547
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 396,
+                                                                        lineNumber: 508,
                                                                         columnNumber: 72
                                                                     }, this) : costType === 'labor' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "relative",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                                                className: "w-full p-3.5 border border-slate-300 rounded-xl bg-white text-slate-900 font-medium outline-none focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition shadow-sm appearance-none",
+                                                                                className: "w-full p-3.5 border border-slate-300 rounded-xl bg-white text-slate-900 font-medium outline-none focus:border-orange-500 transition shadow-sm appearance-none",
                                                                                 value: selectedItem,
                                                                                 onChange: handleSmartSelect,
                                                                                 children: [
@@ -2976,8 +3311,8 @@ function ProjectDetailPage({ params }) {
                                                                                         children: "-- ระบุเอง --"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                        lineNumber: 396,
-                                                                                        columnNumber: 1010
+                                                                                        lineNumber: 508,
+                                                                                        columnNumber: 934
                                                                                     }, this),
                                                                                     members && members.map((m_1)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                                             value: m_1.id,
@@ -2992,28 +3327,28 @@ function ProjectDetailPage({ params }) {
                                                                                             ]
                                                                                         }, m_1.id, true, {
                                                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 396,
-                                                                                            columnNumber: 1107
+                                                                                            lineNumber: 508,
+                                                                                            columnNumber: 1031
                                                                                         }, this))
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 396,
-                                                                                columnNumber: 744
+                                                                                lineNumber: 508,
+                                                                                columnNumber: 706
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                 className: "absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500",
                                                                                 children: "▼"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 396,
-                                                                                columnNumber: 1239
+                                                                                lineNumber: 508,
+                                                                                columnNumber: 1163
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 396,
-                                                                        columnNumber: 718
+                                                                        lineNumber: 508,
+                                                                        columnNumber: 680
                                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "p-3.5 bg-purple-50 border border-purple-200 rounded-xl text-purple-700 text-sm font-bold flex items-center gap-2",
                                                                         children: [
@@ -3021,20 +3356,20 @@ function ProjectDetailPage({ params }) {
                                                                                 size: 18
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 396,
-                                                                                columnNumber: 1479
+                                                                                lineNumber: 508,
+                                                                                columnNumber: 1403
                                                                             }, this),
                                                                             " ระบุรายละเอียดในช่องถัดไป 👉"
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 396,
-                                                                        columnNumber: 1349
+                                                                        lineNumber: 508,
+                                                                        columnNumber: 1273
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 394,
+                                                                lineNumber: 506,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3049,34 +3384,34 @@ function ProjectDetailPage({ params }) {
                                                                                 children: "*"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 400,
-                                                                                columnNumber: 146
+                                                                                lineNumber: 512,
+                                                                                columnNumber: 119
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 400,
-                                                                        columnNumber: 72
+                                                                        lineNumber: 512,
+                                                                        columnNumber: 45
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                         type: "text",
-                                                                        className: "w-full p-3.5 border border-slate-300 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 font-medium outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm",
+                                                                        className: "w-full p-3.5 border border-slate-400 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 font-bold outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm",
                                                                         value: costForm.description,
-                                                                        onChange: (e_1)=>setCostForm({
+                                                                        onChange: (e_2)=>setCostForm({
                                                                                 ...costForm,
-                                                                                description: e_1.target.value
+                                                                                description: e_2.target.value
                                                                             }),
                                                                         required: true,
-                                                                        placeholder: "เช่น ค่าปูน, ค่าแรงช่างสมชาย..."
+                                                                        placeholder: "ระบุรายละเอียดให้ชัดเจน..."
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 400,
-                                                                        columnNumber: 193
+                                                                        lineNumber: 513,
+                                                                        columnNumber: 45
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 400,
+                                                                lineNumber: 511,
                                                                 columnNumber: 41
                                                             }, this),
                                                             costType === 'labor' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3088,51 +3423,26 @@ function ProjectDetailPage({ params }) {
                                                                             children: [
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                                     className: "text-xs font-bold text-orange-800 mb-1 block",
-                                                                                    children: "ค่าจ้าง / ชั่วโมง"
+                                                                                    children: "ค่าจ้าง / ชม."
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 409,
-                                                                                    columnNumber: 57
+                                                                                    lineNumber: 521,
+                                                                                    columnNumber: 58
                                                                                 }, this),
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    className: "relative",
-                                                                                    children: [
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                                            type: "number",
-                                                                                            className: "w-full p-3 border border-orange-200 rounded-lg text-right font-bold text-slate-900 outline-none focus:ring-2 focus:ring-orange-300",
-                                                                                            value: hourlyRate,
-                                                                                            onFocus: (e_2)=>e_2.target.select(),
-                                                                                            onChange: (e_3)=>{
-                                                                                                const rate_0 = parseFloat(e_3.target.value) || 0;
-                                                                                                setHourlyRate(rate_0);
-                                                                                                setCostForm((prev_1)=>({
-                                                                                                        ...prev_1,
-                                                                                                        amount: calculateLaborTotal(rate_0, otMultiplier, prev_1.quantity)
-                                                                                                    }));
-                                                                                            }
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 411,
-                                                                                            columnNumber: 61
-                                                                                        }, this),
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                            className: "absolute left-3 top-3 text-orange-400 text-xs",
-                                                                                            children: "฿"
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 419,
-                                                                                            columnNumber: 61
-                                                                                        }, this)
-                                                                                    ]
-                                                                                }, void 0, true, {
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                                    type: "number",
+                                                                                    className: "w-full p-3 border border-orange-200 rounded-lg text-right font-bold",
+                                                                                    value: hourlyRate,
+                                                                                    onChange: (e_3)=>setHourlyRate(e_3.target.value)
+                                                                                }, void 0, false, {
                                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 410,
-                                                                                    columnNumber: 57
+                                                                                    lineNumber: 521,
+                                                                                    columnNumber: 143
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                            lineNumber: 408,
+                                                                            lineNumber: 521,
                                                                             columnNumber: 53
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3142,196 +3452,117 @@ function ProjectDetailPage({ params }) {
                                                                                     children: "ประเภทงาน (OT)"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 423,
-                                                                                    columnNumber: 57
+                                                                                    lineNumber: 522,
+                                                                                    columnNumber: 58
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                                                    className: "w-full p-3 border border-orange-200 rounded-lg font-bold text-slate-900 outline-none focus:ring-2 focus:ring-orange-300 bg-white cursor-pointer",
+                                                                                    className: "w-full p-3 border border-orange-200 rounded-lg font-bold",
                                                                                     value: otMultiplier,
-                                                                                    onChange: (e_4)=>{
-                                                                                        const mult_0 = parseFloat(e_4.target.value);
-                                                                                        setOtMultiplier(mult_0);
-                                                                                        let baseDesc = costForm.description.split(' (')[0];
-                                                                                        if (!baseDesc) baseDesc = "ค่าแรง";
-                                                                                        const otText = mult_0 === 1.5 ? ' (OT x1.5)' : mult_0 === 2 ? ' (OT x2)' : mult_0 === 3 ? ' (OT x3)' : '';
-                                                                                        setCostForm((prev_2)=>({
-                                                                                                ...prev_2,
-                                                                                                description: baseDesc + otText,
-                                                                                                amount: calculateLaborTotal(hourlyRate, mult_0, prev_2.quantity)
-                                                                                            }));
-                                                                                    },
+                                                                                    onChange: (e_4)=>setOtMultiplier(e_4.target.value),
                                                                                     children: [
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                                             value: "1",
-                                                                                            children: "🕒 งานปกติ (x1.0)"
+                                                                                            children: "🕒 ปกติ"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 436,
-                                                                                            columnNumber: 61
+                                                                                            lineNumber: 522,
+                                                                                            columnNumber: 294
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                                             value: "1.5",
-                                                                                            children: "🌇 OT หลังเลิกงาน (x1.5)"
+                                                                                            children: "🌇 OT 1.5"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 437,
-                                                                                            columnNumber: 61
+                                                                                            lineNumber: 522,
+                                                                                            columnNumber: 328
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                                             value: "2",
-                                                                                            children: "📅 OT วันหยุด (x2.0)"
+                                                                                            children: "📅 OT 2.0"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 438,
-                                                                                            columnNumber: 61
-                                                                                        }, this),
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                                            value: "3",
-                                                                                            children: "🎉 OT นักขัตฤกษ์ (x3.0)"
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 439,
-                                                                                            columnNumber: 61
+                                                                                            lineNumber: 522,
+                                                                                            columnNumber: 366
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 424,
-                                                                                    columnNumber: 57
+                                                                                    lineNumber: 522,
+                                                                                    columnNumber: 144
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                            lineNumber: 422,
+                                                                            lineNumber: 522,
                                                                             columnNumber: 53
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             children: [
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                                     className: "text-xs font-bold text-orange-800 mb-1 block",
-                                                                                    children: "ทำกี่ชั่วโมง?"
+                                                                                    children: "ชั่วโมง"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 443,
-                                                                                    columnNumber: 57
+                                                                                    lineNumber: 523,
+                                                                                    columnNumber: 58
                                                                                 }, this),
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    className: "flex items-center gap-2",
-                                                                                    children: [
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                                            type: "button",
-                                                                                            onClick: ()=>{
-                                                                                                const newQty = Math.max(1, costForm.quantity - 1);
-                                                                                                setCostForm((prev_3)=>({
-                                                                                                        ...prev_3,
-                                                                                                        quantity: newQty,
-                                                                                                        amount: calculateLaborTotal(hourlyRate, otMultiplier, newQty)
-                                                                                                    }));
-                                                                                            },
-                                                                                            className: "w-10 h-11 bg-white border border-orange-200 rounded-lg hover:bg-orange-100 font-bold text-orange-600",
-                                                                                            children: "-"
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 445,
-                                                                                            columnNumber: 61
-                                                                                        }, this),
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                                            type: "number",
-                                                                                            className: "w-full p-3 border border-orange-200 rounded-lg text-center font-bold text-slate-900 outline-none",
-                                                                                            value: costForm.quantity,
-                                                                                            onFocus: (e_5)=>e_5.target.select(),
-                                                                                            onChange: (e_6)=>{
-                                                                                                const qty = parseFloat(e_6.target.value) || 0;
-                                                                                                setCostForm((prev_4)=>({
-                                                                                                        ...prev_4,
-                                                                                                        quantity: qty,
-                                                                                                        amount: calculateLaborTotal(hourlyRate, otMultiplier, qty)
-                                                                                                    }));
-                                                                                            }
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 453,
-                                                                                            columnNumber: 61
-                                                                                        }, this),
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                                            type: "button",
-                                                                                            onClick: ()=>{
-                                                                                                const newQty_0 = costForm.quantity + 1;
-                                                                                                setCostForm((prev_5)=>({
-                                                                                                        ...prev_5,
-                                                                                                        quantity: newQty_0,
-                                                                                                        amount: calculateLaborTotal(hourlyRate, otMultiplier, newQty_0)
-                                                                                                    }));
-                                                                                            },
-                                                                                            className: "w-10 h-11 bg-white border border-orange-200 rounded-lg hover:bg-orange-100 font-bold text-orange-600",
-                                                                                            children: "+"
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 461,
-                                                                                            columnNumber: 61
-                                                                                        }, this)
-                                                                                    ]
-                                                                                }, void 0, true, {
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                                    type: "number",
+                                                                                    className: "w-full p-3 border border-orange-200 rounded-lg text-center font-bold",
+                                                                                    value: costForm.quantity,
+                                                                                    onChange: (e_5)=>setCostForm({
+                                                                                            ...costForm,
+                                                                                            quantity: e_5.target.value
+                                                                                        })
+                                                                                }, void 0, false, {
                                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 444,
-                                                                                    columnNumber: 57
+                                                                                    lineNumber: 523,
+                                                                                    columnNumber: 137
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                            lineNumber: 442,
+                                                                            lineNumber: 523,
                                                                             columnNumber: 53
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 407,
+                                                                    lineNumber: 520,
                                                                     columnNumber: 49
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 406,
+                                                                lineNumber: 519,
                                                                 columnNumber: 65
                                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "md:col-span-4",
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                         className: "text-sm font-bold text-slate-900 mb-2 block",
-                                                                        children: "จำนวน (หน่วย)"
+                                                                        children: "จำนวน"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 473,
-                                                                        columnNumber: 49
+                                                                        lineNumber: 528,
+                                                                        columnNumber: 85
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                         type: "number",
-                                                                        min: "1",
-                                                                        step: "1",
-                                                                        className: "w-full p-3.5 border border-slate-300 rounded-xl bg-white text-center font-bold text-slate-900 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm",
+                                                                        className: "w-full p-3.5 border border-slate-300 rounded-xl text-center font-bold",
                                                                         value: costForm.quantity,
-                                                                        onFocus: (e_7)=>e_7.target.select(),
-                                                                        onChange: (e_8)=>{
-                                                                            const qty_0 = parseInt(e_8.target.value) || 0;
-                                                                            let newAmt = costForm.amount;
-                                                                            if (costType === 'material' && selectedItem) {
-                                                                                const p_1 = products.find((x)=>x.id == selectedItem);
-                                                                                if (p_1) newAmt = p_1.price * qty_0;
-                                                                            }
-                                                                            setCostForm({
+                                                                        onChange: (e_6)=>setCostForm({
                                                                                 ...costForm,
-                                                                                quantity: qty_0,
-                                                                                amount: newAmt
-                                                                            });
-                                                                        }
+                                                                                quantity: e_6.target.value
+                                                                            })
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 474,
-                                                                        columnNumber: 49
+                                                                        lineNumber: 528,
+                                                                        columnNumber: 161
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 472,
+                                                                lineNumber: 528,
                                                                 columnNumber: 54
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3340,60 +3571,39 @@ function ProjectDetailPage({ params }) {
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                         className: "text-sm font-bold text-slate-900 mb-2 block",
                                                                         children: [
-                                                                            costType === 'labor' ? 'สรุปยอดค่าแรงสุทธิ (บาท)' : 'รวมเป็นเงิน (บาท)',
-                                                                            " ",
+                                                                            "รวมเงิน (บาท) ",
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                                 className: "text-red-500",
                                                                                 children: "*"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 491,
-                                                                                columnNumber: 182
+                                                                                lineNumber: 533,
+                                                                                columnNumber: 193
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 491,
-                                                                        columnNumber: 45
+                                                                        lineNumber: 533,
+                                                                        columnNumber: 116
                                                                     }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "relative",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "absolute left-4 top-3.5 text-indigo-600 font-bold text-lg",
-                                                                                children: "฿"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 493,
-                                                                                columnNumber: 49
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                                type: "number",
-                                                                                className: `w-full p-3.5 pl-10 font-bold text-xl rounded-xl outline-none transition shadow-sm ${costType === 'labor' ? 'bg-slate-100 text-slate-800 border border-slate-200 cursor-not-allowed' : 'bg-indigo-50 text-indigo-700 border border-indigo-200 focus:border-indigo-500'}`,
-                                                                                value: costForm.amount,
-                                                                                onFocus: (e_9)=>e_9.target.select(),
-                                                                                onChange: (e_10)=>setCostForm({
-                                                                                        ...costForm,
-                                                                                        amount: e_10.target.value
-                                                                                    }),
-                                                                                required: true,
-                                                                                placeholder: "0.00",
-                                                                                readOnly: costType === 'labor'
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 494,
-                                                                                columnNumber: 49
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                        type: "number",
+                                                                        className: "w-full p-3.5 font-bold text-xl rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700",
+                                                                        value: costForm.amount,
+                                                                        onChange: (e_7)=>setCostForm({
+                                                                                ...costForm,
+                                                                                amount: e_7.target.value
+                                                                            }),
+                                                                        required: true
+                                                                    }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 492,
-                                                                        columnNumber: 45
+                                                                        lineNumber: 533,
+                                                                        columnNumber: 240
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 490,
+                                                                lineNumber: 533,
                                                                 columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3401,359 +3611,189 @@ function ProjectDetailPage({ params }) {
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                         className: "text-sm font-bold text-slate-900 mb-2 block",
-                                                                        children: "แนบหลักฐาน / ใบเสร็จ"
+                                                                        children: "แนบหลักฐาน"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 502,
+                                                                        lineNumber: 537,
                                                                         columnNumber: 73
                                                                     }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "flex flex-col md:flex-row items-center gap-4 bg-white p-4 rounded-xl border-2 border-dashed border-slate-300 hover:border-indigo-400 hover:bg-slate-50 transition cursor-pointer relative group",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "p-3 bg-slate-100 rounded-full text-slate-600 group-hover:text-indigo-600 group-hover:bg-indigo-100 transition",
-                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__["Upload"], {
-                                                                                    size: 24
-                                                                                }, void 0, false, {
-                                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 502,
-                                                                                    columnNumber: 500
-                                                                                }, this)
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 502,
-                                                                                columnNumber: 373
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "flex-1 text-center md:text-left",
-                                                                                children: [
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                                        className: "block w-full h-full absolute inset-0 opacity-0 z-10 cursor-pointer",
-                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                                            type: "file",
-                                                                                            className: "hidden",
-                                                                                            accept: "image/*,.pdf",
-                                                                                            onChange: (e_11)=>setEvidenceFile(e_11.target.files[0])
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 502,
-                                                                                            columnNumber: 661
-                                                                                        }, this)
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                        lineNumber: 502,
-                                                                                        columnNumber: 575
-                                                                                    }, this),
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "block text-base font-bold text-slate-800 pointer-events-none group-hover:text-indigo-700 transition",
-                                                                                        children: "คลิกเพื่อเลือกไฟล์ (JPG, PNG, PDF)"
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                        lineNumber: 502,
-                                                                                        columnNumber: 788
-                                                                                    }, this),
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                        className: "text-sm text-slate-700 pointer-events-none mt-1",
-                                                                                        children: evidenceFile ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                            className: "text-green-600 font-bold flex items-center justify-center md:justify-start gap-1 bg-green-50 px-2 py-1 rounded w-fit",
-                                                                                            children: [
-                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
-                                                                                                    size: 14
-                                                                                                }, void 0, false, {
-                                                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                                    lineNumber: 502,
-                                                                                                    columnNumber: 1163
-                                                                                                }, this),
-                                                                                                " ",
-                                                                                                evidenceFile.name
-                                                                                            ]
-                                                                                        }, void 0, true, {
-                                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 502,
-                                                                                            columnNumber: 1028
-                                                                                        }, this) : "ยังไม่ได้เลือกไฟล์"
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                        lineNumber: 502,
-                                                                                        columnNumber: 947
-                                                                                    }, this)
-                                                                                ]
-                                                                            }, void 0, true, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 502,
-                                                                                columnNumber: 526
-                                                                            }, this),
-                                                                            evidenceFile && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                                type: "button",
-                                                                                onClick: ()=>setEvidenceFile(null),
-                                                                                className: "relative z-20 text-slate-400 hover:text-red-500 p-2 hover:bg-red-50 rounded-full transition",
-                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                                                                    size: 20
-                                                                                }, void 0, false, {
-                                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 502,
-                                                                                    columnNumber: 1432
-                                                                                }, this)
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 502,
-                                                                                columnNumber: 1268
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                        type: "file",
+                                                                        className: "w-full p-3 border-2 border-dashed border-slate-300 rounded-xl cursor-pointer",
+                                                                        onChange: (e_8)=>setEvidenceFile(e_8.target.files[0])
+                                                                    }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 502,
-                                                                        columnNumber: 164
+                                                                        lineNumber: 537,
+                                                                        columnNumber: 154
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 502,
+                                                                lineNumber: 537,
                                                                 columnNumber: 41
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                        lineNumber: 391,
+                                                        lineNumber: 505,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "mt-8 text-right border-t border-slate-100 pt-6",
+                                                        className: "mt-8 text-right",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                             type: "submit",
-                                                            className: "w-full md:w-auto bg-slate-900 hover:bg-black text-white px-8 py-3.5 rounded-xl text-base font-bold shadow-lg shadow-slate-200 transition-all flex justify-center items-center gap-2 ml-auto hover:-translate-y-0.5",
+                                                            className: "bg-slate-900 text-white px-8 py-3.5 rounded-xl font-bold flex items-center gap-2 ml-auto shadow-lg hover:bg-black transition-all",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
                                                                     size: 20
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 504,
-                                                                    columnNumber: 346
+                                                                    lineNumber: 539,
+                                                                    columnNumber: 233
                                                                 }, this),
                                                                 " บันทึกรายการ"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 504,
-                                                            columnNumber: 101
+                                                            lineNumber: 539,
+                                                            columnNumber: 70
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                        lineNumber: 504,
+                                                        lineNumber: 539,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 366,
+                                                lineNumber: 480,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "overflow-hidden rounded-xl border border-slate-200/60 shadow-sm",
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "overflow-x-auto",
+                                                className: "overflow-x-auto rounded-xl border border-slate-200/60 shadow-sm",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
+                                                    className: "w-full text-sm text-left",
                                                     children: [
-                                                        " ",
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                                            className: "w-full text-sm text-left min-w-[600px]",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                                                    className: "bg-slate-50/80 text-slate-900 font-bold uppercase text-[11px] tracking-wider border-b border-slate-200",
-                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                className: "p-4 w-28",
-                                                                                children: "วันที่"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 513,
-                                                                                columnNumber: 53
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                className: "p-4 w-24",
-                                                                                children: "ประเภท"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 514,
-                                                                                columnNumber: 53
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                className: "p-4 min-w-[200px]",
-                                                                                children: "รายการ"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 515,
-                                                                                columnNumber: 53
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                className: "p-4 text-center w-24",
-                                                                                children: "หลักฐาน"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 516,
-                                                                                columnNumber: 53
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                className: "p-4 text-right w-32",
-                                                                                children: "จำนวนเงิน"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 517,
-                                                                                columnNumber: 53
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 512,
-                                                                        columnNumber: 49
-                                                                    }, this)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 511,
-                                                                    columnNumber: 45
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                                                    className: "divide-y divide-slate-100 bg-white",
-                                                                    children: costs && costs.length > 0 ? costs.map((c_0)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                                            className: "hover:bg-slate-50/80 transition group",
-                                                                            children: [
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                    className: "p-4 text-slate-700 font-medium",
-                                                                                    children: new Date(c_0.recorded_date).toLocaleDateString('th-TH')
-                                                                                }, void 0, false, {
-                                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 522,
-                                                                                    columnNumber: 57
-                                                                                }, this),
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                    className: "p-4",
-                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: `px-3 py-1 rounded-lg text-xs font-bold capitalize border inline-block ${c_0.cost_type === 'material' ? 'bg-blue-50 text-blue-700 border-blue-100' : c_0.cost_type === 'labor' ? 'bg-orange-50 text-orange-700 border-orange-100' : 'bg-purple-50 text-purple-700 border-purple-100'}`,
-                                                                                        children: c_0.cost_type === 'material' ? 'วัตถุดิบ' : c_0.cost_type === 'labor' ? 'ค่าแรง' : 'อื่นๆ'
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                        lineNumber: 523,
-                                                                                        columnNumber: 77
-                                                                                    }, this)
-                                                                                }, void 0, false, {
-                                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 523,
-                                                                                    columnNumber: 57
-                                                                                }, this),
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                    className: "p-4 text-slate-900 font-medium",
-                                                                                    children: [
-                                                                                        c_0.description,
-                                                                                        " ",
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                            className: "text-slate-600 text-xs ml-1 font-normal",
-                                                                                            children: [
-                                                                                                "(x",
-                                                                                                c_0.quantity,
-                                                                                                ")"
-                                                                                            ]
-                                                                                        }, void 0, true, {
-                                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                            lineNumber: 524,
-                                                                                            columnNumber: 122
-                                                                                        }, this)
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 524,
-                                                                                    columnNumber: 57
-                                                                                }, this),
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                    className: "p-4 text-center",
-                                                                                    children: c_0.evidence_path ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                                                                        href: c_0.evidence_path,
-                                                                                        target: "_blank",
-                                                                                        rel: "noopener noreferrer",
-                                                                                        className: "inline-flex items-center gap-1 text-xs font-bold text-indigo-500 hover:text-indigo-700 bg-indigo-50 px-2 py-1 rounded border border-indigo-100 transition",
-                                                                                        children: [
-                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
-                                                                                                size: 12
-                                                                                            }, void 0, false, {
-                                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                                lineNumber: 525,
-                                                                                                columnNumber: 346
-                                                                                            }, this),
-                                                                                            " ดูไฟล์"
-                                                                                        ]
-                                                                                    }, void 0, true, {
-                                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                        lineNumber: 525,
-                                                                                        columnNumber: 110
-                                                                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "text-slate-300",
-                                                                                        children: "-"
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                        lineNumber: 525,
-                                                                                        columnNumber: 382
-                                                                                    }, this)
-                                                                                }, void 0, false, {
-                                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 525,
-                                                                                    columnNumber: 57
-                                                                                }, this),
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                    className: "p-4 text-right font-bold text-slate-900",
-                                                                                    children: [
-                                                                                        "฿",
-                                                                                        parseFloat(c_0.amount).toLocaleString()
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 526,
-                                                                                    columnNumber: 57
-                                                                                }, this)
-                                                                            ]
-                                                                        }, c_0.id, true, {
-                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                            lineNumber: 521,
-                                                                            columnNumber: 95
-                                                                        }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                            colSpan: "5",
-                                                                            className: "p-8 text-center text-slate-400 italic",
-                                                                            children: "ยังไม่มีข้อมูลต้นทุน"
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                            lineNumber: 527,
-                                                                            columnNumber: 66
-                                                                        }, this)
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
+                                                            className: "bg-slate-50/80 text-slate-900 font-bold uppercase text-[11px] border-b",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                        className: "p-4",
+                                                                        children: "วันที่"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 527,
-                                                                        columnNumber: 62
+                                                                        lineNumber: 546,
+                                                                        columnNumber: 49
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                        className: "p-4",
+                                                                        children: "ประเภท"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                        lineNumber: 546,
+                                                                        columnNumber: 80
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                        className: "p-4",
+                                                                        children: "รายการ"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                        lineNumber: 546,
+                                                                        columnNumber: 111
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                        className: "p-4 text-right",
+                                                                        children: "จำนวนเงิน"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                        lineNumber: 546,
+                                                                        columnNumber: 142
                                                                     }, this)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 520,
-                                                                    columnNumber: 45
-                                                                }, this)
-                                                            ]
-                                                        }, void 0, true, {
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                lineNumber: 546,
+                                                                columnNumber: 45
+                                                            }, this)
+                                                        }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 510,
+                                                            lineNumber: 545,
+                                                            columnNumber: 41
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
+                                                            className: "divide-y divide-slate-100 bg-white",
+                                                            children: costs && costs.map((c_0)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                    className: "hover:bg-slate-50/80 transition",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                            className: "p-4",
+                                                                            children: new Date(c_0.recorded_date).toLocaleDateString('th-TH')
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                            lineNumber: 550,
+                                                                            columnNumber: 53
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                            className: "p-4",
+                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                className: "px-3 py-1 rounded-lg text-xs font-bold bg-slate-50 border",
+                                                                                children: c_0.cost_type
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                                lineNumber: 551,
+                                                                                columnNumber: 73
+                                                                            }, this)
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                            lineNumber: 551,
+                                                                            columnNumber: 53
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                            className: "p-4 text-slate-900 font-medium",
+                                                                            children: c_0.description
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                            lineNumber: 552,
+                                                                            columnNumber: 53
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                            className: "p-4 text-right font-bold text-slate-900",
+                                                                            children: [
+                                                                                "฿",
+                                                                                parseFloat(c_0.amount).toLocaleString()
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                            lineNumber: 553,
+                                                                            columnNumber: 53
+                                                                        }, this)
+                                                                    ]
+                                                                }, c_0.id, true, {
+                                                                    fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                    lineNumber: 549,
+                                                                    columnNumber: 72
+                                                                }, this))
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                            lineNumber: 548,
                                                             columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                    lineNumber: 509,
+                                                    lineNumber: 544,
                                                     columnNumber: 37
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 508,
+                                                lineNumber: 543,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                        lineNumber: 362,
+                                        lineNumber: 476,
                                         columnNumber: 50
                                     }, this),
                                     activeTab === 'timeline' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3764,7 +3804,7 @@ function ProjectDetailPage({ params }) {
                                                 onRefresh: fetchData
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 535,
+                                                lineNumber: 561,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3779,116 +3819,90 @@ function ProjectDetailPage({ params }) {
                                                                     size: 22
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 537,
+                                                                    lineNumber: 563,
                                                                     columnNumber: 189
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 537,
+                                                                lineNumber: 563,
                                                                 columnNumber: 115
                                                             }, this),
                                                             " ประวัติการทำงาน (History)"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                        lineNumber: 537,
+                                                        lineNumber: 563,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "space-y-6 ml-4 pl-8 border-l-2 border-slate-200/60 relative",
                                                         children: logs && logs.map((l)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "relative",
+                                                                className: "relative mb-6",
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "absolute -left-[41px] top-1 w-6 h-6 bg-white border-4 border-slate-300 rounded-full shadow-sm"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 538,
-                                                                        columnNumber: 174
+                                                                        lineNumber: 564,
+                                                                        columnNumber: 179
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                                         className: "text-base font-bold text-slate-900",
                                                                         children: l.action
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 538,
-                                                                        columnNumber: 291
+                                                                        lineNumber: 564,
+                                                                        columnNumber: 296
                                                                     }, this),
                                                                     l.note && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                        className: "text-sm text-slate-700 mt-2 bg-slate-50 p-3 rounded-xl border border-slate-200/60 inline-block shadow-sm",
+                                                                        className: "text-sm text-slate-700 mt-2 bg-slate-50 p-3 rounded-xl border border-slate-200/60 inline-block",
                                                                         children: l.note
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 538,
-                                                                        columnNumber: 366
+                                                                        lineNumber: 564,
+                                                                        columnNumber: 371
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "flex gap-2 mt-2 text-xs text-slate-500 font-medium items-center",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                children: [
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
-                                                                                        size: 14,
-                                                                                        className: "inline mr-1 text-slate-300"
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                        lineNumber: 538,
-                                                                                        columnNumber: 586
-                                                                                    }, this),
-                                                                                    l.employee_id
-                                                                                ]
-                                                                            }, void 0, true, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 538,
-                                                                                columnNumber: 580
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                children: "•"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 538,
-                                                                                columnNumber: 665
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                children: new Date(l.log_date).toLocaleString('th-TH')
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                lineNumber: 538,
-                                                                                columnNumber: 679
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
+                                                                        className: "flex gap-2 mt-2 text-xs text-slate-500 font-medium",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            children: new Date(l.log_date).toLocaleString('th-TH')
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/production/project/[id]/page.jsx",
+                                                                            lineNumber: 564,
+                                                                            columnNumber: 562
+                                                                        }, this)
+                                                                    }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 538,
-                                                                        columnNumber: 499
+                                                                        lineNumber: 564,
+                                                                        columnNumber: 494
                                                                     }, this)
                                                                 ]
                                                             }, l.id, true, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 538,
+                                                                lineNumber: 564,
                                                                 columnNumber: 137
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                        lineNumber: 538,
+                                                        lineNumber: 564,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 536,
+                                                lineNumber: 562,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                        lineNumber: 534,
+                                        lineNumber: 560,
                                         columnNumber: 54
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                lineNumber: 361,
+                                lineNumber: 435,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3906,132 +3920,153 @@ function ProjectDetailPage({ params }) {
                                                             size: 22
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 545,
-                                                            columnNumber: 181
+                                                            lineNumber: 574,
+                                                            columnNumber: 37
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                        lineNumber: 545,
-                                                        columnNumber: 107
+                                                        lineNumber: 573,
+                                                        columnNumber: 33
                                                     }, this),
-                                                    " สัดส่วนต้นทุน"
+                                                    "สัดส่วนต้นทุน"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 545,
+                                                lineNumber: 572,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "space-y-5",
                                                 children: [
                                                     [
-                                                        'material',
-                                                        'labor',
-                                                        'overhead'
+                                                        {
+                                                            key: 'material',
+                                                            label: 'วัตถุดิบ',
+                                                            color: 'bg-blue-500',
+                                                            iconColor: 'text-blue-500'
+                                                        },
+                                                        {
+                                                            key: 'labor',
+                                                            label: 'ค่าแรง/ค่าโอที',
+                                                            color: 'bg-orange-500',
+                                                            iconColor: 'text-orange-500'
+                                                        },
+                                                        {
+                                                            key: 'overhead',
+                                                            label: 'ค่าใช้จ่ายอื่นๆ',
+                                                            color: 'bg-purple-500',
+                                                            iconColor: 'text-purple-500'
+                                                        }
                                                     ].map((type)=>{
-                                                        const amount = costs ? costs.filter((c_1)=>c_1.cost_type === type).reduce((s, c_2)=>s + parseFloat(c_2.amount), 0) : 0;
+                                                        // คำนวณยอดเงินจริงตามประเภทจากตาราง costs
+                                                        const amount = costs ? costs.filter((c_1)=>c_1.cost_type === type.key).reduce((sum_0, c_2)=>sum_0 + parseFloat(c_2.amount), 0) : 0;
+                                                        // คำนวณเปอร์เซ็นต์สำหรับ Progress Bar
                                                         const percent = totalCost > 0 ? amount / totalCost * 100 : 0;
-                                                        const colorClass = type === 'material' ? 'bg-blue-500' : type === 'labor' ? 'bg-orange-500' : 'bg-purple-500';
                                                         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "flex justify-between text-sm mb-2 font-bold",
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                            className: "capitalize text-slate-700 flex items-center gap-2",
+                                                                            className: "flex items-center gap-2 text-slate-700",
                                                                             children: [
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    className: `w-3 h-3 rounded-full ${colorClass}`
+                                                                                    className: `w-3 h-3 rounded-full ${type.color}`
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                                    lineNumber: 551,
-                                                                                    columnNumber: 169
+                                                                                    lineNumber: 605,
+                                                                                    columnNumber: 53
                                                                                 }, this),
-                                                                                " ",
-                                                                                type === 'material' ? 'วัตถุดิบ' : type === 'labor' ? 'ค่าโอที' : 'ค่าใช้จ่ายอื่นๆ'
+                                                                                type.label
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                            lineNumber: 551,
-                                                                            columnNumber: 101
+                                                                            lineNumber: 603,
+                                                                            columnNumber: 49
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                            className: "text-slate-900",
+                                                                            className: "text-slate-900 font-black",
                                                                             children: [
                                                                                 "฿",
-                                                                                amount.toLocaleString()
+                                                                                amount.toLocaleString(undefined, {
+                                                                                    minimumFractionDigits: 2
+                                                                                })
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                            lineNumber: 551,
-                                                                            columnNumber: 322
+                                                                            lineNumber: 608,
+                                                                            columnNumber: 49
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 551,
-                                                                    columnNumber: 40
+                                                                    lineNumber: 602,
+                                                                    columnNumber: 45
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "w-full bg-slate-100 rounded-full h-2.5 shadow-inner",
+                                                                    className: "w-full bg-slate-100 rounded-full h-2.5 shadow-inner overflow-hidden",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: `h-2.5 rounded-full ${colorClass} transition-all duration-500`,
+                                                                        className: `h-full ${type.color} transition-all duration-700 ease-out`,
                                                                         style: {
                                                                             width: `${percent}%`
                                                                         }
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 551,
-                                                                        columnNumber: 463
+                                                                        lineNumber: 616,
+                                                                        columnNumber: 49
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                    lineNumber: 551,
-                                                                    columnNumber: 394
+                                                                    lineNumber: 615,
+                                                                    columnNumber: 45
                                                                 }, this)
                                                             ]
-                                                        }, type, true, {
+                                                        }, type.key, true, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 551,
+                                                            lineNumber: 601,
                                                             columnNumber: 24
                                                         }, this);
                                                     }),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "pt-4 mt-2 border-t border-slate-100 flex justify-between font-extrabold text-slate-900 text-lg",
+                                                        className: "pt-4 mt-2 border-t border-slate-100 flex justify-between items-end",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                className: "font-extrabold text-slate-500 text-sm uppercase tracking-wider",
                                                                 children: "รวมทั้งหมด"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 555,
-                                                                columnNumber: 145
+                                                                lineNumber: 625,
+                                                                columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                className: "text-2xl font-black text-indigo-600",
                                                                 children: [
                                                                     "฿",
-                                                                    totalCost.toLocaleString()
+                                                                    totalCost.toLocaleString(undefined, {
+                                                                        minimumFractionDigits: 2
+                                                                    })
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 555,
-                                                                columnNumber: 168
+                                                                lineNumber: 626,
+                                                                columnNumber: 37
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                        lineNumber: 555,
+                                                        lineNumber: 624,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 546,
+                                                lineNumber: 578,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                        lineNumber: 544,
+                                        lineNumber: 571,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4046,33 +4081,33 @@ function ProjectDetailPage({ params }) {
                                                             size: 22
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                            lineNumber: 559,
-                                                            columnNumber: 177
+                                                            lineNumber: 639,
+                                                            columnNumber: 37
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                        lineNumber: 559,
-                                                        columnNumber: 107
+                                                        lineNumber: 638,
+                                                        columnNumber: 33
                                                     }, this),
-                                                    " ทีมงาน (Team)"
+                                                    "ทีมงาน (Team)"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 559,
+                                                lineNumber: 637,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "space-y-4",
+                                                className: "space-y-4 text-slate-700 font-medium",
                                                 children: members && members.map((m_2, i_0)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "flex items-center gap-4 p-4 rounded-2xl bg-slate-50/50 border border-slate-100 hover:bg-white hover:border-blue-100 hover:shadow-md transition group",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "w-12 h-12 rounded-full bg-white border-2 border-blue-100 flex items-center justify-center font-bold text-blue-600 text-lg shadow-sm group-hover:scale-105 transition",
-                                                                children: m_2.first_name.charAt(0)
+                                                                children: m_2.first_name ? m_2.first_name.charAt(0) : '?'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 560,
-                                                                columnNumber: 270
+                                                                lineNumber: 645,
+                                                                columnNumber: 41
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 children: [
@@ -4085,66 +4120,66 @@ function ProjectDetailPage({ params }) {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 560,
-                                                                        columnNumber: 489
+                                                                        lineNumber: 649,
+                                                                        columnNumber: 45
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                                         className: "text-xs text-blue-500 font-bold uppercase tracking-wider mt-0.5 bg-blue-50 px-2 py-0.5 rounded-md w-fit",
                                                                         children: m_2.position
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                        lineNumber: 560,
-                                                                        columnNumber: 575
+                                                                        lineNumber: 650,
+                                                                        columnNumber: 45
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                                lineNumber: 560,
-                                                                columnNumber: 484
+                                                                lineNumber: 648,
+                                                                columnNumber: 41
                                                             }, this)
                                                         ]
                                                     }, i_0, true, {
                                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                        lineNumber: 560,
-                                                        columnNumber: 94
+                                                        lineNumber: 644,
+                                                        columnNumber: 71
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                                lineNumber: 560,
+                                                lineNumber: 643,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                        lineNumber: 558,
+                                        lineNumber: 636,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                                lineNumber: 543,
+                                lineNumber: 570,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                        lineNumber: 360,
+                        lineNumber: 434,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/production/project/[id]/page.jsx",
-                lineNumber: 267,
+                lineNumber: 342,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/production/project/[id]/page.jsx",
-        lineNumber: 252,
+        lineNumber: 329,
         columnNumber: 10
     }, this);
 }
-_s(ProjectDetailPage, "oktJzEz+RsXd2ulFyZs8xIua+Fo=");
+_s(ProjectDetailPage, "dPqQNTG1rhuMXtXRi/dFrYQwL04=");
 _c = ProjectDetailPage;
 var _c;
 __turbopack_context__.k.register(_c, "ProjectDetailPage");

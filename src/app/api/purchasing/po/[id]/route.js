@@ -16,6 +16,8 @@ export async function GET(request, { params }) {
         s.email as supplier_email,
         s.contact_name as contact_person,
         s.tax_id as supplier_tax_id,
+        s.branch as supplier_branch, -- ✅ ดึงข้อมูล สาขา มาใช้งาน
+        s.fax as supplier_fax,       -- ✅ ดึงข้อมูล แฟกซ์ มาใช้งาน
         s.address as s_addr,
         s.sub_district as s_sub_district,
         s.district as s_district,
@@ -69,4 +71,46 @@ export async function GET(request, { params }) {
     console.error("🔥 API ERROR:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+}
+
+export async function PUT(request, { params }) {
+    let connection;
+    try {
+        const { id } = await params;
+        const body = await request.json();
+        const { supplier_id, order_date, expected_date, items, total_amount, remarks } = body;
+
+        connection = await pool.getConnection();
+        await connection.beginTransaction();
+
+        // 1. อัปเดตข้อมูลหัวบิล (Header)
+        const updateHeaderSql = `
+            UPDATE purchase_orders 
+            SET supplier_id = ?, order_date = ?, expected_date = ?, total_amount = ?, remarks = ?
+            WHERE id = ?
+        `;
+        await connection.query(updateHeaderSql, [supplier_id, order_date, expected_date, total_amount, remarks || null, id]);
+
+        // 2. ลบรายการสินค้าของเก่าทิ้งทั้งหมด (เพื่อป้องกันข้อมูลขยะ)
+        await connection.query(`DELETE FROM purchase_order_items WHERE po_id = ?`, [id]);
+
+        // 3. Insert รายการสินค้าชุดใหม่เข้าไป
+        for (const item of items) {
+            await connection.query(
+                `INSERT INTO purchase_order_items (po_id, product_id, quantity, unit_price, total_price) 
+                 VALUES (?, ?, ?, ?, ?)`,
+                [id, item.product_id, item.qty, item.price, (item.qty * item.price)]
+            );
+        }
+
+        await connection.commit();
+        return NextResponse.json({ success: true, message: 'อัปเดตสำเร็จ' });
+
+    } catch (error) {
+        if (connection) await connection.rollback();
+        console.error("Update PO Error:", error);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    } finally {
+        if (connection) connection.release();
+    }
 }

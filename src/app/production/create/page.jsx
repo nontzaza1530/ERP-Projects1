@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import Sidebar from '../../../components/Sidebar';
 import { 
   Save, ArrowLeft, Loader2, Calendar, DollarSign, 
-  FileText, User, Users, Menu 
-} from 'lucide-react'; // ✅ เพิ่ม Menu Icon
+  FileText, User, Users, Menu, Hash // ✅ เพิ่ม Hash Icon สำหรับจำนวน
+} from 'lucide-react'; 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
@@ -14,7 +14,7 @@ export default function CreateProjectPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [employees, setEmployees] = useState([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // ✅ เพิ่ม State สำหรับ Sidebar มือถือ
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
 
   const [formData, setFormData] = useState({
     project_name: '',
@@ -23,11 +23,11 @@ export default function CreateProjectPage() {
     due_date: '',
     budget: '',
     sale_price: '',
+    quantity: 1, // ✅ เพิ่ม State จำนวน (Default เป็น 1)
     description: '',
     selected_employees: []
   });
 
-  // 1. ดึงรายชื่อพนักงาน
   useEffect(() => {
       const fetchEmployees = async () => {
           try {
@@ -48,7 +48,6 @@ export default function CreateProjectPage() {
     setFormData({ ...formData, [name]: value });
   };
 
-  // 2. จัดการการติ๊กเลือกพนักงาน
   const handleEmployeeToggle = (empCode) => {
       setFormData(prev => {
           const isSelected = prev.selected_employees.includes(empCode);
@@ -60,7 +59,7 @@ export default function CreateProjectPage() {
       });
   };
 
-  // คำนวณกำไรคาดการณ์
+  // คำนวณกำไรคาดการณ์ (คำนวณตามยอดรวม)
   const estimatedProfit = (parseFloat(formData.sale_price) || 0) - (parseFloat(formData.budget) || 0);
   const profitMargin = parseFloat(formData.sale_price) > 0 
     ? ((estimatedProfit / parseFloat(formData.sale_price)) * 100).toFixed(1) 
@@ -79,7 +78,7 @@ export default function CreateProjectPage() {
         const res = await fetch('/api/production/projects/create', { 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formData) // ✅ ส่ง formData ที่มี quantity ไปด้วยแล้ว
         });
 
         const result = await res.json();
@@ -90,7 +89,7 @@ export default function CreateProjectPage() {
 
         Swal.fire({
             title: 'สำเร็จ!',
-            text: 'เปิดใบสั่งผลิตและบันทึกทีมงานเรียบร้อยแล้ว',
+            text: 'เปิดใบสั่งผลิตเรียบร้อยแล้ว (จำนวน ' + formData.quantity + ' รายการ)',
             icon: 'success',
             timer: 1500,
             showConfirmButton: false
@@ -105,20 +104,17 @@ export default function CreateProjectPage() {
     }
   };
 
-  // Styles
   const labelStyle = "block text-xs font-bold text-slate-500 uppercase mb-1.5";
   const inputStyle = "w-full p-3 rounded-xl border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-100 outline-none transition bg-white text-slate-800";
 
   return (
     <div className="flex min-h-screen bg-slate-50 font-sans overflow-x-hidden">
       
-      {/* ✅ 1. Mobile Overlay */}
       <div 
         className={`fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`} 
         onClick={() => setIsSidebarOpen(false)} 
       />
 
-      {/* ✅ 2. Sidebar Container */}
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:shadow-none lg:border-r lg:border-slate-800 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="h-full relative flex flex-col">
             <div className="flex-1 overflow-y-auto custom-scrollbar">
@@ -127,12 +123,10 @@ export default function CreateProjectPage() {
           </div>
       </aside>
 
-      {/* ✅ 3. Main Content */}
       <main className="flex-1 w-full lg:ml-64 p-4 md:p-8 transition-all duration-300 min-h-screen flex flex-col">
         
         <div className="max-w-4xl mx-auto w-full">
             
-            {/* Header Navigation */}
             <div className="flex items-center gap-3 mb-6">
                 <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition">
                     <Menu size={24} />
@@ -141,8 +135,8 @@ export default function CreateProjectPage() {
                     <Link href="/production" className="text-slate-500 hover:text-orange-600 flex items-center gap-1 text-sm font-bold mb-1 transition w-fit">
                         <ArrowLeft size={16}/> กลับหน้าฝ่ายผลิต
                     </Link>
-                    <h1 className="text-2xl font-extrabold text-slate-800">เปิดใบสั่งผลิตใหม่ (New Job Order)</h1>
-                    <p className="text-slate-500 text-sm mt-1">สร้างโปรเจคเพื่อเริ่มติดตามสถานะและต้นทุน</p>
+                    <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight">เปิดใบสั่งผลิตใหม่ (New Job Order)</h1>
+                    <p className="text-slate-500 text-sm mt-1">กำหนดจำนวนและงบประมาณเพื่อเริ่มงาน</p>
                 </div>
             </div>
 
@@ -192,7 +186,7 @@ export default function CreateProjectPage() {
                     <h3 className="font-bold text-slate-700 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
                         <Users size={18} className="text-purple-500"/> ทีมงานรับผิดชอบ (Project Team)
                     </h3>
-                    <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 h-[250px] overflow-y-auto custom-scrollbar">
+                    <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 h-[220px] overflow-y-auto custom-scrollbar">
                         {employees.length > 0 ? (
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 {employees.map(emp => (
@@ -221,7 +215,6 @@ export default function CreateProjectPage() {
                             </div>
                         )}
                     </div>
-                    <p className="text-xs text-slate-400 text-right mt-2">* เลือกพนักงานที่เกี่ยวข้องเพื่อความสะดวกในการบันทึกค่าแรง</p>
                 </div>
 
                 {/* 3. กำหนดการ & งบประมาณ */}
@@ -251,14 +244,27 @@ export default function CreateProjectPage() {
                         </div>
                     </div>
 
-                    {/* Money */}
+                    {/* Money & Quantity */}
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 h-full flex flex-col">
                         <h3 className="font-bold text-slate-700 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
-                            <DollarSign size={18} className="text-green-500"/> งบประมาณ & ราคา
+                            <DollarSign size={18} className="text-green-500"/> จำนวน & งบประมาณ
                         </h3>
                         <div className="space-y-4 flex-1">
+                            {/* ✅ เพิ่มช่องกรอกจำนวน (Quantity) */}
                             <div>
-                                <label className={labelStyle}>ราคาขาย (Sale Price)</label>
+                                <label className={labelStyle}>จำนวนที่ผลิต (Quantity)</label>
+                                <div className="relative">
+                                    <Hash size={18} className="absolute top-3.5 left-3 text-slate-400"/>
+                                    <input 
+                                        type="number" name="quantity" min="1"
+                                        className={`${inputStyle} pl-10 font-bold text-orange-600`} 
+                                        placeholder="1"
+                                        value={formData.quantity} onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label className={labelStyle}>ราคาขายรวม (Total Sale Price)</label>
                                 <input 
                                     type="number" name="sale_price" 
                                     className={`${inputStyle} text-right font-mono text-blue-600 font-bold`} 
@@ -267,7 +273,7 @@ export default function CreateProjectPage() {
                                 />
                             </div>
                             <div>
-                                <label className={labelStyle}>งบต้นทุน (Budget Cost)</label>
+                                <label className={labelStyle}>งบต้นทุนรวม (Total Budget Cost)</label>
                                 <input 
                                     type="number" name="budget" 
                                     className={`${inputStyle} text-right font-mono text-red-500`} 
@@ -287,7 +293,6 @@ export default function CreateProjectPage() {
                     </div>
                 </div>
 
-                {/* Submit Buttons */}
                 <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4 pb-20 sm:pb-0">
                     <Link href="/production" className="w-full sm:w-auto">
                         <button type="button" className="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-300 text-slate-600 font-bold hover:bg-slate-50 transition">

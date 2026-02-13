@@ -13,10 +13,8 @@ export default function CreatePOPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDataLoading, setIsDataLoading] = useState(true);
   
-  // ✅ ระบบควบคุม Sidebar สำหรับ Mobile/Tablet
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // --- State สำหรับ Modal เพิ่มสินค้าด่วน ---
   const [showQuickAdd, setShowQuickAdd] = useState(false);
   const [newProduct, setNewProduct] = useState({
       code: '', name: '', unit: 'ชิ้น', cost_price: 0, category: 'Raw Material'
@@ -27,6 +25,9 @@ export default function CreatePOPage() {
   const [deliveryDate, setDeliveryDate] = useState('');
   const [selectedSupplier, setSelectedSupplier] = useState('');
   const [items, setItems] = useState([{ product_id: '', qty: 1, price: 0 }]);
+  
+  // ✅ เพิ่ม State สำหรับเก็บหมายเหตุ
+  const [remarks, setRemarks] = useState('');
 
   useEffect(() => {
     fetchMaster();
@@ -47,7 +48,6 @@ export default function CreatePOPage() {
     }
   }
 
-  // --- ฟังก์ชันจัดการ Quick Add ---
   const handleQuickAddSubmit = async (e) => {
       e.preventDefault();
       try {
@@ -90,12 +90,23 @@ export default function CreatePOPage() {
     if (!selectedSupplier) return Swal.fire('แจ้งเตือน', 'กรุณาเลือกผู้ขาย', 'warning');
     setIsLoading(true);
     try {
-      const payload = { supplier_id: selectedSupplier, order_date: poDate, expected_date: deliveryDate, items, total_amount: calculateTotal(), user_id: 34 };
+      // ✅ ส่ง remarks เข้าไปใน payload ด้วย
+      const payload = { 
+          supplier_id: selectedSupplier, 
+          order_date: poDate, 
+          expected_date: deliveryDate, 
+          items, 
+          total_amount: calculateTotal(), 
+          user_id: 34,
+          remarks: remarks 
+      };
       const res = await fetch('/api/purchasing/po/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       const result = await res.json(); 
       if (res.ok) {
           await Swal.fire({ icon: 'success', title: 'บันทึกสำเร็จ', text: `เลขที่ PO: ${result.poNumber}` });
           router.push('/purchasing/po-list');
+      } else {
+          Swal.fire('Error', result.error || 'เกิดข้อผิดพลาด', 'error');
       }
     } catch (err) { Swal.fire('Error', err.message, 'error'); } finally { setIsLoading(false); }
   };
@@ -103,21 +114,17 @@ export default function CreatePOPage() {
   return (
     <div className="flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900 overflow-x-hidden">
       
-      {/* ✅ 1. Mobile Overlay: ฉากหลังมืดเวลาเปิดเมนูบนมือถือ */}
       <div 
         className={`fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
         onClick={() => setIsSidebarOpen(false)}
       />
 
-      {/* ✅ 2. Sidebar Container: ปรับให้เลื่อนเข้าออกได้เหมือนหน้าอื่นๆ */}
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <Sidebar onClose={() => setIsSidebarOpen(false)} />
       </aside>
 
-      {/* ✅ 3. Main Content: ใช้ lg:ml-64 เพื่อเว้นที่ให้ Sidebar เฉพาะจอใหญ่ */}
       <main className="flex-1 w-full lg:ml-64 transition-all duration-300 min-h-screen flex flex-col min-w-0">
         
-        {/* Header พร้อมปุ่ม Hamburger */}
         <div className="p-4 md:p-8 flex items-center gap-4">
             <button 
                 onClick={() => setIsSidebarOpen(true)} 
@@ -133,7 +140,6 @@ export default function CreatePOPage() {
             </div>
         </div>
 
-        {/* Content Area */}
         <div className="flex-1 p-4 md:p-8 pt-0 max-w-[1400px] w-full mx-auto space-y-6">
             {isDataLoading ? (
                 <div className="flex justify-center items-center h-64 text-slate-400 gap-2 italic font-bold"><Loader2 className="animate-spin"/> กำลังโหลดข้อมูล...</div>
@@ -160,7 +166,7 @@ export default function CreatePOPage() {
                         </div>
                     </div>
 
-                    {/* ตารางสินค้า - Responsive Table */}
+                    {/* ตารางสินค้า */}
                     <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
                         <div className="px-6 py-4 bg-slate-50/50 border-b border-slate-100 flex flex-wrap justify-between items-center gap-3">
                             <h2 className="text-sm font-bold text-slate-600 uppercase tracking-widest">รายการสินค้า</h2>
@@ -207,6 +213,20 @@ export default function CreatePOPage() {
                         </div>
                     </div>
 
+                    {/* ✅ ส่วนของหมายเหตุ (เพิ่มใหม่) */}
+                    <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 mt-6">
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 block">
+                            หมายเหตุ (Remarks)
+                        </label>
+                        <textarea
+                            className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-100 outline-none transition resize-y text-sm"
+                            rows="3"
+                            placeholder="ระบุเงื่อนไขการสั่งซื้อ หรือข้อความที่ต้องการแสดงในหน้าพิมพ์ใบสั่งซื้อ... (ข้อความนี้จะแสดงในหน้า PDF)"
+                            value={remarks}
+                            onChange={(e) => setRemarks(e.target.value)}
+                        ></textarea>
+                    </div>
+
                     {/* สรุปยอดและบันทึก */}
                     <div className="flex flex-col md:flex-row justify-end items-center gap-8 bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200 mt-6">
                         <div className="text-center md:text-right">
@@ -221,9 +241,8 @@ export default function CreatePOPage() {
             )}
         </div>
 
-        {/* Modal: Quick Add (ข้ามส่วนนี้ไปได้หากมีอยู่แล้ว) */}
         {showQuickAdd && (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+            <div className="fixed inset-0 z-100 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
                 <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95">
                     <div className="px-6 py-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                         <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2"><Box className="text-green-600" size={20}/> เพิ่มสินค้าใหม่ (ด่วน)</h3>

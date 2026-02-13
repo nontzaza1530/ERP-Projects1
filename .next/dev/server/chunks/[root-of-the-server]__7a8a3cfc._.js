@@ -162,8 +162,6 @@ __turbopack_context__.s([
     ()=>POST
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
-// ⚠️ แก้ไข Path: ถอยหลัง 3 ชั้น เพื่อไปหา src/lib/db
-// (inventory -> api -> app -> src -> เจอ lib)
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/lib/db.js [app-route] (ecmascript)");
 ;
 ;
@@ -172,7 +170,8 @@ async function GET(request) {
         const { searchParams } = new URL(request.url);
         const category = searchParams.get('category');
         const search = searchParams.get('search');
-        let sql = 'SELECT * FROM products';
+        // ✅ แก้ไข: เริ่มต้นด้วยการกรองเฉพาะ is_deleted = 0
+        let sql = 'SELECT * FROM products WHERE is_deleted = 0';
         const values = [];
         const conditions = [];
         // กรองตามหมวดหมู่
@@ -186,8 +185,9 @@ async function GET(request) {
             const searchPattern = `%${search}%`;
             values.push(searchPattern, searchPattern);
         }
+        // ถ้ามีการส่ง filter มา ให้ใช้ AND ต่อจาก WHERE is_deleted = 0
         if (conditions.length > 0) {
-            sql += ' WHERE ' + conditions.join(' AND ');
+            sql += ' AND ' + conditions.join(' AND ');
         }
         sql += ' ORDER BY id DESC';
         const [rows] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(sql, values);
@@ -204,11 +204,8 @@ async function GET(request) {
 async function POST(request) {
     try {
         const body = await request.json();
-        // 🛠️ Mapping ตัวแปรให้ยืดหยุ่น (รับค่าได้ทั้งจากหน้าคลัง และหน้า Quick Add)
         const product_code = body.product_code || body.code;
         const name = body.name;
-        // ✅ สำคัญ: ถ้าไม่ระบุหมวดหมู่ ให้เป็น 'General'
-        // (ต้องมั่นใจว่าแก้ Database เป็น VARCHAR แล้วนะครับ ไม่งั้นคำว่า General จะทำให้ error)
         const category = body.category || 'General';
         const quantity = body.quantity || body.stock_quantity || 0;
         const unit = body.unit || 'ชิ้น';
@@ -223,21 +220,21 @@ async function POST(request) {
                 status: 400
             });
         }
-        // 2. เช็คสินค้าซ้ำ
-        const [existing] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query('SELECT id FROM products WHERE product_code = ?', [
+        // 2. เช็คสินค้าซ้ำ (เช็คเฉพาะสินค้าที่ยังไม่ถูกลบ เพื่อให้สามารถนำรหัสสินค้าเก่าที่ลบไปแล้วกลับมาใช้ใหม่ได้ ถ้าต้องการ)
+        const [existing] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query('SELECT id FROM products WHERE product_code = ? AND is_deleted = 0', [
             product_code
         ]);
         if (existing.length > 0) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'รหัสสินค้านี้มีอยู่ในระบบแล้ว'
+                error: 'รหัสสินค้านี้มีอยู่ในคลังแล้ว'
             }, {
                 status: 400
             });
         }
-        // 3. บันทึก (Insert)
+        // 3. บันทึก (Insert) พร้อมกำหนด is_deleted = 0
         const sql = `
-      INSERT INTO products (product_code, name, category, quantity, unit, price, location, min_level)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO products (product_code, name, category, quantity, unit, price, location, min_level, is_deleted)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)
     `;
         const values = [
             product_code,

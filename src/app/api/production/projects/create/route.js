@@ -9,8 +9,9 @@ export async function POST(request) {
         customer_name, 
         start_date, 
         due_date, 
-        budget, // ✅ 1. รับค่า budget มาจากหน้าบ้าน
+        budget, 
         sale_price, 
+        quantity,      // ✅ 1. รับค่าจำนวน (Quantity) มาจากหน้าบ้าน
         description, 
         selected_employees 
     } = body;
@@ -19,19 +20,20 @@ export async function POST(request) {
     await connection.beginTransaction();
 
     try {
-        // ✅ 2. เพิ่ม budget เข้าไปใน SQL INSERT
+        // ✅ 2. เพิ่มคอลัมน์ quantity เข้าไปใน SQL INSERT
         const [result] = await connection.query(
             `INSERT INTO projects (
                 project_name, customer_name, start_date, due_date, 
-                budget, sale_price, description, status
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')`,
+                budget, sale_price, quantity, description, status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')`,
             [
                 project_name, 
                 customer_name, 
                 start_date, 
                 due_date, 
-                budget || 0,    // ✅ 3. ใส่ค่า budget ลงไป (ถ้าไม่มีให้เป็น 0)
+                budget || 0,
                 sale_price || 0, 
+                quantity || 1,   // ✅ 3. ใส่ค่าจำนวนจริงลงไป (Default เป็น 1)
                 description
             ]
         );
@@ -48,10 +50,15 @@ export async function POST(request) {
             }
         }
 
-        // บันทึก Log เริ่มต้น
+        // ✅ 4. ปรับบันทึก Log ให้ระบุจำนวนสินค้าด้วย
         await connection.query(
             `INSERT INTO production_logs (project_id, action, note, employee_id) VALUES (?, ?, ?, ?)`,
-            [newProjectId, 'เปิดใบสั่งผลิตใหม่', `งบประมาณ: ${budget || 0} บาท`, 'Admin']
+            [
+              newProjectId, 
+              'เปิดใบสั่งผลิตใหม่', 
+              `จำนวน: ${quantity || 1} รายการ, งบประมาณ: ${budget || 0} บาท`, 
+              'Admin'
+            ]
         );
 
         await connection.commit();
@@ -60,8 +67,10 @@ export async function POST(request) {
         return NextResponse.json({ success: true, projectId: newProjectId });
 
     } catch (err) {
-        await connection.rollback();
-        connection.release();
+        if (connection) {
+          await connection.rollback();
+          connection.release();
+        }
         throw err;
     }
 

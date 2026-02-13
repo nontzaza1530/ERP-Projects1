@@ -165,25 +165,30 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$serv
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/lib/db.js [app-route] (ecmascript)");
 ;
 ;
-// ✅ 1. ฟังก์ชันช่วย: ตรวจสอบและสร้างการแจ้งเตือนอัตโนมัติ
+// ✅ 1. ฟังก์ชันช่วย: ตรวจสอบและสร้างการแจ้งเตือนอัตโนมัติ (คงเดิม)
 async function createAutoNotifications(connection) {
     try {
         const today = new Date().toISOString().split('T')[0];
-        // หาโปรเจคที่ยังไม่เสร็จ (ตัด completed, canceled ออก) และมีวันกำหนดส่ง
-        const [projects] = await connection.query(`
-        SELECT p.* FROM projects p 
-        WHERE p.status NOT IN ('completed', 'canceled') 
-        AND p.due_date IS NOT NULL
+        const [projects] = await connection.execute(`
+    SELECT * FROM projects 
+    WHERE status IN ('pending', 'in_progress', 'qc', 'completed') 
+    ORDER BY 
+        CASE 
+            WHEN status = 'pending' THEN 1 
+            WHEN status = 'in_progress' THEN 2
+            WHEN status = 'qc' THEN 3
+            ELSE 4 
+        END,
+        created_at DESC
     `);
         for (const project of projects){
             const dueDate = new Date(project.due_date);
             const now = new Date();
             const diffTime = dueDate - now;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // คำนวณวันคงเหลือ
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             let notifType = null;
             let title = '';
             let message = '';
-            // 🚨 เงื่อนไข A: เลยกำหนดส่ง (Overdue)
             if (diffDays < 0) {
                 notifType = 'danger';
                 title = `⚠️ งานล่าช้า: ${project.project_name}`;
@@ -193,9 +198,7 @@ async function createAutoNotifications(connection) {
                 title = `⏳ ใกล้ถึงกำหนด: ${project.project_name}`;
                 message = `เหลือเวลาอีก ${diffDays} วัน จะถึงกำหนดส่งมอบ`;
             }
-            // ถ้าเข้าเงื่อนไขแจ้งเตือน
             if (notifType) {
-                // เช็คก่อนว่า "วันนี้" แจ้งเตือนเรื่องนี้ไปหรือยัง (กันแจ้งซ้ำรัวๆ)
                 const [existing] = await connection.query(`
                 SELECT id FROM notifications 
                 WHERE title = ? AND DATE(created_at) = ?
@@ -204,7 +207,6 @@ async function createAutoNotifications(connection) {
                     today
                 ]);
                 if (existing.length === 0) {
-                    // บันทึกลงตาราง notifications (user_id = 0 คือแจ้ง Admin/System)
                     await connection.query(`
                     INSERT INTO notifications (user_id, title, message, type, link)
                     VALUES (0, ?, ?, ?, ?)
@@ -214,7 +216,6 @@ async function createAutoNotifications(connection) {
                         notifType,
                         `/production/project/${project.id}`
                     ]);
-                // console.log(`Auto-Notify Created: ${title}`);
                 }
             }
         }
@@ -225,10 +226,9 @@ async function createAutoNotifications(connection) {
 async function GET() {
     let connection;
     try {
-        connection = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].getConnection(); // ขอ Connection แบบ manual
-        // 🔥 เรียกฟังก์ชันตรวจสอบแจ้งเตือน (ทำงานเบื้องหลัง)
+        connection = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].getConnection();
         await createAutoNotifications(connection);
-        // ดึงข้อมูลโปรเจกต์ตามปกติ
+        // p.* จะรวมเอาคอลัมน์ quantity ที่คุณเพิ่มเข้าไปใหม่ใน Database ออกมาด้วยอัตโนมัติ
         const [rows] = await connection.query(`
       SELECT 
         p.*,
@@ -246,13 +246,13 @@ async function GET() {
             status: 500
         });
     } finally{
-        if (connection) connection.release(); // คืน Connection เสมอ
+        if (connection) connection.release();
     }
 }
 async function POST(request) {
     try {
         const body = await request.json();
-        const { project_name, customer_name, start_date, due_date, budget, sale_price, description } = body;
+        const { project_name, customer_name, start_date, due_date, budget, sale_price, quantity, description } = body;
         if (!project_name) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
                 error: 'Missing Project Name'
@@ -260,16 +260,29 @@ async function POST(request) {
                 status: 400
             });
         }
-        const [res] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(`
-      INSERT INTO projects (project_name, customer_name, start_date, due_date, budget, sale_price, description, status)
-      VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')
-    `, [
+        // ✅ เพิ่มคอลัมน์ quantity เข้าไปในคำสั่ง SQL INSERT
+        const sql = `
+      INSERT INTO projects (
+        project_name, 
+        customer_name, 
+        start_date, 
+        due_date, 
+        budget, 
+        sale_price, 
+        quantity, 
+        description, 
+        status
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')
+    `;
+        const [res] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(sql, [
             project_name,
             customer_name,
             start_date,
             due_date,
             budget || 0,
             sale_price || 0,
+            quantity || 1,
             description
         ]);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
@@ -277,6 +290,7 @@ async function POST(request) {
             id: res.insertId
         });
     } catch (error) {
+        console.error("Create Project Error:", error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             error: error.message
         }, {

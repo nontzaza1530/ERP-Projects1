@@ -166,21 +166,22 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$j
 async function POST(request) {
     try {
         const body = await request.json();
-        const { project_name, customer_name, start_date, due_date, budget, sale_price, description, selected_employees } = body;
+        const { project_name, customer_name, start_date, due_date, budget, sale_price, quantity, description, selected_employees } = body;
         const connection = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].getConnection();
         await connection.beginTransaction();
         try {
-            // ✅ 2. เพิ่ม budget เข้าไปใน SQL INSERT
+            // ✅ 2. เพิ่มคอลัมน์ quantity เข้าไปใน SQL INSERT
             const [result] = await connection.query(`INSERT INTO projects (
                 project_name, customer_name, start_date, due_date, 
-                budget, sale_price, description, status
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')`, [
+                budget, sale_price, quantity, description, status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')`, [
                 project_name,
                 customer_name,
                 start_date,
                 due_date,
                 budget || 0,
                 sale_price || 0,
+                quantity || 1,
                 description
             ]);
             const newProjectId = result.insertId;
@@ -193,11 +194,11 @@ async function POST(request) {
                     ]);
                 }
             }
-            // บันทึก Log เริ่มต้น
+            // ✅ 4. ปรับบันทึก Log ให้ระบุจำนวนสินค้าด้วย
             await connection.query(`INSERT INTO production_logs (project_id, action, note, employee_id) VALUES (?, ?, ?, ?)`, [
                 newProjectId,
                 'เปิดใบสั่งผลิตใหม่',
-                `งบประมาณ: ${budget || 0} บาท`,
+                `จำนวน: ${quantity || 1} รายการ, งบประมาณ: ${budget || 0} บาท`,
                 'Admin'
             ]);
             await connection.commit();
@@ -207,8 +208,10 @@ async function POST(request) {
                 projectId: newProjectId
             });
         } catch (err) {
-            await connection.rollback();
-            connection.release();
+            if (connection) {
+                await connection.rollback();
+                connection.release();
+            }
             throw err;
         }
     } catch (error) {

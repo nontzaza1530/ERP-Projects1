@@ -6,7 +6,14 @@ export async function PUT(request, { params }) {
   try {
     const { id } = await params;
     const body = await request.json();
+    
+    // ดึงค่าจาก body
     const { product_code, name, category, quantity, unit, price, location, min_level } = body;
+
+    // ตรวจสอบค่าเบื้องต้น (Validation)
+    if (!product_code || !name) {
+      return NextResponse.json({ error: 'กรุณาระบุรหัสและชื่อสินค้า' }, { status: 400 });
+    }
 
     const sql = `
       UPDATE products 
@@ -17,24 +24,36 @@ export async function PUT(request, { params }) {
 
     const [result] = await pool.query(sql, values);
 
-    if (result.affectedRows === 0) return NextResponse.json({ error: 'ไม่พบสินค้า' }, { status: 404 });
+    if (result.affectedRows === 0) {
+      return NextResponse.json({ error: 'ไม่พบรหัสสินค้าที่ต้องการแก้ไข' }, { status: 404 });
+    }
 
-    return NextResponse.json({ message: 'แก้ไขข้อมูลสำเร็จ' });
+    return NextResponse.json({ message: 'แก้ไขข้อมูลสินค้าสำเร็จ' });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("❌ PUT Error:", error);
+    return NextResponse.json({ error: 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล: ' + error.message }, { status: 500 });
   }
 }
 
-// --- DELETE: ลบสินค้า ---
+// --- DELETE: เปลี่ยนจากลบจริง เป็น Soft Delete ---
 export async function DELETE(request, { params }) {
   try {
     const { id } = await params;
-    const [result] = await pool.query('DELETE FROM products WHERE id = ?', [id]);
 
-    if (result.affectedRows === 0) return NextResponse.json({ error: 'ไม่พบสินค้า' }, { status: 404 });
+    // เปลี่ยนจาก DELETE FROM products ... 
+    // เป็นการ UPDATE แทน เพื่อเก็บประวัติไว้ในระบบ
+    const sql = `UPDATE products SET is_deleted = 1 WHERE id = ?`;
+    
+    const [result] = await pool.query(sql, [id]);
 
-    return NextResponse.json({ message: 'ลบสินค้าสำเร็จ' });
+    if (result.affectedRows === 0) {
+      return NextResponse.json({ error: 'ไม่พบสินค้าในระบบ' }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: 'ลบสินค้าสำเร็จ (ซ่อนรายการเรียบร้อย)' });
+
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("❌ Soft Delete Error:", error);
+    return NextResponse.json({ error: 'เกิดข้อผิดพลาด: ' + error.message }, { status: 500 });
   }
 }

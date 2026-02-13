@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["file:///D:/erp_project/src/app/api/logout/route.js"],"sourcesContent":["import { NextResponse } from 'next/server';\r\nimport { cookies } from 'next/headers';\r\n\r\nexport async function POST() {\r\n  // 1. เรียกใช้ตัวจัดการ Cookie ของ Server\r\n  const cookieStore = await cookies();\r\n\r\n  // 2. สั่งลบ Token ทิ้ง (Server ทำได้แน่นอน 100%)\r\n  cookieStore.delete('token');\r\n  \r\n  // (กันเหนียว) เซ็ตทับให้หมดอายุทันที\r\n  cookieStore.set('token', '', { maxAge: 0, path: '/' });\r\n\r\n  return NextResponse.json({ success: true, message: \"Logged out\" });\r\n}"],"names":[],"mappings":";;;;AAAA;AACA;;;AAEO,eAAe;IACpB,yCAAyC;IACzC,MAAM,cAAc,MAAM,IAAA,4IAAO;IAEjC,iDAAiD;IACjD,YAAY,MAAM,CAAC;IAEnB,qCAAqC;IACrC,YAAY,GAAG,CAAC,SAAS,IAAI;QAAE,QAAQ;QAAG,MAAM;IAAI;IAEpD,OAAO,gJAAY,CAAC,IAAI,CAAC;QAAE,SAAS;QAAM,SAAS;IAAa;AAClE"}}]
+}

@@ -10,13 +10,13 @@ import {
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
-export default function Sidebar({ onClose }) { // ไม่ต้องรับ isOpen แล้ว เพราะ Parent จัดการให้
+export default function Sidebar({ onClose }) {
   const pathname = usePathname();
   const router = useRouter();
   const [role, setRole] = useState(null);
   const [user, setUser] = useState(null);
   const [expandedMenu, setExpandedMenu] = useState(null);
-  const [loading, setLoading] = useState(true); // เพิ่ม Loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -44,6 +44,7 @@ export default function Sidebar({ onClose }) { // ไม่ต้องรับ
 
   useEffect(() => {
       if (pathname.startsWith('/hr')) setExpandedMenu('HR Management');
+      // เช็ค path เพื่อเปิดเมนูบัญชีอัตโนมัติ ถ้าเราอยู่ในหน้า Invoice
       else if (pathname.startsWith('/accounting')) setExpandedMenu('บัญชี');
       else if (pathname.startsWith('/purchasing')) setExpandedMenu('ฝ่ายจัดซื้อ (Purchasing)');
   }, [pathname]);
@@ -182,9 +183,21 @@ export default function Sidebar({ onClose }) { // ไม่ต้องรับ
         icon: FileText, 
         roles: ['super_admin', 'admin', 'employee'], 
         subItems: [
+            // ✅ เพิ่มตรงนี้: เมนูใบแจ้งหนี้ (Invoices)
             { 
                 name: 'ภาพรวมบัญชี', 
                 href: '/accounting', 
+                roles: ['super_admin', 'admin'] 
+            },
+            { 
+                name: 'ใบแจ้งหนี้ (Invoices)', 
+                href: '/accounting/invoices', 
+                roles: ['super_admin', 'admin'] // จำกัดสิทธิ์เฉพาะ Admin
+            },
+            // ✅ เพิ่มตรงนี้: เมนูใบเสร็จ (เตรียมไว้ให้อนาคต)
+            { 
+                name: 'ใบเสร็จรับเงิน (Receipts)', 
+                href: '/accounting/receipts', 
                 roles: ['super_admin', 'admin'] 
             },
             { 
@@ -235,14 +248,12 @@ export default function Sidebar({ onClose }) { // ไม่ต้องรับ
   const visibleMenu = getVisibleMenu();
 
   return (
-    // ✅ แก้ไข 1: เปลี่ยนจาก <aside fixed...> เป็น <div> ธรรมดาเต็มพื้นที่
-    // เพื่อให้มันอยู่ในกล่องที่หน้า Dashboard เตรียมไว้ให้แล้ว
     <div className="flex flex-col h-full w-full bg-slate-900 text-slate-300">
         
         {/* Header ส่วนบนสุด */}
         <div className="p-6 border-b border-slate-800 shrink-0 flex flex-col items-center relative">
           
-          {/* ปุ่มปิดในมือถือ (ถ้ามี onClose ส่งมา) */}
+          {/* ปุ่มปิดในมือถือ */}
           <button 
                 onClick={onClose} 
                 className="absolute top-4 right-4 p-1 text-slate-500 hover:text-white lg:hidden"
@@ -254,7 +265,6 @@ export default function Sidebar({ onClose }) { // ไม่ต้องรับ
           
           {/* ส่วนแสดง User Profile */}
           {loading ? (
-             // Skeleton Loader ตอนโหลดข้อมูล
              <div className="mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700 animate-pulse">
                 <div className="w-8 h-8 rounded-full bg-slate-700"></div>
                 <div className="flex-1 h-4 bg-slate-700 rounded"></div>
@@ -277,7 +287,6 @@ export default function Sidebar({ onClose }) { // ไม่ต้องรับ
         {/* Menu รายการเมนู */}
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto custom-scrollbar flex flex-col">
           {loading ? (
-             // Skeleton Loader เมนู
              <div className="space-y-3 px-2">
                 {[1,2,3,4].map(i => <div key={i} className="h-10 bg-slate-800/50 rounded-xl animate-pulse"></div>)}
              </div>

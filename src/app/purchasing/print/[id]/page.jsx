@@ -4,329 +4,447 @@
 import html2canvas from 'html2canvas-pro';
 import jsPDF from 'jspdf';
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
-import { Printer, ArrowLeft, Loader2, AlertCircle, Building2, Download } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import { Printer, ArrowLeft, Loader2, AlertCircle, Download } from 'lucide-react';
 import Link from 'next/link';
 import Swal from 'sweetalert2';
 
-export default function PrintPOPage() {
-  const params = useParams(); 
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+// --- ⚙️ Config: จำนวนรายการต่อ 1 หน้า ---
+const ITEMS_PER_PAGE = 10;
 
-  useEffect(() => {
-    if (!params.id) return;
+// --- 🛠️ Helper: แปลงเลขเป็นคำอ่านภาษาไทย ---
+const THBText = (num) => {
+    if (!num) return "";
+    num = parseFloat(num).toFixed(2);
+    const thaiNum = ["ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"];
+    const unit = ["", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน"];
 
-    fetch(`/api/purchasing/po/${params.id}`)
-      .then(res => {
-          if (!res.ok) throw new Error("ไม่สามารถโหลดข้อมูลได้ หรือ ข้อมูลไม่ถูกต้อง");
-          return res.json();
-      })
-      .then(result => {
-          setData(result);
-      })
-      .catch(err => setError(err.message));
-  }, [params.id]);
+    let [integer, decimal] = num.split(".");
+    let text = "";
 
-  // --- ฟังก์ชันดาวน์โหลด PDF ---
-  const handleDownloadPDF = async () => {
-    const element = document.getElementById('po-content'); // อ้างอิง ID ของกระดาษ A4
-    if (!element) return;
-
-    // แสดง Loading
-    Swal.fire({
-      title: 'กำลังสร้างไฟล์ PDF...',
-      text: 'กรุณารอสักครู่ ระบบกำลังประมวลผล',
-      allowOutsideClick: false,
-      didOpen: () => Swal.showLoading()
-    });
-
-    try {
-      // 1. แปลง HTML เป็นรูปภาพ (canvas)
-      const canvas = await html2canvas(element, { 
-          scale: 2, // ความคมชัด 2 เท่า (Retina quality)
-          useCORS: true, // อนุญาตให้โหลดรูปข้ามโดเมนได้ (ถ้ามี)
-          backgroundColor: '#ffffff', // ✅ บังคับพื้นหลังสีขาว (กัน PDF ดำ)
-          logging: false // ปิด log รกๆ ใน console
-      });
-      
-      const imgData = canvas.toDataURL('image/png');
-
-      // 2. สร้าง PDF ขนาด A4
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth(); // 210mm
-      // คำนวณความสูงตามสัดส่วนภาพจริง (จะได้ไม่ยืดไม่หด)
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-      // 3. ใส่รูปลงไป
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-
-      // 4. บันทึกไฟล์
-      pdf.save(`PO-${data.po_number}.pdf`);
-      
-      Swal.close(); // ปิด Loading
-
-    } catch (error) {
-      console.error("PDF Error:", error);
-      Swal.close();
-      Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถสร้างไฟล์ PDF ได้ในขณะนี้', 'error');
+    if (parseInt(integer) === 0) {
+        text = "ศูนย์บาท";
+    } else {
+        let len = integer.length;
+        for (let i = 0; i < len; i++) {
+            let digit = parseInt(integer.charAt(i));
+            let pos = len - i - 1;
+            if (digit !== 0) {
+                if (pos === 1 && digit === 1) text += "";
+                else if (pos === 1 && digit === 2) text += "ยี่";
+                else if (pos === 0 && digit === 1 && len > 1) text += "เอ็ด";
+                else text += thaiNum[digit];
+                text += unit[pos];
+            }
+        }
+        text += "บาท";
     }
-  };
 
-  if (error) {
-      return (
-          <div className="flex h-screen flex-col justify-center items-center gap-4 text-slate-500 bg-slate-50">
-              <AlertCircle size={48} className="text-red-500" />
-              <p className="text-lg font-bold text-red-600">{error}</p>
-              <Link href="/purchasing/po-list" className="text-blue-600 hover:underline">กลับไปหน้ารายการ</Link>
-          </div>
-      );
-  }
+    if (parseInt(decimal) === 0) {
+        text += "ถ้วน";
+    } else {
+        let len = decimal.length;
+        for (let i = 0; i < len; i++) {
+            let digit = parseInt(decimal.charAt(i));
+            let pos = len - i - 1;
+            if (digit !== 0) {
+                if (pos === 1 && digit === 1) text += "";
+                else if (pos === 1 && digit === 2) text += "ยี่";
+                else if (pos === 0 && digit === 1 && len > 1) text += "เอ็ด";
+                else text += thaiNum[digit];
+                text += (pos === 1 ? "สิบ" : "สตางค์");
+            }
+        }
+    }
+    return text;
+};
 
-  if (!data) {
-      return (
-        <div className="flex flex-col h-screen justify-center items-center gap-4 bg-white">
-            <Loader2 className="animate-spin text-blue-600" size={48}/>
-            <p className="text-slate-400 font-medium animate-pulse">กำลังสร้างเอกสาร...</p>
-        </div>
-      );
-  }
+export default function PrintPOPage() {
+    const params = useParams();
+    const router = useRouter();
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+    const [isDownloading, setIsDownloading] = useState(false);
 
-  const po = data; 
-  const items = data.items || [];
+    useEffect(() => {
+        if (!params.id) return;
 
-  return (
-    <div className="min-h-screen bg-slate-100 p-8 print:p-0 print:bg-white font-sans text-slate-900">
-      
-      <style jsx global>{`
+        fetch(`/api/purchasing/po/${params.id}`)
+            .then(res => {
+                if (!res.ok) throw new Error("ไม่สามารถโหลดข้อมูลได้ หรือ ข้อมูลไม่ถูกต้อง");
+                return res.json();
+            })
+            .then(result => {
+                setData(result);
+            })
+            .catch(err => setError(err.message));
+    }, [params.id]);
+
+    // --- ✅ แก้ไขฟังก์ชันดาวน์โหลด PDF ใหม่ทั้งหมด ---
+    const handleDownloadPDF = async () => {
+        setIsDownloading(true);
+        Swal.fire({
+            title: 'กำลังสร้างไฟล์ PDF...',
+            text: 'กรุณารอสักครู่ ระบบกำลังประมวลผล',
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
+        });
+
+        try {
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            // ค้นหาทุกๆ หน้าที่มีคลาส .po-page
+            const elements = document.querySelectorAll('.po-page');
+
+            for (let i = 0; i < elements.length; i++) {
+                const canvas = await html2canvas(elements[i], {
+                    scale: 2, // เพิ่มความคมชัด
+                    useCORS: true,
+                    backgroundColor: '#ffffff',
+                    logging: false
+                });
+
+                const imgData = canvas.toDataURL('image/png');
+                const pdfWidth = 210; // ความกว้าง A4 มาตรฐาน (mm)
+                const pdfHeight = 297; // ความสูง A4 มาตรฐาน (mm)
+
+                if (i > 0) {
+                    pdf.addPage(); // ถ้ามีหลายหน้า ให้สร้างแผ่นใหม่
+                }
+
+                // วางรูปลงไปให้พอดีขอบ A4 เป๊ะๆ
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            }
+
+            pdf.save(`PO-${data?.po_number || params.id}.pdf`);
+            Swal.close();
+        } catch (error) {
+            console.error("PDF Error:", error);
+            Swal.close();
+            Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถสร้างไฟล์ PDF ได้ในขณะนี้', 'error');
+        } finally {
+            setIsDownloading(false);
+        }
+    };
+
+    if (error) {
+        return (
+            <div className="flex h-screen flex-col justify-center items-center gap-4 text-slate-500 bg-slate-50">
+                <AlertCircle size={48} className="text-red-500" />
+                <p className="text-lg font-bold text-red-600">{error}</p>
+                <Link href="/purchasing/po-list" className="text-blue-600 hover:underline">กลับไปหน้ารายการ</Link>
+            </div>
+        );
+    }
+
+    if (!data) {
+        return (
+            <div className="flex flex-col h-screen justify-center items-center gap-4 bg-white">
+                <Loader2 className="animate-spin text-[#002060]" size={48} />
+                <p className="text-slate-400 font-medium animate-pulse">กำลังสร้างเอกสาร...</p>
+            </div>
+        );
+    }
+
+    const po = data;
+    const items = data.items || [];
+
+    const pages = [];
+    if (items.length === 0) {
+        pages.push([]);
+    } else {
+        for (let i = 0; i < items.length; i += ITEMS_PER_PAGE) {
+            pages.push(items.slice(i, i + ITEMS_PER_PAGE));
+        }
+    }
+
+    const themeColor = "#002060";
+    const redHighlight = "#C00000";
+
+    return (
+        <div className="min-h-screen bg-[#f3f4f6] p-8 font-sans print:bg-white print:p-0">
+
+            <style jsx global>{`
         @media print {
-          @page {
-            size: A4;
-            margin: 0;
-          }
-          body {
-            background: white;
-            print-color-adjust: exact;
-            -webkit-print-color-adjust: exact;
-          }
-          ::-webkit-scrollbar { display: none; }
+          @page { size: A4; margin: 0mm; }
+          body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+          * { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important; }
         }
       `}</style>
 
-      {/* --- Toolbar --- */}
-      <div className="max-w-[210mm] mx-auto mb-6 flex justify-between items-center print:hidden">
-        <Link href="/purchasing/po-list" className="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition font-medium">
-            <ArrowLeft size={20}/> กลับหน้ารายการ
-        </Link>
-        
-        <div className="flex gap-3">
-            {/* ✅ ปุ่ม Download PDF */}
-            <button 
-                onClick={handleDownloadPDF} 
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg font-bold shadow-lg flex items-center gap-2 transition active:scale-95"
-            >
-                <Download size={20}/> ดาวน์โหลด PDF
-            </button>
+            {/* --- Toolbar --- */}
+            <div className="max-w-[210mm] mx-auto mb-6 flex justify-between items-center print:hidden">
+                <button onClick={() => router.back()} className="flex items-center gap-2 text-slate-500 hover:text-[#002060] transition font-bold">
+                    <ArrowLeft size={20} /> กลับหน้ารายการ
+                </button>
 
-            {/* ปุ่ม Print */}
-            <button 
-                onClick={() => window.print()} 
-                className="bg-slate-900 hover:bg-slate-800 text-white px-6 py-2.5 rounded-lg font-bold shadow-lg flex items-center gap-2 transition active:scale-95"
-            >
-                <Printer size={20}/> สั่งพิมพ์เอกสาร
-            </button>
-        </div>
-      </div>
-
-      {/* --- A4 Paper Container --- */}
-      {/* 💡 หมายเหตุ: การใช้ html2canvas จะแคปเจอร์ "ตามที่ตาเห็น" 
-         ดังนั้นใน PDF จะมีเงา (shadow-xl) และเส้นขอบ (border) ติดไปด้วยเหมือนดูบนเว็บ
-      */}
-      <div 
-        id="po-content" 
-        className="w-[210mm] h-[296mm] bg-white mx-auto shadow-xl border border-slate-900 print:border-none print:shadow-none print:w-[210mm] print:h-[296mm] relative flex flex-col justify-between overflow-hidden text-slate-900"
-      >
-        
-        <div className="p-[15mm] pb-0 flex-1 flex flex-col">
-            {/* 1. Header */}
-            <div className="flex justify-between items-start mb-6 border-b-2 border-slate-900 pb-4">
-                <div>
-                    <div className="flex items-center gap-3 text-slate-900 mb-2">
-                        <div className="bg-slate-900 p-1.5 rounded text-white">
-                             <Building2 size={20}/>
-                        </div>
-                        <span className="font-black text-xl tracking-tighter uppercase">ERP SYSTEM</span>
-                    </div>
-                    <div className="text-[10px] text-slate-700 leading-tight pl-1 font-medium">
-                        <p className="font-bold text-slate-900 text-xs mb-1">บริษัท ของเรา จำกัด (มหาชน)</p>
-                        <p>123 อาคารทีวัน ชั้น 20 ถ.สุขุมวิท แขวงคลองตันเหนือ</p>
-                        <p>เขตวัฒนา กรุงเทพฯ 10110</p>
-                        <p className="font-mono mt-0.5 text-slate-600">Tax ID: 0105555555555</p>
-                    </div>
-                </div>
-                <div className="text-right">
-                    <h1 className="text-3xl font-black text-slate-900 tracking-tight mb-1">{po.po_number}</h1>
-                    <p className="text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-3">ใบสั่งซื้อ (Purchase Order)</p>
-                    <div className="inline-block text-right bg-white p-2 rounded border border-slate-700 min-w-[140px]">
-                        <div className="text-[9px] text-slate-600 uppercase font-bold">วันที่ (Date)</div>
-                        <div className="font-bold text-slate-900 text-sm">
-                            {new Date(po.order_date).toLocaleDateString('th-TH')}
-                        </div>
-                    </div>
+                <div className="flex gap-3">
+                    <button
+                        onClick={handleDownloadPDF}
+                        disabled={isDownloading}
+                        className="bg-[#16a34a] hover:bg-[#15803d] text-white px-4 py-2.5 rounded-lg font-bold shadow-sm flex items-center gap-2 transition active:scale-95 disabled:bg-gray-400"
+                    >
+                        <Download size={20} /> {isDownloading ? 'กำลังสร้าง...' : 'ดาวน์โหลด PDF'}
+                    </button>
+                    <button
+                        onClick={() => window.print()}
+                        className="bg-[#002060] hover:bg-blue-900 text-white px-6 py-2.5 rounded-lg font-bold shadow-sm flex items-center gap-2 transition active:scale-95"
+                    >
+                        <Printer size={20} /> สั่งพิมพ์เอกสาร
+                    </button>
                 </div>
             </div>
 
-            {/* 2. Info Grid */}
-            <div className="grid grid-cols-2 gap-6 mb-6">
-                <div className="p-4 bg-white rounded-lg border border-slate-700">
-                    <h3 className="text-[9px] font-black text-slate-700 uppercase tracking-wider mb-2 border-b border-slate-700 pb-1">
-                        ผู้ขาย (Vendor)
-                    </h3>
-                    <p className="font-bold text-sm text-slate-900 mb-1">{po.supplier_name}</p>
-                    <p className="text-[10px] text-slate-700 leading-relaxed mb-3 h-8 overflow-hidden font-medium">
-                        {po.supplier_full_address || po.supplier_address || '-'}
-                    </p>
-                    <div className="text-[10px] text-slate-700 space-y-0.5 font-medium">
-                        <div className="flex"><span className="text-slate-600 w-20">ผู้ติดต่อ (Attn):</span> <span className="font-bold">{po.contact_person || '-'}</span></div>
-                        <div className="flex"><span className="text-slate-600 w-20">โทร (Tel):</span> <span className="font-bold font-mono">{po.supplier_phone || '-'}</span></div>
-                    </div>
-                </div>
+            {/* --- พื้นที่เนื้อหาใบสั่งซื้อ --- */}
+            <div id="po-content-area">
+                {pages.map((pageItems, pageIndex) => {
+                    const isLastPage = pageIndex === pages.length - 1;
 
-                <div className="p-4 bg-white rounded-lg border border-slate-700">
-                    <h3 className="text-[9px] font-black text-slate-700 uppercase tracking-wider mb-2 border-b border-slate-700 pb-1">
-                        สถานที่จัดส่ง (Ship To)
-                    </h3>
-                    <p className="font-bold text-sm text-slate-900 mb-1">Main Warehouse</p>
-                    <p className="text-[10px] text-slate-700 leading-relaxed mb-3 h-8 overflow-hidden font-medium">
-                        99/9 นิคมอุตสาหกรรมบางพลี ต.บางเสาธง <br/> อ.บางเสาธง จ.สมุทรปราการ 10540
-                    </p>
-                    <div className="text-[10px] text-slate-700 space-y-0.5 font-medium">
-                        <div className="flex"><span className="text-slate-600 w-24">ผู้ติดต่อ (Contact):</span> <span className="font-bold">K. Somchai</span></div>
-                        <div className="flex"><span className="text-slate-600 w-24">กำหนดส่ง (Delivery):</span> <span className="font-bold text-slate-900">ภายใน 7 วัน (Within 7 Days)</span></div>
-                    </div>
-                </div>
-            </div>
+                    return (
+                        <div
+                            key={pageIndex}
+                            className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
+                            style={{ pageBreakAfter: 'always' }}
+                        >
 
-            {/* 3. Items Table */}
-            <div className="flex-1">
-                <table className="w-full text-sm mb-4 font-medium">
-                    <thead>
-                        <tr className="border-b-2 border-slate-900">
-                            <th className="py-2 pl-2 text-left text-[9px] font-black text-slate-700 uppercase tracking-wider w-12">ลำดับ<br/>(No.)</th>
-                            <th className="py-2 text-left text-[9px] font-black text-slate-700 uppercase tracking-wider">รายการสินค้า<br/>(Description)</th>
-                            <th className="py-2 text-right text-[9px] font-black text-slate-700 uppercase tracking-wider w-16">จำนวน<br/>(Qty)</th>
-                            <th className="py-2 text-right text-[9px] font-black text-slate-700 uppercase tracking-wider w-24">ราคา/หน่วย<br/>(Unit Price)</th>
-                            <th className="py-2 text-right text-[9px] font-black text-slate-700 uppercase tracking-wider w-24 pr-2">จำนวนเงิน<br/>(Amount)</th>
-                        </tr>
-                    </thead>
-                    <tbody className="text-slate-900">
-                        {items.map((item, idx) => (
-                            <tr key={idx} className="border-b border-slate-700">
-                                <td className="py-2 pl-2 font-mono text-[10px] text-slate-600 align-top pt-3 font-bold">{idx + 1}</td>
-                                <td className="py-2 align-top pt-3">
-                                    <div className="font-bold text-slate-900 text-xs">{item.product_name}</div>
-                                    {item.product_code && item.product_code !== '-' && (
-                                        <div className="text-[9px] text-slate-600 font-mono mt-0.5 font-semibold">Code: {item.product_code}</div>
+                            {/* 1. Header */}
+                            <div className="mb-2">
+                                <div className="text-center mb-4">
+                                    <h1 className="text-[17px] font-bold mb-1" style={{ color: themeColor }}>
+                                        บริษัท เอ็มเอส แทรค (ประเทศไทย) จํากัด (สำนักงานใหญ่)
+                                    </h1>
+                                    <p className="text-[11px] font-medium text-[#000000] leading-relaxed">
+                                        717/63 หมู่ 5 ถนนเพชรมาตุคลา ตำบลหัวทะเล อำาเภอเมือง จังหวัดนครราชสีมา 30000<br />
+                                        โทร. 044-300659 , 093-3254422 Email : mstrack.thailand@gmail.com www.smartgtechnology.com<br />
+                                        เลขที่ประจําตัวผู้เสียภาษี 0305556002921
+                                    </p>
+                                </div>
+
+                                <div className="w-full text-left mb-0 pl-2">
+                                    <img src="/MSTrack_Logo_2.png" alt="Company Logo" className="h-16 w-auto object-contain" />
+                                </div>
+
+                                <div className="w-full text-[#ffffff] text-center py-2 font-bold text-xl rounded-sm print:text-white mb-4" style={{ backgroundColor: themeColor }}>
+                                    ใบสั่งซื้อ (PURCHASE ORDER)
+                                </div>
+                            </div>
+
+                            {/* 2. Info Grid (แบ่งเป็น 3 กล่อง) */}
+                            <div className="flex justify-between mb-4 px-2 gap-3">
+
+                                {/* กล่องที่ 1: ข้อมูลผู้ขาย (ซ้าย) */}
+                                <div className="w-[35%] border-2 rounded-xl p-3 shadow-sm print:shadow-none" style={{ borderColor: themeColor }}>
+                                    <table className="w-full text-[11px] leading-relaxed">
+                                        <tbody>
+                                            <tr>
+                                                <td className="w-16 font-bold align-top" style={{ color: themeColor }}>ผู้ขาย</td>
+                                                <td className="font-bold text-slate-900">{po?.supplier_name || "-"}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="font-bold align-top pt-1" style={{ color: themeColor }}>ที่อยู่</td>
+                                                <td className="whitespace-pre-wrap break-words text-slate-800 pt-1">
+                                                    {po?.supplier_full_address || po?.supplier_address || "-"}
+                                                </td>
+                                            </tr>
+                                            {(po?.supplier_tax_id || po?.supplier_branch) && (
+                                                <tr>
+                                                    <td className="font-bold align-top pt-1" style={{ color: themeColor }}>Tax ID</td>
+                                                    <td className="text-slate-800 pt-1">
+                                                        {po?.supplier_tax_id || "-"}
+                                                        {po?.supplier_branch && <span className="ml-1 text-slate-500">({po.supplier_branch})</span>}
+                                                    </td>
+                                                </tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {/* กล่องที่ 2: การติดต่อและเงื่อนไข (กลาง) */}
+                                <div className="w-[28%] border-2 rounded-xl p-3 shadow-sm print:shadow-none" style={{ borderColor: themeColor }}>
+                                    <table className="w-full text-[11px] leading-relaxed">
+                                        <tbody>
+                                            <tr>
+                                                <td className="w-20 font-bold align-top" style={{ color: themeColor }}>ผู้ติดต่อ</td>
+                                                <td className="text-slate-800">{po?.contact_person || "-"}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="font-bold align-top" style={{ color: themeColor }}>โทรศัพท์</td>
+                                                <td className="text-slate-800">{po?.supplier_phone || "-"}</td>
+                                            </tr>
+                                            {po?.supplier_fax && (
+                                                <tr>
+                                                    <td className="font-bold align-top" style={{ color: themeColor }}>โทรสาร</td>
+                                                    <td className="text-slate-800">{po.supplier_fax}</td>
+                                                </tr>
+                                            )}
+                                            <tr>
+                                                <td className="font-bold align-top pt-1" style={{ color: themeColor }}>เครดิตเทอม</td>
+                                                <td className="text-slate-800 pt-1">{po?.credit_terms || "เงินสด"}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="font-bold align-top" style={{ color: themeColor }}>กำหนดส่ง</td>
+                                                {/* เปลี่ยนจาก delivery_date เป็น expected_date ให้ตรงกับ Database */}
+                                                <td className="text-slate-800">{po?.expected_date ? new Date(po.expected_date).toLocaleDateString('th-TH') : "-"}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {/* กล่องที่ 3: ข้อมูลเอกสาร (ขวา) */}
+                                <div className="w-[37%] border-2 rounded-xl p-3 shadow-sm print:shadow-none" style={{ borderColor: themeColor }}>
+                                    <table className="w-full text-[11px] leading-relaxed">
+                                        <tbody>
+                                            <tr>
+                                                <td className="w-24 font-bold align-top" style={{ color: themeColor }}>เลขที่ใบสั่งซื้อ</td>
+                                                <td className="font-bold text-slate-900">{po?.po_number || po?.doc_number || "-"}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="font-bold align-top" style={{ color: themeColor }}>วันที่สั่งซื้อ</td>
+                                                <td className="text-slate-800">{po?.order_date ? new Date(po.order_date).toLocaleDateString('th-TH') : "-"}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="font-bold align-top" style={{ color: themeColor }}>อ้างอิง QT</td>
+                                                <td className="text-slate-800">{po?.quotation_ref || "-"}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="font-bold align-top" style={{ color: themeColor }}>อ้างอิง PR</td>
+                                                <td className="text-slate-800">{po?.pr_ref || "-"}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="font-bold align-top pt-1" style={{ color: themeColor }}>สถานที่จัดส่ง</td>
+                                                <td className="whitespace-pre-wrap break-words text-slate-800 pt-1">
+                                                    {po?.shipping_address || "สำนักงานใหญ่ (HQ)"}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                            {/* 3. Items Table */}
+                            <div className="">
+                                <table className="w-full border-collapse text-xs border-t border-r border-[#000000]">
+                                    <thead>
+                                        <tr className="text-[#ffffff] text-center font-bold print:bg-[#C00000]" style={{ backgroundColor: redHighlight }}>
+                                            <th className="border-l border-r border-b border-[#000000] py-1.5 w-12">ลำดับ<br /><span className="font-normal text-[10px]">No.</span></th>
+                                            <th className="border-r border-b border-[#000000] py-1.5 w-36">รหัสสินค้า<br /><span className="font-normal text-[10px]">ITEM CODE</span></th>
+                                            <th className="border-r border-b border-[#000000] py-1.5">รายละเอียด<br /><span className="font-normal text-[10px]">DESCRIPTION</span></th>
+                                            <th className="border-r border-b border-[#000000] py-1.5 w-16">จํานวน<br /><span className="font-normal text-[10px]">QTY</span></th>
+                                            <th className="border-r border-b border-[#000000] py-1.5 w-16">หน่วย<br /><span className="font-normal text-[10px]">UNIT</span></th>
+                                            <th className="border-r border-b border-[#000000] py-1.5 w-24">ราคา/หน่วย<br /><span className="font-normal text-[10px]">UNIT PRICE</span></th>
+                                            <th className="border-b border-[#000000] py-1.5 w-28">จํานวนเงิน<br /><span className="font-normal text-[10px]">AMOUNT</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-[#000000] font-medium text-[13px]">
+                                        {pageItems.map((item, idx) => (
+                                            <tr key={idx} className="align-top">
+                                                <td className="border-l border-r border-[#000000] py-1.5 text-center">{idx + 1 + (pageIndex * ITEMS_PER_PAGE)}</td>
+                                                <td className="border-r border-[#000000] py-1.5 px-2 text-center break-words">{item.product_code || item.item_code || "-"}</td>
+                                                <td className="border-r border-[#000000] py-1.5 px-2 leading-relaxed">{item.product_name || item.description}</td>
+                                                <td className="border-r border-[#000000] py-1.5 text-center font-bold">{item.quantity}</td>
+                                                <td className="border-r border-[#000000] py-1.5 text-center">{item.unit || "ชุด"}</td>
+                                                <td className="border-r border-[#000000] py-1.5 text-right px-2">{parseFloat(item.unit_price).toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                                                <td className="border-b-0 py-1.5 text-right px-2 font-bold">{parseFloat(item.total_price || item.total || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                                            </tr>
+                                        ))}
+                                        {/* Fill Empty Rows */}
+                                        {[...Array(Math.max(0, ITEMS_PER_PAGE - pageItems.length))].map((_, i) => (
+                                            <tr key={`empty-${i}`}>
+                                                <td className="border-l border-r border-[#000000] py-1 h-7"></td><td className="border-r border-[#000000] py-1"></td><td className="border-r border-[#000000] py-1"></td><td className="border-r border-[#000000] py-1"></td><td className="border-r border-[#000000] py-1"></td><td className="border-r border-[#000000] py-1"></td><td className="py-1"></td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+
+                                    {/* 4. Footer Rows */}
+                                    {isLastPage && (
+                                        <tfoot>
+                                            <tr className="border-t border-[#000000]">
+                                                <td colSpan={5} rowSpan={3} className="border-l border-r border-b border-[#000000] align-top text-left px-4 py-3 text-[11px]">
+                                                    <div className="font-bold mb-2" style={{ color: themeColor }}>หมายเหตุ/เงื่อนไขเพิ่มเติม (Remarks):</div>
+                                                    <div className="whitespace-pre-wrap min-h-[80px] leading-relaxed text-slate-800">
+                                                        {po?.remarks || "1. กรุณาส่งสินค้าตามกำหนดเวลา\n2. โปรดแนบสำเนาใบสั่งซื้อมาพร้อมกับใบส่งสินค้า / ใบแจ้งหนี้ทุกครั้ง"}
+                                                    </div>
+                                                </td>
+                                                <td className="border-r border-b border-[#000000] py-1.5 pl-2 font-bold text-[11px]" style={{ color: themeColor }}>
+                                                    รวมเป็นเงิน
+                                                </td>
+                                                <td className="border-b border-[#000000] py-1.5 text-right pr-2 font-medium text-[12px]">
+                                                    {parseFloat(po?.subtotal || po?.total_amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className="border-r border-b border-[#000000] py-1.5 pl-2 font-bold text-[11px]" style={{ color: themeColor }}>
+                                                    ภาษีมูลค่าเพิ่ม 7%
+                                                </td>
+                                                <td className="border-b border-[#000000] py-1.5 text-right pr-2 font-medium text-[12px]">
+                                                    {parseFloat(po?.vat_amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className="border-r border-b border-[#000000] py-2 pl-2 font-bold text-sm text-[#ffffff] print:bg-[#C00000]" style={{ backgroundColor: redHighlight }}>
+                                                    ยอดสุทธิ
+                                                </td>
+                                                <td className="border-b border-[#000000] py-2 text-right pr-2 font-bold text-[15px] text-[#ffffff] print:bg-[#C00000]" style={{ backgroundColor: redHighlight }}>
+                                                    {parseFloat(po?.grand_total || po?.total_amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                                </td>
+                                            </tr>
+                                            <tr className="border-b border-[#000000]">
+                                                <td colSpan={7} className="border-l border-r text-center py-2 font-bold text-[12px]" style={{ color: themeColor }}>
+                                                    ( {THBText(po?.grand_total || po?.total_amount || 0)} )
+                                                </td>
+                                            </tr>
+                                        </tfoot>
                                     )}
-                                </td>
-                                <td className="py-2 text-right align-top pt-3">
-                                    <span className="font-bold text-slate-900 text-xs">{item.quantity}</span> 
-                                    <span className="text-[9px] text-slate-600 ml-1 font-semibold">{item.unit}</span>
-                                </td>
-                                <td className="py-2 text-right text-slate-900 align-top pt-3 font-mono text-xs font-bold">
-                                    {parseFloat(item.unit_price).toLocaleString(undefined, {minimumFractionDigits: 2})}
-                                </td>
-                                <td className="py-2 text-right font-black text-slate-900 pr-2 align-top pt-3 font-mono text-xs">
-                                    {parseFloat(item.total_price).toLocaleString(undefined, {minimumFractionDigits: 2})}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
 
-            {/* 4. Totals */}
-            <div className="flex justify-end mb-4">
-                <div className="w-64 border-t-2 border-slate-900 pt-2">
-                    <div className="flex justify-between items-center py-1 text-slate-700 text-[10px] font-bold">
-                        <span>รวมเป็นเงิน (Subtotal)</span>
-                        <span className="font-mono">{parseFloat(po.total_amount).toLocaleString(undefined, {minimumFractionDigits: 2})}</span>
-                    </div>
-                    <div className="flex justify-between items-center py-1 text-slate-700 text-[10px] pb-2 border-b border-slate-700 font-bold">
-                        <span>ภาษีมูลค่าเพิ่ม 7% (VAT)</span>
-                        <span className="font-mono text-slate-500">-</span>
-                    </div>
-                    <div className="flex justify-between items-baseline pt-2 border-t border-slate-900">
-                        <span className="font-black text-slate-900 uppercase tracking-widest text-[10px]">ยอดรวมสุทธิ (Total)</span>
-                        <span className="font-black text-xl text-slate-900">
-                            <span className="text-xs align-top mr-1">฿</span>
-                            {parseFloat(po.total_amount).toLocaleString(undefined, {minimumFractionDigits: 2})}
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                    {!isLastPage && (
+                                        <tfoot><tr className="border-t border-[#000000]"><td colSpan={7}></td></tr></tfoot>
+                                    )}
+                                </table>
+                            </div>
 
-        {/* --- Footer (Signatures) --- */}
-        <div className="px-[15mm] pb-[15mm]">
-            
-            {/* Terms */}
-            <div className="mb-6 pt-4 border-t-2 border-slate-900">
-                <h4 className="text-[9px] font-bold text-slate-900 uppercase mb-1">เงื่อนไขและข้อกำหนด (Terms & Conditions)</h4>
-                <ul className="text-[8px] text-slate-700 list-disc list-inside space-y-0.5 leading-tight font-medium">
-                    <li>สินค้าต้องส่งมอบภายในระยะเวลาที่กำหนด (Delivery within agreed timeline).</li>
-                    <li>ใบแจ้งหนี้ต้องอ้างอิงเลขที่ใบสั่งซื้อนี้ทุกครั้ง (Invoice must quote this PO number).</li>
-                    <li>บริษัทสงวนสิทธิ์ในการปฏิเสธสินค้าที่ไม่ได้มาตรฐาน (We reserve the right to reject non-standard goods).</li>
-                </ul>
-            </div>
+                            {/* 5. Signatures */}
+                            {isLastPage ? (
+                                <div className="mt-6 grid grid-cols-3 gap-4 text-[11px]">
+                                    <div className="border-2 rounded-xl p-4 flex flex-col justify-end h-28 relative" style={{ borderColor: themeColor }}>
+                                        <div className="w-full text-center">
+                                            <div className="border-b border-[#000000] w-4/5 mx-auto mb-2"></div>
+                                            <div className="flex justify-between items-center px-2">
+                                                <span className="text-[10px] text-gray-500">วันที่ ...............................</span>
+                                                <div className="text-center font-bold" style={{ color: themeColor }}>
+                                                    <p>ผู้จัดทำเอกสาร</p>
+                                                    <p className="text-[9px] font-normal">(Prepared By)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-            {/* Signature Area */}
-            <div className="grid grid-cols-3 gap-6">
-                
-                {/* 1. Prepared By */}
-                <div className="text-center">
-                    <div className="mb-8">
-                        <p className="text-[9px] font-bold text-slate-700 uppercase tracking-widest mb-1">ผู้จัดทำ (Prepared By)</p>
-                    </div>
-                    <div className="relative border-b border-slate-900 pb-1 mb-2">
-                        <span className="absolute -top-4 left-0 right-0 text-slate-400 font-script text-lg">AdminUser</span>
-                    </div>
-                    <p className="text-[10px] font-bold text-slate-900 mb-0.5">Admin User</p>
-                    <p className="text-[8px] text-slate-600 font-medium">วันที่ (Date): {new Date(po.order_date).toLocaleDateString('th-TH')}</p>
-                </div>
+                                    <div></div>
 
-                {/* 2. Authorized By */}
-                <div className="text-center">
-                        <div className="mb-8">
-                        <p className="text-[9px] font-bold text-slate-700 uppercase tracking-widest mb-1">ผู้อนุมัติ (Authorized By)</p>
-                        <p className="text-[8px] text-slate-600 font-medium">ในนามบริษัท (For and on behalf of Company)</p>
-                    </div>
-                    <div className="border-b border-slate-900 pb-1 mb-2 h-6"></div>
-                    <p className="text-[10px] font-bold text-slate-900 mb-0.5">( ....................................................... )</p>
-                    <p className="text-[9px] text-slate-700 font-bold">ผู้จัดการฝ่ายจัดซื้อ (Purchasing Manager)</p>
-                </div>
+                                    <div className="border-2 rounded-xl p-4 flex flex-col justify-end h-28 relative" style={{ borderColor: themeColor }}>
+                                        <div className="w-full text-center">
+                                            <div className="border-b border-[#000000] w-4/5 mx-auto mb-2"></div>
+                                            <div className="flex justify-between items-center px-2">
+                                                <span className="text-[10px] text-gray-500">วันที่ ...............................</span>
+                                                <div className="text-center font-bold" style={{ color: themeColor }}>
+                                                    <p>ผู้มีอำนาจลงนาม</p>
+                                                    <p className="text-[9px] font-normal">(Authorized Signature)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="grow"></div>
+                            )}
 
-                {/* 3. Vendor Acceptance */}
-                <div className="text-center">
-                    <div className="mb-8">
-                        <p className="text-[9px] font-bold text-slate-700 uppercase tracking-widest mb-1">ผู้ขาย (Vendor Acceptance)</p>
-                        <p className="text-[8px] text-slate-600 font-medium">ยืนยันการสั่งซื้อ (Confirmed & Accepted by)</p>
-                    </div>
-                    <div className="border-b border-slate-900 pb-1 mb-2 h-6"></div>
-                    <p className="text-[10px] font-bold text-slate-900 mb-0.5">( ....................................................... )</p>
-                    <p className="text-[8px] text-slate-600 font-medium">วันที่ (Date): _______/_______/_______</p>
-                </div>
+                            <div className="absolute bottom-[5mm] right-[10mm] text-[9px] text-gray-500">
+                                หน้า (Page) {pageIndex + 1} / {pages.length}
+                            </div>
 
-            </div>
-
-            <div className="text-center mt-6 pt-2 border-t border-slate-900 flex justify-between text-[8px] text-slate-500 font-bold uppercase tracking-widest">
-                <span>{po.po_number}</span>
-                <span>Computer Generated Document</span>
-                <span>Page 1 of 1</span>
+                        </div>
+                    );
+                })}
             </div>
         </div>
-
-      </div>
-    </div>
-  );
+    );
 }

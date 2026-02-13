@@ -1,17 +1,49 @@
 'use client';
 
 import { useState, useEffect, use } from 'react';
-import { Printer, Download } from 'lucide-react';
+import { Printer, Download, Loader2, ArrowLeft } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas-pro';
 import Swal from 'sweetalert2';
+import Link from 'next/link';
 
 // ฟังก์ชันแปลงตัวเลขเป็นบาท (Placeholder)
 const bahtText = (num) => {
-    if (!num) return '-';
-    // ในการใช้งานจริง แนะนำให้ลง library: npm install bahttext
-    // แล้ว import { bahttext } from 'bahttext'; แล้วใช้ bahttext(num)
-    return `( ${new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(num).replace('฿', '')} บาทถ้วน )`; 
+    if (!num || isNaN(num)) return '-';
+    
+    const numberText = [
+        "ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"
+    ];
+    const unitText = ["", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน"];
+
+    const convert = (number) => {
+        let res = "";
+        let len = number.length;
+        for (let i = 0; i < len; i++) {
+            let digit = parseInt(number.charAt(i));
+            let pos = len - i - 1;
+            if (digit !== 0) {
+                if (pos % 6 === 1 && digit === 1) {
+                    res += "เอ็ด"; // กรณีเลข 1 ในหลักสิบ
+                } else if (pos % 6 === 1 && digit === 2) {
+                    res += "ยี่"; // กรณีเลข 2 ในหลักสิบ
+                } else if (pos % 6 === 0 && digit === 1 && i > 0) {
+                    res += "เอ็ด"; // กรณีเลข 1 ในหลักหน่วย
+                } else {
+                    res += numberText[digit];
+                }
+                res += unitText[pos % 6];
+            }
+            if (pos !== 0 && pos % 6 === 0) res += "ล้าน";
+        }
+        return res;
+    };
+
+    let [integer, fraction] = parseFloat(num).toFixed(2).split(".");
+    let baht = convert(integer);
+    let satang = fraction === "00" ? "ถ้วน" : convert(fraction) + "สตางค์";
+    
+    return `( ${baht}บาท${satang} )`;
 };
 
 export default function QuotationPrintPage({ params }) {
@@ -19,36 +51,67 @@ export default function QuotationPrintPage({ params }) {
   const id = unwrappedParams.id;
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isOrdered, setIsOrdered] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`/api/sales/quotation/${id}`);
-        if (res.ok) setData(await res.json());
-      } catch (error) { console.error(error); } finally { setLoading(false); }
-    };
-    fetchData();
-  }, [id]);
+        const fetchData = async () => {
+            try {
+                // 1. ลองดึงจากตาราง Quotation (ก่อนจ่ายเงิน)
+                let res = await fetch(`/api/sales/quotation/${id}`);
+                let result = await res.json();
+
+                // 2. ถ้าไม่พบ หรือเป็นรายการที่ขายแล้ว (รูปที่ 3) ให้ดึงจากตาราง Receipt/Order
+                if (!res.ok || result.error || (result.quotation && result.quotation.status === 'ordered')) {
+                    const resOrder = await fetch(`/api/sales/receipt/${id}`);
+                    const orderData = await resOrder.json();
+                    
+                    if (resOrder.ok && !orderData.error) {
+                        setIsOrdered(true);
+                        setData({
+                            quotation: {
+                                quotation_no: `QT-INV-${String(orderData.order.id).padStart(6, '0')}`,
+                                customer_name: orderData.order.customer_name,
+                                customer_address: orderData.order.customer_address,
+                                customer_phone: orderData.order.customer_phone,
+                                total_amount: orderData.order.total_amount,
+                                created_at: orderData.order.created_at,
+                                customer_tax_id: orderData.order.customer_tax_id || '-',
+                                // ✅ จุดสำคัญ: ดึงวิธีการชำระเงินที่เลือกจริงมาแสดง
+                                payment_method: orderData.order.payment_method 
+                            },
+                            items: orderData.items.map(item => ({
+                                product_name: item.product_name,
+                                quantity: item.quantity,
+                                price: item.price_per_unit, 
+                                total: item.price_per_unit * item.quantity
+                            }))
+                        });
+                        setLoading(false);
+                        return;
+                    }
+                }
+                
+                if (res.ok) {
+                    setData(result);
+                    setIsOrdered(result.quotation.status === 'ordered');
+                }
+            } catch (error) { console.error(error); } finally { setLoading(false); }
+        };
+        fetchData();
+    }, [id]);
 
   const handleDownloadPDF = async () => {
-    const element = document.getElementById('print-content');
-    if (!element) return;
-    Swal.fire({ title: 'กำลังสร้าง PDF...', didOpen: () => Swal.showLoading() });
+        const element = document.getElementById('print-content');
+        if (!element) return;
+        const canvas = await html2canvas(element, { scale: 2, useCORS: true });
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        pdf.addImage(imgData, 'PNG', 0, 0, 210, (canvas.height * 210) / canvas.width);
+        pdf.save(`QT-${id}.pdf`);
+    };
 
-    try {
-      const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const imgHeight = (pdf.getImageProperties(imgData).height * pdfWidth) / pdf.getImageProperties(imgData).width;
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, imgHeight);
-      pdf.save(`QT-${data?.quotation?.quotation_no}.pdf`);
-      Swal.close();
-    } catch (error) { Swal.fire('Error', 'สร้าง PDF ไม่สำเร็จ', 'error'); }
-  };
-
-  if (loading) return <div className="p-10 text-center">กำลังโหลด...</div>;
-  if (!data) return <div className="p-10 text-center text-red-500">ไม่พบเอกสาร</div>;
+  if (loading) return <div className="p-10 text-center flex justify-center items-center gap-3"><Loader2 className="animate-spin"/> กำลังโหลดแบบฟอร์ม...</div>;
+    if (!data) return <div className="p-10 text-center text-red-500">ไม่พบข้อมูล</div>;
 
   const { quotation, items } = data;
   const grandTotal = Number(quotation.total_amount);
@@ -77,9 +140,13 @@ export default function QuotationPrintPage({ params }) {
         
         {/* Header: เลียนแบบโลโก้ด้วย CSS */}
         <div className="text-center mb-4">
-            <h1 className="text-lg font-bold" style={{ color: themeBlue }}>บริษัท เอ็มเอส แทราค (ประเทศไทย) จำกัด (สำนักงานใหญ่)</h1>
+            <h1 className="text-lg font-bold" style={{ color: themeBlue }}>บริษัท เอ็มเอส แทรค (ประเทศไทย) จำกัด (สำนักงานใหญ่)</h1>
             <p>717/63 หมู่ 5 ถนนเพชรมาตุคลา ตำบลหัวทะเล อำเภอเมือง จังหวัดนครราชสีมา 30000</p>
-            <p>โทร. 044-300659 , 093-3254422 Email : example@email.com www.smartgtechnology.com</p>
+            <p>โทร. 044-300659 , 093-3254422 Email : mstrack.thailand@gmail.com www.smartgtechnology.com</p>
+            {/* ✅ 1. ย้ายมาไว้ตรงกลาง และปรับ font ให้ไม่หนาตามวงกลมสีแดงในรูป 2 */}
+            
+                เลขที่ประจำตัวผู้เสียภาษี 0305556002921
+            
             <div className="flex justify-between items-end mt-2">
                 
                 {/* 🎨 โลโก้จำลอง (CSS) - ถ้ามีรูปจริง ให้ลบก้อนนี้ทิ้งแล้วใส่ <img src="/logo.png" /> แทน
@@ -103,10 +170,7 @@ export default function QuotationPrintPage({ params }) {
                     />
                 </div>
 
-                {/* เลขผู้เสียภาษี (กลาง) */}
-                <div className="text-center flex-1">
-                    <p className="font-bold">เลขที่ประจำตัวผู้เสียภาษี 0305556002921</p>
-                </div>
+                
 
                 {/* เลขที่/วันที่ (ขวา) */}
                 <div className="w-[150px] text-right">
@@ -134,7 +198,9 @@ export default function QuotationPrintPage({ params }) {
                     <span className="font-bold">{quotation.customer_name || 'ลูกค้าทั่วไป'}</span>
                     
                     <span className="font-bold" style={{ color: themeBlue }}>ที่อยู่</span> 
-                    <span>{quotation.customer_address || '-'}</span>
+                    <span className="wrap-break-word whitespace-pre-wrap leading-normal">
+                        {quotation.customer_address || '-'}
+                    </span>
                     
                     <span className="font-bold" style={{ color: themeBlue }}>เบอร์โทร</span> 
                     <span>-</span>
@@ -145,14 +211,19 @@ export default function QuotationPrintPage({ params }) {
             </div>
 
             {/* ขวา: เงื่อนไข */}
-            <div className="border rounded-2xl p-3 h-32" style={{ borderColor: themeBlue }}>
-                 <div className="grid grid-cols-[90px_1fr] gap-y-1">
-                    <span className="font-bold" style={{ color: themeBlue }}>ผู้เสนอราคา</span> <span>Admin</span>
-                    <span className="font-bold" style={{ color: themeBlue }}>ยืนราคาภายใน</span> <span>7 วัน</span>
-                    <span className="font-bold" style={{ color: themeBlue }}>Expire Date</span> 
-                    <span>{new Date(new Date(quotation.created_at).getTime() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString('th-TH')}</span>
-                    <span className="font-bold" style={{ color: themeBlue }}>เงื่อนไขการชำระ</span> <span>เงินสด</span>
-                 </div>
+            <div className="border border-blue-900 rounded-2xl p-3 h-32">
+                        <div className="grid grid-cols-[90px_1fr] gap-y-1">
+                            <span className="font-bold" style={{ color: themeBlue }}>ผู้เสนอราคา</span> <span className="text-black">Admin</span>
+                            <span className="font-bold" style={{ color: themeBlue }}>ยืนราคาภายใน</span> <span className="text-black">7 วัน</span>
+                            <span className="font-bold" style={{ color: themeBlue }}>Expire Date</span> <span className="text-black">{new Date(new Date(quotation.created_at).getTime() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString('th-TH')}</span>
+                            <span className="font-bold" style={{ color: themeBlue }}>เงื่อนไขการชำระ</span> 
+                            {/* ✅ แก้ไข: แสดง "เงินสด / โอนเงิน" อัตโนมัติ */}
+                            <span className="text-black font-bold">
+                                {isOrdered && quotation.payment_method && quotation.payment_method !== '-' 
+                                    ? quotation.payment_method 
+                                    : "เงินสด / โอนเงิน"}
+                            </span>
+                        </div>
             </div>
         </div>
 
@@ -204,8 +275,8 @@ export default function QuotationPrintPage({ params }) {
                     <td colSpan="4" rowSpan="5" className="border-r border-black align-top p-2 border-b text-[10px]">
                         <p className="underline mb-1" style={{ color: themeBlue }}>ช่องทางการชำระ (บัญชีออมทรัพย์)</p>
                         <p>ชื่อบัญชี บริษัท เอ็มเอส แทรค (ประเทศไทย)จำกัด</p>
-                        <p>ธนาคารกสิกรไทย <span className="text-lg ml-2">522-2-23478-8</span></p>
-                        <p>ธนาคารไทยพาณิชย์ <span className="text-lg ml-1">468-0-84384-8</span></p>
+                        <p>ธนาคารกสิกรไทย <span className="text-[13px] ml-2">522-2-23478-8</span></p>
+                        <p>ธนาคารไทยพาณิชย์ <span className="text-[13px] ml-1">468-0-84384-8</span></p>
                         
                         <div className="mt-2 border border-black text-center py-1 bg-white">
                             {bahtText(grandTotal)}

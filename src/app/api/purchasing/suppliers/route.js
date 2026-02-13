@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import pool from '../../../lib/db'; // ✅ ใช้ @/lib/db เพื่อความชัวร์เรื่อง Path
+import pool from '../../../lib/db'; 
 
 // 1. GET: ดึงข้อมูลคู่ค้า
 export async function GET(request) {
@@ -11,7 +11,6 @@ export async function GET(request) {
     let params = [];
 
     if (search) {
-      // ค้นหาครอบคลุมถึงชื่อผู้ติดต่อและเบอร์โทร
       sql += ` WHERE name LIKE ? OR code LIKE ? OR contact_name LIKE ? OR phone LIKE ?`;
       params = [`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`];
     }
@@ -25,16 +24,17 @@ export async function GET(request) {
   }
 }
 
-// 2. POST: เพิ่มคู่ค้าใหม่ (✅ เพิ่มการบันทึกที่อยู่แยกส่วน)
+// 2. POST: เพิ่มคู่ค้าใหม่ (✅ เพิ่ม branch และ fax)
 export async function POST(request) {
     try {
         const body = await request.json();
         
-        // รับค่า 4 ตัวใหม่ (sub_district, district, province, zipcode)
+        // รับค่า branch และ fax เพิ่มเติม
         const { 
             code, name, contact_name, 
-            address, sub_district, district, province, zipcode, // <--- มาใหม่
-            phone, email, tax_id, credit_term 
+            address, sub_district, district, province, zipcode, 
+            phone, email, tax_id, credit_term,
+            branch, fax // <--- มารับค่าตรงนี้
         } = body;
 
         // Validation
@@ -53,24 +53,26 @@ export async function POST(request) {
             (
                 code, name, contact_name, 
                 address, sub_district, district, province, zipcode, 
-                phone, email, tax_id, credit_term
+                phone, email, tax_id, credit_term, branch, fax
             ) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         
         const values = [
             code, 
             name, 
             contact_name || '', 
-            address || '',          // ที่อยู่บรรทัดแรก (เลขที่/หมู่บ้าน)
-            sub_district || '',     // ตำบล
-            district || '',         // อำเภอ
-            province || '',         // จังหวัด
-            zipcode || '',          // รหัสไปรษณีย์
+            address || '',          
+            sub_district || '',     
+            district || '',         
+            province || '',         
+            zipcode || '',          
             phone || '', 
             email || '', 
             tax_id || '', 
-            credit_term || 0
+            credit_term || 0,
+            branch || '',           // <--- บันทึกสาขา
+            fax || ''               // <--- บันทึกแฟกซ์
         ];
 
         await pool.query(sql, values);
@@ -82,21 +84,22 @@ export async function POST(request) {
     }
 }
 
-// 3. PUT: แก้ไขข้อมูล (✅ เพิ่มการอัปเดตที่อยู่แยกส่วน)
+// 3. PUT: แก้ไขข้อมูล (✅ เพิ่ม branch และ fax)
 export async function PUT(request) {
     try {
         const body = await request.json();
         const { 
             id, code, name, contact_name, 
-            address, sub_district, district, province, zipcode, // <--- มาใหม่
-            phone, email, tax_id, credit_term 
+            address, sub_district, district, province, zipcode, 
+            phone, email, tax_id, credit_term,
+            branch, fax // <--- มารับค่าตรงนี้
         } = body;
 
         const sql = `
             UPDATE suppliers SET 
             code=?, name=?, contact_name=?, 
             address=?, sub_district=?, district=?, province=?, zipcode=?, 
-            phone=?, email=?, tax_id=?, credit_term=? 
+            phone=?, email=?, tax_id=?, credit_term=?, branch=?, fax=? 
             WHERE id=?
         `;
         
@@ -104,6 +107,7 @@ export async function PUT(request) {
             code, name, contact_name, 
             address, sub_district, district, province, zipcode,
             phone, email, tax_id, credit_term, 
+            branch || '', fax || '', // <--- อัปเดตสาขา และแฟกซ์
             id
         ];
 
