@@ -621,7 +621,7 @@ function ReceiptViewPage() {
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
                                                                 lineNumber: 219,
-                                                                columnNumber: 123
+                                                                columnNumber: 124
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
@@ -646,7 +646,7 @@ function ReceiptViewPage() {
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
                                                                 lineNumber: 220,
-                                                                columnNumber: 109
+                                                                columnNumber: 110
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
@@ -671,7 +671,7 @@ function ReceiptViewPage() {
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
                                                                 lineNumber: 221,
-                                                                columnNumber: 109
+                                                                columnNumber: 110
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
@@ -696,7 +696,7 @@ function ReceiptViewPage() {
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
                                                                 lineNumber: 222,
-                                                                columnNumber: 109
+                                                                columnNumber: 110
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
@@ -721,7 +721,7 @@ function ReceiptViewPage() {
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
                                                                 lineNumber: 223,
-                                                                columnNumber: 116
+                                                                columnNumber: 117
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
@@ -746,7 +746,7 @@ function ReceiptViewPage() {
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
                                                                 lineNumber: 224,
-                                                                columnNumber: 87
+                                                                columnNumber: 88
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
@@ -780,7 +780,7 @@ function ReceiptViewPage() {
                                                                 columnNumber: 49
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                className: "jsx-e445f2f4d1e9cf31" + " " + "border-r border-[#000000] py-1 px-2",
+                                                                className: "jsx-e445f2f4d1e9cf31" + " " + "border-r border-[#000000] py-1 px-2 leading-relaxed",
                                                                 children: item.description
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
@@ -788,11 +788,11 @@ function ReceiptViewPage() {
                                                                 columnNumber: 49
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                className: "jsx-e445f2f4d1e9cf31" + " " + "border-r border-[#000000] py-1 text-center",
+                                                                className: "jsx-e445f2f4d1e9cf31" + " " + "border-r border-[#000000] py-1 text-center font-bold text-lg",
                                                                 children: item.quantity
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 232,
+                                                                lineNumber: 233,
                                                                 columnNumber: 49
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -800,27 +800,27 @@ function ReceiptViewPage() {
                                                                 children: "ชุด"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 233,
+                                                                lineNumber: 236,
                                                                 columnNumber: 49
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                 className: "jsx-e445f2f4d1e9cf31" + " " + "border-r border-[#000000] py-1 text-right px-2",
-                                                                children: parseFloat(item.unit_price).toLocaleString(undefined, {
+                                                                children: (parseFloat(item.total) / (item.quantity || 1)).toLocaleString(undefined, {
                                                                     minimumFractionDigits: 2
                                                                 })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 234,
+                                                                lineNumber: 238,
                                                                 columnNumber: 49
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                className: "jsx-e445f2f4d1e9cf31" + " " + "py-1 text-right px-2",
+                                                                className: "jsx-e445f2f4d1e9cf31" + " " + "py-1 text-right px-2 font-bold",
                                                                 children: parseFloat(item.total).toLocaleString(undefined, {
                                                                     minimumFractionDigits: 2
                                                                 })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 235,
+                                                                lineNumber: 241,
                                                                 columnNumber: 49
                                                             }, this)
                                                         ]
@@ -838,48 +838,48 @@ function ReceiptViewPage() {
                                                                 className: "jsx-e445f2f4d1e9cf31" + " " + "border-l border-r border-[#000000] py-1 h-6"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 240,
+                                                                lineNumber: 248,
                                                                 columnNumber: 49
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                 className: "jsx-e445f2f4d1e9cf31" + " " + "border-r border-[#000000] py-1"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 240,
+                                                                lineNumber: 248,
                                                                 columnNumber: 114
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                 className: "jsx-e445f2f4d1e9cf31" + " " + "border-r border-[#000000] py-1"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 240,
+                                                                lineNumber: 248,
                                                                 columnNumber: 166
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                 className: "jsx-e445f2f4d1e9cf31" + " " + "border-r border-[#000000] py-1"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 240,
+                                                                lineNumber: 248,
                                                                 columnNumber: 218
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                 className: "jsx-e445f2f4d1e9cf31" + " " + "border-r border-[#000000] py-1"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 240,
+                                                                lineNumber: 248,
                                                                 columnNumber: 270
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                 className: "jsx-e445f2f4d1e9cf31" + " " + "py-1"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 240,
+                                                                lineNumber: 248,
                                                                 columnNumber: 322
                                                             }, this)
                                                         ]
                                                     }, `empty-${i}`, true, {
                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                        lineNumber: 239,
+                                                        lineNumber: 247,
                                                         columnNumber: 45
                                                     }, this))
                                             ]
@@ -908,7 +908,7 @@ function ReceiptViewPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                            lineNumber: 248,
+                                                            lineNumber: 256,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -919,7 +919,7 @@ function ReceiptViewPage() {
                                                             children: "รวมเป็นเงิน"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                            lineNumber: 251,
+                                                            lineNumber: 259,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -929,13 +929,13 @@ function ReceiptViewPage() {
                                                             })
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                            lineNumber: 254,
+                                                            lineNumber: 262,
                                                             columnNumber: 49
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                    lineNumber: 247,
+                                                    lineNumber: 255,
                                                     columnNumber: 45
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -949,7 +949,7 @@ function ReceiptViewPage() {
                                                             children: "ภาษีมูลค่าเพิ่ม 7%"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                            lineNumber: 259,
+                                                            lineNumber: 267,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -959,13 +959,13 @@ function ReceiptViewPage() {
                                                             })
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                            lineNumber: 262,
+                                                            lineNumber: 270,
                                                             columnNumber: 49
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                    lineNumber: 258,
+                                                    lineNumber: 266,
                                                     columnNumber: 45
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -979,7 +979,7 @@ function ReceiptViewPage() {
                                                             children: "ยอดสุทธิ"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                            lineNumber: 267,
+                                                            lineNumber: 275,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -992,19 +992,19 @@ function ReceiptViewPage() {
                                                             })
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                            lineNumber: 270,
+                                                            lineNumber: 278,
                                                             columnNumber: 49
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                    lineNumber: 266,
+                                                    lineNumber: 274,
                                                     columnNumber: 45
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                            lineNumber: 246,
+                                            lineNumber: 254,
                                             columnNumber: 41
                                         }, this),
                                         !isLastPage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tfoot", {
@@ -1016,17 +1016,17 @@ function ReceiptViewPage() {
                                                     className: "jsx-e445f2f4d1e9cf31"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                    lineNumber: 278,
+                                                    lineNumber: 286,
                                                     columnNumber: 90
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                lineNumber: 278,
+                                                lineNumber: 286,
                                                 columnNumber: 48
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                            lineNumber: 278,
+                                            lineNumber: 286,
                                             columnNumber: 41
                                         }, this)
                                     ]
@@ -1057,7 +1057,7 @@ function ReceiptViewPage() {
                                                         children: "การชำระเงิน (Payment Method)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                        lineNumber: 288,
+                                                        lineNumber: 296,
                                                         columnNumber: 45
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1073,14 +1073,14 @@ function ReceiptViewPage() {
                                                                         className: "jsx-e445f2f4d1e9cf31"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                        lineNumber: 290,
+                                                                        lineNumber: 298,
                                                                         columnNumber: 92
                                                                     }, this),
                                                                     " เงินสด (Cash)"
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 290,
+                                                                lineNumber: 298,
                                                                 columnNumber: 49
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1093,14 +1093,14 @@ function ReceiptViewPage() {
                                                                         className: "jsx-e445f2f4d1e9cf31"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                        lineNumber: 291,
+                                                                        lineNumber: 299,
                                                                         columnNumber: 92
                                                                     }, this),
                                                                     " โอนเงิน (Transfer)"
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 291,
+                                                                lineNumber: 299,
                                                                 columnNumber: 49
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1113,20 +1113,20 @@ function ReceiptViewPage() {
                                                                         className: "jsx-e445f2f4d1e9cf31"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                        lineNumber: 292,
+                                                                        lineNumber: 300,
                                                                         columnNumber: 92
                                                                     }, this),
                                                                     " เช็ค (Cheque)"
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                                lineNumber: 292,
+                                                                lineNumber: 300,
                                                                 columnNumber: 49
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                        lineNumber: 289,
+                                                        lineNumber: 297,
                                                         columnNumber: 45
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1134,7 +1134,7 @@ function ReceiptViewPage() {
                                                         children: "ธนาคารกสิกรไทย 522-2-23478-8"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                        lineNumber: 294,
+                                                        lineNumber: 302,
                                                         columnNumber: 45
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1142,13 +1142,13 @@ function ReceiptViewPage() {
                                                         children: "ชื่อบัญชี บจก. เอ็มเอส แทรค (ประเทศไทย)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                        lineNumber: 295,
+                                                        lineNumber: 303,
                                                         columnNumber: 45
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                lineNumber: 287,
+                                                lineNumber: 295,
                                                 columnNumber: 41
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1158,18 +1158,18 @@ function ReceiptViewPage() {
                                                     children: "ได้รับเงินไว้ถูกต้องเรียบร้อยแล้ว"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                    lineNumber: 298,
+                                                    lineNumber: 306,
                                                     columnNumber: 45
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                lineNumber: 297,
+                                                lineNumber: 305,
                                                 columnNumber: 41
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                        lineNumber: 286,
+                                        lineNumber: 294,
                                         columnNumber: 37
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1182,7 +1182,7 @@ function ReceiptViewPage() {
                                                         className: "jsx-e445f2f4d1e9cf31" + " " + "border-b border-[#000000] h-6 w-3/4 mx-auto"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                        lineNumber: 303,
+                                                        lineNumber: 311,
                                                         columnNumber: 45
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1190,7 +1190,7 @@ function ReceiptViewPage() {
                                                         children: "ผู้รับเงิน / Collector"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                        lineNumber: 304,
+                                                        lineNumber: 312,
                                                         columnNumber: 45
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1198,13 +1198,13 @@ function ReceiptViewPage() {
                                                         children: "วันที่ ...../...../....."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                        lineNumber: 305,
+                                                        lineNumber: 313,
                                                         columnNumber: 45
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                lineNumber: 302,
+                                                lineNumber: 310,
                                                 columnNumber: 41
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1215,14 +1215,14 @@ function ReceiptViewPage() {
                                                         children: "ในนาม บริษัท เอ็มเอส แทรค (ประเทศไทย) จำกัด"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                        lineNumber: 308,
+                                                        lineNumber: 316,
                                                         columnNumber: 45
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "jsx-e445f2f4d1e9cf31" + " " + "border-b border-[#000000] h-6 w-3/4 mx-auto"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                        lineNumber: 309,
+                                                        lineNumber: 317,
                                                         columnNumber: 45
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1230,7 +1230,7 @@ function ReceiptViewPage() {
                                                         children: "ผู้มีอำนาจลงนาม / Authorized Signature"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                        lineNumber: 310,
+                                                        lineNumber: 318,
                                                         columnNumber: 45
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1238,31 +1238,31 @@ function ReceiptViewPage() {
                                                         children: "วันที่ ...../...../....."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                        lineNumber: 311,
+                                                        lineNumber: 319,
                                                         columnNumber: 45
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                                lineNumber: 307,
+                                                lineNumber: 315,
                                                 columnNumber: 41
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                        lineNumber: 301,
+                                        lineNumber: 309,
                                         columnNumber: 37
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                lineNumber: 285,
+                                lineNumber: 293,
                                 columnNumber: 33
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "jsx-e445f2f4d1e9cf31" + " " + "grow"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/accounting/receipts/[id]/page.jsx",
-                                lineNumber: 316,
+                                lineNumber: 324,
                                 columnNumber: 33
                             }, this)
                         ]

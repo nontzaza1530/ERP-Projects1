@@ -165,15 +165,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$j
 ;
 async function GET(request) {
     try {
-        // 1. ดึงรายชื่อคู่ค้า
+        // 1. ดึงรายชื่อคู่ค้า (✅ เพิ่ม phone เข้ามาใน SELECT แล้ว)
         const [suppliers] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(`
-      SELECT id, code, name, credit_term, contact_name, address 
+      SELECT id, code, name, credit_term, contact_name, address, phone 
       FROM suppliers 
       ORDER BY id DESC
     `);
-        // 2. ดึงรายชื่อสินค้า (แก้ไขใหม่ให้ตรงกับ Database จริงของคุณ)
-        // - เปลี่ยน product_code AS code (เพื่อให้หน้าบ้านใช้ .code ได้เหมือนเดิม)
-        // - เปลี่ยน price AS cost_price (เพื่อให้หน้าบ้านใช้ .cost_price ได้เหมือนเดิม)
+        // 2. ดึงรายชื่อสินค้า
         const [products] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(`
         SELECT 
             id, 
@@ -190,7 +188,7 @@ async function GET(request) {
             products
         });
     } catch (error) {
-        console.error("API Error:", error.message); // ดู Error ได้ที่ Terminal
+        console.error("API Error:", error.message);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             error: error.message
         }, {

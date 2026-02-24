@@ -3,13 +3,14 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar';
 import { 
-  PieChart, DollarSign, TrendingUp, TrendingDown, Plus, FileText, ArrowUpRight, ArrowDownRight, Wallet, Menu, ChevronLeft, ChevronRight, X 
+  PieChart, DollarSign, TrendingUp, TrendingDown, Plus, FileText, ArrowUpRight, ArrowDownRight, Wallet, Menu, ChevronLeft, ChevronRight, X, Clock // ✅ Import Clock เพิ่มสำหรับไอคอนรอรับเงิน
 } from 'lucide-react';
 import Swal from 'sweetalert2';
 
 export default function AccountingPage() {
   // --- 1. State Management ---
-  const [summary, setSummary] = useState({ income: 0, expenses: 0, profit: 0 });
+  // ✅ เพิ่ม pendingIncome เข้าไปใน State สรุปยอด
+  const [summary, setSummary] = useState({ income: 0, expenses: 0, profit: 0, pendingIncome: 0 });
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -50,7 +51,8 @@ export default function AccountingPage() {
         const data = await res.json();
         if (data.summary) {
           setSummary(data.summary);
-          setTransactions(data.transactions || []);
+          // ✅ รองรับทั้งชื่อ transactions และ history (กันเหนียวเผื่อ API ส่งชื่อไหนมา)
+          setTransactions(data.transactions || data.history || []); 
         }
       }
     } catch (error) {
@@ -154,8 +156,8 @@ export default function AccountingPage() {
           </button>
         </div>
 
-        {/* Dashboard Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {/* Dashboard Cards (✅ ปรับเป็น 4 คอลัมน์) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
           {/* Income */}
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center group hover:shadow-md transition">
             <div>
@@ -167,6 +169,20 @@ export default function AccountingPage() {
             </div>
             <div className="p-4 bg-green-50 text-green-600 rounded-2xl">
               <TrendingUp size={32} />
+            </div>
+          </div>
+
+          {/* ✅ เพิ่ม: Pending Invoices (ยอดรอเก็บเงิน) */}
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center group hover:shadow-md transition">
+            <div>
+              <p className="text-slate-500 text-sm font-medium mb-1">ยอดรอเรียกเก็บ</p>
+              <h3 className="text-3xl font-black text-orange-500">฿{formatCurrency(summary.pendingIncome || 0)}</h3>
+              <div className="flex items-center gap-1 text-orange-500 text-xs mt-2 font-bold bg-orange-50 px-2 py-1 rounded-lg w-fit">
+                <Clock size={14} /> ใบแจ้งหนี้ค้างชำระ
+              </div>
+            </div>
+            <div className="p-4 bg-orange-50 text-orange-500 rounded-2xl">
+              <FileText size={32} />
             </div>
           </div>
 
@@ -242,19 +258,21 @@ export default function AccountingPage() {
                                 {tx.category}
                             </span>
                         </td>
+                        {/* ✅ ปรับ UI ตารางให้แสดงสีส้มถ้ารายการนั้นเป็นแบบ 'Pending' (รอเรียกเก็บ) */}
                         <td className="p-4 text-center">
                         <span className={`px-3 py-1 rounded-full text-xs font-bold border ${
-                            tx.type === 'Income' 
-                            ? 'bg-green-50 text-green-700 border-green-100' 
-                            : 'bg-red-50 text-red-700 border-red-100'
+                            tx.type === 'Income' ? 'bg-green-50 text-green-700 border-green-100' : 
+                            tx.type === 'Pending' ? 'bg-orange-50 text-orange-700 border-orange-100' :
+                            'bg-red-50 text-red-700 border-red-100'
                         }`}>
-                            {tx.type === 'Income' ? 'รายรับ' : 'รายจ่าย'}
+                            {tx.type === 'Income' ? 'รายรับ' : tx.type === 'Pending' ? 'รอรับเงิน' : 'รายจ่าย'}
                         </span>
                         </td>
+                        {/* ✅ ปรับสีและเครื่องหมาย + - ให้ถูกต้อง */}
                         <td className={`p-4 text-right pr-6 font-bold text-base font-mono ${
-                            tx.type === 'Income' ? 'text-green-600' : 'text-red-600'
+                            tx.type === 'Income' ? 'text-green-600' : tx.type === 'Pending' ? 'text-orange-500' : 'text-red-600'
                         }`}>
-                        {tx.type === 'Income' ? '+' : '-'} {formatCurrency(tx.amount)}
+                        {tx.type === 'Income' || tx.type === 'Pending' ? '+' : '-'} {formatCurrency(tx.amount)}
                         </td>
                     </tr>
                     ))

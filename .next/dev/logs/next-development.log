@@ -1,320 +1,70 @@
-[00:00:01.319] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.610] Server  LOG      ✓ Ready in 1191ms
-[00:01:18.005] Server  LOG      ○ Compiling /purchasing/print/[id] ...
-[00:01:21.200] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:24.071] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:46.222] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:06.853] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:09:30.804] Server  LOG      ✓ Compiled in 261ms
-[00:21:32.737] Server  LOG      ✓ Compiled in 341ms
-[00:29:02.262] Server  LOG      ✓ Compiled in 243ms
-[00:34:22.490] Server  LOG      ✓ Compiled in 371ms
-[00:34:27.686] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:47:09.269] Server  LOG      ✓ Compiled in 648ms
-[00:47:12.922] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:49:13.055] Server  ERROR   D:\erp_project\.next\dev\server\chunks\node_modules_mysql2_84e924d7._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:49:13.058] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__8ad12ab2._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:49:13.087] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:49:13.099] Server  ERROR   D:\erp_project\.next\dev\server\chunks\node_modules_next_c772a2cb._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:49:13.106] Server  ERROR   D:\erp_project\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:49:13.119] Server  ERROR   D:\erp_project\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:49:13.123] Server  ERROR   D:\erp_project\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:49:13.126] Server  ERROR   D:\erp_project\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:49:13.129] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:49:13.131] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:49:13.138] Server  ERROR   Create PO Error: Error: Incorrect date value: '' for column 'expected_date' at row 1
-[00:49:36.604] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:49:40.768] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:52:30.563] Server  LOG      ✓ Compiled in 246ms
-[00:52:34.790] Server  LOG      ✓ Compiled in 246ms
-[00:52:41.598] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:56:07.414] Server  LOG      ✓ Compiled in 519ms
-[00:56:29.261] Server  LOG      ✓ Compiled in 216ms
-[00:56:35.539] Server  LOG      ✓ Compiled in 350ms
-[00:57:33.896] Server  LOG      ✓ Compiled in 327ms
-[01:03:42.315] Server  LOG      ✓ Compiled in 262ms
-[01:03:48.520] Server  LOG      ✓ Compiled in 253ms
-[01:07:07.201] Server  LOG      ✓ Compiled in 372ms
-[01:07:14.645] Server  LOG      ✓ Compiled in 220ms
-[01:07:55.756] Server  LOG      ✓ Compiled in 280ms
-[01:08:02.842] Server  LOG      ✓ Compiled in 218ms
-[01:25:14.347] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[01:25:14.347] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[01:25:18.006] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:42:43.397] Server  LOG      ✓ Compiled in 699ms
-[01:47:25.893] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:47:31.750] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:50:41.288] Server  LOG      ✓ Compiled in 466ms
-[01:52:28.447] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:54:40.446] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:54:52.367] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:57:24.985] Server  LOG      ✓ Compiled in 501ms
-[01:57:29.156] Server  LOG      ✓ Compiled in 246ms
-[01:57:43.975] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:05:43.958] Server  LOG      ✓ Compiled in 516ms
-[02:05:49.499] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:10:19.672] Server  LOG      ✓ Compiled in 662ms
-[02:11:27.265] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:12:20.930] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:14:09.652] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:16:12.628] Server  LOG      ✓ Compiled in 167ms
-[02:16:12.799] Browser ERROR   ./src/app/purchasing/print/[id]/page.jsx:205:23
-Parsing ecmascript source code failed
-  203 |                   {/* ✅ เติมคลาส po-page เพื่อให้ PDF ดึงไปสร้างทีละหน้า */}
-  204 |                   <div 
-> 205 |                       key={pageIndex}
-      |                       ^^^
-  206 |                       className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
-  207 |                       style={{ pageBreakAfter: 'always' }}
-  208 |                   >
-
-Expected '</', got 'key'
-
-Import traces:
-  Client Component Browser:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component Browser]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-
-  Client Component SSR:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component SSR]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-[02:16:12.805] Browser ERROR   ./src/app/purchasing/print/[id]/page.jsx:205:23
-Parsing ecmascript source code failed
-  203 |                   {/* ✅ เติมคลาส po-page เพื่อให้ PDF ดึงไปสร้างทีละหน้า */}
-  204 |                   <div 
-> 205 |                       key={pageIndex}
-      |                       ^^^
-  206 |                       className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
-  207 |                       style={{ pageBreakAfter: 'always' }}
-  208 |                   >
-
-Expected '</', got 'key'
-
-Import traces:
-  Client Component Browser:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component Browser]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-
-  Client Component SSR:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component SSR]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-[02:16:13.353] Browser ERROR   ./src/app/purchasing/print/[id]/page.jsx:205:23
-Parsing ecmascript source code failed
-  203 |                   {/* ✅ เติมคลาส po-page เพื่อให้ PDF ดึงไปสร้างทีละหน้า */}
-  204 |                   <div 
-> 205 |                       key={pageIndex}
-      |                       ^^^
-  206 |                       className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
-  207 |                       style={{ pageBreakAfter: 'always' }}
-  208 |                   >
-
-Expected '</', got 'key'
-
-Import traces:
-  Client Component Browser:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component Browser]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-
-  Client Component SSR:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component SSR]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-[02:16:13.354] Browser ERROR   ./src/app/purchasing/print/[id]/page.jsx:205:23
-Parsing ecmascript source code failed
-  203 |                   {/* ✅ เติมคลาส po-page เพื่อให้ PDF ดึงไปสร้างทีละหน้า */}
-  204 |                   <div 
-> 205 |                       key={pageIndex}
-      |                       ^^^
-  206 |                       className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
-  207 |                       style={{ pageBreakAfter: 'always' }}
-  208 |                   >
-
-Expected '</', got 'key'
-
-Import traces:
-  Client Component Browser:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component Browser]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-
-  Client Component SSR:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component SSR]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-[02:16:22.648] Server  LOG      ✓ Compiled in 2.4s
-[02:16:25.095] Server  LOG      ✓ Compiled in 126ms
-[02:16:25.210] Browser ERROR   ./src/app/purchasing/print/[id]/page.jsx:205:23
-Parsing ecmascript source code failed
-  203 |                   {/* ✅ เติมคลาส po-page เพื่อให้ PDF ดึงไปสร้างทีละหน้า */}
-  204 |                   <div 
-> 205 |                       key={pageIndex}
-      |                       ^^^
-  206 |                       className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
-  207 |                       style={{ pageBreakAfter: 'always' }}
-  208 |                   >
-
-Expected '</', got 'key'
-
-Import traces:
-  Client Component Browser:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component Browser]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-
-  Client Component SSR:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component SSR]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-[02:16:25.210] Browser ERROR   ./src/app/purchasing/print/[id]/page.jsx:205:23
-Parsing ecmascript source code failed
-  203 |                   {/* ✅ เติมคลาส po-page เพื่อให้ PDF ดึงไปสร้างทีละหน้า */}
-  204 |                   <div 
-> 205 |                       key={pageIndex}
-      |                       ^^^
-  206 |                       className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
-  207 |                       style={{ pageBreakAfter: 'always' }}
-  208 |                   >
-
-Expected '</', got 'key'
-
-Import traces:
-  Client Component Browser:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component Browser]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-
-  Client Component SSR:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component SSR]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-[02:16:25.354] Browser ERROR   ./src/app/purchasing/print/[id]/page.jsx:205:23
-Parsing ecmascript source code failed
-  203 |                   {/* ✅ เติมคลาส po-page เพื่อให้ PDF ดึงไปสร้างทีละหน้า */}
-  204 |                   <div 
-> 205 |                       key={pageIndex}
-      |                       ^^^
-  206 |                       className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
-  207 |                       style={{ pageBreakAfter: 'always' }}
-  208 |                   >
-
-Expected '</', got 'key'
-
-Import traces:
-  Client Component Browser:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component Browser]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-
-  Client Component SSR:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component SSR]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-[02:16:25.354] Browser ERROR   ./src/app/purchasing/print/[id]/page.jsx:205:23
-Parsing ecmascript source code failed
-  203 |                   {/* ✅ เติมคลาส po-page เพื่อให้ PDF ดึงไปสร้างทีละหน้า */}
-  204 |                   <div 
-> 205 |                       key={pageIndex}
-      |                       ^^^
-  206 |                       className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
-  207 |                       style={{ pageBreakAfter: 'always' }}
-  208 |                   >
-
-Expected '</', got 'key'
-
-Import traces:
-  Client Component Browser:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component Browser]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-
-  Client Component SSR:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component SSR]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-[02:16:43.093] Server  LOG      ✓ Compiled in 2.3s
-[02:17:20.388] Server  LOG      ✓ Compiled in 142ms
-[02:17:20.510] Browser ERROR   ./src/app/purchasing/print/[id]/page.jsx:205:23
-Parsing ecmascript source code failed
-  203 |                   {/* ✅ เติมคลาส po-page เพื่อให้ PDF ดึงไปสร้างทีละหน้า */}
-  204 |                   <div 
-> 205 |                       key={pageIndex}
-      |                       ^^^
-  206 |                       className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
-  207 |                       style={{ pageBreakAfter: 'always' }}
-  208 |                   >
-
-Expected '</', got 'key'
-
-Import traces:
-  Client Component Browser:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component Browser]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-
-  Client Component SSR:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component SSR]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-[02:17:20.510] Browser ERROR   ./src/app/purchasing/print/[id]/page.jsx:205:23
-Parsing ecmascript source code failed
-  203 |                   {/* ✅ เติมคลาส po-page เพื่อให้ PDF ดึงไปสร้างทีละหน้า */}
-  204 |                   <div 
-> 205 |                       key={pageIndex}
-      |                       ^^^
-  206 |                       className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
-  207 |                       style={{ pageBreakAfter: 'always' }}
-  208 |                   >
-
-Expected '</', got 'key'
-
-Import traces:
-  Client Component Browser:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component Browser]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-
-  Client Component SSR:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component SSR]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-[02:17:21.357] Browser ERROR   ./src/app/purchasing/print/[id]/page.jsx:205:23
-Parsing ecmascript source code failed
-  203 |                   {/* ✅ เติมคลาส po-page เพื่อให้ PDF ดึงไปสร้างทีละหน้า */}
-  204 |                   <div 
-> 205 |                       key={pageIndex}
-      |                       ^^^
-  206 |                       className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
-  207 |                       style={{ pageBreakAfter: 'always' }}
-  208 |                   >
-
-Expected '</', got 'key'
-
-Import traces:
-  Client Component Browser:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component Browser]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-
-  Client Component SSR:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component SSR]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-[02:17:21.357] Browser ERROR   ./src/app/purchasing/print/[id]/page.jsx:205:23
-Parsing ecmascript source code failed
-  203 |                   {/* ✅ เติมคลาส po-page เพื่อให้ PDF ดึงไปสร้างทีละหน้า */}
-  204 |                   <div 
-> 205 |                       key={pageIndex}
-      |                       ^^^
-  206 |                       className="po-page w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
-  207 |                       style={{ pageBreakAfter: 'always' }}
-  208 |                   >
-
-Expected '</', got 'key'
-
-Import traces:
-  Client Component Browser:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component Browser]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-
-  Client Component SSR:
-    ./src/app/purchasing/print/[id]/page.jsx [Client Component SSR]
-    ./src/app/purchasing/print/[id]/page.jsx [Server Component]
-[02:17:54.907] Server  LOG      ✓ Compiled in 296ms
-[02:19:06.304] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:23:37.875] Server  LOG      ✓ Compiled in 592ms
-[02:23:40.776] Server  LOG      ✓ Compiled in 338ms
-[02:23:45.872] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:24:17.851] Server  LOG      ✓ Compiled in 416ms
-[02:24:20.680] Server  LOG      ✓ Compiled in 397ms
-[02:25:37.643] Server  LOG      ✓ Compiled in 378ms
-[02:25:41.350] Server  LOG      ✓ Compiled in 726ms
-[02:26:14.334] Server  LOG      ✓ Compiled in 429ms
+[00:00:01.259] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:01.559] Server  LOG      ✓ Ready in 1143ms
+[00:00:05.213] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:18.523] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:18.525] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__6d4d674b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:18.526] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:18.528] Server  WARN    Error: Route "/api/accounting/project-quotations/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:00:18.622] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:18.624] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__6d4d674b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:18.625] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:00:18.626] Server  WARN    Error: Route "/api/accounting/project-quotations/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:00:48.094] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:40.904] Server  LOG      ✓ Compiled in 293ms
+[00:05:45.237] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:06:22.404] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:06:34.453] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:06:34.454] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__6d4d674b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:06:34.455] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:06:34.457] Server  WARN    Error: Route "/api/accounting/project-quotations/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:06:34.489] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:06:34.490] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__6d4d674b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:06:34.491] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:06:34.493] Server  WARN    Error: Route "/api/accounting/project-quotations/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:10:00.137] Server  LOG      ✓ Compiled in 301ms
+[00:10:04.468] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:10:23.919] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:10:23.920] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__6d4d674b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:10:23.921] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:10:23.922] Server  WARN    Error: Route "/api/accounting/project-quotations/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:10:23.951] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:10:23.954] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__6d4d674b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:10:23.956] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:10:23.958] Server  WARN    Error: Route "/api/accounting/project-quotations/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:21:52.909] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:21:53.644] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:21:55.324] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.325] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__6d4d674b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.326] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.327] Server  WARN    Error: Route "/api/accounting/project-quotations/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:21:55.365] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.366] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__6d4d674b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.367] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.369] Server  WARN    Error: Route "/api/accounting/project-quotations/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:21:57.942] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:22:05.076] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:22:05.078] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__6d4d674b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:22:05.079] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:22:05.081] Server  WARN    Error: Route "/api/accounting/project-quotations/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:22:05.112] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:22:05.115] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__6d4d674b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:22:05.116] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:22:05.119] Server  WARN    Error: Route "/api/accounting/project-quotations/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:22:17.147] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:22:19.176] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:22:19.176] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__6d4d674b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:22:19.177] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:22:19.178] Server  WARN    Error: Route "/api/accounting/project-quotations/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:22:19.251] Server  ERROR   D:\erp_project\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:22:19.254] Server  ERROR   D:\erp_project\.next\dev\server\chunks\[root-of-the-server]__6d4d674b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:22:19.256] Server  ERROR   D:\erp_project\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:22:19.262] Server  WARN    Error: Route "/api/accounting/project-quotations/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[00:26:42.446] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:44.970] Server  LOG     ===================================
+[00:26:44.972] Server  LOG     👉 1. มีคนกดแก้ไข เข้ามาขอข้อมูล ID: "3"
+[00:26:44.984] Server  LOG     👉 2. เจอข้อมูลใน DB ไหม?: "✅ เจอ!"
+[00:26:44.985] Server  LOG     ===================================
+[00:26:45.018] Server  LOG     ===================================
+[00:26:45.019] Server  LOG     👉 1. มีคนกดแก้ไข เข้ามาขอข้อมูล ID: "3"
+[00:26:45.046] Server  LOG     👉 2. เจอข้อมูลใน DB ไหม?: "✅ เจอ!"
+[00:26:45.047] Server  LOG     ===================================

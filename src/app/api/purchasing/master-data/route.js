@@ -3,16 +3,14 @@ import pool from '../../../lib/db'; // ใช้ Path เดิมที่ค�
 
 export async function GET(request) {
   try {
-    // 1. ดึงรายชื่อคู่ค้า
+    // 1. ดึงรายชื่อคู่ค้า (✅ เพิ่ม phone เข้ามาใน SELECT แล้ว)
     const [suppliers] = await pool.query(`
-      SELECT id, code, name, credit_term, contact_name, address 
+      SELECT id, code, name, credit_term, contact_name, address, phone 
       FROM suppliers 
       ORDER BY id DESC
     `);
 
-    // 2. ดึงรายชื่อสินค้า (แก้ไขใหม่ให้ตรงกับ Database จริงของคุณ)
-    // - เปลี่ยน product_code AS code (เพื่อให้หน้าบ้านใช้ .code ได้เหมือนเดิม)
-    // - เปลี่ยน price AS cost_price (เพื่อให้หน้าบ้านใช้ .cost_price ได้เหมือนเดิม)
+    // 2. ดึงรายชื่อสินค้า
     const [products] = await pool.query(`
         SELECT 
             id, 
@@ -31,7 +29,7 @@ export async function GET(request) {
     });
 
   } catch (error) {
-    console.error("API Error:", error.message); // ดู Error ได้ที่ Terminal
+    console.error("API Error:", error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

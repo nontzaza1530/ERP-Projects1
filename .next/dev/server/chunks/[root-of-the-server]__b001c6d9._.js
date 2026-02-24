@@ -139,8 +139,6 @@ async function GET(request) {
     let connection;
     try {
         connection = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$mysql2$2f$promise$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].createConnection(dbConfig);
-        // ดึงข้อมูล invoices และ join กับ projects เพื่อเอาชื่อโปรเจกต์ (ถ้ามี)
-        // เรียงจากใบใหม่สุดไปเก่าสุด
         const [rows] = await connection.execute(`
             SELECT invoices.*, projects.project_name 
             FROM invoices 
@@ -164,38 +162,24 @@ async function POST(req) {
     let connection;
     try {
         const body = await req.json();
-        const { project_id, customer_name, customer_address, customer_tax_id, items, due_date, doc_date } = body;
+        const { project_id, customer_name, customer_address, customer_tax_id, items, due_date, doc_date, // ✅ รับค่าภาษีที่ส่งมาจากหน้าบ้าน
+        subtotal, vat_rate, vat_amount, grand_total, wht_rate, wht_amount } = body;
         connection = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$mysql2$2f$promise$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].createConnection(dbConfig);
-        await connection.beginTransaction(); // เริ่ม Transaction (ต้องสำเร็จทุกขั้นตอน ไม่งั้นยกเลิกหมด)
-        // --- A. ระบบรันเลขเอกสารอัตโนมัติ (INV-YYYYMM-XXX) ---
+        await connection.beginTransaction();
         const dateObj = new Date();
         const year = dateObj.getFullYear();
         const month = String(dateObj.getMonth() + 1).padStart(2, '0');
         const prefix = `INV-${year}${month}-`;
-        // หาเลขล่าสุดของเดือนนี้
         const [lastInvoice] = await connection.execute(`SELECT doc_number FROM invoices WHERE doc_number LIKE ? ORDER BY id DESC LIMIT 1`, [
             `${prefix}%`
         ]);
-        let newDocNumber;
-        if (lastInvoice.length > 0) {
-            const lastNo = lastInvoice[0].doc_number;
-            const runningNo = parseInt(lastNo.split('-')[2]) + 1;
-            newDocNumber = `${prefix}${String(runningNo).padStart(3, '0')}`;
-        } else {
-            newDocNumber = `${prefix}001`; // ใบแรกของเดือน
-        }
-        // --- B. คำนวณยอดเงิน ---
-        let subtotal = 0;
-        items.forEach((item)=>{
-            subtotal += parseFloat(item.quantity) * parseFloat(item.unit_price);
-        });
-        const vatRate = 7;
-        const vatAmount = subtotal * (vatRate / 100);
-        const grandTotal = subtotal + vatAmount;
+        let newDocNumber = lastInvoice.length > 0 ? `${prefix}${String(parseInt(lastInvoice[0].doc_number.split('-')[2]) + 1).padStart(3, '0')}` : `${prefix}001`;
+        const projectQuantity = items.length > 0 ? items[0].quantity : 1;
         // --- C. บันทึกหัวบิล (invoices) ---
+        // ✅ เพิ่มการบันทึก vat_rate, wht_rate, wht_amount ลงตาราง
         const [result] = await connection.execute(`INSERT INTO invoices 
-            (project_id, doc_number, doc_date, due_date, customer_name, customer_address, customer_tax_id, subtotal, vat_amount, grand_total, status) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'sent')`, [
+            (project_id, doc_number, doc_date, due_date, customer_name, customer_address, customer_tax_id, quantity, subtotal, vat_rate, vat_amount, grand_total, wht_rate, wht_amount, status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'sent')`, [
             project_id || null,
             newDocNumber,
             doc_date,
@@ -203,9 +187,13 @@ async function POST(req) {
             customer_name,
             customer_address,
             customer_tax_id,
+            projectQuantity,
             subtotal,
-            vatAmount,
-            grandTotal
+            vat_rate || 0,
+            vat_amount,
+            grand_total,
+            wht_rate || 0,
+            wht_amount || 0 // บันทึกยอด WHT
         ]);
         const invoiceId = result.insertId;
         // --- D. บันทึกรายการสินค้า (invoice_items) ---
@@ -219,14 +207,14 @@ async function POST(req) {
                 item.quantity * item.unit_price
             ]);
         }
-        await connection.commit(); // ✅ บันทึกสำเร็จ
+        await connection.commit();
         await connection.end();
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: true,
             doc_number: newDocNumber
         });
     } catch (error) {
-        if (connection) await connection.rollback(); // ❌ ย้อนกลับถ้าพัง
+        if (connection) await connection.rollback();
         console.error("CREATE INVOICE ERROR:", error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             error: error.message

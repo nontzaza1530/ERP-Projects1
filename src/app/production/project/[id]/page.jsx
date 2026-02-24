@@ -7,7 +7,7 @@ import {
     Plus, FileText, CheckCircle, Hammer,
     CheckSquare, Calendar as CalendarIcon, Briefcase, Users,
     Wallet, PieChart, BarChart3, Send, AlertTriangle, Upload, X, Menu,
-    Eye, Download, Trash2, FolderOpen, Loader2 // ✅ เพิ่ม Icon สำหรับระบบเอกสาร
+    Eye, Download, Trash2, FolderOpen, Loader2
 } from 'lucide-react';
 import Link from 'next/link';
 import Swal from 'sweetalert2';
@@ -21,29 +21,29 @@ export default function ProjectDetailPage({ params }) {
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('timeline');
 
-    // --- 📂 State สำหรับระบบจัดการเอกสาร (เพิ่มใหม่) ---
+    // --- 📂 State สำหรับระบบจัดการเอกสาร ---
     const [documents, setDocuments] = useState([]);
     const [isUploadingDoc, setIsUploadingDoc] = useState(false);
 
-    // --- State สำหรับ Smart Form (เดิม) ---
+    // --- State สำหรับ Smart Form ---
     const [products, setProducts] = useState([]);
     const [costType, setCostType] = useState('material');
     const [selectedItem, setSelectedItem] = useState('');
     const [evidenceFile, setEvidenceFile] = useState(null);
 
-    // State สำหรับคำนวณค่าแรง (เดิม)
+    // State สำหรับคำนวณค่าแรง
     const [hourlyRate, setHourlyRate] = useState(50);
     const [otMultiplier, setOtMultiplier] = useState(1);
 
-    // State สำหรับเปิด/ปิด Sidebar ในมือถือ (เดิม)
+    // State สำหรับเปิด/ปิด Sidebar ในมือถือ
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    // Helper Function: คำนวณยอดเงิน (เดิม)
+    // Helper Function: คำนวณยอดเงิน
     const calculateLaborTotal = (rate, mult, hours) => {
         return rate * mult * hours;
     };
 
-    // Form States (เดิม)
+    // Form States
     const [costForm, setCostForm] = useState({
         description: '',
         amount: '',
@@ -52,12 +52,12 @@ export default function ProjectDetailPage({ params }) {
         recorded_date: new Date().toISOString().split('T')[0]
     });
 
-    // Load Data (เดิม + เพิ่มโหลดเอกสาร)
+    // Load Data
     useEffect(() => {
         if (!id) return;
         fetchData();
         fetchProducts();
-        fetchDocuments(); // ✅ โหลดรายการไฟล์
+        fetchDocuments();
     }, [id]);
 
     const fetchData = async () => {
@@ -77,7 +77,7 @@ export default function ProjectDetailPage({ params }) {
         } catch (err) { setProducts([]); }
     };
 
-    // ✅ ฟังก์ชันดึงรายการเอกสาร (เพิ่มใหม่)
+    // ฟังก์ชันดึงรายการเอกสาร
     const fetchDocuments = async () => {
         try {
             const res = await fetch(`/api/production/projects/${id}/documents`);
@@ -88,7 +88,7 @@ export default function ProjectDetailPage({ params }) {
         } catch (err) { console.error("Fetch docs error:", err); }
     };
 
-    // ✅ ฟังก์ชันอัปโหลดเอกสาร (เพิ่มใหม่)
+    // ฟังก์ชันอัปโหลดเอกสาร
     const handleUploadDocument = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -107,7 +107,7 @@ export default function ProjectDetailPage({ params }) {
 
             if (res.ok) {
                 Swal.fire({ icon: 'success', title: 'แนบเอกสารสำเร็จ', timer: 1500, showConfirmButton: false });
-                fetchDocuments(); // รีโหลดรายการไฟล์
+                fetchDocuments();
             } else {
                 throw new Error("Upload failed");
             }
@@ -118,7 +118,7 @@ export default function ProjectDetailPage({ params }) {
         }
     };
 
-    // ✅ ฟังก์ชันลบเอกสาร (เพิ่มใหม่)
+    // ฟังก์ชันลบเอกสาร
     const handleDeleteDocument = async (docId) => {
         const result = await Swal.fire({
             title: 'ลบเอกสารนี้?',
@@ -141,7 +141,7 @@ export default function ProjectDetailPage({ params }) {
         }
     };
 
-    // Smart Select Logic (เดิม)
+    // Smart Select Logic
     const handleSmartSelect = (e) => {
         const selectedId = e.target.value;
         setSelectedItem(selectedId);
@@ -178,7 +178,7 @@ export default function ProjectDetailPage({ params }) {
         }));
     };
 
-    // Actions (เดิม)
+    // Actions
     const handleStatusChange = async (newStatus) => {
         let confirmTitle = '', confirmText = '', confirmColor = '';
         if (newStatus === 'in_progress') { confirmTitle = 'เริ่มการผลิต?'; confirmText = 'ระบบจะเริ่มนับเวลาการทำงานทันที'; confirmColor = '#4f46e5'; }
@@ -221,7 +221,12 @@ export default function ProjectDetailPage({ params }) {
 
         try {
             const res = await fetch('/api/production/cost-upload', { method: 'POST', body: formData });
-            if (!res.ok) throw new Error('Upload failed');
+
+            // ถ้าหลังบ้านส่ง Error กลับมา ให้โชว์ข้อความนั้นเลย
+            if (!res.ok) {
+                const errData = await res.json();
+                throw new Error(errData.error || 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+            }
 
             setCostForm({ description: '', amount: '', quantity: 1, product_id: '', recorded_date: new Date().toISOString().split('T')[0] });
             setSelectedItem('');
@@ -231,7 +236,9 @@ export default function ProjectDetailPage({ params }) {
 
             fetchData();
             Swal.fire({ icon: 'success', title: 'บันทึกสำเร็จ', timer: 1000, showConfirmButton: false });
-        } catch (err) { Swal.fire('Error', err.message, 'error'); }
+        } catch (err) {
+            Swal.fire('แจ้งเตือน', err.message, 'error');
+        }
     };
 
     if (loading || !data) return <div className="flex justify-center items-center h-screen bg-slate-50 text-slate-400">กำลังโหลดข้อมูล...</div>;
@@ -259,7 +266,7 @@ export default function ProjectDetailPage({ params }) {
     return (
         <div className="flex min-h-screen bg-slate-50/90 font-sans overflow-x-hidden">
 
-            {/* Overlay & Sidebar (เดิม) */}
+            {/* Overlay & Sidebar */}
             <div
                 className={`fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
                 onClick={() => setIsSidebarOpen(false)}
@@ -275,7 +282,7 @@ export default function ProjectDetailPage({ params }) {
 
             <main className="flex-1 w-full lg:ml-64 p-4 md:p-8 transition-all duration-300 min-h-screen flex flex-col">
 
-                {/* Top Navigation (เดิม) */}
+                {/* Top Navigation */}
                 <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center gap-3">
                         <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition">
@@ -300,7 +307,7 @@ export default function ProjectDetailPage({ params }) {
                     })()}
                 </div>
 
-                {/* Hero Card (เดิม) */}
+                {/* Hero Card */}
                 <div className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden mb-8">
                     <div className="grid grid-cols-1 lg:grid-cols-3">
                         <div className="lg:col-span-2 p-6 md:p-8">
@@ -361,18 +368,17 @@ export default function ProjectDetailPage({ params }) {
                     </div>
                 </div>
 
-                {/* 📂 Tabs Control (เดิม + เพิ่ม Tab เอกสาร) */}
+                {/* 📂 Tabs Control */}
                 <div className="flex gap-2 mb-6 bg-white p-1.5 rounded-2xl shadow-sm border border-slate-100 w-full md:w-fit mx-auto lg:mx-0 overflow-x-auto">
                     <button onClick={() => setActiveTab('timeline')} className={`flex-1 md:flex-none px-6 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all duration-200 whitespace-nowrap ${activeTab === 'timeline' ? 'bg-indigo-50 text-indigo-700 shadow-sm border border-indigo-100' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'}`}><Clock size={18} className={activeTab === 'timeline' ? 'text-indigo-600' : 'text-slate-400'} /> ไทม์ไลน์ & แผนงาน</button>
                     <button onClick={() => setActiveTab('cost')} className={`flex-1 md:flex-none px-6 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all duration-200 whitespace-nowrap ${activeTab === 'cost' ? 'bg-indigo-50 text-indigo-700 shadow-sm border border-indigo-100' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'}`}><DollarSign size={18} className={activeTab === 'cost' ? 'text-indigo-600' : 'text-slate-400'} /> ต้นทุนการผลิต</button>
-                    {/* ✅ เพิ่ม Tab เอกสารแนบ */}
                     <button onClick={() => setActiveTab('documents')} className={`flex-1 md:flex-none px-6 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all duration-200 whitespace-nowrap ${activeTab === 'documents' ? 'bg-indigo-50 text-indigo-700 shadow-sm border border-indigo-100' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'}`}><FolderOpen size={18} className={activeTab === 'documents' ? 'text-indigo-600' : 'text-slate-400'} /> เอกสารโครงการ</button>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 space-y-8">
 
-                        {/* --- 📁 TAB: เอกสารโครงการ (ส่วนเพิ่มใหม่) --- */}
+                        {/* --- 📁 TAB: เอกสารโครงการ --- */}
                         {activeTab === 'documents' && (
                             <div className={cardStyle}>
                                 <div className="flex justify-between items-center mb-6">
@@ -380,8 +386,6 @@ export default function ProjectDetailPage({ params }) {
                                         <div className="p-2.5 rounded-xl bg-blue-100 text-blue-600 shadow-sm"><FileText size={22} /></div>
                                         คลังเอกสารแนบโครงการ
                                     </h3>
-
-                                    {/* ปุ่มอัปโหลดไฟล์ */}
                                     <label className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg active:scale-95">
                                         {isUploadingDoc ? <Loader2 className="animate-spin" size={18} /> : <Upload size={18} />}
                                         {isUploadingDoc ? 'กำลังอัปโหลด...' : 'แนบเอกสารใหม่'}
@@ -419,24 +423,54 @@ export default function ProjectDetailPage({ params }) {
                             </div>
                         )}
 
+                        {/* --- 💰 TAB: บันทึกต้นทุนการผลิต --- */}
                         {activeTab === 'cost' && (
                             <div className={cardStyle}>
                                 <div className="flex items-center justify-between mb-8"><h3 className="font-bold text-xl text-slate-900 flex items-center gap-3"><div className="p-2.5 rounded-xl bg-emerald-100 text-emerald-600 shadow-sm"><DollarSign size={22} /></div> บันทึกต้นทุนการผลิต</h3></div>
 
-                                {/* 🟢 Smart Form (เดิมของคุณ) */}
+                                {/* 🟢 Smart Form */}
                                 <form onSubmit={handleAddCost} className="mb-10 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                                     <div className="flex gap-2 mb-6 bg-slate-100 p-1.5 rounded-xl border border-slate-200 w-full md:w-fit shadow-inner overflow-x-auto">
                                         {[{ id: 'material', label: '📦 วัตถุดิบ', color: 'text-blue-700 bg-white ring-1 ring-blue-200 shadow-sm' }, { id: 'labor', label: '👷 ค่าแรง', color: 'text-orange-700 bg-white ring-1 ring-orange-200 shadow-sm' }, { id: 'overhead', label: '📄 อื่นๆ', color: 'text-purple-700 bg-white ring-1 ring-purple-200 shadow-sm' }].map(tab => (
                                             <button key={tab.id} type="button" onClick={() => { setCostType(tab.id); setSelectedItem(''); setCostForm(prev => ({ ...prev, description: '', product_id: '', amount: '' })); }} className={`flex-1 md:flex-none px-5 py-2.5 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${costType === tab.id ? `${tab.color}` : 'text-slate-500 hover:text-slate-800 hover:bg-slate-200/50'}`}>{tab.label}</button>
                                         ))}
                                     </div>
+
                                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
                                         <div className="md:col-span-5">
-                                            <label className="text-sm font-bold text-slate-900 mb-2 block">{costType === 'material' ? 'เลือกสินค้าจากคลัง' : costType === 'labor' ? 'เลือกพนักงาน' : 'ระบุหัวข้อ'} <span className="text-red-500">*</span></label>
+                                            <label className="text-sm font-bold text-slate-900 mb-2 block">
+                                                {costType === 'material' ? 'เลือกสินค้าจากคลัง' : costType === 'labor' ? 'เลือกพนักงาน' : 'ระบุหัวข้อ'} <span className="text-red-500">*</span>
+                                            </label>
+
                                             {costType === 'material' ? (
-                                                <div className="relative"><select className="w-full p-3.5 border border-slate-300 rounded-xl bg-white text-slate-900 font-medium outline-none focus:border-indigo-500 transition shadow-sm appearance-none" value={selectedItem} onChange={handleSmartSelect}><option value="" className="text-slate-600">-- พิมพ์เอง (ไม่ตัดสต็อก) --</option>{products.map(p => <option key={p.id} value={p.id} className="text-slate-900">{p.name} (คงเหลือ: {p.quantity})</option>)}</select><div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">▼</div></div>
+                                                <div className="relative">
+                                                    <select
+                                                        className="w-full p-3.5 border border-slate-300 rounded-xl bg-white text-slate-900 font-bold outline-none focus:border-indigo-500 transition shadow-sm appearance-none cursor-pointer"
+                                                        value={selectedItem}
+                                                        onChange={handleSmartSelect}
+                                                    >
+                                                        <option value="" className="text-slate-600 font-medium">-- พิมพ์เอง (ไม่ตัดสต็อก) --</option>
+                                                        {products && products.length > 0 && products
+                                                            .filter(p => {
+                                                                const cat = p.category ? p.category.toLowerCase() : '';
+                                                                return cat === 'raw material' || cat === 'วัตถุดิบ';
+                                                            })
+                                                            .map(p => (
+                                                                <option key={p.id} value={p.id} className="text-slate-900 font-bold">
+                                                                    {p.name} (คงเหลือ: {p.quantity})
+                                                                </option>
+                                                            ))}
+                                                    </select>
+                                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">▼</div>
+                                                </div>
                                             ) : costType === 'labor' ? (
-                                                <div className="relative"><select className="w-full p-3.5 border border-slate-300 rounded-xl bg-white text-slate-900 font-medium outline-none focus:border-orange-500 transition shadow-sm appearance-none" value={selectedItem} onChange={handleSmartSelect}><option value="" className="text-slate-600">-- ระบุเอง --</option>{members && members.map(m => <option key={m.id} value={m.id} className="text-slate-900">{m.first_name} {m.last_name} ({m.position})</option>)}</select><div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">▼</div></div>
+                                                <div className="relative">
+                                                    <select className="w-full p-3.5 border border-slate-300 rounded-xl bg-white text-slate-900 font-bold outline-none focus:border-orange-500 transition shadow-sm appearance-none cursor-pointer" value={selectedItem} onChange={handleSmartSelect}>
+                                                        <option value="" className="text-slate-600 font-medium">-- ระบุเอง --</option>
+                                                        {members && members.map(m => <option key={m.id} value={m.id} className="text-slate-900 font-bold">{m.first_name} {m.last_name} ({m.position})</option>)}
+                                                    </select>
+                                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">▼</div>
+                                                </div>
                                             ) : (
                                                 <div className="p-3.5 bg-purple-50 border border-purple-200 rounded-xl text-purple-700 text-sm font-bold flex items-center gap-2"><FileText size={18} /> ระบุรายละเอียดในช่องถัดไป 👉</div>
                                             )}
@@ -446,7 +480,7 @@ export default function ProjectDetailPage({ params }) {
                                             <label className="text-sm font-bold text-slate-900 mb-2 block">รายละเอียด <span className="text-red-500">*</span></label>
                                             <input
                                                 type="text"
-                                                className="w-full p-3.5 border border-slate-400 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 font-bold outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm"
+                                                className="w-full p-3.5 border border-slate-400 rounded-xl bg-white text-slate-900 placeholder:text-slate-500 font-bold outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm"
                                                 value={costForm.description}
                                                 onChange={e => setCostForm({ ...costForm, description: e.target.value })}
                                                 required
@@ -457,39 +491,100 @@ export default function ProjectDetailPage({ params }) {
                                         {costType === 'labor' ? (
                                             <div className="md:col-span-12 bg-orange-50 p-4 rounded-xl border border-orange-200 mb-4">
                                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                                    <div><label className="text-xs font-bold text-orange-800 mb-1 block">ค่าจ้าง / ชม.</label><input type="number" className="w-full p-3 border border-orange-200 rounded-lg text-right font-bold" value={hourlyRate} onChange={(e) => setHourlyRate(e.target.value)} /></div>
-                                                    <div><label className="text-xs font-bold text-orange-800 mb-1 block">ประเภทงาน (OT)</label><select className="w-full p-3 border border-orange-200 rounded-lg font-bold" value={otMultiplier} onChange={(e) => setOtMultiplier(e.target.value)}><option value="1">🕒 ปกติ</option><option value="1.5">🌇 OT 1.5</option><option value="2">📅 OT 2.0</option></select></div>
-                                                    <div><label className="text-xs font-bold text-orange-800 mb-1 block">ชั่วโมง</label><input type="number" className="w-full p-3 border border-orange-200 rounded-lg text-center font-bold" value={costForm.quantity} onChange={(e) => setCostForm({ ...costForm, quantity: e.target.value })} /></div>
+                                                    <div>
+                                                        <label className="text-xs font-bold text-orange-800 mb-1 block">ค่าจ้าง / ชม.</label>
+                                                        <input type="number" className="w-full p-3 border border-orange-300 rounded-lg text-right font-bold text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-400" value={hourlyRate} onChange={(e) => setHourlyRate(e.target.value)} />
+                                                    </div>
+                                                    <div>
+                                                        <label className="text-xs font-bold text-orange-800 mb-1 block">ประเภทงาน (OT)</label>
+                                                        <select className="w-full p-3 border border-orange-300 rounded-lg font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-400 cursor-pointer" value={otMultiplier} onChange={(e) => setOtMultiplier(e.target.value)}>
+                                                            <option value="1" className="text-slate-900 font-bold">🕒 ปกติ</option>
+                                                            <option value="1.5" className="text-slate-900 font-bold">🌇 OT 1.5</option>
+                                                            <option value="2" className="text-slate-900 font-bold">📅 OT 2.0</option>
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <label className="text-xs font-bold text-orange-800 mb-1 block">ชั่วโมง</label>
+                                                        <input type="number" className="w-full p-3 border border-orange-300 rounded-lg text-center font-bold text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-400" value={costForm.quantity} onChange={(e) => setCostForm({ ...costForm, quantity: e.target.value })} />
+                                                    </div>
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div className="md:col-span-4"><label className="text-sm font-bold text-slate-900 mb-2 block">จำนวน</label><input type="number" className="w-full p-3.5 border border-slate-300 rounded-xl text-center font-bold" value={costForm.quantity} onChange={e => setCostForm({ ...costForm, quantity: e.target.value })} /></div>
+                                            <div className="md:col-span-4">
+                                                <label className="text-sm font-bold text-slate-900 mb-2 block">จำนวน</label>
+                                                <input type="number" className="w-full p-3.5 border border-slate-400 rounded-xl text-center font-bold text-slate-900 placeholder:text-slate-500 outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm" value={costForm.quantity} onChange={e => setCostForm({ ...costForm, quantity: e.target.value })} />
+                                            </div>
                                         )}
 
-                                        <div className={costType === 'labor' ? "md:col-span-12" : "md:col-span-8"}><label className="text-sm font-bold text-slate-900 mb-2 block">รวมเงิน (บาท) <span className="text-red-500">*</span></label><input type="number" className="w-full p-3.5 font-bold text-xl rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700" value={costForm.amount} onChange={e => setCostForm({ ...costForm, amount: e.target.value })} required /></div>
-                                        <div className="md:col-span-12"><label className="text-sm font-bold text-slate-900 mb-2 block">แนบหลักฐาน</label><input type="file" className="w-full p-3 border-2 border-dashed border-slate-300 rounded-xl cursor-pointer" onChange={(e) => setEvidenceFile(e.target.files[0])} /></div>
+                                        <div className={costType === 'labor' ? "md:col-span-12" : "md:col-span-8"}>
+                                            <label className="text-sm font-bold text-slate-900 mb-2 block">รวมเงิน (บาท) <span className="text-red-500">*</span></label>
+                                            <input type="number" className="w-full p-3.5 font-bold text-xl rounded-xl bg-indigo-50 border border-indigo-300 text-indigo-900 outline-none focus:ring-2 focus:ring-indigo-400 transition shadow-sm" value={costForm.amount} onChange={e => setCostForm({ ...costForm, amount: e.target.value })} required />
+                                        </div>
+
+                                        <div className="md:col-span-12">
+                                            <label className="text-sm font-bold text-slate-900 mb-2 block">แนบหลักฐาน</label>
+                                            <input type="file" className="w-full p-3 border-2 border-dashed border-slate-300 bg-slate-50 rounded-xl cursor-pointer text-slate-900 font-medium hover:bg-white transition" onChange={(e) => setEvidenceFile(e.target.files[0])} />
+                                        </div>
                                     </div>
                                     <div className="mt-8 text-right"><button type="submit" className="bg-slate-900 text-white px-8 py-3.5 rounded-xl font-bold flex items-center gap-2 ml-auto shadow-lg hover:bg-black transition-all"><Plus size={20} /> บันทึกรายการ</button></div>
                                 </form>
 
-                                {/* Cost Table (เดิม) */}
-                                <div className="overflow-x-auto rounded-xl border border-slate-200/60 shadow-sm">
+                                {/* ✅ ตาราง Cost Table ที่อัปเดตใหม่ เพิ่มคอลัมน์ "จำนวนที่ใช้" */}
+                                <div className="overflow-x-auto rounded-xl border border-slate-200/60 shadow-sm mt-8">
                                     <table className="w-full text-sm text-left">
-                                        <thead className="bg-slate-50/80 text-slate-900 font-bold uppercase text-[11px] border-b">
-                                            <tr><th className="p-4">วันที่</th><th className="p-4">ประเภท</th><th className="p-4">รายการ</th><th className="p-4 text-right">จำนวนเงิน</th></tr>
+                                        <thead className="bg-slate-50/80 text-slate-900 font-bold uppercase text-[11px] border-b tracking-wider">
+                                            <tr>
+                                                <th className="p-4 rounded-tl-xl">วันที่</th>
+                                                <th className="p-4">ประเภท</th>
+                                                <th className="p-4">รายการ</th>
+                                                <th className="p-4 text-center">จำนวนที่ใช้</th>
+                                                <th className="p-4 text-right rounded-tr-xl">จำนวนเงิน (฿)</th>
+                                            </tr>
                                         </thead>
                                         <tbody className="divide-y divide-slate-100 bg-white">
                                             {costs && costs.map((c) => (
-                                                <tr key={c.id} className="hover:bg-slate-50/80 transition">
-                                                    <td className="p-4">{new Date(c.recorded_date).toLocaleDateString('th-TH')}</td>
-                                                    <td className="p-4"><span className="px-3 py-1 rounded-lg text-xs font-bold bg-slate-50 border">{c.cost_type}</span></td>
-                                                    <td className="p-4 text-slate-900 font-medium">{c.description}</td>
-                                                    <td className="p-4 text-right font-bold text-slate-900">฿{parseFloat(c.amount).toLocaleString()}</td>
+                                                <tr key={c.id} className="hover:bg-slate-50/80 transition group">
+                                                    <td className="p-4 text-slate-800 font-medium whitespace-nowrap">
+                                                        {new Date(c.recorded_date).toLocaleDateString('th-TH')}
+                                                    </td>
+                                                    <td className="p-4">
+                                                        <span className={`px-3 py-1 rounded-lg text-xs font-bold border ${
+                                                            c.cost_type === 'material' ? 'bg-blue-50 text-blue-600 border-blue-100' :
+                                                            c.cost_type === 'labor' ? 'bg-orange-50 text-orange-600 border-orange-100' :
+                                                            'bg-purple-50 text-purple-600 border-purple-100'
+                                                        }`}>
+                                                            {c.cost_type === 'material' ? 'วัตถุดิบ' : c.cost_type === 'labor' ? 'ค่าแรง' : 'อื่นๆ'}
+                                                        </span>
+                                                    </td>
+                                                    <td className="p-4 text-slate-900 font-bold">{c.description}</td>
+                                                    
+                                                    {/* แสดงข้อมูล "จำนวน" ตรงนี้ พร้อมดักจับหน่วยนับ */}
+                                                    <td className="p-4 text-center">
+                                                        <span className="font-black text-indigo-600 text-base">
+                                                            {c.quantity || 1} 
+                                                        </span>
+                                                        <span className="text-xs text-slate-400 font-medium ml-1">
+                                                            {c.cost_type === 'labor' ? 'ชม.' : c.cost_type === 'material' ? 'หน่วย' : 'รายการ'}
+                                                        </span>
+                                                    </td>
+
+                                                    <td className="p-4 text-right font-black text-slate-900">
+                                                        {parseFloat(c.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                                    </td>
                                                 </tr>
                                             ))}
+                                            {/* กรณีไม่มีข้อมูล */}
+                                            {(!costs || costs.length === 0) && (
+                                                <tr>
+                                                    <td colSpan="5" className="p-8 text-center text-slate-400 italic">
+                                                        ยังไม่มีการบันทึกต้นทุนในโปรเจกต์นี้
+                                                    </td>
+                                                </tr>
+                                            )}
                                         </tbody>
                                     </table>
                                 </div>
+
                             </div>
                         )}
 
@@ -498,13 +593,13 @@ export default function ProjectDetailPage({ params }) {
                                 <ProductionTimeline projectId={id} onRefresh={fetchData} />
                                 <div className={cardStyle}>
                                     <h3 className="font-bold text-xl text-slate-900 mb-6 flex items-center gap-3"><div className="p-2.5 rounded-xl bg-orange-100 text-orange-600 shadow-sm"><Clock size={22} /></div> ประวัติการทำงาน (History)</h3>
-                                    <div className="space-y-6 ml-4 pl-8 border-l-2 border-slate-200/60 relative">{logs && logs.map(l => (<div key={l.id} className="relative mb-6"><div className="absolute -left-[41px] top-1 w-6 h-6 bg-white border-4 border-slate-300 rounded-full shadow-sm"></div><p className="text-base font-bold text-slate-900">{l.action}</p>{l.note && <p className="text-sm text-slate-700 mt-2 bg-slate-50 p-3 rounded-xl border border-slate-200/60 inline-block">{l.note}</p>}<div className="flex gap-2 mt-2 text-xs text-slate-500 font-medium"><span>{new Date(l.log_date).toLocaleString('th-TH')}</span></div></div>))}</div>
+                                    <div className="space-y-6 ml-4 pl-8 border-l-2 border-slate-200/60 relative">{logs && logs.map(l => (<div key={l.id} className="relative mb-6"><div className="absolute -left-[41px] top-1 w-6 h-6 bg-white border-4 border-slate-300 rounded-full shadow-sm"></div><p className="text-base font-bold text-slate-900">{l.action}</p>{l.note && <p className="text-sm text-slate-700 mt-2 bg-slate-50 p-3 rounded-xl border border-slate-200/60 inline-block font-medium">{l.note}</p>}<div className="flex gap-2 mt-2 text-xs text-slate-500 font-medium"><span>{new Date(l.log_date).toLocaleString('th-TH')}</span></div></div>))}</div>
                                 </div>
                             </div>
                         )}
                     </div>
 
-                    {/* --- Sidebar: ส่วนแสดงสัดส่วนต้นทุนที่มีสีสัน --- */}
+                    {/* --- Sidebar: ส่วนแสดงสัดส่วนต้นทุน --- */}
                     <div className="space-y-8">
                         <div className={cardStyle}>
                             <h4 className="font-bold text-slate-900 mb-6 flex items-center gap-3 text-lg">
@@ -514,25 +609,20 @@ export default function ProjectDetailPage({ params }) {
                                 สัดส่วนต้นทุน
                             </h4>
                             <div className="space-y-5">
-                                {/* รายการต้นทุนแต่ละประเภท */}
                                 {[
                                     { key: 'material', label: 'วัตถุดิบ', color: 'bg-blue-500', iconColor: 'text-blue-500' },
                                     { key: 'labor', label: 'ค่าแรง/ค่าโอที', color: 'bg-orange-500', iconColor: 'text-orange-500' },
                                     { key: 'overhead', label: 'ค่าใช้จ่ายอื่นๆ', color: 'bg-purple-500', iconColor: 'text-purple-500' }
                                 ].map((type) => {
-                                    // คำนวณยอดเงินจริงตามประเภทจากตาราง costs
                                     const amount = costs ? costs
                                         .filter(c => c.cost_type === type.key)
                                         .reduce((sum, c) => sum + parseFloat(c.amount), 0) : 0;
-
-                                    // คำนวณเปอร์เซ็นต์สำหรับ Progress Bar
                                     const percent = totalCost > 0 ? (amount / totalCost) * 100 : 0;
 
                                     return (
                                         <div key={type.key}>
                                             <div className="flex justify-between text-sm mb-2 font-bold">
-                                                <span className="flex items-center gap-2 text-slate-700">
-                                                    {/* วงกลมสีตามประเภท */}
+                                                <span className="flex items-center gap-2 text-slate-800">
                                                     <div className={`w-3 h-3 rounded-full ${type.color}`}></div>
                                                     {type.label}
                                                 </span>
@@ -540,7 +630,6 @@ export default function ProjectDetailPage({ params }) {
                                                     ฿{amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                                                 </span>
                                             </div>
-                                            {/* แถบสี (Progress Bar) */}
                                             <div className="w-full bg-slate-100 rounded-full h-2.5 shadow-inner overflow-hidden">
                                                 <div
                                                     className={`h-full ${type.color} transition-all duration-700 ease-out`}
@@ -551,17 +640,16 @@ export default function ProjectDetailPage({ params }) {
                                     );
                                 })}
 
-                                {/* ยอดรวมทั้งหมด */}
-                                <div className="pt-4 mt-2 border-t border-slate-100 flex justify-between items-end">
-                                    <span className="font-extrabold text-slate-500 text-sm uppercase tracking-wider">รวมทั้งหมด</span>
-                                    <span className="text-2xl font-black text-indigo-600">
+                                <div className="pt-4 mt-2 border-t border-slate-200 flex justify-between items-end">
+                                    <span className="font-extrabold text-slate-600 text-sm uppercase tracking-wider">รวมทั้งหมด</span>
+                                    <span className="text-2xl font-black text-indigo-700">
                                         ฿{totalCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        {/* ส่วนทีมงาน (คงเดิมเพื่อความสวยงาม) */}
+                        {/* ส่วนทีมงาน */}
                         <div className={cardStyle}>
                             <h4 className="font-bold text-slate-900 mb-6 flex items-center gap-3 text-lg">
                                 <div className="p-2.5 rounded-xl bg-blue-100 text-blue-600 shadow-sm">
@@ -569,15 +657,15 @@ export default function ProjectDetailPage({ params }) {
                                 </div>
                                 ทีมงาน (Team)
                             </h4>
-                            <div className="space-y-4 text-slate-700 font-medium">
+                            <div className="space-y-4 text-slate-800 font-medium">
                                 {members && members.map((m, i) => (
-                                    <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50/50 border border-slate-100 hover:bg-white hover:border-blue-100 hover:shadow-md transition group">
-                                        <div className="w-12 h-12 rounded-full bg-white border-2 border-blue-100 flex items-center justify-center font-bold text-blue-600 text-lg shadow-sm group-hover:scale-105 transition">
+                                    <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50/50 border border-slate-200 hover:bg-white hover:border-blue-200 hover:shadow-md transition group">
+                                        <div className="w-12 h-12 rounded-full bg-white border-2 border-blue-200 flex items-center justify-center font-black text-blue-700 text-lg shadow-sm group-hover:scale-105 transition">
                                             {m.first_name ? m.first_name.charAt(0) : '?'}
                                         </div>
                                         <div>
                                             <p className="font-bold text-slate-900 text-base">{m.first_name} {m.last_name}</p>
-                                            <p className="text-xs text-blue-500 font-bold uppercase tracking-wider mt-0.5 bg-blue-50 px-2 py-0.5 rounded-md w-fit">
+                                            <p className="text-xs text-blue-600 font-bold uppercase tracking-wider mt-0.5 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-md w-fit">
                                                 {m.position}
                                             </p>
                                         </div>

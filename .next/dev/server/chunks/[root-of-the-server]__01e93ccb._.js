@@ -167,12 +167,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$j
 async function GET() {
     try {
         // ✅ แก้ SQL: เปลี่ยนจาก stock เป็น quantity ให้ตรงกับตาราง products ของคุณ
-        const [rows] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(`
-      SELECT id, name, quantity, price 
-      FROM products 
-      WHERE quantity > 0 
-      ORDER BY name ASC
-    `);
+        const [rows] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query('SELECT id, product_code, name, quantity, price, category FROM products');
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(rows);
     } catch (error) {
         console.error("Database Error:", error);

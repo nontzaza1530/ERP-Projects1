@@ -179,8 +179,8 @@ async function GET(request, { params }) {
         s.email as supplier_email,
         s.contact_name as contact_person,
         s.tax_id as supplier_tax_id,
-        s.branch as supplier_branch, -- ✅ ดึงข้อมูล สาขา มาใช้งาน
-        s.fax as supplier_fax,       -- ✅ ดึงข้อมูล แฟกซ์ มาใช้งาน
+        s.branch as supplier_branch, 
+        s.fax as supplier_fax,      
         s.address as s_addr,
         s.sub_district as s_sub_district,
         s.district as s_district,
@@ -214,12 +214,10 @@ async function GET(request, { params }) {
         const sqlItems = `
         SELECT 
             poi.*, 
-            COALESCE(p.name, 'สินค้า (ไม่ระบุชื่อ)') as product_name,
-            
-            -- ✅ แก้ไขให้ตรงกับตาราง Products ของคุณ
+            -- ✅ แก้ไข: ให้เช็คชื่อจากคลังก่อน ถ้าไม่มีให้เอา custom_item_name มาโชว์
+            COALESCE(p.name, poi.custom_item_name, 'สินค้า (ไม่ระบุชื่อ)') as product_name,
             COALESCE(p.product_code, '-') as product_code, 
-            
-            COALESCE(p.unit, 'หน่วย') as unit
+            COALESCE(p.unit, 'ชิ้น') as unit
         FROM purchase_order_items poi
         LEFT JOIN products p ON poi.product_id = p.id
         WHERE poi.po_id = ?
@@ -245,13 +243,13 @@ async function PUT(request, { params }) {
     try {
         const { id } = await params;
         const body = await request.json();
-        const { supplier_id, order_date, expected_date, items, total_amount, remarks } = body;
+        const { supplier_id, order_date, expected_date, items, total_amount, remarks, shipping_address } = body;
         connection = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].getConnection();
         await connection.beginTransaction();
-        // 1. อัปเดตข้อมูลหัวบิล (Header)
+        // อัปเดตข้อมูลหัวบิล PO
         const updateHeaderSql = `
             UPDATE purchase_orders 
-            SET supplier_id = ?, order_date = ?, expected_date = ?, total_amount = ?, remarks = ?
+            SET supplier_id = ?, order_date = ?, expected_date = ?, total_amount = ?, remarks = ?, shipping_address = ?
             WHERE id = ?
         `;
         await connection.query(updateHeaderSql, [
@@ -260,18 +258,24 @@ async function PUT(request, { params }) {
             expected_date,
             total_amount,
             remarks || null,
+            shipping_address || 'สำนักงานใหญ่ (HQ)',
             id
         ]);
-        // 2. ลบรายการสินค้าของเก่าทิ้งทั้งหมด (เพื่อป้องกันข้อมูลขยะ)
+        // ลบรายการสินค้าของเก่าทิ้งทั้งหมด
         await connection.query(`DELETE FROM purchase_order_items WHERE po_id = ?`, [
             id
         ]);
-        // 3. Insert รายการสินค้าชุดใหม่เข้าไป
+        // ✅ Insert รายการสินค้าชุดใหม่เข้าไป (เพิ่มการรองรับ custom_item_name)
         for (const item of items){
-            await connection.query(`INSERT INTO purchase_order_items (po_id, product_id, quantity, unit_price, total_price) 
-                 VALUES (?, ?, ?, ?, ?)`, [
+            // เช็คว่าถ้าไม่ได้เลือกของจากคลัง (เป็นพิมพ์เอง) ให้ส่ง product_id เป็น null
+            const pId = item.product_id || null;
+            // ดักรับค่าชื่อสินค้าพิมพ์เอง (รองรับทั้ง key: custom_item_name และ custom_name)
+            const customName = item.custom_item_name || item.custom_name || null;
+            await connection.query(`INSERT INTO purchase_order_items (po_id, product_id, custom_item_name, quantity, unit_price, total_price) 
+                 VALUES (?, ?, ?, ?, ?, ?)`, [
                 id,
-                item.product_id,
+                pId,
+                customName,
                 item.qty,
                 item.price,
                 item.qty * item.price

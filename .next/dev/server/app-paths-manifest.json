@@ -1,21 +1,9 @@
 {
-  "/api/inventory/route": "app/api/inventory/route.js",
-  "/api/me/route": "app/api/me/route.js",
-  "/api/purchasing/dashboard/route": "app/api/purchasing/dashboard/route.js",
-  "/api/purchasing/master-data/route": "app/api/purchasing/master-data/route.js",
-  "/api/purchasing/po/[id]/route": "app/api/purchasing/po/[id]/route.js",
-  "/api/purchasing/po/create/route": "app/api/purchasing/po/create/route.js",
-  "/api/purchasing/po/list/route": "app/api/purchasing/po/list/route.js",
-  "/api/purchasing/suppliers/route": "app/api/purchasing/suppliers/route.js",
-  "/api/sales/history/route": "app/api/sales/history/route.js",
-  "/inventory/page": "app/inventory/page.js",
-  "/purchasing/create-po/page": "app/purchasing/create-po/page.js",
-  "/purchasing/dashboard/page": "app/purchasing/dashboard/page.js",
-  "/purchasing/edit-po/[id]/page": "app/purchasing/edit-po/[id]/page.js",
-  "/purchasing/goods-receipt/page": "app/purchasing/goods-receipt/page.js",
-  "/purchasing/po-list/page": "app/purchasing/po-list/page.js",
-  "/purchasing/print/[id]/page": "app/purchasing/print/[id]/page.js",
-  "/purchasing/suppliers/page": "app/purchasing/suppliers/page.js",
-  "/sales/history/page": "app/sales/history/page.js",
-  "/sales/page": "app/sales/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/accounting/project-quotations/create/page": "app/accounting/project-quotations/create/page.js",
+  "/accounting/project-quotations/edit/[id]/page": "app/accounting/project-quotations/edit/[id]/page.js",
+  "/accounting/project-quotations/page": "app/accounting/project-quotations/page.js",
+  "/api/accounting/project-quotations/[id]/route": "app/api/accounting/project-quotations/[id]/route.js",
+  "/api/accounting/project-quotations/route": "app/api/accounting/project-quotations/route.js",
+  "/api/me/route": "app/api/me/route.js"
 }

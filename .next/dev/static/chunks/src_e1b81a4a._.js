@@ -210,6 +210,14 @@ function Sidebar({ onClose }) {
                         ]
                     },
                     {
+                        name: 'ใบขอซื้อ (PR)',
+                        href: '/purchasing/pr',
+                        roles: [
+                            'super_admin',
+                            'admin'
+                        ]
+                    },
+                    {
                         name: 'สร้างใบสั่งซื้อ (PO)',
                         href: '/purchasing/create-po',
                         roles: [
@@ -271,10 +279,18 @@ function Sidebar({ onClose }) {
                     'employee'
                 ],
                 subItems: [
-                    // ✅ เพิ่มตรงนี้: เมนูใบแจ้งหนี้ (Invoices)
                     {
                         name: 'ภาพรวมบัญชี',
                         href: '/accounting',
+                        roles: [
+                            'super_admin',
+                            'admin'
+                        ]
+                    },
+                    // ✅ เพิ่มตรงนี้: เมนู ใบเสนอราคา (Quotations) ให้อยู่เหนือใบแจ้งหนี้
+                    {
+                        name: 'ใบเสนอราคา (Quotations)',
+                        href: '/accounting/project-quotations',
                         roles: [
                             'super_admin',
                             'admin'
@@ -286,9 +302,8 @@ function Sidebar({ onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // จำกัดสิทธิ์เฉพาะ Admin
+                        ]
                     },
-                    // ✅ เพิ่มตรงนี้: เมนูใบเสร็จ (เตรียมไว้ให้อนาคต)
                     {
                         name: 'ใบเสร็จรับเงิน (Receipts)',
                         href: '/accounting/receipts',
@@ -369,12 +384,12 @@ function Sidebar({ onClose }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 220,
+                            lineNumber: 224,
                             columnNumber: 17
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 219,
+                        lineNumber: 223,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -382,7 +397,7 @@ function Sidebar({ onClose }) {
                         children: "ERP SYSTEM"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 223,
+                        lineNumber: 227,
                         columnNumber: 11
                     }, this),
                     loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -392,20 +407,20 @@ function Sidebar({ onClose }) {
                                 className: "w-8 h-8 rounded-full bg-slate-700"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 227,
+                                lineNumber: 231,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex-1 h-4 bg-slate-700 rounded"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 228,
+                                lineNumber: 232,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 226,
+                        lineNumber: 230,
                         columnNumber: 22
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700",
@@ -415,7 +430,7 @@ function Sidebar({ onClose }) {
                                 children: user?.first_name?.charAt(0) || 'U'
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 230,
+                                lineNumber: 234,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -426,7 +441,7 @@ function Sidebar({ onClose }) {
                                         children: user?.first_name
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 234,
+                                        lineNumber: 238,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -434,25 +449,25 @@ function Sidebar({ onClose }) {
                                         children: role?.replace('_', ' ')
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 235,
+                                        lineNumber: 239,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 233,
+                                lineNumber: 237,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 229,
+                        lineNumber: 233,
                         columnNumber: 23
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 216,
+                lineNumber: 220,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -468,12 +483,12 @@ function Sidebar({ onClose }) {
                             className: "h-10 bg-slate-800/50 rounded-xl animate-pulse"
                         }, i, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 245,
+                            lineNumber: 249,
                             columnNumber: 40
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/Sidebar.jsx",
-                    lineNumber: 244,
+                    lineNumber: 248,
                     columnNumber: 22
                 }, this) : visibleMenu.map((item_1)=>{
                     const isExpanded = expandedMenu === item_1.name;
@@ -498,7 +513,7 @@ function Sidebar({ onClose }) {
                                                     className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'} shrink-0`
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 258,
+                                                    lineNumber: 262,
                                                     columnNumber: 29
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -506,13 +521,13 @@ function Sidebar({ onClose }) {
                                                     children: item_1.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 259,
+                                                    lineNumber: 263,
                                                     columnNumber: 29
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 257,
+                                            lineNumber: 261,
                                             columnNumber: 25
                                         }, this),
                                         isExpanded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
@@ -520,20 +535,20 @@ function Sidebar({ onClose }) {
                                             className: "shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 263,
+                                            lineNumber: 267,
                                             columnNumber: 39
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                             size: 16,
                                             className: "shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 263,
+                                            lineNumber: 267,
                                             columnNumber: 88
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 254,
+                                    lineNumber: 258,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -554,21 +569,21 @@ function Sidebar({ onClose }) {
                                                         className: isSubActive ? 'text-blue-400' : 'text-slate-600'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 273,
+                                                        lineNumber: 277,
                                                         columnNumber: 51
                                                     }, this) : sub_1.name === 'ข้อมูลส่วนตัว' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
                                                         size: 14,
                                                         className: isSubActive ? 'text-blue-400' : 'opacity-50'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 273,
+                                                        lineNumber: 277,
                                                         columnNumber: 172
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
                                                         size: 8,
                                                         className: isSubActive ? 'fill-current' : 'opacity-50'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 273,
+                                                        lineNumber: 277,
                                                         columnNumber: 250
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -576,30 +591,30 @@ function Sidebar({ onClose }) {
                                                         children: sub_1.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 274,
+                                                        lineNumber: 278,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, sub_1.href, true, {
                                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 270,
+                                                lineNumber: 274,
                                                 columnNumber: 26
                                             }, this);
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 267,
+                                        lineNumber: 271,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 266,
+                                    lineNumber: 270,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 253,
+                            lineNumber: 257,
                             columnNumber: 11
                         }, this) : // --- 🔗 Single Link Menu ---
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -613,12 +628,12 @@ function Sidebar({ onClose }) {
                                         size: 20
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 283,
+                                        lineNumber: 287,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 282,
+                                    lineNumber: 286,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -626,24 +641,24 @@ function Sidebar({ onClose }) {
                                     children: item_1.name
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 285,
+                                    lineNumber: 289,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 281,
+                            lineNumber: 285,
                             columnNumber: 11
                         }, this)
                     }, item_1.name, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 250,
+                        lineNumber: 254,
                         columnNumber: 16
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 243,
+                lineNumber: 247,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -656,7 +671,7 @@ function Sidebar({ onClose }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 296,
+                            lineNumber: 300,
                             columnNumber: 17
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -664,24 +679,24 @@ function Sidebar({ onClose }) {
                             children: "ออกจากระบบ"
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 297,
+                            lineNumber: 301,
                             columnNumber: 17
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/Sidebar.jsx",
-                    lineNumber: 295,
+                    lineNumber: 299,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 294,
+                lineNumber: 298,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Sidebar.jsx",
-        lineNumber: 213,
+        lineNumber: 217,
         columnNumber: 10
     }, this);
 }
@@ -720,6 +735,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-left.js [app-client] (ecmascript) <export default as ChevronLeft>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-right.js [app-client] (ecmascript) <export default as ChevronRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/clock.js [app-client] (ecmascript) <export default as Clock>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$all$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/sweetalert2/dist/sweetalert2.all.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
@@ -731,10 +747,12 @@ var _s = __turbopack_context__.k.signature();
 function AccountingPage() {
     _s();
     // --- 1. State Management ---
+    // ✅ เพิ่ม pendingIncome เข้าไปใน State สรุปยอด
     const [summary, setSummary] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         income: 0,
         expenses: 0,
-        profit: 0
+        profit: 0,
+        pendingIncome: 0
     });
     const [transactions, setTransactions] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
@@ -772,7 +790,8 @@ function AccountingPage() {
                 const data = await res.json();
                 if (data.summary) {
                     setSummary(data.summary);
-                    setTransactions(data.transactions || []);
+                    // ✅ รองรับทั้งชื่อ transactions และ history (กันเหนียวเผื่อ API ส่งชื่อไหนมา)
+                    setTransactions(data.transactions || data.history || []);
                 }
             }
         } catch (error) {
@@ -840,19 +859,19 @@ function AccountingPage() {
                 onClick: ()=>setIsSidebarOpen(false)
             }, void 0, false, {
                 fileName: "[project]/src/app/accounting/page.jsx",
-                lineNumber: 119,
+                lineNumber: 123,
                 columnNumber: 25
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
                 className: `fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:shadow-none ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`,
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Sidebar$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/src/app/accounting/page.jsx",
-                    lineNumber: 123,
+                    lineNumber: 127,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/accounting/page.jsx",
-                lineNumber: 122,
+                lineNumber: 126,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -871,12 +890,12 @@ function AccountingPage() {
                                             size: 24
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 134,
+                                            lineNumber: 138,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 133,
+                                        lineNumber: 137,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -888,14 +907,14 @@ function AccountingPage() {
                                                         className: "text-blue-600"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                                        lineNumber: 138,
+                                                        lineNumber: 142,
                                                         columnNumber: 17
                                                     }, this),
                                                     " ระบบบัญชี"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 137,
+                                                lineNumber: 141,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -903,19 +922,19 @@ function AccountingPage() {
                                                 children: "ภาพรวมสถานะทางการเงินขององค์กร"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 140,
+                                                lineNumber: 144,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 136,
+                                        lineNumber: 140,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                lineNumber: 132,
+                                lineNumber: 136,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -926,24 +945,24 @@ function AccountingPage() {
                                         size: 20
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 144,
+                                        lineNumber: 148,
                                         columnNumber: 13
                                     }, this),
                                     " บันทึกรายการ"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                lineNumber: 143,
+                                lineNumber: 147,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/accounting/page.jsx",
-                        lineNumber: 131,
+                        lineNumber: 135,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "grid grid-cols-1 md:grid-cols-3 gap-6 mb-8",
+                        className: "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center group hover:shadow-md transition",
@@ -955,7 +974,7 @@ function AccountingPage() {
                                                 children: "รายรับรวม"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 153,
+                                                lineNumber: 157,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -966,7 +985,7 @@ function AccountingPage() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 154,
+                                                lineNumber: 158,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -976,20 +995,20 @@ function AccountingPage() {
                                                         size: 14
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                                        lineNumber: 156,
+                                                        lineNumber: 160,
                                                         columnNumber: 17
                                                     }, this),
                                                     " รายรับทั้งหมด"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 155,
+                                                lineNumber: 159,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 152,
+                                        lineNumber: 156,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -998,18 +1017,85 @@ function AccountingPage() {
                                             size: 32
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 160,
+                                            lineNumber: 164,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 159,
+                                        lineNumber: 163,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                lineNumber: 151,
+                                lineNumber: 155,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center group hover:shadow-md transition",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-slate-500 text-sm font-medium mb-1",
+                                                children: "ยอดรอเรียกเก็บ"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/accounting/page.jsx",
+                                                lineNumber: 171,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                className: "text-3xl font-black text-orange-500",
+                                                children: [
+                                                    "฿",
+                                                    formatCurrency(summary.pendingIncome || 0)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/accounting/page.jsx",
+                                                lineNumber: 172,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "flex items-center gap-1 text-orange-500 text-xs mt-2 font-bold bg-orange-50 px-2 py-1 rounded-lg w-fit",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
+                                                        size: 14
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/accounting/page.jsx",
+                                                        lineNumber: 174,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    " ใบแจ้งหนี้ค้างชำระ"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/accounting/page.jsx",
+                                                lineNumber: 173,
+                                                columnNumber: 15
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/accounting/page.jsx",
+                                        lineNumber: 170,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "p-4 bg-orange-50 text-orange-500 rounded-2xl",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
+                                            size: 32
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/accounting/page.jsx",
+                                            lineNumber: 178,
+                                            columnNumber: 15
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/accounting/page.jsx",
+                                        lineNumber: 177,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/accounting/page.jsx",
+                                lineNumber: 169,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1022,7 +1108,7 @@ function AccountingPage() {
                                                 children: "รายจ่ายรวม"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 167,
+                                                lineNumber: 185,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1033,7 +1119,7 @@ function AccountingPage() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 168,
+                                                lineNumber: 186,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1043,20 +1129,20 @@ function AccountingPage() {
                                                         size: 14
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                                        lineNumber: 170,
+                                                        lineNumber: 188,
                                                         columnNumber: 17
                                                     }, this),
                                                     " รายจ่ายทั้งหมด"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 169,
+                                                lineNumber: 187,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 166,
+                                        lineNumber: 184,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1065,18 +1151,18 @@ function AccountingPage() {
                                             size: 32
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 174,
+                                            lineNumber: 192,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 173,
+                                        lineNumber: 191,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                lineNumber: 165,
+                                lineNumber: 183,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1089,7 +1175,7 @@ function AccountingPage() {
                                                 children: "กำไรสุทธิ"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 181,
+                                                lineNumber: 199,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1100,7 +1186,7 @@ function AccountingPage() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 182,
+                                                lineNumber: 200,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1108,13 +1194,13 @@ function AccountingPage() {
                                                 children: "(รายรับ - รายจ่าย)"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 185,
+                                                lineNumber: 203,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 180,
+                                        lineNumber: 198,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1123,24 +1209,24 @@ function AccountingPage() {
                                             size: 32
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 190,
+                                            lineNumber: 208,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 189,
+                                        lineNumber: 207,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                lineNumber: 179,
+                                lineNumber: 197,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/accounting/page.jsx",
-                        lineNumber: 149,
+                        lineNumber: 153,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1156,14 +1242,14 @@ function AccountingPage() {
                                                 className: "text-slate-400"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 199,
+                                                lineNumber: 217,
                                                 columnNumber: 15
                                             }, this),
                                             " รายการเคลื่อนไหวล่าสุด"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 198,
+                                        lineNumber: 216,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1175,13 +1261,13 @@ function AccountingPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 201,
+                                        lineNumber: 219,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                lineNumber: 197,
+                                lineNumber: 215,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1198,7 +1284,7 @@ function AccountingPage() {
                                                         children: "วันที่/เวลา"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                                        lineNumber: 210,
+                                                        lineNumber: 228,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1206,7 +1292,7 @@ function AccountingPage() {
                                                         children: "รายการ"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                                        lineNumber: 211,
+                                                        lineNumber: 229,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1214,7 +1300,7 @@ function AccountingPage() {
                                                         children: "หมวดหมู่"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                                        lineNumber: 212,
+                                                        lineNumber: 230,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1222,7 +1308,7 @@ function AccountingPage() {
                                                         children: "ประเภท"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                                        lineNumber: 213,
+                                                        lineNumber: 231,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1230,18 +1316,18 @@ function AccountingPage() {
                                                         children: "จำนวนเงิน"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                                        lineNumber: 214,
+                                                        lineNumber: 232,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 209,
+                                                lineNumber: 227,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 208,
+                                            lineNumber: 226,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1253,12 +1339,12 @@ function AccountingPage() {
                                                     children: "กำลังโหลดข้อมูล..."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 218,
+                                                    lineNumber: 236,
                                                     columnNumber: 32
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 218,
+                                                lineNumber: 236,
                                                 columnNumber: 28
                                             }, this) : currentTransactions.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1267,12 +1353,12 @@ function AccountingPage() {
                                                     children: "ยังไม่มีรายการบัญชี"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 218,
+                                                    lineNumber: 236,
                                                     columnNumber: 162
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 218,
+                                                lineNumber: 236,
                                                 columnNumber: 158
                                             }, this) : currentTransactions.map((tx, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                     className: "hover:bg-slate-50 transition",
@@ -1288,7 +1374,7 @@ function AccountingPage() {
                                                             })
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                                            lineNumber: 219,
+                                                            lineNumber: 237,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1296,7 +1382,7 @@ function AccountingPage() {
                                                             children: tx.description || '-'
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                                            lineNumber: 228,
+                                                            lineNumber: 246,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1306,61 +1392,61 @@ function AccountingPage() {
                                                                 children: tx.category
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                                lineNumber: 230,
+                                                                lineNumber: 248,
                                                                 columnNumber: 29
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                                            lineNumber: 229,
+                                                            lineNumber: 247,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                             className: "p-4 text-center",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: `px-3 py-1 rounded-full text-xs font-bold border ${tx.type === 'Income' ? 'bg-green-50 text-green-700 border-green-100' : 'bg-red-50 text-red-700 border-red-100'}`,
-                                                                children: tx.type === 'Income' ? 'รายรับ' : 'รายจ่าย'
+                                                                className: `px-3 py-1 rounded-full text-xs font-bold border ${tx.type === 'Income' ? 'bg-green-50 text-green-700 border-green-100' : tx.type === 'Pending' ? 'bg-orange-50 text-orange-700 border-orange-100' : 'bg-red-50 text-red-700 border-red-100'}`,
+                                                                children: tx.type === 'Income' ? 'รายรับ' : tx.type === 'Pending' ? 'รอรับเงิน' : 'รายจ่าย'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                                lineNumber: 235,
+                                                                lineNumber: 254,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                                            lineNumber: 234,
+                                                            lineNumber: 253,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: `p-4 text-right pr-6 font-bold text-base font-mono ${tx.type === 'Income' ? 'text-green-600' : 'text-red-600'}`,
+                                                            className: `p-4 text-right pr-6 font-bold text-base font-mono ${tx.type === 'Income' ? 'text-green-600' : tx.type === 'Pending' ? 'text-orange-500' : 'text-red-600'}`,
                                                             children: [
-                                                                tx.type === 'Income' ? '+' : '-',
+                                                                tx.type === 'Income' || tx.type === 'Pending' ? '+' : '-',
                                                                 " ",
                                                                 formatCurrency(tx.amount)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                                            lineNumber: 239,
+                                                            lineNumber: 259,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, index, true, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 218,
+                                                    lineNumber: 236,
                                                     columnNumber: 293
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 217,
+                                            lineNumber: 235,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                    lineNumber: 207,
+                                    lineNumber: 225,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                lineNumber: 206,
+                                lineNumber: 224,
                                 columnNumber: 11
                             }, this),
                             transactions.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1376,7 +1462,7 @@ function AccountingPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 249,
+                                        lineNumber: 269,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1390,12 +1476,12 @@ function AccountingPage() {
                                                     size: 16
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 254,
+                                                    lineNumber: 274,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 253,
+                                                lineNumber: 273,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1406,30 +1492,30 @@ function AccountingPage() {
                                                     size: 16
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 257,
+                                                    lineNumber: 277,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 256,
+                                                lineNumber: 276,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/page.jsx",
-                                        lineNumber: 252,
+                                        lineNumber: 272,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                lineNumber: 248,
+                                lineNumber: 268,
                                 columnNumber: 39
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/accounting/page.jsx",
-                        lineNumber: 196,
+                        lineNumber: 214,
                         columnNumber: 9
                     }, this),
                     isModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1448,14 +1534,14 @@ function AccountingPage() {
                                                     className: "text-blue-600"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 269,
+                                                    lineNumber: 289,
                                                     columnNumber: 21
                                                 }, this),
                                                 " บันทึกรายการ"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 268,
+                                            lineNumber: 288,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1465,18 +1551,18 @@ function AccountingPage() {
                                                 size: 24
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/page.jsx",
-                                                lineNumber: 272,
+                                                lineNumber: 292,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 271,
+                                            lineNumber: 291,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                    lineNumber: 267,
+                                    lineNumber: 287,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1498,12 +1584,12 @@ function AccountingPage() {
                                                     children: type === 'Income' ? 'รายรับ (Income)' : 'รายจ่าย (Expense)'
                                                 }, type, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 279,
+                                                    lineNumber: 299,
                                                     columnNumber: 56
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 278,
+                                            lineNumber: 298,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1513,7 +1599,7 @@ function AccountingPage() {
                                                     children: "หมวดหมู่"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 288,
+                                                    lineNumber: 308,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1528,13 +1614,13 @@ function AccountingPage() {
                                                         })
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 289,
+                                                    lineNumber: 309,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 287,
+                                            lineNumber: 307,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1544,7 +1630,7 @@ function AccountingPage() {
                                                     children: "จำนวนเงิน (บาท)"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 296,
+                                                    lineNumber: 316,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1560,13 +1646,13 @@ function AccountingPage() {
                                                         })
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 297,
+                                                    lineNumber: 317,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 295,
+                                            lineNumber: 315,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1576,7 +1662,7 @@ function AccountingPage() {
                                                     children: "รายละเอียดเพิ่มเติม"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 304,
+                                                    lineNumber: 324,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1590,13 +1676,13 @@ function AccountingPage() {
                                                         })
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 305,
+                                                    lineNumber: 325,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 303,
+                                            lineNumber: 323,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1607,53 +1693,53 @@ function AccountingPage() {
                                                     size: 20
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 312,
+                                                    lineNumber: 332,
                                                     columnNumber: 51
                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trending$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TrendingDown$3e$__["TrendingDown"], {
                                                     size: 20
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                                    lineNumber: 312,
+                                                    lineNumber: 332,
                                                     columnNumber: 72
                                                 }, this),
                                                 "ยืนยันการบันทึก"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/accounting/page.jsx",
-                                            lineNumber: 311,
+                                            lineNumber: 331,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/accounting/page.jsx",
-                                    lineNumber: 276,
+                                    lineNumber: 296,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/accounting/page.jsx",
-                            lineNumber: 265,
+                            lineNumber: 285,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/accounting/page.jsx",
-                        lineNumber: 264,
+                        lineNumber: 284,
                         columnNumber: 25
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/accounting/page.jsx",
-                lineNumber: 128,
+                lineNumber: 132,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/accounting/page.jsx",
-        lineNumber: 115,
+        lineNumber: 119,
         columnNumber: 10
     }, this);
 }
-_s(AccountingPage, "zKtsljXxSDxsPmBQW4vA5qDpW3c=");
+_s(AccountingPage, "1HmlF6EFIJ/NUzIqbFdvAzzb1Ko=");
 _c = AccountingPage;
 var _c;
 __turbopack_context__.k.register(_c, "AccountingPage");

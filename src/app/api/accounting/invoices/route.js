@@ -11,21 +11,17 @@ const dbConfig = {
     connectTimeout: 10000
 };
 
-// 🟢 1. ดึงข้อมูลใบแจ้งหนี้ทั้งหมด (GET) - เอาไปโชว์ในหน้ารายการ
+// 🟢 1. ดึงข้อมูลใบแจ้งหนี้ทั้งหมด (GET)
 export async function GET(request) {
     let connection;
     try {
         connection = await mysql.createConnection(dbConfig);
-        
-        // ดึงข้อมูล invoices และ join กับ projects เพื่อเอาชื่อโปรเจกต์ (ถ้ามี)
-        // เรียงจากใบใหม่สุดไปเก่าสุด
         const [rows] = await connection.execute(`
             SELECT invoices.*, projects.project_name 
             FROM invoices 
             LEFT JOIN projects ON invoices.project_id = projects.id 
             ORDER BY invoices.id DESC
         `);
-
         await connection.end();
         return NextResponse.json({ invoices: rows });
     } catch (error) {
@@ -34,7 +30,8 @@ export async function GET(request) {
     }
 }
 
-// 🔵 2. สร้างใบแจ้งหนี้ใหม่ (POST) - รับค่าจากฟอร์มบันทึกลง DB
+// 🔵 2. สร้างใบแจ้งหนี้ใหม่ (POST) - ✅ แก้ไข Logic การคำนวณแบบโปรเจกต์
+// 🔵 2. สร้างใบแจ้งหนี้ใหม่ (POST)
 export async function POST(req) {
     let connection;
     try {
@@ -44,50 +41,59 @@ export async function POST(req) {
             customer_name, 
             customer_address, 
             customer_tax_id, 
-            items, // Array รายการสินค้า
+            items, 
             due_date,
-            doc_date 
+            doc_date,
+            // ✅ รับค่าภาษีที่ส่งมาจากหน้าบ้าน
+            subtotal,
+            vat_rate,
+            vat_amount,
+            grand_total,
+            wht_rate,
+            wht_amount
         } = body;
 
         connection = await mysql.createConnection(dbConfig);
-        await connection.beginTransaction(); // เริ่ม Transaction (ต้องสำเร็จทุกขั้นตอน ไม่งั้นยกเลิกหมด)
+        await connection.beginTransaction();
 
-        // --- A. ระบบรันเลขเอกสารอัตโนมัติ (INV-YYYYMM-XXX) ---
         const dateObj = new Date();
         const year = dateObj.getFullYear();
         const month = String(dateObj.getMonth() + 1).padStart(2, '0');
         const prefix = `INV-${year}${month}-`;
 
-        // หาเลขล่าสุดของเดือนนี้
         const [lastInvoice] = await connection.execute(
             `SELECT doc_number FROM invoices WHERE doc_number LIKE ? ORDER BY id DESC LIMIT 1`,
             [`${prefix}%`]
         );
 
-        let newDocNumber;
-        if (lastInvoice.length > 0) {
-            const lastNo = lastInvoice[0].doc_number; 
-            const runningNo = parseInt(lastNo.split('-')[2]) + 1; 
-            newDocNumber = `${prefix}${String(runningNo).padStart(3, '0')}`;
-        } else {
-            newDocNumber = `${prefix}001`; // ใบแรกของเดือน
-        }
+        let newDocNumber = lastInvoice.length > 0 
+            ? `${prefix}${String(parseInt(lastInvoice[0].doc_number.split('-')[2]) + 1).padStart(3, '0')}`
+            : `${prefix}001`;
 
-        // --- B. คำนวณยอดเงิน ---
-        let subtotal = 0;
-        items.forEach(item => {
-            subtotal += (parseFloat(item.quantity) * parseFloat(item.unit_price));
-        });
-        const vatRate = 7;
-        const vatAmount = subtotal * (vatRate / 100);
-        const grandTotal = subtotal + vatAmount;
+        const projectQuantity = items.length > 0 ? items[0].quantity : 1;
 
         // --- C. บันทึกหัวบิล (invoices) ---
+        // ✅ เพิ่มการบันทึก vat_rate, wht_rate, wht_amount ลงตาราง
         const [result] = await connection.execute(
             `INSERT INTO invoices 
-            (project_id, doc_number, doc_date, due_date, customer_name, customer_address, customer_tax_id, subtotal, vat_amount, grand_total, status) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'sent')`,
-            [project_id || null, newDocNumber, doc_date, due_date, customer_name, customer_address, customer_tax_id, subtotal, vatAmount, grandTotal]
+            (project_id, doc_number, doc_date, due_date, customer_name, customer_address, customer_tax_id, quantity, subtotal, vat_rate, vat_amount, grand_total, wht_rate, wht_amount, status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'sent')`,
+            [
+                project_id || null, 
+                newDocNumber, 
+                doc_date, 
+                due_date, 
+                customer_name, 
+                customer_address, 
+                customer_tax_id, 
+                projectQuantity, 
+                subtotal, 
+                vat_rate || 0,     // บันทึกเรท VAT
+                vat_amount, 
+                grand_total,
+                wht_rate || 0,     // บันทึกเรท WHT
+                wht_amount || 0    // บันทึกยอด WHT
+            ]
         );
 
         const invoiceId = result.insertId;
@@ -101,13 +107,13 @@ export async function POST(req) {
             );
         }
 
-        await connection.commit(); // ✅ บันทึกสำเร็จ
+        await connection.commit();
         await connection.end();
 
         return NextResponse.json({ success: true, doc_number: newDocNumber });
 
     } catch (error) {
-        if (connection) await connection.rollback(); // ❌ ย้อนกลับถ้าพัง
+        if (connection) await connection.rollback();
         console.error("CREATE INVOICE ERROR:", error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }

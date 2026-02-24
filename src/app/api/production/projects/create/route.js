@@ -11,7 +11,8 @@ export async function POST(request) {
         due_date, 
         budget, 
         sale_price, 
-        quantity,      // ✅ 1. รับค่าจำนวน (Quantity) มาจากหน้าบ้าน
+        quantity,      
+        billing_type,  // ✅ 1. รับค่ารูปแบบการคิดเงิน (Billing Type) มาจากหน้าบ้าน
         description, 
         selected_employees 
     } = body;
@@ -20,12 +21,12 @@ export async function POST(request) {
     await connection.beginTransaction();
 
     try {
-        // ✅ 2. เพิ่มคอลัมน์ quantity เข้าไปใน SQL INSERT
+        // ✅ 2. เพิ่มคอลัมน์ billing_type เข้าไปใน SQL INSERT
         const [result] = await connection.query(
             `INSERT INTO projects (
                 project_name, customer_name, start_date, due_date, 
-                budget, sale_price, quantity, description, status
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')`,
+                budget, sale_price, quantity, billing_type, description, status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')`,
             [
                 project_name, 
                 customer_name, 
@@ -33,7 +34,8 @@ export async function POST(request) {
                 due_date, 
                 budget || 0,
                 sale_price || 0, 
-                quantity || 1,   // ✅ 3. ใส่ค่าจำนวนจริงลงไป (Default เป็น 1)
+                quantity || 1,  
+                billing_type || 'lump_sum', // ✅ 3. บันทึกประเภทการคิดเงิน (Default เป็น เหมาจ่าย)
                 description
             ]
         );
@@ -50,14 +52,15 @@ export async function POST(request) {
             }
         }
 
-        // ✅ 4. ปรับบันทึก Log ให้ระบุจำนวนสินค้าด้วย
+        // ✅ 4. ปรับบันทึก Log ให้ระบุรูปแบบการคิดเงินด้วย
+        const typeText = billing_type === 'unit_based' ? 'คิดตามรายชิ้น' : 'เหมาจ่ายทั้งก้อน';
         await connection.query(
             `INSERT INTO production_logs (project_id, action, note, employee_id) VALUES (?, ?, ?, ?)`,
             [
               newProjectId, 
               'เปิดใบสั่งผลิตใหม่', 
-              `จำนวน: ${quantity || 1} รายการ, งบประมาณ: ${budget || 0} บาท`, 
-              'Admin'
+              `จำนวน: ${quantity || 1} รายการ (${typeText}), งบประมาณ: ${budget || 0} บาท`, 
+              'Admin' // ถ้าอนาคตมีระบบ Login ให้เปลี่ยนตรงนี้เป็นชื่อคนที่ Login ได้ครับ
             ]
         );
 

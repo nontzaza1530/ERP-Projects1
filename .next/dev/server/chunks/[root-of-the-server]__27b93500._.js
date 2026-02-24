@@ -166,34 +166,31 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$j
 ;
 ;
 async function PUT(request, { params }) {
-    // รองรับ Next.js 15+
     const { id } = await params;
-    const body = await request.json(); // รับค่า { status, wht_amount }
-    console.log("Updating Invoice ID:", id, "Action:", body.status);
-    if (body.status === 'paid') {
-        const connection = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].getConnection();
-        try {
-            await connection.beginTransaction();
-            // 1. ✅ อัปเดตสถานะในตาราง invoices เป็น 'paid'
+    const body = await request.json();
+    const connection = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].getConnection();
+    try {
+        await connection.beginTransaction();
+        // ==========================================
+        // 1️⃣ กรณี: อัปเดตสถานะเป็น "ชำระเงินแล้ว (paid)"
+        // ==========================================
+        if (body.status === 'paid') {
+            console.log("Updating Invoice ID:", id, "Action: paid");
             const [updateResult] = await connection.execute('UPDATE invoices SET status = ? WHERE id = ?', [
                 'paid',
                 id
             ]);
-            if (updateResult.affectedRows === 0) {
-                throw new Error(`Invoice ID ${id} not found`);
-            }
-            // 2. ✅ ดึงข้อมูล Invoice เพื่อนำไปคำนวณยอดในใบเสร็จ
+            if (updateResult.affectedRows === 0) throw new Error(`Invoice ID ${id} not found`);
+            // ดึงข้อมูลมาเพื่อสร้างใบเสร็จรับเงิน
             const [rows] = await connection.execute('SELECT * FROM invoices WHERE id = ?', [
                 id
             ]);
             const invoice = rows[0];
             if (invoice) {
                 const newDocNumber = invoice.doc_number.replace('INV', 'RC');
-                // คำนวณยอดเงิน (หลักบัญชี: ยอดเต็ม - หัก ณ ที่จ่าย = ยอดรับจริง)
                 const totalAmount = parseFloat(invoice.grand_total);
-                const whtAmount = parseFloat(body.wht_amount || 0);
+                const whtAmount = parseFloat(body.wht_amount || invoice.wht_amount || 0); // ดึงจากหน้าจอหรือจากบิลเดิม
                 const netAmount = totalAmount - whtAmount;
-                // 3. ✅ บันทึกลงตาราง receipts (เพิ่มคอลัมน์ wht_amount และ net_amount)
                 await connection.execute(`INSERT INTO receipts 
                     (invoice_id, doc_number, doc_date, amount, wht_amount, net_amount, payment_method, created_at) 
                     VALUES (?, ?, NOW(), ?, ?, ?, 'Transfer', NOW())`, [
@@ -205,55 +202,77 @@ async function PUT(request, { params }) {
                 ]);
                 console.log(`Receipt created: ${newDocNumber} | Net: ${netAmount}`);
             }
-            await connection.commit();
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                success: true,
-                message: "บันทึกการชำระเงินเรียบร้อย"
-            });
-        } catch (error) {
-            await connection.rollback();
-            console.error("Database Error:", error);
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: error.message
-            }, {
-                status: 500
-            });
-        } finally{
-            connection.release();
-        }
-    }
-    // กรณีสถานะอื่น เช่น ยกเลิกเอกสาร
-    if (body.status === 'cancelled') {
-        const connection = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].getConnection();
-        try {
+        } else if (body.status === 'cancelled') {
+            console.log("Updating Invoice ID:", id, "Action: cancelled");
             await connection.execute('UPDATE invoices SET status = ? WHERE id = ?', [
                 'cancelled',
                 id
             ]);
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                success: true,
-                message: "ยกเลิกเอกสารเรียบร้อย"
-            });
-        } catch (error) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: error.message
-            }, {
-                status: 500
-            });
-        } finally{
-            connection.release();
+        } else if (body.items && Array.isArray(body.items)) {
+            console.log("Updating Full Invoice ID:", id);
+            const { project_id, customer_name, customer_address, customer_tax_id, due_date, doc_date, subtotal, vat_rate, vat_amount, grand_total, wht_rate, wht_amount, items } = body;
+            const projectQuantity = items.length > 0 ? items[0].quantity : 1;
+            // 3.1 อัปเดตข้อมูลหัวบิล (invoices)
+            await connection.execute(`UPDATE invoices SET 
+                    project_id = ?, customer_name = ?, customer_address = ?, customer_tax_id = ?, 
+                    doc_date = ?, due_date = ?, quantity = ?, 
+                    subtotal = ?, vat_rate = ?, vat_amount = ?, grand_total = ?, 
+                    wht_rate = ?, wht_amount = ?
+                WHERE id = ?`, [
+                project_id || null,
+                customer_name,
+                customer_address,
+                customer_tax_id,
+                doc_date,
+                due_date,
+                projectQuantity,
+                subtotal,
+                vat_rate || 0,
+                vat_amount || 0,
+                grand_total,
+                wht_rate || 0,
+                wht_amount || 0,
+                id
+            ]);
+            // 3.2 อัปเดตรายการสินค้า: ลบของเก่าทิ้งทั้งหมด แล้ว Insert ของใหม่เข้าไป (ปลอดภัยที่สุด)
+            await connection.execute(`DELETE FROM invoice_items WHERE invoice_id = ?`, [
+                id
+            ]);
+            for (const item of items){
+                await connection.execute(`INSERT INTO invoice_items (invoice_id, description, quantity, unit_price, total) 
+                     VALUES (?, ?, ?, ?, ?)`, [
+                    id,
+                    item.description,
+                    item.quantity,
+                    item.unit_price,
+                    item.quantity * item.unit_price
+                ]);
+            }
+        } else {
+            throw new Error("Invalid Update Request (No status or items provided)");
         }
+        // ถ้าผ่านทั้งหมดโดยไม่ Error ค่อย Commit ลง Database
+        await connection.commit();
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            success: true,
+            message: "อัปเดตข้อมูลเรียบร้อย"
+        });
+    } catch (error) {
+        // ถ้าเกิด Error ให้ Rollback ย้อนข้อมูลกลับเหมือนไม่มีอะไรเกิดขึ้น
+        await connection.rollback();
+        console.error("PUT Error:", error);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            error: error.message
+        }, {
+            status: 500
+        });
+    } finally{
+        connection.release();
     }
-    return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-        error: "Invalid Action"
-    }, {
-        status: 400
-    });
 }
 async function GET(request, { params }) {
-    const { id } = await params; // รองรับ Next.js 15+
+    const { id } = await params;
     try {
-        // ✅ SQL Join เพื่อดึงชื่อโครงการ p.project_name และค่า i.quantity
         const sql = `
             SELECT 
                 i.*, 
@@ -273,16 +292,28 @@ async function GET(request, { params }) {
             });
         }
         const inv = rows[0];
-        // ✅ คำนวณหาค่าต่อหน่วยจริง (ยอดรวมหารด้วยจำนวน)
-        const items = [
-            {
-                description: inv.project_name ? `โครงการ : ${inv.project_name}` : 'ค่าบริการ/สินค้าทั่วไป',
-                quantity: inv.quantity || 1,
-                // แก้ไขบรรทัดล่างนี้: เพื่อให้ราคาต่อหน่วยถูกต้อง
-                unit_price: parseFloat(inv.subtotal) / (inv.quantity || 1),
-                total: inv.subtotal
-            }
-        ];
+        const [itemRows] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query('SELECT * FROM invoice_items WHERE invoice_id = ?', [
+            id
+        ]);
+        let items = [];
+        if (itemRows.length > 0) {
+            items = itemRows.map((row)=>({
+                    description: row.description,
+                    quantity: row.quantity,
+                    unit_price: row.unit_price,
+                    total: row.total
+                }));
+        } else {
+            // Fallback (เผื่อบิลเก่าที่สร้างก่อนแก้โค้ด)
+            items = [
+                {
+                    description: inv.project_name ? `โครงการ : ${inv.project_name}` : 'ค่าบริการ/สินค้าทั่วไป',
+                    quantity: inv.quantity || 1,
+                    unit_price: parseFloat(inv.subtotal) / (inv.quantity || 1),
+                    total: inv.subtotal
+                }
+            ];
+        }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             invoice: inv,
             items

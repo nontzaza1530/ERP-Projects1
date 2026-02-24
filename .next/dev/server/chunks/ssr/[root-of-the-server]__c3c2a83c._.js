@@ -225,6 +225,15 @@ function Sidebar({ onClose }) {
                             'admin'
                         ]
                     },
+                    // ✅ เพิ่มตรงนี้: เมนู ใบขอซื้อ (PR)
+                    {
+                        name: 'ใบขอซื้อ (PR)',
+                        href: '/purchasing/pr',
+                        roles: [
+                            'super_admin',
+                            'admin'
+                        ]
+                    },
                     {
                         name: 'สร้างใบสั่งซื้อ (PO)',
                         href: '/purchasing/create-po',
@@ -287,7 +296,6 @@ function Sidebar({ onClose }) {
                     'employee'
                 ],
                 subItems: [
-                    // ✅ เพิ่มตรงนี้: เมนูใบแจ้งหนี้ (Invoices)
                     {
                         name: 'ภาพรวมบัญชี',
                         href: '/accounting',
@@ -302,9 +310,8 @@ function Sidebar({ onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // จำกัดสิทธิ์เฉพาะ Admin
+                        ]
                     },
-                    // ✅ เพิ่มตรงนี้: เมนูใบเสร็จ (เตรียมไว้ให้อนาคต)
                     {
                         name: 'ใบเสร็จรับเงิน (Receipts)',
                         href: '/accounting/receipts',
@@ -385,12 +392,12 @@ function Sidebar({ onClose }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 261,
+                            lineNumber: 265,
                             columnNumber: 17
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 257,
+                        lineNumber: 261,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -398,7 +405,7 @@ function Sidebar({ onClose }) {
                         children: "ERP SYSTEM"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 264,
+                        lineNumber: 268,
                         columnNumber: 11
                     }, this),
                     loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -408,20 +415,20 @@ function Sidebar({ onClose }) {
                                 className: "w-8 h-8 rounded-full bg-slate-700"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 269,
+                                lineNumber: 273,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex-1 h-4 bg-slate-700 rounded"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 270,
+                                lineNumber: 274,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 268,
+                        lineNumber: 272,
                         columnNumber: 14
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700",
@@ -431,7 +438,7 @@ function Sidebar({ onClose }) {
                                 children: user?.first_name?.charAt(0) || 'U'
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 274,
+                                lineNumber: 278,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -442,7 +449,7 @@ function Sidebar({ onClose }) {
                                         children: user?.first_name
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 278,
+                                        lineNumber: 282,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -450,25 +457,25 @@ function Sidebar({ onClose }) {
                                         children: role?.replace('_', ' ')
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 279,
+                                        lineNumber: 283,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 277,
+                                lineNumber: 281,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 273,
+                        lineNumber: 277,
                         columnNumber: 14
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 254,
+                lineNumber: 258,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -484,12 +491,12 @@ function Sidebar({ onClose }) {
                             className: "h-10 bg-slate-800/50 rounded-xl animate-pulse"
                         }, i, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 291,
+                            lineNumber: 295,
                             columnNumber: 37
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/Sidebar.jsx",
-                    lineNumber: 290,
+                    lineNumber: 294,
                     columnNumber: 14
                 }, this) : visibleMenu.map((item)=>{
                     const isExpanded = expandedMenu === item.name;
@@ -514,7 +521,7 @@ function Sidebar({ onClose }) {
                                                     className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'} shrink-0`
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 311,
+                                                    lineNumber: 315,
                                                     columnNumber: 29
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -522,13 +529,13 @@ function Sidebar({ onClose }) {
                                                     children: item.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 312,
+                                                    lineNumber: 316,
                                                     columnNumber: 29
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 310,
+                                            lineNumber: 314,
                                             columnNumber: 25
                                         }, this),
                                         isExpanded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
@@ -536,20 +543,20 @@ function Sidebar({ onClose }) {
                                             className: "shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 316,
+                                            lineNumber: 320,
                                             columnNumber: 39
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                             size: 16,
                                             className: "shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 316,
+                                            lineNumber: 320,
                                             columnNumber: 88
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 304,
+                                    lineNumber: 308,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -570,21 +577,21 @@ function Sidebar({ onClose }) {
                                                         className: isSubActive ? 'text-blue-400' : 'text-slate-600'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 333,
+                                                        lineNumber: 337,
                                                         columnNumber: 41
                                                     }, this) : sub.name === 'ข้อมูลส่วนตัว' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
                                                         size: 14,
                                                         className: isSubActive ? 'text-blue-400' : 'opacity-50'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 335,
+                                                        lineNumber: 339,
                                                         columnNumber: 41
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
                                                         size: 8,
                                                         className: isSubActive ? 'fill-current' : 'opacity-50'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 337,
+                                                        lineNumber: 341,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -592,30 +599,30 @@ function Sidebar({ onClose }) {
                                                         children: sub.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 339,
+                                                        lineNumber: 343,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, sub.href, true, {
                                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 324,
+                                                lineNumber: 328,
                                                 columnNumber: 33
                                             }, this);
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 320,
+                                        lineNumber: 324,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 319,
+                                    lineNumber: 323,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 303,
+                            lineNumber: 307,
                             columnNumber: 21
                         }, this) : // --- 🔗 Single Link Menu ---
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -629,12 +636,12 @@ function Sidebar({ onClose }) {
                                         size: 20
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 358,
+                                        lineNumber: 362,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 357,
+                                    lineNumber: 361,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -642,24 +649,24 @@ function Sidebar({ onClose }) {
                                     children: item.name
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 360,
+                                    lineNumber: 364,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 348,
+                            lineNumber: 352,
                             columnNumber: 21
                         }, this)
                     }, item.name, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 300,
+                        lineNumber: 304,
                         columnNumber: 17
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 288,
+                lineNumber: 292,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -672,7 +679,7 @@ function Sidebar({ onClose }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 377,
+                            lineNumber: 381,
                             columnNumber: 17
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -680,24 +687,24 @@ function Sidebar({ onClose }) {
                             children: "ออกจากระบบ"
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 378,
+                            lineNumber: 382,
                             columnNumber: 17
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/Sidebar.jsx",
-                    lineNumber: 373,
+                    lineNumber: 377,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 372,
+                lineNumber: 376,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Sidebar.jsx",
-        lineNumber: 251,
+        lineNumber: 255,
         columnNumber: 5
     }, this);
 }
@@ -707,7 +714,7 @@ function Sidebar({ onClose }) {
 
 __turbopack_context__.s([
     "default",
-    ()=>CreatePOPage
+    ()=>CreatePO
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
@@ -723,6 +730,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-ssr] (ecmascript) <export default as Menu>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/calendar.js [app-ssr] (ecmascript) <export default as Calendar>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$truck$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Truck$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/truck.js [app-ssr] (ecmascript) <export default as Truck>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/map-pin.js [app-ssr] (ecmascript) <export default as MapPin>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$refresh$2d$cw$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__RefreshCw$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/refresh-cw.js [app-ssr] (ecmascript) <export default as RefreshCw>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/sweetalert2/dist/sweetalert2.esm.all.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
 'use client';
@@ -732,8 +741,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navi
 ;
 ;
 ;
-function CreatePOPage() {
+// ✅ แยก Component ย่อยออกมาเพื่อรองรับ useSearchParams ของ Next.js
+function CreatePOContent() {
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
+    const searchParams = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useSearchParams"])();
+    const prId = searchParams.get('pr_id'); // ✅ จับค่า pr_id จาก URL
     const [suppliers, setSuppliers] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [productsList, setProductsList] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -751,18 +763,31 @@ function CreatePOPage() {
     const [poDate, setPoDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(new Date().toISOString().split('T')[0]);
     const [deliveryDate, setDeliveryDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [selectedSupplier, setSelectedSupplier] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [remarks, setRemarks] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [shippingAddress, setShippingAddress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('สำนักงานใหญ่ (HQ)');
+    // ✅ ปรับ items ให้รองรับ custom_name แบบใบ PR
     const [items, setItems] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([
         {
+            type: 'inventory',
             product_id: '',
+            custom_name: '',
             qty: 1,
             price: 0
         }
     ]);
-    // ✅ เพิ่ม State สำหรับเก็บหมายเหตุ
-    const [remarks, setRemarks] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        fetchMaster();
-    }, []);
+        const initData = async ()=>{
+            await fetchMaster();
+            // ✅ ถ้ามี prId ส่งมา ให้ดึงข้อมูล PR มาหยอดใส่ฟอร์มเลย
+            if (prId) {
+                await fetchPRDataForAutoFill(prId);
+            }
+        };
+        initData();
+    }, [
+        prId
+    ]);
+    // 🟢 ดึง Master Data (สินค้า, ผู้ขาย)
     async function fetchMaster() {
         try {
             const res = await fetch('/api/purchasing/master-data');
@@ -770,11 +795,47 @@ function CreatePOPage() {
                 const data = await res.json();
                 setSuppliers(data.suppliers || []);
                 setProductsList(data.products || []);
+                return data.products; // ส่งกลับไปเผื่อใช้ต่อ
             }
         } catch (error) {
             console.error("Error fetching master data:", error);
         } finally{
             setIsDataLoading(false);
+        }
+    }
+    // 🟢 ฟังก์ชันวิเศษ: ดึงข้อมูลจาก PR มา Auto-Fill
+    async function fetchPRDataForAutoFill(id) {
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
+            title: 'กำลังดึงข้อมูลใบขอซื้อ...',
+            allowOutsideClick: false,
+            didOpen: ()=>__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].showLoading()
+        });
+        try {
+            const res = await fetch(`/api/purchasing/pr/${id}`);
+            if (res.ok) {
+                const prData = await res.json();
+                // ดึงสินค้าจาก Master Data (ดึง state ปัจจุบันไม่ทัน เลยดึงใหม่ชั่วคราว)
+                const masterRes = await fetch('/api/purchasing/master-data');
+                const masterData = await masterRes.json();
+                const allProds = masterData.products || [];
+                // แมปรายการสินค้าจาก PR ใส่ PO
+                const mappedItems = prData.items.map((item)=>{
+                    const matchedProduct = item.product_id ? allProds.find((p)=>p.id === item.product_id) : null;
+                    return {
+                        type: item.product_id ? 'inventory' : 'custom',
+                        product_id: item.product_id || '',
+                        custom_name: item.custom_item_name || '',
+                        qty: item.quantity,
+                        price: matchedProduct ? parseFloat(matchedProduct.cost_price) || 0 : 0 // ดึงราคาต้นทุนมาให้ก่อน (แก้ได้ทีหลัง)
+                    };
+                });
+                setItems(mappedItems);
+                setRemarks(`อ้างอิงใบขอซื้อ (PR): ${prData.header.pr_number}\n${prData.header.remarks || ''}`);
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].close();
+            }
+        } catch (error) {
+            console.error("Error auto-filling PR:", error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire('Error', 'ไม่สามารถดึงข้อมูลอ้างอิงได้', 'error');
         }
     }
     const handleQuickAddSubmit = async (e)=>{
@@ -822,26 +883,47 @@ function CreatePOPage() {
             ...items
         ];
         newItems[index][field] = value;
-        if (field === 'product_id') {
+        if (field === 'product_id' && value !== '') {
             const product = productsList.find((p)=>p.id == value);
             newItems[index].price = product ? parseFloat(product.cost_price) || 0 : 0;
+            newItems[index].custom_name = ''; // เคลียร์ชื่อ custom ทิ้ง
         }
         setItems(newItems);
     };
-    const calculateTotal = ()=>items.reduce((sum, item)=>sum + item.qty * item.price, 0);
+    const toggleRowType = (index)=>{
+        const newItems = [
+            ...items
+        ];
+        newItems[index].type = newItems[index].type === 'inventory' ? 'custom' : 'inventory';
+        newItems[index].product_id = '';
+        newItems[index].custom_name = '';
+        newItems[index].price = 0; // รีเซ็ตราคา
+        setItems(newItems);
+    };
+    const calculateTotal = ()=>items.reduce((sum, item)=>sum + (item.qty || 0) * (item.price || 0), 0);
     const handleSubmit = async ()=>{
         if (!selectedSupplier) return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire('แจ้งเตือน', 'กรุณาเลือกผู้ขาย', 'warning');
+        // เช็คว่ากรอกครบไหม
+        const isInvalid = items.some((item)=>item.qty <= 0 || item.type === 'inventory' && !item.product_id || item.type === 'custom' && item.custom_name.trim() === '');
+        if (isInvalid) return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire('แจ้งเตือน', 'กรุณาระบุสินค้าและจำนวนให้ครบถ้วน', 'warning');
         setIsLoading(true);
         try {
-            // ✅ ส่ง remarks เข้าไปใน payload ด้วย
+            const payloadItems = items.map((item)=>({
+                    product_id: item.type === 'custom' ? null : item.product_id,
+                    custom_item_name: item.type === 'custom' ? item.custom_name : null,
+                    quantity: item.qty,
+                    unit_price: item.price
+                }));
             const payload = {
                 supplier_id: selectedSupplier,
                 order_date: poDate,
                 expected_date: deliveryDate,
-                items,
+                items: payloadItems,
                 total_amount: calculateTotal(),
                 user_id: 34,
-                remarks: remarks
+                remarks: remarks,
+                shipping_address: shippingAddress,
+                ref_pr_id: prId // ✅ ส่ง ID ของใบ PR แนบไปด้วย (เพื่อไปเปลี่ยนสถานะ)
             };
             const res = await fetch('/api/purchasing/po/create', {
                 method: 'POST',
@@ -867,6 +949,7 @@ function CreatePOPage() {
             setIsLoading(false);
         }
     };
+    const inputClass = "w-full p-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-100 outline-none transition";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900 overflow-x-hidden",
         children: [
@@ -875,8 +958,8 @@ function CreatePOPage() {
                 onClick: ()=>setIsSidebarOpen(false)
             }, void 0, false, {
                 fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                lineNumber: 117,
-                columnNumber: 7
+                lineNumber: 184,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
                 className: `fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`,
@@ -884,13 +967,13 @@ function CreatePOPage() {
                     onClose: ()=>setIsSidebarOpen(false)
                 }, void 0, false, {
                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                    lineNumber: 123,
-                    columnNumber: 11
+                    lineNumber: 186,
+                    columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                lineNumber: 122,
-                columnNumber: 7
+                lineNumber: 185,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
                 className: "flex-1 w-full lg:ml-64 transition-all duration-300 min-h-screen flex flex-col min-w-0",
@@ -905,13 +988,13 @@ function CreatePOPage() {
                                     size: 24
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                    lineNumber: 133,
-                                    columnNumber: 17
+                                    lineNumber: 191,
+                                    columnNumber: 163
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                lineNumber: 129,
-                                columnNumber: 13
+                                lineNumber: 191,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
@@ -923,35 +1006,35 @@ function CreatePOPage() {
                                                 size: 32
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                lineNumber: 137,
-                                                columnNumber: 21
+                                                lineNumber: 194,
+                                                columnNumber: 29
                                             }, this),
                                             " สร้างใบสั่งซื้อ (PO)"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                        lineNumber: 136,
-                                        columnNumber: 17
+                                        lineNumber: 193,
+                                        columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                         className: "text-slate-500 text-xs md:text-sm mt-1",
-                                        children: "กรอกข้อมูลเพื่อออกใบสั่งซื้อสินค้าใหม่"
+                                        children: prId ? 'สร้างรายการอ้างอิงจากใบขอซื้อ (PR)' : 'กรอกข้อมูลเพื่อออกใบสั่งซื้อสินค้าใหม่'
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                        lineNumber: 139,
-                                        columnNumber: 17
+                                        lineNumber: 196,
+                                        columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                lineNumber: 135,
-                                columnNumber: 13
+                                lineNumber: 192,
+                                columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                        lineNumber: 128,
-                        columnNumber: 9
+                        lineNumber: 190,
+                        columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex-1 p-4 md:p-8 pt-0 max-w-[1400px] w-full mx-auto space-y-6",
@@ -962,165 +1045,213 @@ function CreatePOPage() {
                                     className: "animate-spin"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                    lineNumber: 145,
-                                    columnNumber: 110
+                                    lineNumber: 202,
+                                    columnNumber: 118
                                 }, this),
                                 " กำลังโหลดข้อมูล..."
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                            lineNumber: 145,
-                            columnNumber: 17
+                            lineNumber: 202,
+                            columnNumber: 25
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "bg-white p-6 rounded-3xl shadow-sm border border-slate-200",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "grid grid-cols-1 md:grid-cols-3 gap-6",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "space-y-2",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
-                                                                size: 14,
-                                                                className: "text-blue-500"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                lineNumber: 152,
-                                                                columnNumber: 134
-                                                            }, this),
-                                                            " ผู้ขาย (Supplier) *"
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                        lineNumber: 152,
-                                                        columnNumber: 33
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                        className: "w-full p-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-100 outline-none transition",
-                                                        value: selectedSupplier,
-                                                        onChange: (e)=>setSelectedSupplier(e.target.value),
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                value: "",
-                                                                children: "-- เลือกคู่ค้า --"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                lineNumber: 154,
-                                                                columnNumber: 37
-                                                            }, this),
-                                                            suppliers.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                    value: s.id,
-                                                                    children: [
-                                                                        s.name,
-                                                                        " (",
-                                                                        s.code,
-                                                                        ")"
-                                                                    ]
-                                                                }, s.id, true, {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "grid grid-cols-1 md:grid-cols-3 gap-6 mb-5",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "space-y-2",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                            className: "text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
+                                                                    size: 14,
+                                                                    className: "text-blue-500"
+                                                                }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                    lineNumber: 155,
-                                                                    columnNumber: 57
-                                                                }, this))
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                        lineNumber: 153,
-                                                        columnNumber: 33
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                lineNumber: 151,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "space-y-2",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__["Calendar"], {
-                                                                size: 14,
-                                                                className: "text-blue-500"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                lineNumber: 159,
-                                                                columnNumber: 134
-                                                            }, this),
-                                                            " วันที่สั่งซื้อ"
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                        lineNumber: 159,
-                                                        columnNumber: 33
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                        type: "date",
-                                                        className: "w-full p-3 bg-slate-50 border border-slate-200 rounded-2xl",
-                                                        value: poDate,
-                                                        onChange: (e)=>setPoDate(e.target.value)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                        lineNumber: 160,
-                                                        columnNumber: 33
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                lineNumber: 158,
-                                                columnNumber: 29
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "space-y-2",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$truck$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Truck$3e$__["Truck"], {
-                                                                size: 14,
-                                                                className: "text-blue-500"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                lineNumber: 163,
-                                                                columnNumber: 134
-                                                            }, this),
-                                                            " กำหนดรับของ"
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                        lineNumber: 163,
-                                                        columnNumber: 33
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                        type: "date",
-                                                        className: "w-full p-3 bg-slate-50 border border-slate-200 rounded-2xl",
-                                                        value: deliveryDate,
-                                                        onChange: (e)=>setDeliveryDate(e.target.value)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                        lineNumber: 164,
-                                                        columnNumber: 33
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                lineNumber: 162,
-                                                columnNumber: 29
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                        lineNumber: 150,
-                                        columnNumber: 25
-                                    }, this)
-                                }, void 0, false, {
+                                                                    lineNumber: 209,
+                                                                    columnNumber: 142
+                                                                }, this),
+                                                                " ผู้ขาย (Supplier) ",
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    className: "text-red-500",
+                                                                    children: "*"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                    lineNumber: 209,
+                                                                    columnNumber: 205
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                            lineNumber: 209,
+                                                            columnNumber: 41
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                            className: inputClass,
+                                                            value: selectedSupplier,
+                                                            onChange: (e)=>setSelectedSupplier(e.target.value),
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                    value: "",
+                                                                    children: "-- เลือกคู่ค้า --"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                    lineNumber: 211,
+                                                                    columnNumber: 45
+                                                                }, this),
+                                                                suppliers.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                        value: s.id,
+                                                                        children: [
+                                                                            s.name,
+                                                                            " (",
+                                                                            s.code,
+                                                                            ")"
+                                                                        ]
+                                                                    }, s.id, true, {
+                                                                        fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                        lineNumber: 212,
+                                                                        columnNumber: 65
+                                                                    }, this))
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                            lineNumber: 210,
+                                                            columnNumber: 41
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                    lineNumber: 208,
+                                                    columnNumber: 37
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "space-y-2",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                            className: "text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__["Calendar"], {
+                                                                    size: 14,
+                                                                    className: "text-blue-500"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                    lineNumber: 216,
+                                                                    columnNumber: 142
+                                                                }, this),
+                                                                " วันที่สั่งซื้อ"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                            lineNumber: 216,
+                                                            columnNumber: 41
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            type: "date",
+                                                            className: inputClass,
+                                                            value: poDate,
+                                                            onChange: (e)=>setPoDate(e.target.value)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                            lineNumber: 217,
+                                                            columnNumber: 41
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                    lineNumber: 215,
+                                                    columnNumber: 37
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "space-y-2",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                            className: "text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$truck$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Truck$3e$__["Truck"], {
+                                                                    size: 14,
+                                                                    className: "text-blue-500"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                    lineNumber: 220,
+                                                                    columnNumber: 142
+                                                                }, this),
+                                                                " กำหนดรับของ"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                            lineNumber: 220,
+                                                            columnNumber: 41
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            type: "date",
+                                                            className: inputClass,
+                                                            value: deliveryDate,
+                                                            onChange: (e)=>setDeliveryDate(e.target.value)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                            lineNumber: 221,
+                                                            columnNumber: 41
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                    lineNumber: 219,
+                                                    columnNumber: 37
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                            lineNumber: 207,
+                                            columnNumber: 33
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "pt-5 border-t border-slate-100",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2 mb-2",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__["MapPin"], {
+                                                            size: 14,
+                                                            className: "text-blue-500"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                            lineNumber: 225,
+                                                            columnNumber: 143
+                                                        }, this),
+                                                        " สถานที่จัดส่ง (Shipping Address)"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                    lineNumber: 225,
+                                                    columnNumber: 37
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                    type: "text",
+                                                    className: inputClass,
+                                                    placeholder: "เช่น สำนักงานใหญ่ (HQ)...",
+                                                    value: shippingAddress,
+                                                    onChange: (e)=>setShippingAddress(e.target.value)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                    lineNumber: 226,
+                                                    columnNumber: 37
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                            lineNumber: 224,
+                                            columnNumber: 33
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                    lineNumber: 149,
-                                    columnNumber: 21
+                                    lineNumber: 206,
+                                    columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden",
@@ -1130,11 +1261,21 @@ function CreatePOPage() {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                                     className: "text-sm font-bold text-slate-600 uppercase tracking-widest",
-                                                    children: "รายการสินค้า"
-                                                }, void 0, false, {
+                                                    children: [
+                                                        "รายการสินค้า ",
+                                                        prId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "text-orange-500 text-xs ml-2",
+                                                            children: "(อิงจากข้อมูล PR)"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                            lineNumber: 233,
+                                                            columnNumber: 134
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                    lineNumber: 172,
-                                                    columnNumber: 29
+                                                    lineNumber: 233,
+                                                    columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     onClick: ()=>setShowQuickAdd(true),
@@ -1144,26 +1285,26 @@ function CreatePOPage() {
                                                             size: 14
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                            lineNumber: 174,
-                                                            columnNumber: 33
+                                                            lineNumber: 234,
+                                                            columnNumber: 251
                                                         }, this),
-                                                        " สร้างสินค้าใหม่"
+                                                        " สร้างสินค้าใหม่ในคลัง"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                    lineNumber: 173,
-                                                    columnNumber: 29
+                                                    lineNumber: 234,
+                                                    columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 171,
-                                            columnNumber: 25
+                                            lineNumber: 232,
+                                            columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "overflow-x-auto",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                                className: "w-full text-left min-w-[800px]",
+                                                className: "w-full text-left min-w-[900px]",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
                                                         className: "bg-slate-50/30 text-slate-400 text-[11px] font-bold uppercase border-b border-slate-100 tracking-widest",
@@ -1174,58 +1315,58 @@ function CreatePOPage() {
                                                                     children: "#"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                    lineNumber: 182,
-                                                                    columnNumber: 41
+                                                                    lineNumber: 241,
+                                                                    columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                    className: "py-4 px-2",
+                                                                    className: "py-4 px-2 min-w-[250px]",
                                                                     children: "สินค้า"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                    lineNumber: 183,
-                                                                    columnNumber: 41
+                                                                    lineNumber: 242,
+                                                                    columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                                     className: "py-4 px-2 w-32 text-right",
                                                                     children: "ราคา/หน่วย"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                    lineNumber: 184,
-                                                                    columnNumber: 41
+                                                                    lineNumber: 243,
+                                                                    columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                                     className: "py-4 px-2 w-28 text-center",
                                                                     children: "จำนวน"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                    lineNumber: 185,
-                                                                    columnNumber: 41
+                                                                    lineNumber: 244,
+                                                                    columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                    className: "py-4 px-2 w-40 text-right",
+                                                                    className: "py-4 px-2 w-32 text-right",
                                                                     children: "รวม (บาท)"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                    lineNumber: 186,
-                                                                    columnNumber: 41
+                                                                    lineNumber: 245,
+                                                                    columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                                     className: "py-4 px-4 w-16 text-center"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                    lineNumber: 187,
-                                                                    columnNumber: 41
+                                                                    lineNumber: 246,
+                                                                    columnNumber: 49
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                            lineNumber: 181,
-                                                            columnNumber: 37
+                                                            lineNumber: 240,
+                                                            columnNumber: 45
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                        lineNumber: 180,
-                                                        columnNumber: 33
+                                                        lineNumber: 239,
+                                                        columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
                                                         className: "divide-y divide-slate-50",
@@ -1233,96 +1374,163 @@ function CreatePOPage() {
                                                                 className: "group hover:bg-slate-50/50 transition duration-150",
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                        className: "py-4 px-6 text-center text-slate-300 font-mono text-xs",
+                                                                        className: "py-4 px-6 text-center text-slate-300 font-mono text-xs align-top pt-6",
                                                                         children: idx + 1
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                        lineNumber: 193,
-                                                                        columnNumber: 45
+                                                                        lineNumber: 252,
+                                                                        columnNumber: 53
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                        className: "py-4 px-2",
-                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                                            className: "w-full p-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-100 outline-none transition",
-                                                                            value: item.product_id,
-                                                                            onChange: (e)=>handleItemChange(idx, 'product_id', e.target.value),
+                                                                        className: "py-4 px-2 align-top",
+                                                                        children: item.type === 'inventory' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             children: [
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                                    value: "",
-                                                                                    children: "-- เลือกสินค้า --"
-                                                                                }, void 0, false, {
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                                                    className: inputClass,
+                                                                                    value: item.product_id,
+                                                                                    onChange: (e)=>handleItemChange(idx, 'product_id', e.target.value),
+                                                                                    children: [
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                                            value: "",
+                                                                                            children: "-- เลือกสินค้า --"
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                                            lineNumber: 259,
+                                                                                            columnNumber: 69
+                                                                                        }, this),
+                                                                                        productsList.map((p)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                                                value: p.id,
+                                                                                                children: [
+                                                                                                    p.name,
+                                                                                                    " (",
+                                                                                                    p.code,
+                                                                                                    ")"
+                                                                                                ]
+                                                                                            }, p.id, true, {
+                                                                                                fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                                                lineNumber: 260,
+                                                                                                columnNumber: 92
+                                                                                            }, this))
+                                                                                    ]
+                                                                                }, void 0, true, {
                                                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                                    lineNumber: 196,
-                                                                                    columnNumber: 53
+                                                                                    lineNumber: 258,
+                                                                                    columnNumber: 65
                                                                                 }, this),
-                                                                                productsList.map((p)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                                        value: p.id,
-                                                                                        children: [
-                                                                                            p.name,
-                                                                                            " (",
-                                                                                            p.code,
-                                                                                            ")"
-                                                                                        ]
-                                                                                    }, p.id, true, {
-                                                                                        fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                                        lineNumber: 197,
-                                                                                        columnNumber: 76
-                                                                                    }, this))
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                                    onClick: ()=>toggleRowType(idx),
+                                                                                    className: "mt-1.5 flex items-center gap-1 text-[11px] font-bold text-slate-400 hover:text-blue-500 transition",
+                                                                                    children: [
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$refresh$2d$cw$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__RefreshCw$3e$__["RefreshCw"], {
+                                                                                            size: 12
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                                            lineNumber: 262,
+                                                                                            columnNumber: 219
+                                                                                        }, this),
+                                                                                        " เปลี่ยนเป็นพิมพ์ชื่อเอง"
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                                    lineNumber: 262,
+                                                                                    columnNumber: 65
+                                                                                }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                            lineNumber: 195,
-                                                                            columnNumber: 49
+                                                                            lineNumber: 257,
+                                                                            columnNumber: 61
+                                                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                                    type: "text",
+                                                                                    maxLength: 255,
+                                                                                    className: `${inputClass} border-blue-300 bg-blue-50/30 font-bold text-blue-700`,
+                                                                                    placeholder: "ระบุชื่อสินค้า...",
+                                                                                    value: item.custom_name,
+                                                                                    onChange: (e)=>handleItemChange(idx, 'custom_name', e.target.value)
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                                    lineNumber: 266,
+                                                                                    columnNumber: 65
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                                    onClick: ()=>toggleRowType(idx),
+                                                                                    className: "mt-1.5 flex items-center gap-1 text-[11px] font-bold text-slate-400 hover:text-blue-500 transition",
+                                                                                    children: [
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$refresh$2d$cw$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__RefreshCw$3e$__["RefreshCw"], {
+                                                                                            size: 12
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                                            lineNumber: 267,
+                                                                                            columnNumber: 219
+                                                                                        }, this),
+                                                                                        " เปลี่ยนเป็นเลือกจากคลัง"
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                                    lineNumber: 267,
+                                                                                    columnNumber: 65
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                                            lineNumber: 265,
+                                                                            columnNumber: 61
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                        lineNumber: 194,
-                                                                        columnNumber: 45
+                                                                        lineNumber: 255,
+                                                                        columnNumber: 53
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                        className: "py-4 px-2",
+                                                                        className: "py-4 px-2 align-top",
                                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                             type: "number",
-                                                                            className: "w-full p-2.5 border border-slate-200 rounded-xl text-right font-bold text-sm",
+                                                                            step: "0.01",
+                                                                            className: `${inputClass} text-right font-bold text-green-700`,
                                                                             value: item.price,
                                                                             onChange: (e)=>handleItemChange(idx, 'price', parseFloat(e.target.value) || 0)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                            lineNumber: 200,
-                                                                            columnNumber: 71
+                                                                            lineNumber: 272,
+                                                                            columnNumber: 89
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                        lineNumber: 200,
-                                                                        columnNumber: 45
+                                                                        lineNumber: 272,
+                                                                        columnNumber: 53
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                        className: "py-4 px-2",
+                                                                        className: "py-4 px-2 align-top",
                                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                             type: "number",
-                                                                            className: "w-full p-2.5 border border-slate-200 rounded-xl text-center font-bold text-sm",
+                                                                            min: "1",
+                                                                            className: `${inputClass} text-center font-bold`,
                                                                             value: item.qty,
-                                                                            onChange: (e)=>handleItemChange(idx, 'qty', parseInt(e.target.value) || 1)
+                                                                            onChange: (e)=>handleItemChange(idx, 'qty', parseInt(e.target.value) || 0)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                            lineNumber: 201,
-                                                                            columnNumber: 71
+                                                                            lineNumber: 273,
+                                                                            columnNumber: 89
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                        lineNumber: 201,
-                                                                        columnNumber: 45
+                                                                        lineNumber: 273,
+                                                                        columnNumber: 53
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                        className: "py-4 px-2 text-right font-black text-slate-800",
-                                                                        children: (item.qty * item.price).toLocaleString()
+                                                                        className: "py-4 px-2 text-right font-black text-slate-800 align-top pt-6",
+                                                                        children: ((item.qty || 0) * (item.price || 0)).toLocaleString(undefined, {
+                                                                            minimumFractionDigits: 2
+                                                                        })
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                        lineNumber: 202,
-                                                                        columnNumber: 45
+                                                                        lineNumber: 274,
+                                                                        columnNumber: 53
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                        className: "py-4 px-4 text-center",
+                                                                        className: "py-4 px-4 text-center align-top pt-4",
                                                                         children: items.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                                             onClick: ()=>setItems(items.filter((_, i)=>i !== idx)),
                                                                             className: "p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors",
@@ -1330,40 +1538,40 @@ function CreatePOPage() {
                                                                                 size: 18
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                                lineNumber: 204,
-                                                                                columnNumber: 233
+                                                                                lineNumber: 276,
+                                                                                columnNumber: 241
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                            lineNumber: 204,
-                                                                            columnNumber: 70
+                                                                            lineNumber: 276,
+                                                                            columnNumber: 78
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                        lineNumber: 203,
-                                                                        columnNumber: 45
+                                                                        lineNumber: 275,
+                                                                        columnNumber: 53
                                                                     }, this)
                                                                 ]
                                                             }, idx, true, {
                                                                 fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                                lineNumber: 192,
-                                                                columnNumber: 41
+                                                                lineNumber: 251,
+                                                                columnNumber: 49
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                        lineNumber: 190,
-                                                        columnNumber: 33
+                                                        lineNumber: 249,
+                                                        columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                lineNumber: 179,
-                                                columnNumber: 29
+                                                lineNumber: 238,
+                                                columnNumber: 37
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 178,
-                                            columnNumber: 25
+                                            lineNumber: 237,
+                                            columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "p-4 bg-slate-50/20 border-t border-slate-100",
@@ -1371,7 +1579,9 @@ function CreatePOPage() {
                                                 onClick: ()=>setItems([
                                                         ...items,
                                                         {
+                                                            type: 'inventory',
                                                             product_id: '',
+                                                            custom_name: '',
                                                             qty: 1,
                                                             price: 0
                                                         }
@@ -1382,26 +1592,26 @@ function CreatePOPage() {
                                                         size: 18
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                        lineNumber: 212,
-                                                        columnNumber: 212
+                                                        lineNumber: 284,
+                                                        columnNumber: 256
                                                     }, this),
                                                     " เพิ่มแถวใหม่"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                lineNumber: 212,
-                                                columnNumber: 29
+                                                lineNumber: 284,
+                                                columnNumber: 37
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 211,
-                                            columnNumber: 25
+                                            lineNumber: 283,
+                                            columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                    lineNumber: 170,
-                                    columnNumber: 21
+                                    lineNumber: 231,
+                                    columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "bg-white p-6 rounded-3xl shadow-sm border border-slate-200 mt-6",
@@ -1411,56 +1621,84 @@ function CreatePOPage() {
                                             children: "หมายเหตุ (Remarks)"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 218,
-                                            columnNumber: 25
+                                            lineNumber: 290,
+                                            columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
                                             className: "w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-100 outline-none transition resize-y text-sm",
                                             rows: "3",
-                                            placeholder: "ระบุเงื่อนไขการสั่งซื้อ หรือข้อความที่ต้องการแสดงในหน้าพิมพ์ใบสั่งซื้อ... (ข้อความนี้จะแสดงในหน้า PDF)",
+                                            placeholder: "ระบุเงื่อนไขการสั่งซื้อ หรือข้อความที่ต้องการแสดงในหน้าพิมพ์ใบสั่งซื้อ...",
                                             value: remarks,
                                             onChange: (e)=>setRemarks(e.target.value)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 221,
-                                            columnNumber: 25
+                                            lineNumber: 291,
+                                            columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                    lineNumber: 217,
-                                    columnNumber: 21
+                                    lineNumber: 289,
+                                    columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex flex-col md:flex-row justify-end items-center gap-8 bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200 mt-6",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "text-center md:text-right",
+                                            className: "text-right space-y-1",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                    className: "text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-1",
+                                                    className: "text-slate-400 text-[10px] font-bold uppercase tracking-widest",
+                                                    children: [
+                                                        "ยอดรวม (Sub Total): ฿",
+                                                        calculateTotal().toLocaleString(undefined, {
+                                                            minimumFractionDigits: 2
+                                                        })
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                    lineNumber: 297,
+                                                    columnNumber: 37
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                    className: "text-slate-500 text-[10px] font-bold uppercase tracking-widest",
+                                                    children: [
+                                                        "ภาษี 7% (VAT): ฿",
+                                                        (calculateTotal() * 0.07).toLocaleString(undefined, {
+                                                            minimumFractionDigits: 2
+                                                        })
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                                                    lineNumber: 298,
+                                                    columnNumber: 37
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                    className: "text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-2",
                                                     children: "ยอดรวมสุทธิ (Grand Total)"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                    lineNumber: 233,
-                                                    columnNumber: 29
+                                                    lineNumber: 299,
+                                                    columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                     className: "text-3xl md:text-5xl font-black text-blue-600",
                                                     children: [
                                                         "฿",
-                                                        calculateTotal().toLocaleString()
+                                                        (calculateTotal() * 1.07).toLocaleString(undefined, {
+                                                            minimumFractionDigits: 2
+                                                        })
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                    lineNumber: 234,
-                                                    columnNumber: 29
+                                                    lineNumber: 300,
+                                                    columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 232,
-                                            columnNumber: 25
+                                            lineNumber: 296,
+                                            columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             onClick: handleSubmit,
@@ -1472,37 +1710,37 @@ function CreatePOPage() {
                                                     size: 24
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                    lineNumber: 237,
-                                                    columnNumber: 42
+                                                    lineNumber: 303,
+                                                    columnNumber: 50
                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$save$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Save$3e$__["Save"], {
                                                     size: 24
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                    lineNumber: 237,
-                                                    columnNumber: 90
+                                                    lineNumber: 303,
+                                                    columnNumber: 99
                                                 }, this),
                                                 " บันทึกใบสั่งซื้อ"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 236,
-                                            columnNumber: 25
+                                            lineNumber: 302,
+                                            columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                    lineNumber: 231,
-                                    columnNumber: 21
+                                    lineNumber: 295,
+                                    columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true)
                     }, void 0, false, {
                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                        lineNumber: 143,
-                        columnNumber: 9
+                        lineNumber: 200,
+                        columnNumber: 17
                     }, this),
                     showQuickAdd && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "fixed inset-0 z-100 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4",
+                        className: "fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95",
                             children: [
@@ -1517,15 +1755,15 @@ function CreatePOPage() {
                                                     size: 20
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                    lineNumber: 248,
-                                                    columnNumber: 98
+                                                    lineNumber: 315,
+                                                    columnNumber: 106
                                                 }, this),
                                                 " เพิ่มสินค้าใหม่ (ด่วน)"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 248,
-                                            columnNumber: 25
+                                            lineNumber: 315,
+                                            columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             onClick: ()=>setShowQuickAdd(false),
@@ -1534,19 +1772,19 @@ function CreatePOPage() {
                                                 size: 24
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                lineNumber: 249,
-                                                columnNumber: 118
+                                                lineNumber: 316,
+                                                columnNumber: 126
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 249,
-                                            columnNumber: 25
+                                            lineNumber: 316,
+                                            columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                    lineNumber: 247,
-                                    columnNumber: 21
+                                    lineNumber: 314,
+                                    columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                                     onSubmit: handleQuickAddSubmit,
@@ -1555,7 +1793,7 @@ function CreatePOPage() {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             required: true,
                                             placeholder: "รหัสสินค้า *",
-                                            className: "w-full p-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-medium",
+                                            className: inputClass,
                                             value: newProduct.code,
                                             onChange: (e)=>setNewProduct({
                                                     ...newProduct,
@@ -1563,13 +1801,13 @@ function CreatePOPage() {
                                                 })
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 252,
-                                            columnNumber: 25
+                                            lineNumber: 319,
+                                            columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             required: true,
                                             placeholder: "ชื่อสินค้า *",
-                                            className: "w-full p-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-medium",
+                                            className: inputClass,
                                             value: newProduct.name,
                                             onChange: (e)=>setNewProduct({
                                                     ...newProduct,
@@ -1577,8 +1815,8 @@ function CreatePOPage() {
                                                 })
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 253,
-                                            columnNumber: 25
+                                            lineNumber: 320,
+                                            columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "grid grid-cols-2 gap-4",
@@ -1587,7 +1825,7 @@ function CreatePOPage() {
                                                     type: "number",
                                                     required: true,
                                                     placeholder: "ราคาทุน *",
-                                                    className: "w-full p-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold",
+                                                    className: inputClass,
                                                     value: newProduct.cost_price,
                                                     onChange: (e)=>setNewProduct({
                                                             ...newProduct,
@@ -1595,12 +1833,12 @@ function CreatePOPage() {
                                                         })
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                    lineNumber: 255,
-                                                    columnNumber: 29
+                                                    lineNumber: 322,
+                                                    columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                     placeholder: "หน่วยนับ",
-                                                    className: "w-full p-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm",
+                                                    className: inputClass,
                                                     value: newProduct.unit,
                                                     onChange: (e)=>setNewProduct({
                                                             ...newProduct,
@@ -1608,14 +1846,14 @@ function CreatePOPage() {
                                                         })
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                                    lineNumber: 256,
-                                                    columnNumber: 29
+                                                    lineNumber: 323,
+                                                    columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 254,
-                                            columnNumber: 25
+                                            lineNumber: 321,
+                                            columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "submit",
@@ -1623,37 +1861,67 @@ function CreatePOPage() {
                                             children: "บันทึกสินค้า"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                            lineNumber: 258,
-                                            columnNumber: 25
+                                            lineNumber: 325,
+                                            columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                                    lineNumber: 251,
-                                    columnNumber: 21
+                                    lineNumber: 318,
+                                    columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                            lineNumber: 246,
-                            columnNumber: 17
+                            lineNumber: 313,
+                            columnNumber: 25
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                        lineNumber: 245,
-                        columnNumber: 13
+                        lineNumber: 312,
+                        columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-                lineNumber: 126,
-                columnNumber: 7
+                lineNumber: 189,
+                columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/purchasing/create-po/page.jsx",
-        lineNumber: 115,
-        columnNumber: 5
+        lineNumber: 183,
+        columnNumber: 9
+    }, this);
+}
+function CreatePO() {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Suspense"], {
+        fallback: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "min-h-screen flex items-center justify-center text-slate-400",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__["Loader2"], {
+                    className: "animate-spin mr-2"
+                }, void 0, false, {
+                    fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+                    lineNumber: 338,
+                    columnNumber: 107
+                }, void 0),
+                " โหลดข้อมูล..."
+            ]
+        }, void 0, true, {
+            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+            lineNumber: 338,
+            columnNumber: 29
+        }, void 0),
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(CreatePOContent, {}, void 0, false, {
+            fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+            lineNumber: 339,
+            columnNumber: 13
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/src/app/purchasing/create-po/page.jsx",
+        lineNumber: 338,
+        columnNumber: 9
     }, this);
 }
 }),

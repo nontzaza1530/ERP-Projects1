@@ -173,7 +173,7 @@ export default function PrintPOPage() {
 
             {/* --- Toolbar --- */}
             <div className="max-w-[210mm] mx-auto mb-6 flex justify-between items-center print:hidden">
-                <button onClick={() => router.back()} className="flex items-center gap-2 text-slate-500 hover:text-[#002060] transition font-bold">
+                <button onClick={() => router.push('/purchasing/po-list')} className="flex items-center gap-2 text-slate-500 hover:text-[#002060] transition font-bold">
                     <ArrowLeft size={20} /> กลับหน้ารายการ
                 </button>
 
@@ -340,7 +340,7 @@ export default function PrintPOPage() {
                                             <tr key={idx} className="align-top">
                                                 <td className="border-l border-r border-[#000000] py-1.5 text-center">{idx + 1 + (pageIndex * ITEMS_PER_PAGE)}</td>
                                                 <td className="border-r border-[#000000] py-1.5 px-2 text-center break-words">{item.product_code || item.item_code || "-"}</td>
-                                                <td className="border-r border-[#000000] py-1.5 px-2 leading-relaxed">{item.product_name || item.description}</td>
+                                                <td className="border-r border-[#000000] py-1.5 px-2 leading-relaxed">{item.product_name || item.custom_item_name || 'สินค้า (ไม่ระบุชื่อ)'}</td>
                                                 <td className="border-r border-[#000000] py-1.5 text-center font-bold">{item.quantity}</td>
                                                 <td className="border-r border-[#000000] py-1.5 text-center">{item.unit || "ชุด"}</td>
                                                 <td className="border-r border-[#000000] py-1.5 text-right px-2">{parseFloat(item.unit_price).toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
@@ -355,42 +355,46 @@ export default function PrintPOPage() {
                                         ))}
                                     </tbody>
 
-                                    {/* 4. Footer Rows */}
+                                    {/* 4. Footer Rows (คำนวณ VAT 7% อัตโนมัติ) */}
                                     {isLastPage && (
                                         <tfoot>
+                                            {/* ส่วนที่อยู่คู่กับหมายเหตุ */}
                                             <tr className="border-t border-[#000000]">
                                                 <td colSpan={5} rowSpan={3} className="border-l border-r border-b border-[#000000] align-top text-left px-4 py-3 text-[11px]">
-                                                    <div className="font-bold mb-2" style={{ color: themeColor }}>หมายเหตุ/เงื่อนไขเพิ่มเติม (Remarks):</div>
+                                                    <div className="font-bold mb-2" style={{ color: themeColor }}>หมายเหตุ (Remarks):</div>
                                                     <div className="whitespace-pre-wrap min-h-[80px] leading-relaxed text-slate-800">
                                                         {po?.remarks || "1. กรุณาส่งสินค้าตามกำหนดเวลา\n2. โปรดแนบสำเนาใบสั่งซื้อมาพร้อมกับใบส่งสินค้า / ใบแจ้งหนี้ทุกครั้ง"}
                                                     </div>
                                                 </td>
                                                 <td className="border-r border-b border-[#000000] py-1.5 pl-2 font-bold text-[11px]" style={{ color: themeColor }}>
-                                                    รวมเป็นเงิน
+                                                    รวมเป็นเงิน (Sub Total)
                                                 </td>
                                                 <td className="border-b border-[#000000] py-1.5 text-right pr-2 font-medium text-[12px]">
-                                                    {parseFloat(po?.subtotal || po?.total_amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                                    {parseFloat(po?.total_amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td className="border-r border-b border-[#000000] py-1.5 pl-2 font-bold text-[11px]" style={{ color: themeColor }}>
-                                                    ภาษีมูลค่าเพิ่ม 7%
+                                                    ภาษีมูลค่าเพิ่ม 7% (VAT)
                                                 </td>
                                                 <td className="border-b border-[#000000] py-1.5 text-right pr-2 font-medium text-[12px]">
-                                                    {parseFloat(po?.vat_amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                                    {/* ✅ คำนวณ VAT 7% จากยอดรวม */}
+                                                    {(parseFloat(po?.total_amount || 0) * 0.07).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td className="border-r border-b border-[#000000] py-2 pl-2 font-bold text-sm text-[#ffffff] print:bg-[#C00000]" style={{ backgroundColor: redHighlight }}>
-                                                    ยอดสุทธิ
+                                                <td className="border-r border-b border-[#000000] py-2 pl-2 font-bold text-sm text-[#ffffff]" style={{ backgroundColor: redHighlight }}>
+                                                    ยอดสุทธิ (Grand Total)
                                                 </td>
-                                                <td className="border-b border-[#000000] py-2 text-right pr-2 font-bold text-[15px] text-[#ffffff] print:bg-[#C00000]" style={{ backgroundColor: redHighlight }}>
-                                                    {parseFloat(po?.grand_total || po?.total_amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                                <td className="border-b border-[#000000] py-2 text-right pr-2 font-bold text-[15px] text-[#ffffff]" style={{ backgroundColor: redHighlight }}>
+                                                    {/* ✅ รวมยอดสุทธิ (ยอดรวม + VAT) */}
+                                                    {(parseFloat(po?.total_amount || 0) * 1.07).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                                                 </td>
                                             </tr>
                                             <tr className="border-b border-[#000000]">
                                                 <td colSpan={7} className="border-l border-r text-center py-2 font-bold text-[12px]" style={{ color: themeColor }}>
-                                                    ( {THBText(po?.grand_total || po?.total_amount || 0)} )
+                                                    {/* ✅ อัปเดตตัวหนังสือไทยให้เป็นยอดสุทธิที่รวม VAT แล้ว */}
+                                                    ( {THBText(parseFloat(po?.total_amount || 0) * 1.07)} )
                                                 </td>
                                             </tr>
                                         </tfoot>

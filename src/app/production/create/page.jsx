@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Sidebar from '../../../components/Sidebar';
 import { 
   Save, ArrowLeft, Loader2, Calendar, DollarSign, 
-  FileText, User, Users, Menu, Hash // ✅ เพิ่ม Hash Icon สำหรับจำนวน
+  FileText, User, Users, Menu, Hash, Calculator // ✅ เพิ่ม Calculator Icon
 } from 'lucide-react'; 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -23,7 +23,8 @@ export default function CreateProjectPage() {
     due_date: '',
     budget: '',
     sale_price: '',
-    quantity: 1, // ✅ เพิ่ม State จำนวน (Default เป็น 1)
+    quantity: 1, 
+    billing_type: 'lump_sum', // ✅ เพิ่ม State รูปแบบการคิดเงิน (Default: เหมาจ่าย)
     description: '',
     selected_employees: []
   });
@@ -59,11 +60,17 @@ export default function CreateProjectPage() {
       });
   };
 
-  // คำนวณกำไรคาดการณ์ (คำนวณตามยอดรวม)
-  const estimatedProfit = (parseFloat(formData.sale_price) || 0) - (parseFloat(formData.budget) || 0);
-  const profitMargin = parseFloat(formData.sale_price) > 0 
-    ? ((estimatedProfit / parseFloat(formData.sale_price)) * 100).toFixed(1) 
-    : 0;
+  // ✅ คำนวณกำไรคาดการณ์แบบยืดหยุ่น (ถ้ารายชิ้น ต้องคูณจำนวนก่อน)
+  const totalSaleValue = formData.billing_type === 'unit_based' 
+        ? (parseFloat(formData.sale_price) || 0) * (parseFloat(formData.quantity) || 1)
+        : (parseFloat(formData.sale_price) || 0);
+
+  const totalBudgetValue = formData.billing_type === 'unit_based' 
+        ? (parseFloat(formData.budget) || 0) * (parseFloat(formData.quantity) || 1)
+        : (parseFloat(formData.budget) || 0);
+
+  const estimatedProfit = totalSaleValue - totalBudgetValue;
+  const profitMargin = totalSaleValue > 0 ? ((estimatedProfit / totalSaleValue) * 100).toFixed(1) : 0;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,7 +85,7 @@ export default function CreateProjectPage() {
         const res = await fetch('/api/production/projects/create', { 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData) // ✅ ส่ง formData ที่มี quantity ไปด้วยแล้ว
+            body: JSON.stringify(formData) // ✅ ส่งค่า formData ทั้งหมดรวม billing_type ไปด้วย
         });
 
         const result = await res.json();
@@ -89,7 +96,7 @@ export default function CreateProjectPage() {
 
         Swal.fire({
             title: 'สำเร็จ!',
-            text: 'เปิดใบสั่งผลิตเรียบร้อยแล้ว (จำนวน ' + formData.quantity + ' รายการ)',
+            text: `เปิดใบสั่งผลิตเรียบร้อยแล้ว (${formData.quantity} รายการ)`,
             icon: 'success',
             timer: 1500,
             showConfirmButton: false
@@ -250,7 +257,29 @@ export default function CreateProjectPage() {
                             <DollarSign size={18} className="text-green-500"/> จำนวน & งบประมาณ
                         </h3>
                         <div className="space-y-4 flex-1">
-                            {/* ✅ เพิ่มช่องกรอกจำนวน (Quantity) */}
+                            
+                            {/* ✅ เพิ่มช่องรูปแบบการคิดเงิน (Billing Type) */}
+                            <div>
+                                <label className={labelStyle}>รูปแบบการคิดเงิน (Billing Type) <span className="text-red-500">*</span></label>
+                                <div className="relative">
+                                    <Calculator size={18} className="absolute top-3.5 left-3 text-slate-400"/>
+                                    <select 
+                                        name="billing_type" 
+                                        className={`${inputStyle} pl-10 font-bold text-slate-700 cursor-pointer`}
+                                        value={formData.billing_type} 
+                                        onChange={handleChange}
+                                    >
+                                        <option value="lump_sum">เหมาจ่ายทั้งก้อน (Lump Sum)</option>
+                                        <option value="unit_based">คิดตามรายชิ้น (Unit Based)</option>
+                                    </select>
+                                </div>
+                                <p className="text-[10px] text-slate-400 mt-1.5 leading-snug">
+                                    {formData.billing_type === 'lump_sum' 
+                                        ? '* ระบบบัญชีจะดึงยอดรวมที่กรอกไปตั้งเป็นราคาสุทธิ แล้วหารเฉลี่ยให้' 
+                                        : '* ระบบบัญชีจะดึงราคาที่กรอกไป "คูณ" กับจำนวนที่ผลิต เพื่อหายอดสุทธิ'}
+                                </p>
+                            </div>
+
                             <div>
                                 <label className={labelStyle}>จำนวนที่ผลิต (Quantity)</label>
                                 <div className="relative">
@@ -264,7 +293,9 @@ export default function CreateProjectPage() {
                                 </div>
                             </div>
                             <div>
-                                <label className={labelStyle}>ราคาขายรวม (Total Sale Price)</label>
+                                <label className={labelStyle}>
+                                    ราคาขาย {formData.billing_type === 'lump_sum' ? 'รวมสุทธิ (Total Price)' : 'ต่อชิ้น (Unit Price)'}
+                                </label>
                                 <input 
                                     type="number" name="sale_price" 
                                     className={`${inputStyle} text-right font-mono text-blue-600 font-bold`} 
@@ -273,7 +304,9 @@ export default function CreateProjectPage() {
                                 />
                             </div>
                             <div>
-                                <label className={labelStyle}>งบต้นทุนรวม (Total Budget Cost)</label>
+                                <label className={labelStyle}>
+                                    งบต้นทุน {formData.billing_type === 'lump_sum' ? 'รวมทั้งหมด (Total Budget)' : 'ต่อชิ้น (Unit Cost)'}
+                                </label>
                                 <input 
                                     type="number" name="budget" 
                                     className={`${inputStyle} text-right font-mono text-red-500`} 
@@ -284,7 +317,7 @@ export default function CreateProjectPage() {
                             
                             <div className={`mt-auto p-3 rounded-xl border flex justify-between items-center text-sm transition-colors
                                 ${estimatedProfit >= 0 ? 'bg-green-50 border-green-100 text-green-700' : 'bg-red-50 border-red-100 text-red-700'}`}>
-                                <span className="font-bold">กำไรคาดการณ์:</span>
+                                <span className="font-bold">กำไรคาดการณ์รวม:</span>
                                 <span className="font-mono font-bold text-lg">
                                     {estimatedProfit.toLocaleString()} <span className="text-xs font-normal opacity-80">({profitMargin}%)</span>
                                 </span>

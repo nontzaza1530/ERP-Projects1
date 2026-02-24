@@ -166,15 +166,15 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$j
 async function POST(request) {
     try {
         const body = await request.json();
-        const { project_name, customer_name, start_date, due_date, budget, sale_price, quantity, description, selected_employees } = body;
+        const { project_name, customer_name, start_date, due_date, budget, sale_price, quantity, billing_type, description, selected_employees } = body;
         const connection = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].getConnection();
         await connection.beginTransaction();
         try {
-            // ✅ 2. เพิ่มคอลัมน์ quantity เข้าไปใน SQL INSERT
+            // ✅ 2. เพิ่มคอลัมน์ billing_type เข้าไปใน SQL INSERT
             const [result] = await connection.query(`INSERT INTO projects (
                 project_name, customer_name, start_date, due_date, 
-                budget, sale_price, quantity, description, status
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')`, [
+                budget, sale_price, quantity, billing_type, description, status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')`, [
                 project_name,
                 customer_name,
                 start_date,
@@ -182,6 +182,7 @@ async function POST(request) {
                 budget || 0,
                 sale_price || 0,
                 quantity || 1,
+                billing_type || 'lump_sum',
                 description
             ]);
             const newProjectId = result.insertId;
@@ -194,12 +195,13 @@ async function POST(request) {
                     ]);
                 }
             }
-            // ✅ 4. ปรับบันทึก Log ให้ระบุจำนวนสินค้าด้วย
+            // ✅ 4. ปรับบันทึก Log ให้ระบุรูปแบบการคิดเงินด้วย
+            const typeText = billing_type === 'unit_based' ? 'คิดตามรายชิ้น' : 'เหมาจ่ายทั้งก้อน';
             await connection.query(`INSERT INTO production_logs (project_id, action, note, employee_id) VALUES (?, ?, ?, ?)`, [
                 newProjectId,
                 'เปิดใบสั่งผลิตใหม่',
-                `จำนวน: ${quantity || 1} รายการ, งบประมาณ: ${budget || 0} บาท`,
-                'Admin'
+                `จำนวน: ${quantity || 1} รายการ (${typeText}), งบประมาณ: ${budget || 0} บาท`,
+                'Admin' // ถ้าอนาคตมีระบบ Login ให้เปลี่ยนตรงนี้เป็นชื่อคนที่ Login ได้ครับ
             ]);
             await connection.commit();
             connection.release();

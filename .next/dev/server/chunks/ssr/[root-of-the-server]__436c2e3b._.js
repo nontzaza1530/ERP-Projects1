@@ -225,6 +225,15 @@ function Sidebar({ onClose }) {
                             'admin'
                         ]
                     },
+                    // ✅ เพิ่มตรงนี้: เมนู ใบขอซื้อ (PR)
+                    {
+                        name: 'ใบขอซื้อ (PR)',
+                        href: '/purchasing/pr',
+                        roles: [
+                            'super_admin',
+                            'admin'
+                        ]
+                    },
                     {
                         name: 'สร้างใบสั่งซื้อ (PO)',
                         href: '/purchasing/create-po',
@@ -287,7 +296,6 @@ function Sidebar({ onClose }) {
                     'employee'
                 ],
                 subItems: [
-                    // ✅ เพิ่มตรงนี้: เมนูใบแจ้งหนี้ (Invoices)
                     {
                         name: 'ภาพรวมบัญชี',
                         href: '/accounting',
@@ -302,9 +310,8 @@ function Sidebar({ onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // จำกัดสิทธิ์เฉพาะ Admin
+                        ]
                     },
-                    // ✅ เพิ่มตรงนี้: เมนูใบเสร็จ (เตรียมไว้ให้อนาคต)
                     {
                         name: 'ใบเสร็จรับเงิน (Receipts)',
                         href: '/accounting/receipts',
@@ -385,12 +392,12 @@ function Sidebar({ onClose }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 261,
+                            lineNumber: 265,
                             columnNumber: 17
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 257,
+                        lineNumber: 261,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -398,7 +405,7 @@ function Sidebar({ onClose }) {
                         children: "ERP SYSTEM"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 264,
+                        lineNumber: 268,
                         columnNumber: 11
                     }, this),
                     loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -408,20 +415,20 @@ function Sidebar({ onClose }) {
                                 className: "w-8 h-8 rounded-full bg-slate-700"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 269,
+                                lineNumber: 273,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex-1 h-4 bg-slate-700 rounded"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 270,
+                                lineNumber: 274,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 268,
+                        lineNumber: 272,
                         columnNumber: 14
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700",
@@ -431,7 +438,7 @@ function Sidebar({ onClose }) {
                                 children: user?.first_name?.charAt(0) || 'U'
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 274,
+                                lineNumber: 278,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -442,7 +449,7 @@ function Sidebar({ onClose }) {
                                         children: user?.first_name
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 278,
+                                        lineNumber: 282,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -450,25 +457,25 @@ function Sidebar({ onClose }) {
                                         children: role?.replace('_', ' ')
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 279,
+                                        lineNumber: 283,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 277,
+                                lineNumber: 281,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 273,
+                        lineNumber: 277,
                         columnNumber: 14
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 254,
+                lineNumber: 258,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -484,12 +491,12 @@ function Sidebar({ onClose }) {
                             className: "h-10 bg-slate-800/50 rounded-xl animate-pulse"
                         }, i, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 291,
+                            lineNumber: 295,
                             columnNumber: 37
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/Sidebar.jsx",
-                    lineNumber: 290,
+                    lineNumber: 294,
                     columnNumber: 14
                 }, this) : visibleMenu.map((item)=>{
                     const isExpanded = expandedMenu === item.name;
@@ -514,7 +521,7 @@ function Sidebar({ onClose }) {
                                                     className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'} shrink-0`
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 311,
+                                                    lineNumber: 315,
                                                     columnNumber: 29
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -522,13 +529,13 @@ function Sidebar({ onClose }) {
                                                     children: item.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 312,
+                                                    lineNumber: 316,
                                                     columnNumber: 29
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 310,
+                                            lineNumber: 314,
                                             columnNumber: 25
                                         }, this),
                                         isExpanded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
@@ -536,20 +543,20 @@ function Sidebar({ onClose }) {
                                             className: "shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 316,
+                                            lineNumber: 320,
                                             columnNumber: 39
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                             size: 16,
                                             className: "shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 316,
+                                            lineNumber: 320,
                                             columnNumber: 88
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 304,
+                                    lineNumber: 308,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -570,21 +577,21 @@ function Sidebar({ onClose }) {
                                                         className: isSubActive ? 'text-blue-400' : 'text-slate-600'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 333,
+                                                        lineNumber: 337,
                                                         columnNumber: 41
                                                     }, this) : sub.name === 'ข้อมูลส่วนตัว' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
                                                         size: 14,
                                                         className: isSubActive ? 'text-blue-400' : 'opacity-50'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 335,
+                                                        lineNumber: 339,
                                                         columnNumber: 41
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
                                                         size: 8,
                                                         className: isSubActive ? 'fill-current' : 'opacity-50'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 337,
+                                                        lineNumber: 341,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -592,30 +599,30 @@ function Sidebar({ onClose }) {
                                                         children: sub.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 339,
+                                                        lineNumber: 343,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, sub.href, true, {
                                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 324,
+                                                lineNumber: 328,
                                                 columnNumber: 33
                                             }, this);
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 320,
+                                        lineNumber: 324,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 319,
+                                    lineNumber: 323,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 303,
+                            lineNumber: 307,
                             columnNumber: 21
                         }, this) : // --- 🔗 Single Link Menu ---
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -629,12 +636,12 @@ function Sidebar({ onClose }) {
                                         size: 20
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 358,
+                                        lineNumber: 362,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 357,
+                                    lineNumber: 361,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -642,24 +649,24 @@ function Sidebar({ onClose }) {
                                     children: item.name
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 360,
+                                    lineNumber: 364,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 348,
+                            lineNumber: 352,
                             columnNumber: 21
                         }, this)
                     }, item.name, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 300,
+                        lineNumber: 304,
                         columnNumber: 17
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 288,
+                lineNumber: 292,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -672,7 +679,7 @@ function Sidebar({ onClose }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 377,
+                            lineNumber: 381,
                             columnNumber: 17
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -680,24 +687,24 @@ function Sidebar({ onClose }) {
                             children: "ออกจากระบบ"
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 378,
+                            lineNumber: 382,
                             columnNumber: 17
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/Sidebar.jsx",
-                    lineNumber: 373,
+                    lineNumber: 377,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 372,
+                lineNumber: 376,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Sidebar.jsx",
-        lineNumber: 251,
+        lineNumber: 255,
         columnNumber: 5
     }, this);
 }
@@ -739,9 +746,13 @@ function CreateInvoicePage() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     // --- State สำหรับ Modal คำนวณมัดจำ ---
     const [showDepositModal, setShowDepositModal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [depositPercent, setDepositPercent] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(30); // ค่าเริ่มต้น 30%
-    const [activeItemIndex, setActiveItemIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null); // จำว่ากำลังแก้แถวไหน
-    // -------------------------------------
+    const [depositPercent, setDepositPercent] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(30);
+    const [activeItemIndex, setActiveItemIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    // ✅ State สำหรับจัดการภาษี (ให้พิมพ์แก้ได้ทั้ง Rate และ Amount)
+    const [vatRate, setVatRate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(7);
+    const [whtRate, setWhtRate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(3);
+    const [customVatAmount, setCustomVatAmount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [customWhtAmount, setCustomWhtAmount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
     const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
         project_id: '',
         customer_name: '',
@@ -757,42 +768,44 @@ function CreateInvoicePage() {
             unit_price: 0
         }
     ]);
+    // คำนวณยอดรวมก่อนภาษี (Subtotal)
+    const subtotal = items.reduce((sum, item)=>sum + item.quantity * item.unit_price, 0);
+    // ✅ Effect: เมื่อ Subtotal หรือ Rate เปลี่ยน ให้คำนวณ Amount ใหม่ (แต่ก็ยังยอมให้พิมพ์แก้เองได้ทีหลัง)
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        setCustomVatAmount(subtotal * (vatRate / 100));
+        setCustomWhtAmount(subtotal * (whtRate / 100));
+    }, [
+        subtotal,
+        vatRate,
+        whtRate
+    ]);
+    // ยอดสุทธิ (นำ Subtotal มาบวกกับ VAT ที่อาจจะถูกพิมพ์แก้ไขด้วยมือ)
+    const grandTotal = subtotal + parseFloat(customVatAmount || 0);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         fetch('/api/production/projects').then((res)=>res.json()).then((data)=>{
             const projectList = Array.isArray(data) ? data : data.projects || [];
             setProjects(projectList);
         }).catch((err)=>console.error("Error fetching projects:", err));
     }, []);
-    const calculateTotals = ()=>{
-        const subtotal = items.reduce((sum, item)=>sum + item.quantity * item.unit_price, 0);
-        const vat = subtotal * 0.07;
-        const grandTotal = subtotal + vat;
-        return {
-            subtotal,
-            vat,
-            grandTotal
-        };
-    };
-    const { subtotal, vat, grandTotal } = calculateTotals();
     const handleProjectChange = (e)=>{
         const pid = e.target.value;
-        // ค้นหาข้อมูลโครงการที่ถูกเลือกจาก State projects
         const selectedProject = projects.find((p)=>p.id == pid);
         if (selectedProject) {
-            // ✅ 1. อัปเดตข้อมูลลูกค้าและ ID โครงการลงในฟอร์ม (จุดที่หายไป)
             setFormData({
                 ...formData,
                 project_id: pid,
                 customer_name: selectedProject.customer_name || '',
-                // ถ้าในตาราง projects มีที่อยู่ลูกค้า ให้ดึงมาด้วย (ถ้าไม่มีก็ใช้ค่าเดิม)
                 customer_address: selectedProject.customer_address || formData.customer_address
             });
-            // ✅ แก้ไขตรงนี้: ดึง selectedProject.quantity จากฐานข้อมูลมาใส่ใน items
+            const qty = parseFloat(selectedProject.quantity) || 1;
+            const price = parseFloat(selectedProject.sale_price) || 0;
+            let unitPrice = selectedProject.billing_type === 'unit_based' ? price : price / qty;
+            const typeText = selectedProject.billing_type === 'unit_based' ? 'คิดตามรายชิ้น' : 'เหมาจ่าย';
             setItems([
                 {
-                    description: `ค่าบริการโครงการ: ${selectedProject.project_name}`,
-                    quantity: selectedProject.quantity || 1,
-                    unit_price: parseFloat(selectedProject.sale_price || 0)
+                    description: `โครงการ: ${selectedProject.project_name} (${typeText})`,
+                    quantity: qty,
+                    unit_price: unitPrice
                 }
             ]);
         } else {
@@ -810,28 +823,23 @@ function CreateInvoicePage() {
             ]);
         }
     };
-    // ✅ 1. เปิด Modal เมื่อกดปุ่ม
     const openDepositModal = (index)=>{
         setActiveItemIndex(index);
-        setDepositPercent(30); // รีเซ็ตเป็น 30% ทุกครั้งที่เปิด
+        setDepositPercent(30);
         setShowDepositModal(true);
     };
-    // ✅ 2. คำนวณและบันทึกเมื่อกด "ยืนยัน" ใน Modal
     const confirmDeposit = ()=>{
         if (activeItemIndex === null) return;
         const newItems = [
             ...items
         ];
         const currentItem = newItems[activeItemIndex];
-        // คำนวณยอดเงินมัดจำ
         const depositAmount = currentItem.unit_price * (depositPercent / 100);
-        // อัปเดตราคา
         newItems[activeItemIndex].unit_price = depositAmount;
-        // อัปเดตชื่อรายการ
         const cleanDescription = currentItem.description.replace(/\s*\(มัดจำ \d+%\)$/, "");
         newItems[activeItemIndex].description = `${cleanDescription} (มัดจำ ${depositPercent}%)`;
         setItems(newItems);
-        setShowDepositModal(false); // ปิด Modal
+        setShowDepositModal(false);
     };
     const handleItemChange = (index, field, value)=>{
         const newItems = [
@@ -840,8 +848,7 @@ function CreateInvoicePage() {
         newItems[index][field] = value;
         setItems(newItems);
     };
-    const addItem = ()=>{
-        setItems([
+    const addItem = ()=>setItems([
             ...items,
             {
                 description: '',
@@ -849,18 +856,13 @@ function CreateInvoicePage() {
                 unit_price: 0
             }
         ]);
-    };
     const removeItem = (index)=>{
-        if (items.length > 1) {
-            const newItems = items.filter((_, i)=>i !== index);
-            setItems(newItems);
-        }
+        if (items.length > 1) setItems(items.filter((_, i)=>i !== index));
     };
     const handleSubmit = async (e)=>{
         e.preventDefault();
         setLoading(true);
         try {
-            // คำนวณเลขที่เอกสารแบบสุ่มเบื้องต้น
             const generatedDocNumber = `INV-${new Date().getTime().toString().slice(-6)}`;
             const res = await fetch('/api/accounting/invoices', {
                 method: 'POST',
@@ -870,18 +872,19 @@ function CreateInvoicePage() {
                 body: JSON.stringify({
                     ...formData,
                     items: items,
-                    // ✅ ส่วนที่ต้องส่งเพิ่มเติมเพื่อบันทึกลง Table invoices จริงๆ
                     quantity: items[0].quantity,
                     description: items[0].description,
                     subtotal: subtotal,
-                    vat_amount: vat,
+                    vat_rate: vatRate,
+                    vat_amount: customVatAmount,
                     grand_total: grandTotal,
-                    doc_number: generatedDocNumber // เลขที่เอกสาร
+                    wht_rate: whtRate,
+                    wht_amount: customWhtAmount,
+                    doc_number: generatedDocNumber
                 })
             });
-            if (res.ok) {
-                router.push('/accounting/invoices');
-            } else {
+            if (res.ok) router.push('/accounting/invoices');
+            else {
                 const errorData = await res.json();
                 alert("❌ เกิดข้อผิดพลาดในการบันทึก: " + (errorData.error || "Unknown Error"));
             }
@@ -900,12 +903,12 @@ function CreateInvoicePage() {
                 className: "hidden lg:block w-64 shrink-0 h-full bg-slate-900 text-white z-20",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Sidebar$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                    lineNumber: 172,
-                    columnNumber: 17
+                    lineNumber: 158,
+                    columnNumber: 96
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                lineNumber: 171,
+                lineNumber: 158,
                 columnNumber: 13
             }, this),
             isMobileMenuOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -916,7 +919,7 @@ function CreateInvoicePage() {
                         onClick: ()=>setIsMobileMenuOpen(false)
                     }, void 0, false, {
                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                        lineNumber: 178,
+                        lineNumber: 162,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -929,42 +932,42 @@ function CreateInvoicePage() {
                                     size: 24
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                    lineNumber: 181,
-                                    columnNumber: 29
+                                    lineNumber: 164,
+                                    columnNumber: 143
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                lineNumber: 180,
+                                lineNumber: 164,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Sidebar$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                 onClose: ()=>setIsMobileMenuOpen(false)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                lineNumber: 183,
+                                lineNumber: 165,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                        lineNumber: 179,
+                        lineNumber: 163,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                lineNumber: 177,
+                lineNumber: 161,
                 columnNumber: 17
             }, this),
             showDepositModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "fixed inset-0 z-100 flex items-center justify-center p-4",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity",
+                        className: "absolute inset-0 bg-black/60 backdrop-blur-sm",
                         onClick: ()=>setShowDepositModal(false)
                     }, void 0, false, {
                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                        lineNumber: 192,
+                        lineNumber: 173,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -980,35 +983,35 @@ function CreateInvoicePage() {
                                                 size: 20
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 198,
-                                                columnNumber: 33
+                                                lineNumber: 176,
+                                                columnNumber: 87
                                             }, this),
-                                            " คำนวณเงินมัดจำ (Deposit)"
+                                            " คำนวณเงินมัดจำ"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                        lineNumber: 197,
+                                        lineNumber: 176,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>setShowDepositModal(false),
-                                        className: "hover:bg-blue-700 p-1 rounded-full transition",
+                                        className: "hover:bg-blue-700 p-1 rounded-full",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
                                             size: 20
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                            lineNumber: 201,
-                                            columnNumber: 33
+                                            lineNumber: 177,
+                                            columnNumber: 127
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                        lineNumber: 200,
+                                        lineNumber: 177,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                lineNumber: 196,
+                                lineNumber: 175,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1022,7 +1025,7 @@ function CreateInvoicePage() {
                                                 children: "ระบุเปอร์เซ็นต์ที่ต้องการ (%)"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 207,
+                                                lineNumber: 181,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1034,11 +1037,11 @@ function CreateInvoicePage() {
                                                         max: "100",
                                                         value: depositPercent,
                                                         onChange: (e)=>setDepositPercent(parseFloat(e.target.value) || 0),
-                                                        className: "w-full text-4xl font-bold text-blue-600 text-center p-4 border-2 border-blue-100 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition",
+                                                        className: "w-full text-4xl font-bold text-blue-600 text-center p-4 border-2 border-blue-100 rounded-xl outline-none",
                                                         autoFocus: true
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 209,
+                                                        lineNumber: 183,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1046,19 +1049,19 @@ function CreateInvoicePage() {
                                                         children: "%"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 217,
+                                                        lineNumber: 184,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 208,
+                                                lineNumber: 182,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                        lineNumber: 206,
+                                        lineNumber: 180,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1073,7 +1076,7 @@ function CreateInvoicePage() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 223,
+                                                lineNumber: 188,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1085,20 +1088,20 @@ function CreateInvoicePage() {
                                                         children: (items[activeItemIndex]?.unit_price * (depositPercent / 100)).toLocaleString()
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 225,
-                                                        columnNumber: 51
+                                                        lineNumber: 189,
+                                                        columnNumber: 89
                                                     }, this),
                                                     " บาท"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 224,
+                                                lineNumber: 189,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                        lineNumber: 222,
+                                        lineNumber: 187,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1106,53 +1109,53 @@ function CreateInvoicePage() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                 onClick: ()=>setShowDepositModal(false),
-                                                className: "flex-1 py-3 text-slate-600 font-bold hover:bg-slate-100 rounded-xl transition",
+                                                className: "flex-1 py-3 text-slate-600 font-bold hover:bg-slate-100 rounded-xl",
                                                 children: "ยกเลิก"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 232,
+                                                lineNumber: 192,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                 onClick: confirmDeposit,
-                                                className: "flex-1 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-200 transition flex items-center justify-center gap-2",
+                                                className: "flex-1 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-200 flex justify-center items-center gap-2",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
                                                         size: 20
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 236,
-                                                        columnNumber: 37
+                                                        lineNumber: 193,
+                                                        columnNumber: 217
                                                     }, this),
                                                     " ยืนยันคำนวณ"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 235,
+                                                lineNumber: 193,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                        lineNumber: 231,
+                                        lineNumber: 191,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                lineNumber: 205,
+                                lineNumber: 179,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                        lineNumber: 195,
+                        lineNumber: 174,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                lineNumber: 190,
+                lineNumber: 172,
                 columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1170,12 +1173,12 @@ function CreateInvoicePage() {
                                         size: 24
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                        lineNumber: 249,
-                                        columnNumber: 29
+                                        lineNumber: 203,
+                                        columnNumber: 136
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                    lineNumber: 248,
+                                    lineNumber: 203,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1183,18 +1186,18 @@ function CreateInvoicePage() {
                                     children: "สร้างใบแจ้งหนี้"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                    lineNumber: 251,
+                                    lineNumber: 204,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                            lineNumber: 247,
+                            lineNumber: 202,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                        lineNumber: 246,
+                        lineNumber: 201,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1215,12 +1218,12 @@ function CreateInvoicePage() {
                                                     className: "text-slate-600"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                    lineNumber: 260,
-                                                    columnNumber: 33
+                                                    lineNumber: 211,
+                                                    columnNumber: 122
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 259,
+                                                lineNumber: 211,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1230,7 +1233,7 @@ function CreateInvoicePage() {
                                                         children: "สร้างใบแจ้งหนี้ใหม่"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 263,
+                                                        lineNumber: 213,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1238,19 +1241,19 @@ function CreateInvoicePage() {
                                                         children: "Create New Invoice"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 266,
+                                                        lineNumber: 214,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 262,
+                                                lineNumber: 212,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                        lineNumber: 258,
+                                        lineNumber: 210,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1259,43 +1262,43 @@ function CreateInvoicePage() {
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                 type: "button",
                                                 onClick: ()=>router.back(),
-                                                className: "flex-1 md:flex-none px-4 py-2 text-slate-700 font-bold hover:bg-slate-200 rounded-lg transition border border-slate-300 md:border-transparent",
+                                                className: "flex-1 md:flex-none px-4 py-2 text-slate-700 font-bold hover:bg-slate-200 rounded-lg border border-slate-300",
                                                 children: "ยกเลิก"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 270,
+                                                lineNumber: 218,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                 type: "submit",
                                                 disabled: loading,
-                                                className: "flex-1 md:flex-none bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold flex items-center justify-center gap-2 shadow-lg shadow-blue-200 transition",
+                                                className: "flex-1 md:flex-none bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold flex items-center justify-center gap-2 shadow-lg shadow-blue-200",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$save$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Save$3e$__["Save"], {
                                                         size: 20
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 274,
-                                                        columnNumber: 33
+                                                        lineNumber: 219,
+                                                        columnNumber: 239
                                                     }, this),
                                                     " ",
                                                     loading ? 'กำลังบันทึก...' : 'บันทึกเอกสาร'
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 273,
+                                                lineNumber: 219,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                        lineNumber: 269,
+                                        lineNumber: 217,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                lineNumber: 257,
+                                lineNumber: 209,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1315,14 +1318,14 @@ function CreateInvoicePage() {
                                                                 size: 20
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                lineNumber: 284,
-                                                                columnNumber: 37
+                                                                lineNumber: 227,
+                                                                columnNumber: 142
                                                             }, this),
                                                             " ข้อมูลลูกค้า (Customer)"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 283,
+                                                        lineNumber: 227,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1331,22 +1334,39 @@ function CreateInvoicePage() {
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "md:col-span-2",
                                                                 children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                        className: "block text-sm font-bold text-slate-700 mb-1",
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "flex justify-between items-center mb-1",
                                                                         children: [
-                                                                            "อ้างอิงโครงการ (Project) ",
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "text-red-500",
-                                                                                children: "*"
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                                className: "block text-sm font-bold text-slate-700",
+                                                                                children: [
+                                                                                    "อ้างอิงโครงการ (Project) ",
+                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                        className: "text-red-500",
+                                                                                        children: "*"
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                                        lineNumber: 231,
+                                                                                        columnNumber: 128
+                                                                                    }, this)
+                                                                                ]
+                                                                            }, void 0, true, {
+                                                                                fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                                lineNumber: 231,
+                                                                                columnNumber: 45
+                                                                            }, this),
+                                                                            formData.project_id && projects.find((p)=>p.id == formData.project_id) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                className: `text-xs px-2.5 py-1 rounded-md font-bold flex items-center gap-1 border shadow-sm ${projects.find((p)=>p.id == formData.project_id).billing_type === 'unit_based' ? 'bg-purple-50 text-purple-700 border-purple-200' : 'bg-orange-50 text-orange-700 border-orange-200'}`,
+                                                                                children: projects.find((p)=>p.id == formData.project_id).billing_type === 'unit_based' ? '📦 คิดตามรายชิ้น' : '💼 เหมาจ่ายทั้งก้อน'
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                lineNumber: 289,
-                                                                                columnNumber: 70
+                                                                                lineNumber: 233,
+                                                                                columnNumber: 49
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                        lineNumber: 288,
+                                                                        lineNumber: 230,
                                                                         columnNumber: 41
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1359,11 +1379,11 @@ function CreateInvoicePage() {
                                                                                 children: "-- กรุณาเลือกโครงการ (Select Project) --"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                lineNumber: 296,
+                                                                                lineNumber: 239,
                                                                                 columnNumber: 45
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("optgroup", {
-                                                                                label: "⏳ งานที่กำลังดำเนินการ (Active Projects)",
+                                                                                label: "⏳ งานที่กำลังดำเนินการ",
                                                                                 children: projects.filter((p)=>[
                                                                                         'pending',
                                                                                         'in_progress',
@@ -1375,22 +1395,22 @@ function CreateInvoicePage() {
                                                                                             p.project_name,
                                                                                             " - ",
                                                                                             p.customer_name,
-                                                                                            " (",
-                                                                                            p.status === 'pending' ? 'รอเริ่ม' : p.status === 'qc' ? 'รอ QC' : 'กำลังทำ',
-                                                                                            ")"
+                                                                                            " [",
+                                                                                            p.billing_type === 'unit_based' ? 'รายชิ้น' : 'เหมาจ่าย',
+                                                                                            "]"
                                                                                         ]
                                                                                     }, p.id, true, {
                                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                        lineNumber: 299,
+                                                                                        lineNumber: 242,
                                                                                         columnNumber: 53
                                                                                     }, this))
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                lineNumber: 297,
+                                                                                lineNumber: 240,
                                                                                 columnNumber: 45
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("optgroup", {
-                                                                                label: "✅ งานที่เสร็จแล้ว (Completed Projects)",
+                                                                                label: "✅ งานที่เสร็จแล้ว",
                                                                                 children: projects.filter((p)=>[
                                                                                         'completed',
                                                                                         'done'
@@ -1399,28 +1419,31 @@ function CreateInvoicePage() {
                                                                                         children: [
                                                                                             p.project_name,
                                                                                             " - ",
-                                                                                            p.customer_name
+                                                                                            p.customer_name,
+                                                                                            " [",
+                                                                                            p.billing_type === 'unit_based' ? 'รายชิ้น' : 'เหมาจ่าย',
+                                                                                            "]"
                                                                                         ]
                                                                                     }, p.id, true, {
                                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                        lineNumber: 304,
+                                                                                        lineNumber: 247,
                                                                                         columnNumber: 53
                                                                                     }, this))
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                lineNumber: 302,
+                                                                                lineNumber: 245,
                                                                                 columnNumber: 45
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                        lineNumber: 291,
+                                                                        lineNumber: 238,
                                                                         columnNumber: 41
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                lineNumber: 287,
+                                                                lineNumber: 229,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1435,13 +1458,13 @@ function CreateInvoicePage() {
                                                                                 children: "*"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                lineNumber: 310,
+                                                                                lineNumber: 253,
                                                                                 columnNumber: 115
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                        lineNumber: 310,
+                                                                        lineNumber: 253,
                                                                         columnNumber: 41
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1455,13 +1478,13 @@ function CreateInvoicePage() {
                                                                         className: inputStyle
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                        lineNumber: 311,
+                                                                        lineNumber: 254,
                                                                         columnNumber: 41
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                lineNumber: 309,
+                                                                lineNumber: 252,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1472,7 +1495,7 @@ function CreateInvoicePage() {
                                                                         children: "ที่อยู่"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                        lineNumber: 314,
+                                                                        lineNumber: 257,
                                                                         columnNumber: 41
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1485,13 +1508,13 @@ function CreateInvoicePage() {
                                                                         className: inputStyle
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                        lineNumber: 315,
+                                                                        lineNumber: 258,
                                                                         columnNumber: 41
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                lineNumber: 313,
+                                                                lineNumber: 256,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1501,7 +1524,7 @@ function CreateInvoicePage() {
                                                                         children: "เลขผู้เสียภาษี (Tax ID)"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                        lineNumber: 318,
+                                                                        lineNumber: 261,
                                                                         columnNumber: 41
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1509,35 +1532,20 @@ function CreateInvoicePage() {
                                                                         maxLength: 13,
                                                                         placeholder: "ระบุเลข 13 หลัก",
                                                                         value: formData.customer_tax_id,
-                                                                        onChange: (e)=>{
-                                                                            // ✅ ยอมให้พิมพ์แค่ตัวเลข 0-9 เท่านั้น
-                                                                            const value = e.target.value.replace(/[^0-9]/g, '');
-                                                                            setFormData({
+                                                                        onChange: (e)=>setFormData({
                                                                                 ...formData,
-                                                                                customer_tax_id: value
-                                                                            });
-                                                                        },
+                                                                                customer_tax_id: e.target.value.replace(/[^0-9]/g, '')
+                                                                            }),
                                                                         className: `${inputStyle} tracking-widest`
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                        lineNumber: 319,
-                                                                        columnNumber: 41
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "text-right text-xs text-slate-400 mt-1",
-                                                                        children: [
-                                                                            formData.customer_tax_id?.length || 0,
-                                                                            " / 13"
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                        lineNumber: 332,
+                                                                        lineNumber: 262,
                                                                         columnNumber: 41
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                lineNumber: 317,
+                                                                lineNumber: 260,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1547,7 +1555,7 @@ function CreateInvoicePage() {
                                                                         children: "กำหนดชำระ (Due Date)"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                        lineNumber: 337,
+                                                                        lineNumber: 265,
                                                                         columnNumber: 41
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1560,25 +1568,25 @@ function CreateInvoicePage() {
                                                                         className: inputStyle
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                        lineNumber: 338,
+                                                                        lineNumber: 266,
                                                                         columnNumber: 41
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                lineNumber: 336,
+                                                                lineNumber: 264,
                                                                 columnNumber: 37
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 286,
+                                                        lineNumber: 228,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 282,
+                                                lineNumber: 226,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1592,14 +1600,14 @@ function CreateInvoicePage() {
                                                                 size: 20
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                lineNumber: 345,
-                                                                columnNumber: 37
+                                                                lineNumber: 273,
+                                                                columnNumber: 142
                                                             }, this),
                                                             " รายการสินค้า (Items)"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 344,
+                                                        lineNumber: 273,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1616,7 +1624,7 @@ function CreateInvoicePage() {
                                                                                 children: "รายการ"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                lineNumber: 352,
+                                                                                lineNumber: 278,
                                                                                 columnNumber: 49
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1624,7 +1632,7 @@ function CreateInvoicePage() {
                                                                                 children: "จำนวน"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                lineNumber: 353,
+                                                                                lineNumber: 279,
                                                                                 columnNumber: 49
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1632,7 +1640,7 @@ function CreateInvoicePage() {
                                                                                 children: "ราคา/หน่วย"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                lineNumber: 354,
+                                                                                lineNumber: 280,
                                                                                 columnNumber: 49
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1640,25 +1648,25 @@ function CreateInvoicePage() {
                                                                                 children: "รวม"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                lineNumber: 355,
+                                                                                lineNumber: 281,
                                                                                 columnNumber: 49
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                                                 className: "py-2 w-[5%]"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                lineNumber: 356,
+                                                                                lineNumber: 282,
                                                                                 columnNumber: 49
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                        lineNumber: 351,
+                                                                        lineNumber: 277,
                                                                         columnNumber: 45
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                    lineNumber: 350,
+                                                                    lineNumber: 276,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1671,18 +1679,18 @@ function CreateInvoicePage() {
                                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                                         required: true,
                                                                                         type: "text",
-                                                                                        placeholder: "ชื่อสินค้า/บริการ...",
+                                                                                        placeholder: "ชื่อสินค้า...",
                                                                                         value: item.description,
                                                                                         onChange: (e)=>handleItemChange(index, 'description', e.target.value),
                                                                                         className: inputStyle
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                        lineNumber: 363,
-                                                                                        columnNumber: 57
+                                                                                        lineNumber: 288,
+                                                                                        columnNumber: 78
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                    lineNumber: 362,
+                                                                                    lineNumber: 288,
                                                                                     columnNumber: 53
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1696,12 +1704,12 @@ function CreateInvoicePage() {
                                                                                         className: `${inputStyle} text-center`
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                        lineNumber: 370,
-                                                                                        columnNumber: 57
+                                                                                        lineNumber: 289,
+                                                                                        columnNumber: 73
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                    lineNumber: 369,
+                                                                                    lineNumber: 289,
                                                                                     columnNumber: 53
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1718,37 +1726,37 @@ function CreateInvoicePage() {
                                                                                                 className: `${inputStyle} text-right min-w-[120px]`
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                                lineNumber: 378,
+                                                                                                lineNumber: 292,
                                                                                                 columnNumber: 61
                                                                                             }, this),
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                                                                 type: "button",
                                                                                                 onClick: ()=>openDepositModal(index),
-                                                                                                className: "flex items-center gap-1 bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white px-3 py-2.5 rounded-xl transition text-xs font-bold whitespace-nowrap shadow-sm border border-blue-100",
+                                                                                                className: "flex items-center gap-1 bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white px-3 py-2.5 rounded-xl transition text-xs font-bold border border-blue-100",
                                                                                                 children: [
                                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$percent$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Percent$3e$__["Percent"], {
                                                                                                         size: 14
                                                                                                     }, void 0, false, {
                                                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                                        lineNumber: 389,
-                                                                                                        columnNumber: 65
+                                                                                                        lineNumber: 293,
+                                                                                                        columnNumber: 294
                                                                                                     }, this),
-                                                                                                    " คำนวณมัดจำ"
+                                                                                                    " มัดจำ"
                                                                                                 ]
                                                                                             }, void 0, true, {
                                                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                                lineNumber: 384,
+                                                                                                lineNumber: 293,
                                                                                                 columnNumber: 61
                                                                                             }, this)
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                        lineNumber: 377,
+                                                                                        lineNumber: 291,
                                                                                         columnNumber: 57
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                    lineNumber: 376,
+                                                                                    lineNumber: 290,
                                                                                     columnNumber: 53
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1756,7 +1764,7 @@ function CreateInvoicePage() {
                                                                                     children: (item.quantity * item.unit_price).toLocaleString()
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                    lineNumber: 393,
+                                                                                    lineNumber: 296,
                                                                                     columnNumber: 53
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1769,197 +1777,39 @@ function CreateInvoicePage() {
                                                                                             size: 18
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                            lineNumber: 399,
-                                                                                            columnNumber: 65
+                                                                                            lineNumber: 298,
+                                                                                            columnNumber: 191
                                                                                         }, this)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                        lineNumber: 398,
-                                                                                        columnNumber: 61
+                                                                                        lineNumber: 298,
+                                                                                        columnNumber: 78
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                    lineNumber: 396,
+                                                                                    lineNumber: 297,
                                                                                     columnNumber: 53
                                                                                 }, this)
                                                                             ]
                                                                         }, index, true, {
                                                                             fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                            lineNumber: 361,
+                                                                            lineNumber: 287,
                                                                             columnNumber: 49
                                                                         }, this))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                    lineNumber: 359,
+                                                                    lineNumber: 285,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                            lineNumber: 349,
+                                                            lineNumber: 275,
                                                             columnNumber: 37
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 348,
-                                                        columnNumber: 33
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "md:hidden space-y-4",
-                                                        children: items.map((item, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "p-4 border border-slate-200 rounded-xl bg-slate-50 relative",
-                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "space-y-3",
-                                                                    children: [
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                            required: true,
-                                                                            type: "text",
-                                                                            placeholder: "ชื่อสินค้า...",
-                                                                            value: item.description,
-                                                                            onChange: (e)=>handleItemChange(index, 'description', e.target.value),
-                                                                            className: inputStyle
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                            lineNumber: 414,
-                                                                            columnNumber: 49
-                                                                        }, this),
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            className: "flex gap-2",
-                                                                            children: [
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    className: "w-20",
-                                                                                    children: [
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                                            className: "text-xs text-slate-500 font-bold mb-1 block",
-                                                                                            children: "จำนวน"
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                            lineNumber: 421,
-                                                                                            columnNumber: 57
-                                                                                        }, this),
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                                            required: true,
-                                                                                            type: "number",
-                                                                                            value: item.quantity,
-                                                                                            onChange: (e)=>handleItemChange(index, 'quantity', parseFloat(e.target.value) || 0),
-                                                                                            className: `${inputStyle} text-center`
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                            lineNumber: 422,
-                                                                                            columnNumber: 57
-                                                                                        }, this)
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                    lineNumber: 420,
-                                                                                    columnNumber: 53
-                                                                                }, this),
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    className: "flex-1",
-                                                                                    children: [
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                                            className: "text-xs text-slate-500 font-bold mb-1 block",
-                                                                                            children: "ราคา/หน่วย"
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                            lineNumber: 428,
-                                                                                            columnNumber: 57
-                                                                                        }, this),
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                            className: "flex gap-2",
-                                                                                            children: [
-                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                                                    required: true,
-                                                                                                    type: "number",
-                                                                                                    value: item.unit_price,
-                                                                                                    onChange: (e)=>handleItemChange(index, 'unit_price', parseFloat(e.target.value) || 0),
-                                                                                                    className: `${inputStyle} text-right`
-                                                                                                }, void 0, false, {
-                                                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                                    lineNumber: 430,
-                                                                                                    columnNumber: 61
-                                                                                                }, this),
-                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                                                    type: "button",
-                                                                                                    onClick: ()=>openDepositModal(index),
-                                                                                                    className: "bg-blue-100 text-blue-600 p-2 rounded-lg font-bold text-xs shrink-0",
-                                                                                                    children: "มัดจำ %"
-                                                                                                }, void 0, false, {
-                                                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                                    lineNumber: 434,
-                                                                                                    columnNumber: 61
-                                                                                                }, this)
-                                                                                            ]
-                                                                                        }, void 0, true, {
-                                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                            lineNumber: 429,
-                                                                                            columnNumber: 57
-                                                                                        }, this)
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                    lineNumber: 427,
-                                                                                    columnNumber: 53
-                                                                                }, this)
-                                                                            ]
-                                                                        }, void 0, true, {
-                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                            lineNumber: 419,
-                                                                            columnNumber: 49
-                                                                        }, this),
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            className: "flex justify-between items-center pt-2 border-t border-slate-200 mt-2",
-                                                                            children: [
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                    className: "font-bold text-slate-800",
-                                                                                    children: [
-                                                                                        "รวม: ",
-                                                                                        (item.quantity * item.unit_price).toLocaleString()
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                    lineNumber: 441,
-                                                                                    columnNumber: 53
-                                                                                }, this),
-                                                                                items.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                                    type: "button",
-                                                                                    onClick: ()=>removeItem(index),
-                                                                                    className: "text-red-500 text-sm flex items-center gap-1 font-bold",
-                                                                                    children: [
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
-                                                                                            size: 16
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                            lineNumber: 444,
-                                                                                            columnNumber: 61
-                                                                                        }, this),
-                                                                                        " ลบ"
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                                    lineNumber: 443,
-                                                                                    columnNumber: 57
-                                                                                }, this)
-                                                                            ]
-                                                                        }, void 0, true, {
-                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                            lineNumber: 440,
-                                                                            columnNumber: 49
-                                                                        }, this)
-                                                                    ]
-                                                                }, void 0, true, {
-                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                    lineNumber: 413,
-                                                                    columnNumber: 45
-                                                                }, this)
-                                                            }, index, false, {
-                                                                fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                lineNumber: 412,
-                                                                columnNumber: 41
-                                                            }, this))
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 410,
+                                                        lineNumber: 274,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1971,26 +1821,26 @@ function CreateInvoicePage() {
                                                                 size: 18
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                lineNumber: 454,
-                                                                columnNumber: 37
+                                                                lineNumber: 305,
+                                                                columnNumber: 264
                                                             }, this),
-                                                            " เพิ่มรายการใหม่ (Add Item)"
+                                                            " เพิ่มรายการใหม่"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 453,
+                                                        lineNumber: 305,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                lineNumber: 343,
+                                                lineNumber: 272,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                        lineNumber: 280,
+                                        lineNumber: 224,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1999,83 +1849,120 @@ function CreateInvoicePage() {
                                             className: "bg-white p-6 rounded-2xl shadow-sm border border-slate-200 sticky top-6",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                    className: "text-lg font-bold text-slate-800 mb-4 flex items-center gap-2",
+                                                    className: "text-lg font-bold text-slate-800 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calculator$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Calculator$3e$__["Calculator"], {
                                                             className: "text-blue-600",
                                                             size: 20
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                            lineNumber: 462,
+                                                            lineNumber: 313,
                                                             columnNumber: 37
                                                         }, this),
                                                         " สรุปยอดเงิน"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                    lineNumber: 461,
+                                                    lineNumber: 312,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "space-y-3 text-sm",
+                                                    className: "space-y-4 text-sm",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex justify-between text-slate-600",
+                                                            className: "flex justify-between items-center text-slate-600",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                     children: "รวมเป็นเงิน (Subtotal)"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                    lineNumber: 466,
+                                                                    lineNumber: 318,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "font-medium text-slate-800",
+                                                                    className: "font-bold text-slate-800 text-base",
                                                                     children: subtotal.toLocaleString(undefined, {
                                                                         minimumFractionDigits: 2
                                                                     })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                    lineNumber: 467,
+                                                                    lineNumber: 319,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                            lineNumber: 465,
+                                                            lineNumber: 317,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex justify-between text-slate-600",
+                                                            className: "flex justify-between items-center text-slate-600",
                                                             children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    children: "ภาษีมูลค่าเพิ่ม 7% (VAT)"
-                                                                }, void 0, false, {
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex items-center gap-2",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            children: "VAT"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                            lineNumber: 325,
+                                                                            columnNumber: 45
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "relative",
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                                    type: "number",
+                                                                                    value: vatRate,
+                                                                                    onChange: (e)=>setVatRate(Number(e.target.value)),
+                                                                                    className: "w-16 bg-slate-50 border border-slate-200 text-slate-800 rounded-lg p-1 text-xs font-bold text-center focus:ring-2 outline-none"
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                                    lineNumber: 327,
+                                                                                    columnNumber: 49
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    className: "absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-400",
+                                                                                    children: "%"
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                                    lineNumber: 333,
+                                                                                    columnNumber: 49
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                            lineNumber: 326,
+                                                                            columnNumber: 45
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                    lineNumber: 470,
+                                                                    lineNumber: 324,
                                                                     columnNumber: 41
                                                                 }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "font-medium text-red-500",
-                                                                    children: vat.toLocaleString(undefined, {
-                                                                        minimumFractionDigits: 2
-                                                                    })
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                    type: "number",
+                                                                    step: "0.01",
+                                                                    value: customVatAmount,
+                                                                    onChange: (e)=>setCustomVatAmount(e.target.value),
+                                                                    className: "w-24 text-right bg-white border border-red-200 text-red-600 rounded-lg p-1 font-bold focus:ring-2 focus:ring-red-100 outline-none"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                    lineNumber: 471,
+                                                                    lineNumber: 336,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                            lineNumber: 469,
+                                                            lineNumber: 323,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "border-t border-slate-100 my-3"
+                                                            className: "border-t border-slate-100 my-2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                            lineNumber: 473,
+                                                            lineNumber: 345,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2086,95 +1973,153 @@ function CreateInvoicePage() {
                                                                     children: "ยอดสุทธิ"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                    lineNumber: 475,
+                                                                    lineNumber: 348,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "font-bold text-blue-600 text-2xl",
+                                                                    className: "font-black text-blue-600 text-2xl",
                                                                     children: grandTotal.toLocaleString(undefined, {
                                                                         minimumFractionDigits: 2
                                                                     })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                    lineNumber: 476,
+                                                                    lineNumber: 349,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                            lineNumber: 474,
+                                                            lineNumber: 347,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "text-right text-xs text-slate-400 mt-1",
+                                                            className: "text-right text-xs text-slate-400",
                                                             children: "บาท (THB)"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                            lineNumber: 478,
+                                                            lineNumber: 351,
+                                                            columnNumber: 37
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "mt-4 p-4 bg-orange-50/50 rounded-xl border border-orange-100",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex justify-between items-center text-slate-600 mb-2",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "flex flex-col gap-1",
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    className: "text-xs font-bold",
+                                                                                    children: "หักภาษี ณ ที่จ่าย"
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                                    lineNumber: 357,
+                                                                                    columnNumber: 49
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "relative",
+                                                                                    children: [
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                                            type: "number",
+                                                                                            value: whtRate,
+                                                                                            onChange: (e)=>setWhtRate(Number(e.target.value)),
+                                                                                            className: "w-16 bg-white border border-orange-200 text-orange-700 rounded-lg p-1 text-xs font-bold text-center focus:ring-2 outline-none shadow-sm"
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                                            lineNumber: 359,
+                                                                                            columnNumber: 53
+                                                                                        }, this),
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                            className: "absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-orange-400",
+                                                                                            children: "%"
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                                            lineNumber: 365,
+                                                                                            columnNumber: 53
+                                                                                        }, this)
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                                    lineNumber: 358,
+                                                                                    columnNumber: 49
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                            lineNumber: 356,
+                                                                            columnNumber: 45
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                            type: "number",
+                                                                            step: "0.01",
+                                                                            value: customWhtAmount,
+                                                                            onChange: (e)=>setCustomWhtAmount(e.target.value),
+                                                                            className: "w-28 text-right bg-white border border-orange-200 text-orange-600 rounded-lg p-1.5 font-bold focus:ring-2 focus:ring-orange-100 outline-none shadow-sm"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                            lineNumber: 368,
+                                                                            columnNumber: 45
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                    lineNumber: 355,
+                                                                    columnNumber: 41
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                    className: "text-[10px] text-orange-500 leading-snug",
+                                                                    children: "* ปรับแก้ตัวเลขจำนวนเงินภาษีได้โดยตรง หากมีเศษสตางค์ไม่ตรงกัน"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                                    lineNumber: 376,
+                                                                    columnNumber: 41
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
+                                                            lineNumber: 354,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                    lineNumber: 464,
-                                                    columnNumber: 33
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "text-xs text-blue-600 text-center",
-                                                        children: [
-                                                            "ตรวจสอบข้อมูลให้ถูกต้องก่อนบันทึก ",
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
-                                                                fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                                lineNumber: 482,
-                                                                columnNumber: 75
-                                                            }, this),
-                                                            'เอกสารจะถูกสร้างในสถานะ "รอชำระเงิน"'
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                        lineNumber: 481,
-                                                        columnNumber: 37
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                                    lineNumber: 480,
+                                                    lineNumber: 316,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                            lineNumber: 460,
+                                            lineNumber: 311,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                        lineNumber: 459,
+                                        lineNumber: 310,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                                lineNumber: 279,
+                                lineNumber: 223,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                        lineNumber: 255,
+                        lineNumber: 208,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-                lineNumber: 245,
+                lineNumber: 200,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/accounting/invoices/create/page.jsx",
-        lineNumber: 168,
+        lineNumber: 157,
         columnNumber: 9
     }, this);
 }

@@ -248,7 +248,7 @@ function PrintPOPage() {
                 className: "jsx-d82398f25d815c44" + " " + "max-w-[210mm] mx-auto mb-6 flex justify-between items-center print:hidden",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        onClick: ()=>router.back(),
+                        onClick: ()=>router.push('/purchasing/po-list'),
                         className: "jsx-d82398f25d815c44" + " " + "flex items-center gap-2 text-slate-500 hover:text-[#002060] transition font-bold",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__["ArrowLeft"], {
@@ -1099,7 +1099,7 @@ function PrintPOPage() {
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                 className: "jsx-d82398f25d815c44" + " " + "border-r border-[#000000] py-1.5 px-2 leading-relaxed",
-                                                                children: item.product_name || item.description
+                                                                children: item.product_name || item.custom_item_name || 'สินค้า (ไม่ระบุชื่อ)'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
                                                                 lineNumber: 336,
@@ -1229,10 +1229,10 @@ function PrintPOPage() {
                                                                         color: themeColor
                                                                     },
                                                                     className: "jsx-d82398f25d815c44" + " " + "font-bold mb-2",
-                                                                    children: "หมายเหตุ/เงื่อนไขเพิ่มเติม (Remarks):"
+                                                                    children: "หมายเหตุ (Remarks):"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                                    lineNumber: 356,
+                                                                    lineNumber: 357,
                                                                     columnNumber: 53
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1240,13 +1240,13 @@ function PrintPOPage() {
                                                                     children: po?.remarks || "1. กรุณาส่งสินค้าตามกำหนดเวลา\n2. โปรดแนบสำเนาใบสั่งซื้อมาพร้อมกับใบส่งสินค้า / ใบแจ้งหนี้ทุกครั้ง"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                                    lineNumber: 359,
+                                                                    lineNumber: 360,
                                                                     columnNumber: 53
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                            lineNumber: 355,
+                                                            lineNumber: 356,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1254,26 +1254,26 @@ function PrintPOPage() {
                                                                 color: themeColor
                                                             },
                                                             className: "jsx-d82398f25d815c44" + " " + "border-r border-b border-[#000000] py-1.5 pl-2 font-bold text-[11px]",
-                                                            children: "รวมเป็นเงิน"
+                                                            children: "รวมเป็นเงิน (Sub Total)"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                            lineNumber: 363,
+                                                            lineNumber: 364,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                             className: "jsx-d82398f25d815c44" + " " + "border-b border-[#000000] py-1.5 text-right pr-2 font-medium text-[12px]",
-                                                            children: parseFloat(po?.subtotal || po?.total_amount || 0).toLocaleString(undefined, {
+                                                            children: parseFloat(po?.total_amount || 0).toLocaleString(undefined, {
                                                                 minimumFractionDigits: 2
                                                             })
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                            lineNumber: 368,
+                                                            lineNumber: 369,
                                                             columnNumber: 49
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                    lineNumber: 354,
+                                                    lineNumber: 355,
                                                     columnNumber: 45
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -1284,26 +1284,26 @@ function PrintPOPage() {
                                                                 color: themeColor
                                                             },
                                                             className: "jsx-d82398f25d815c44" + " " + "border-r border-b border-[#000000] py-1.5 pl-2 font-bold text-[11px]",
-                                                            children: "ภาษีมูลค่าเพิ่ม 7%"
+                                                            children: "ภาษีมูลค่าเพิ่ม 7% (VAT)"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                            lineNumber: 375,
+                                                            lineNumber: 376,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                             className: "jsx-d82398f25d815c44" + " " + "border-b border-[#000000] py-1.5 text-right pr-2 font-medium text-[12px]",
-                                                            children: parseFloat(po?.vat_amount || 0).toLocaleString(undefined, {
+                                                            children: (parseFloat(po?.total_amount || 0) * 0.07).toLocaleString(undefined, {
                                                                 minimumFractionDigits: 2
                                                             })
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                            lineNumber: 380,
+                                                            lineNumber: 381,
                                                             columnNumber: 49
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                    lineNumber: 374,
+                                                    lineNumber: 375,
                                                     columnNumber: 45
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -1313,30 +1313,30 @@ function PrintPOPage() {
                                                             style: {
                                                                 backgroundColor: redHighlight
                                                             },
-                                                            className: "jsx-d82398f25d815c44" + " " + "border-r border-b border-[#000000] py-2 pl-2 font-bold text-sm text-[#ffffff] print:bg-[#C00000]",
-                                                            children: "ยอดสุทธิ"
+                                                            className: "jsx-d82398f25d815c44" + " " + "border-r border-b border-[#000000] py-2 pl-2 font-bold text-sm text-[#ffffff]",
+                                                            children: "ยอดสุทธิ (Grand Total)"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                            lineNumber: 387,
+                                                            lineNumber: 389,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                             style: {
                                                                 backgroundColor: redHighlight
                                                             },
-                                                            className: "jsx-d82398f25d815c44" + " " + "border-b border-[#000000] py-2 text-right pr-2 font-bold text-[15px] text-[#ffffff] print:bg-[#C00000]",
-                                                            children: parseFloat(po?.grand_total || po?.total_amount || 0).toLocaleString(undefined, {
+                                                            className: "jsx-d82398f25d815c44" + " " + "border-b border-[#000000] py-2 text-right pr-2 font-bold text-[15px] text-[#ffffff]",
+                                                            children: (parseFloat(po?.total_amount || 0) * 1.07).toLocaleString(undefined, {
                                                                 minimumFractionDigits: 2
                                                             })
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                            lineNumber: 392,
+                                                            lineNumber: 394,
                                                             columnNumber: 49
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                    lineNumber: 386,
+                                                    lineNumber: 388,
                                                     columnNumber: 45
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -1349,17 +1349,17 @@ function PrintPOPage() {
                                                         className: "jsx-d82398f25d815c44" + " " + "border-l border-r text-center py-2 font-bold text-[12px]",
                                                         children: [
                                                             "( ",
-                                                            THBText(po?.grand_total || po?.total_amount || 0),
+                                                            THBText(parseFloat(po?.total_amount || 0) * 1.07),
                                                             " )"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                        lineNumber: 401,
+                                                        lineNumber: 404,
                                                         columnNumber: 49
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                    lineNumber: 400,
+                                                    lineNumber: 403,
                                                     columnNumber: 45
                                                 }, this)
                                             ]
@@ -1377,17 +1377,17 @@ function PrintPOPage() {
                                                     className: "jsx-d82398f25d815c44"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                    lineNumber: 409,
+                                                    lineNumber: 413,
                                                     columnNumber: 102
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                lineNumber: 409,
+                                                lineNumber: 413,
                                                 columnNumber: 60
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                            lineNumber: 409,
+                                            lineNumber: 413,
                                             columnNumber: 53
                                         }, this)
                                     ]
@@ -1416,7 +1416,7 @@ function PrintPOPage() {
                                                     className: "jsx-d82398f25d815c44" + " " + "border-b border-[#000000] w-4/5 mx-auto mb-2"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                    lineNumber: 419,
+                                                    lineNumber: 423,
                                                     columnNumber: 45
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1427,7 +1427,7 @@ function PrintPOPage() {
                                                             children: "วันที่ ..............................."
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                            lineNumber: 421,
+                                                            lineNumber: 425,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1441,7 +1441,7 @@ function PrintPOPage() {
                                                                     children: "ผู้จัดทำเอกสาร"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                                    lineNumber: 425,
+                                                                    lineNumber: 429,
                                                                     columnNumber: 53
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1449,37 +1449,37 @@ function PrintPOPage() {
                                                                     children: "(Prepared By)"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                                    lineNumber: 426,
+                                                                    lineNumber: 430,
                                                                     columnNumber: 53
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                            lineNumber: 422,
+                                                            lineNumber: 426,
                                                             columnNumber: 49
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                    lineNumber: 420,
+                                                    lineNumber: 424,
                                                     columnNumber: 45
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                            lineNumber: 418,
+                                            lineNumber: 422,
                                             columnNumber: 41
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                        lineNumber: 415,
+                                        lineNumber: 419,
                                         columnNumber: 37
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "jsx-d82398f25d815c44"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                        lineNumber: 432,
+                                        lineNumber: 436,
                                         columnNumber: 37
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1494,7 +1494,7 @@ function PrintPOPage() {
                                                     className: "jsx-d82398f25d815c44" + " " + "border-b border-[#000000] w-4/5 mx-auto mb-2"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                    lineNumber: 438,
+                                                    lineNumber: 442,
                                                     columnNumber: 45
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1505,7 +1505,7 @@ function PrintPOPage() {
                                                             children: "วันที่ ..............................."
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                            lineNumber: 440,
+                                                            lineNumber: 444,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1519,7 +1519,7 @@ function PrintPOPage() {
                                                                     children: "ผู้มีอำนาจลงนาม"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                                    lineNumber: 444,
+                                                                    lineNumber: 448,
                                                                     columnNumber: 53
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1527,42 +1527,42 @@ function PrintPOPage() {
                                                                     children: "(Authorized Signature)"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                                    lineNumber: 445,
+                                                                    lineNumber: 449,
                                                                     columnNumber: 53
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                            lineNumber: 441,
+                                                            lineNumber: 445,
                                                             columnNumber: 49
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                                    lineNumber: 439,
+                                                    lineNumber: 443,
                                                     columnNumber: 45
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                            lineNumber: 437,
+                                            lineNumber: 441,
                                             columnNumber: 41
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                        lineNumber: 434,
+                                        lineNumber: 438,
                                         columnNumber: 37
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                lineNumber: 414,
+                                lineNumber: 418,
                                 columnNumber: 43
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "jsx-d82398f25d815c44" + " " + "grow"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                lineNumber: 450,
+                                lineNumber: 454,
                                 columnNumber: 42
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1575,7 +1575,7 @@ function PrintPOPage() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/purchasing/print/[id]/page.jsx",
-                                lineNumber: 452,
+                                lineNumber: 456,
                                 columnNumber: 29
                             }, this)
                         ]

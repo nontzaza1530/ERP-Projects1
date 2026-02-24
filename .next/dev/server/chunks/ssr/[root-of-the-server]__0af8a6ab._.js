@@ -226,6 +226,14 @@ function Sidebar({ onClose }) {
                         ]
                     },
                     {
+                        name: 'ใบขอซื้อ (PR)',
+                        href: '/purchasing/pr',
+                        roles: [
+                            'super_admin',
+                            'admin'
+                        ]
+                    },
+                    {
                         name: 'สร้างใบสั่งซื้อ (PO)',
                         href: '/purchasing/create-po',
                         roles: [
@@ -287,10 +295,18 @@ function Sidebar({ onClose }) {
                     'employee'
                 ],
                 subItems: [
-                    // ✅ เพิ่มตรงนี้: เมนูใบแจ้งหนี้ (Invoices)
                     {
                         name: 'ภาพรวมบัญชี',
                         href: '/accounting',
+                        roles: [
+                            'super_admin',
+                            'admin'
+                        ]
+                    },
+                    // ✅ เพิ่มตรงนี้: เมนู ใบเสนอราคา (Quotations) ให้อยู่เหนือใบแจ้งหนี้
+                    {
+                        name: 'ใบเสนอราคา (Quotations)',
+                        href: '/accounting/quotations/create',
                         roles: [
                             'super_admin',
                             'admin'
@@ -302,9 +318,8 @@ function Sidebar({ onClose }) {
                         roles: [
                             'super_admin',
                             'admin'
-                        ] // จำกัดสิทธิ์เฉพาะ Admin
+                        ]
                     },
-                    // ✅ เพิ่มตรงนี้: เมนูใบเสร็จ (เตรียมไว้ให้อนาคต)
                     {
                         name: 'ใบเสร็จรับเงิน (Receipts)',
                         href: '/accounting/receipts',
@@ -385,12 +400,12 @@ function Sidebar({ onClose }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 261,
+                            lineNumber: 269,
                             columnNumber: 17
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 257,
+                        lineNumber: 265,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -398,7 +413,7 @@ function Sidebar({ onClose }) {
                         children: "ERP SYSTEM"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 264,
+                        lineNumber: 272,
                         columnNumber: 11
                     }, this),
                     loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -408,20 +423,20 @@ function Sidebar({ onClose }) {
                                 className: "w-8 h-8 rounded-full bg-slate-700"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 269,
+                                lineNumber: 277,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex-1 h-4 bg-slate-700 rounded"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 270,
+                                lineNumber: 278,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 268,
+                        lineNumber: 276,
                         columnNumber: 14
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "mt-4 flex items-center gap-3 w-full bg-slate-800/50 p-2 rounded-lg border border-slate-700",
@@ -431,7 +446,7 @@ function Sidebar({ onClose }) {
                                 children: user?.first_name?.charAt(0) || 'U'
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 274,
+                                lineNumber: 282,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -442,7 +457,7 @@ function Sidebar({ onClose }) {
                                         children: user?.first_name
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 278,
+                                        lineNumber: 286,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -450,25 +465,25 @@ function Sidebar({ onClose }) {
                                         children: role?.replace('_', ' ')
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 279,
+                                        lineNumber: 287,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                lineNumber: 277,
+                                lineNumber: 285,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 273,
+                        lineNumber: 281,
                         columnNumber: 14
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 254,
+                lineNumber: 262,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -484,12 +499,12 @@ function Sidebar({ onClose }) {
                             className: "h-10 bg-slate-800/50 rounded-xl animate-pulse"
                         }, i, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 291,
+                            lineNumber: 299,
                             columnNumber: 37
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/Sidebar.jsx",
-                    lineNumber: 290,
+                    lineNumber: 298,
                     columnNumber: 14
                 }, this) : visibleMenu.map((item)=>{
                     const isExpanded = expandedMenu === item.name;
@@ -514,7 +529,7 @@ function Sidebar({ onClose }) {
                                                     className: `${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'} shrink-0`
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 311,
+                                                    lineNumber: 319,
                                                     columnNumber: 29
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -522,13 +537,13 @@ function Sidebar({ onClose }) {
                                                     children: item.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                                    lineNumber: 312,
+                                                    lineNumber: 320,
                                                     columnNumber: 29
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 310,
+                                            lineNumber: 318,
                                             columnNumber: 25
                                         }, this),
                                         isExpanded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
@@ -536,20 +551,20 @@ function Sidebar({ onClose }) {
                                             className: "shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 316,
+                                            lineNumber: 324,
                                             columnNumber: 39
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                             size: 16,
                                             className: "shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Sidebar.jsx",
-                                            lineNumber: 316,
+                                            lineNumber: 324,
                                             columnNumber: 88
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 304,
+                                    lineNumber: 312,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -570,21 +585,21 @@ function Sidebar({ onClose }) {
                                                         className: isSubActive ? 'text-blue-400' : 'text-slate-600'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 333,
+                                                        lineNumber: 341,
                                                         columnNumber: 41
                                                     }, this) : sub.name === 'ข้อมูลส่วนตัว' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
                                                         size: 14,
                                                         className: isSubActive ? 'text-blue-400' : 'opacity-50'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 335,
+                                                        lineNumber: 343,
                                                         columnNumber: 41
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
                                                         size: 8,
                                                         className: isSubActive ? 'fill-current' : 'opacity-50'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 337,
+                                                        lineNumber: 345,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -592,30 +607,30 @@ function Sidebar({ onClose }) {
                                                         children: sub.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                                        lineNumber: 339,
+                                                        lineNumber: 347,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, sub.href, true, {
                                                 fileName: "[project]/src/components/Sidebar.jsx",
-                                                lineNumber: 324,
+                                                lineNumber: 332,
                                                 columnNumber: 33
                                             }, this);
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 320,
+                                        lineNumber: 328,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 319,
+                                    lineNumber: 327,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 303,
+                            lineNumber: 311,
                             columnNumber: 21
                         }, this) : // --- 🔗 Single Link Menu ---
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -629,12 +644,12 @@ function Sidebar({ onClose }) {
                                         size: 20
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Sidebar.jsx",
-                                        lineNumber: 358,
+                                        lineNumber: 366,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 357,
+                                    lineNumber: 365,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -642,24 +657,24 @@ function Sidebar({ onClose }) {
                                     children: item.name
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Sidebar.jsx",
-                                    lineNumber: 360,
+                                    lineNumber: 368,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 348,
+                            lineNumber: 356,
                             columnNumber: 21
                         }, this)
                     }, item.name, false, {
                         fileName: "[project]/src/components/Sidebar.jsx",
-                        lineNumber: 300,
+                        lineNumber: 308,
                         columnNumber: 17
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 288,
+                lineNumber: 296,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -672,7 +687,7 @@ function Sidebar({ onClose }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 377,
+                            lineNumber: 385,
                             columnNumber: 17
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -680,24 +695,24 @@ function Sidebar({ onClose }) {
                             children: "ออกจากระบบ"
                         }, void 0, false, {
                             fileName: "[project]/src/components/Sidebar.jsx",
-                            lineNumber: 378,
+                            lineNumber: 386,
                             columnNumber: 17
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/Sidebar.jsx",
-                    lineNumber: 373,
+                    lineNumber: 381,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Sidebar.jsx",
-                lineNumber: 372,
+                lineNumber: 380,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Sidebar.jsx",
-        lineNumber: 251,
+        lineNumber: 259,
         columnNumber: 5
     }, this);
 }
@@ -707,12 +722,12 @@ function Sidebar({ onClose }) {
 
 __turbopack_context__.s([
     "default",
-    ()=>POListPage
+    ()=>PurchasingHubPage
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Sidebar$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/Sidebar.jsx [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/search.js [app-ssr] (ecmascript) <export default as Search>"); // ✅ เพิ่มไอคอน Edit
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/search.js [app-ssr] (ecmascript) <export default as Search>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/plus.js [app-ssr] (ecmascript) <export default as Plus>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/eye.js [app-ssr] (ecmascript) <export default as Eye>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/file-text.js [app-ssr] (ecmascript) <export default as FileText>");
@@ -727,8 +742,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__XCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-x.js [app-ssr] (ecmascript) <export default as XCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-ssr] (ecmascript) <export default as Menu>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Edit$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/square-pen.js [app-ssr] (ecmascript) <export default as Edit>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$cart$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingCart$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/shopping-cart.js [app-ssr] (ecmascript) <export default as ShoppingCart>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-right.js [app-ssr] (ecmascript) <export default as ArrowRight>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2d$days$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CalendarDays$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/calendar-days.js [app-ssr] (ecmascript) <export default as CalendarDays>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-ssr] (ecmascript) <export default as X>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)"); // ✅ เพิ่ม useRouter สำหรับเปลี่ยนหน้า
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/sweetalert2/dist/sweetalert2.esm.all.js [app-ssr] (ecmascript)");
 'use client';
 ;
@@ -738,32 +757,151 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$
 ;
 ;
 ;
-function POListPage() {
-    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])(); // ✅ เรียกใช้งาน router
-    const [poList, setPoList] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
-    const [searchTerm, setSearchTerm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
-    const [activeTab, setActiveTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('active');
+function PurchasingHubPage() {
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     const [isSidebarOpen, setIsSidebarOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    // 🔍 State สำหรับการค้นหาและกรอง
+    const [searchTerm, setSearchTerm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [startDate, setStartDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(''); // ✅ เพิ่มเก็บวันที่เริ่มต้น
+    const [endDate, setEndDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(''); // ✅ เพิ่มเก็บวันที่สิ้นสุด
+    const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
+    // 🟢 1. ระบบ Master Tabs
+    const [activeMainTab, setActiveMainTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('PR');
+    // 🟡 2. State ฝั่ง PO
+    const [poList, setPoList] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [activePoTab, setActivePoTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('active');
+    // 🔵 3. State ฝั่ง PR
+    const [prList, setPrList] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [activePrTab, setActivePrTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('all');
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        fetchPO();
-    }, []);
+        if (activeMainTab === 'PO') fetchPO();
+        else fetchPR();
+    }, [
+        activeMainTab
+    ]);
     const fetchPO = async ()=>{
         setIsLoading(true);
         try {
             const res = await fetch('/api/purchasing/po/list');
-            if (res.ok) {
-                const data = await res.json();
-                setPoList(data);
-            }
+            if (res.ok) setPoList(await res.json());
         } catch (error) {
-            console.error("Error loading PO:", error);
+            console.error(error);
         } finally{
             setIsLoading(false);
         }
     };
-    const handlePrint = (po)=>window.open(`/purchasing/print/${po.id}`, '_blank');
-    const handleView = async (po)=>{
+    const fetchPR = async ()=>{
+        setIsLoading(true);
+        try {
+            const res = await fetch('/api/purchasing/pr');
+            if (res.ok) setPrList(await res.json());
+        } catch (error) {
+            console.error(error);
+        } finally{
+            setIsLoading(false);
+        }
+    };
+    // ==========================================
+    // ⚡ ACTION HANDLERS (PR)
+    // ==========================================
+    const handleCancelPR = async (prId, prNumber)=>{
+        const result = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
+            title: 'ยืนยันการยกเลิก?',
+            html: `ต้องการยกเลิกใบขอซื้อ <b>${prNumber}</b> ใช่หรือไม่?<br/><span style="font-size:12px; color:red;">*เอกสารนี้จะถูกย้ายไปหมวด 'รายการที่ยกเลิก'</span>`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            confirmButtonText: 'ใช่, ยกเลิก',
+            cancelButtonText: 'ไม่'
+        });
+        if (result.isConfirmed) {
+            try {
+                const res = await fetch('/api/purchasing/pr/cancel', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: prId
+                    })
+                });
+                if (res.ok) {
+                    await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire('สำเร็จ!', 'ยกเลิกใบขอซื้อเรียบร้อยแล้ว', 'success');
+                    fetchPR();
+                } else {
+                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire('ผิดพลาด', 'ไม่สามารถยกเลิกได้', 'error');
+                }
+            } catch (error) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire('ผิดพลาด', 'การเชื่อมต่อมีปัญหา', 'error');
+            }
+        }
+    };
+    const getPRStatusBadge = (status)=>{
+        if (status === 'Pending') return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+            className: "bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-[11px] font-bold border border-orange-200 flex items-center gap-1 w-fit",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
+                    size: 12
+                }, void 0, false, {
+                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                    lineNumber: 86,
+                    columnNumber: 188
+                }, this),
+                " รอสั่งซื้อ"
+            ]
+        }, void 0, true, {
+            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+            lineNumber: 86,
+            columnNumber: 40
+        }, this);
+        if (status === 'PO_Created') return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+            className: "bg-green-100 text-green-700 px-3 py-1 rounded-full text-[11px] font-bold border border-green-200 flex items-center gap-1 w-fit",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
+                    size: 12
+                }, void 0, false, {
+                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                    lineNumber: 87,
+                    columnNumber: 188
+                }, this),
+                " ออก PO แล้ว"
+            ]
+        }, void 0, true, {
+            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+            lineNumber: 87,
+            columnNumber: 43
+        }, this);
+        if (status === 'Cancelled') return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+            className: "bg-red-100 text-red-700 px-3 py-1 rounded-full text-[11px] font-bold border border-red-200 flex items-center gap-1 w-fit",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__XCircle$3e$__["XCircle"], {
+                    size: 12
+                }, void 0, false, {
+                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                    lineNumber: 88,
+                    columnNumber: 181
+                }, this),
+                " ยกเลิก"
+            ]
+        }, void 0, true, {
+            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+            lineNumber: 88,
+            columnNumber: 42
+        }, this);
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+            className: "bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-bold",
+            children: status
+        }, void 0, false, {
+            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+            lineNumber: 89,
+            columnNumber: 14
+        }, this);
+    };
+    // ==========================================
+    // ⚡ ACTION HANDLERS (PO)
+    // ==========================================
+    const handlePrintPO = (po)=>window.open(`/purchasing/print/${po.id}`, '_blank');
+    const handleViewPO = async (po)=>{
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
             title: 'กำลังโหลดข้อมูล...',
             didOpen: ()=>__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].showLoading()
@@ -775,7 +913,7 @@ function POListPage() {
             const itemsHtml = data.items.map((item, index)=>`
             <tr style="border-bottom: 1px solid #eee;">
                 <td style="padding: 10px; text-align: left; color: #334155;">
-                    <div style="font-weight: bold;">${index + 1}. ${item.product_name}</div>
+                    <div style="font-weight: bold;">${index + 1}. ${item.product_name || item.custom_item_name || '-'}</div>
                     <div style="font-size: 11px; color: #94a3b8;">Code: ${item.product_code || '-'}</div>
                 </td>
                 <td style="padding: 10px; text-align: right; color: #334155;">${item.quantity} ${item.unit}</td>
@@ -790,7 +928,6 @@ function POListPage() {
                         <div style="flex: 1;">
                             <p style="font-size: 12px; color: #64748b; margin-bottom: 4px;">ผู้จำหน่าย (Supplier)</p>
                             <p style="font-size: 16px; font-weight: bold; color: #0f172a; margin-bottom: 4px;">${data.supplier_name}</p>
-                            
                             <p style="font-size: 13px; color: #475569; display: flex; align-items: flex-start; gap: 5px; margin-bottom: 4px;">
                                 <span>📍</span> ${data.supplier_full_address || 'ไม่ระบุที่อยู่'}
                             </p>
@@ -800,11 +937,9 @@ function POListPage() {
                                 <span>🆔 Tax: ${data.supplier_tax_id || '-'}</span>
                             </div>
                         </div>
-
                         <div style="text-align: right; min-width: 120px; border-left: 1px solid #e2e8f0; padding-left: 15px;">
                              <p style="font-size: 12px; color: #64748b;">วันที่สั่งซื้อ</p>
                              <p style="font-weight: bold; color: #0f172a; margin-bottom: 10px;">${new Date(data.order_date).toLocaleDateString('th-TH')}</p>
-                             
                              <p style="font-size: 12px; color: #64748b;">สถานะ</p>
                              <span style="display: inline-block; padding: 4px 10px; border-radius: 6px; background: #dbeafe; color: #1e40af; font-weight: bold; font-size: 12px;">
                                 ${data.status}
@@ -812,7 +947,6 @@ function POListPage() {
                         </div>
                     </div>
                 </div>
-
                 <div style="border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
                     <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
                         <thead style="background: #f1f5f9; color: #475569;">
@@ -845,7 +979,7 @@ function POListPage() {
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire('Error', 'ไม่สามารถโหลดข้อมูลได้', 'error');
         }
     };
-    const handleCancel = async (po)=>{
+    const handleCancelPO = async (po)=>{
         if (po.status === 'Cancelled') return;
         const result = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
             title: 'ยืนยันการยกเลิก?',
@@ -879,68 +1013,128 @@ function POListPage() {
             }
         }
     };
-    const getStatusBadge = (status)=>{
+    const getPOStatusBadge = (status)=>{
         const s = status ? status.toLowerCase() : '';
         switch(s){
             case 'pending':
                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 w-fit",
-                    children: "🕒 รอรับของ"
-                }, void 0, false, {
+                    className: "bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 w-fit border border-yellow-200",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
+                            size: 12
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                            lineNumber: 188,
+                            columnNumber: 178
+                        }, this),
+                        " รอรับของ"
+                    ]
+                }, void 0, true, {
                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                    lineNumber: 159,
+                    lineNumber: 188,
                     columnNumber: 30
                 }, this);
             case 'partially received':
                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 w-fit",
-                    children: "📦 รับบางส่วน"
-                }, void 0, false, {
+                    className: "bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 w-fit border border-orange-200",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$bag$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingBag$3e$__["ShoppingBag"], {
+                            size: 12
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                            lineNumber: 189,
+                            columnNumber: 189
+                        }, this),
+                        " รับบางส่วน"
+                    ]
+                }, void 0, true, {
                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                    lineNumber: 160,
+                    lineNumber: 189,
                     columnNumber: 41
                 }, this);
             case 'received':
                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 w-fit",
-                    children: "✅ รับครบแล้ว"
-                }, void 0, false, {
+                    className: "bg-green-100 text-green-700 px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 w-fit border border-green-200",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
+                            size: 12
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                            lineNumber: 190,
+                            columnNumber: 176
+                        }, this),
+                        " รับครบแล้ว"
+                    ]
+                }, void 0, true, {
                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                    lineNumber: 161,
+                    lineNumber: 190,
                     columnNumber: 31
                 }, this);
             case 'cancelled':
                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 w-fit",
-                    children: "❌ ยกเลิก"
-                }, void 0, false, {
+                    className: "bg-red-100 text-red-700 px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 w-fit border border-red-200",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__XCircle$3e$__["XCircle"], {
+                            size: 12
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                            lineNumber: 191,
+                            columnNumber: 171
+                        }, this),
+                        " ยกเลิก"
+                    ]
+                }, void 0, true, {
                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                    lineNumber: 162,
+                    lineNumber: 191,
                     columnNumber: 32
                 }, this);
             default:
                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-bold",
+                    className: "bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-[11px] font-bold",
                     children: status
                 }, void 0, false, {
                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                    lineNumber: 163,
+                    lineNumber: 192,
                     columnNumber: 23
                 }, this);
         }
     };
-    const filteredList = poList.filter((po)=>{
-        const status = po.status.toLowerCase();
-        const matchesSearch = po.po_number.toLowerCase().includes(searchTerm.toLowerCase()) || (po.supplier_name || '').toLowerCase().includes(searchTerm.toLowerCase());
+    // ==========================================
+    // 🔍 FILTERS (ระบบค้นหา + กรองวันที่)
+    // ==========================================
+    const checkDateMatch = (docDateStr)=>{
+        if (!startDate && !endDate) return true; // ถ้าไม่ได้ระบุวันที่ ให้ผ่านหมด
+        // แปลงวันที่จาก DB ให้เป็น Format 'YYYY-MM-DD' เพื่อเทียบ
+        const docDate = new Date(docDateStr).toISOString().split('T')[0];
+        if (startDate && endDate) return docDate >= startDate && docDate <= endDate;
+        if (startDate) return docDate >= startDate;
+        if (endDate) return docDate <= endDate;
+        return true;
+    };
+    const filteredPRList = prList.filter((pr)=>{
+        // 1. กรองข้อความค้นหา
+        const matchesSearch = pr.pr_number.toLowerCase().includes(searchTerm.toLowerCase()) || (pr.project_name || '').toLowerCase().includes(searchTerm.toLowerCase());
+        // 2. กรอง Tab สถานะ
         let matchesTab = true;
-        if (activeTab === 'active') {
-            matchesTab = status === 'pending' || status === 'partially received';
-        } else if (activeTab === 'history') {
-            matchesTab = status === 'received';
-        } else if (activeTab === 'cancelled') {
-            matchesTab = status === 'cancelled';
-        }
-        return matchesSearch && matchesTab;
+        if (activePrTab === 'pending') matchesTab = pr.status === 'Pending';
+        else if (activePrTab === 'po_created') matchesTab = pr.status === 'PO_Created';
+        else if (activePrTab === 'cancelled') matchesTab = pr.status === 'Cancelled';
+        // 3. กรองวันที่
+        const matchesDate = checkDateMatch(pr.request_date);
+        return matchesSearch && matchesTab && matchesDate;
+    });
+    const filteredPOList = poList.filter((po)=>{
+        const status = po.status.toLowerCase();
+        // 1. กรองข้อความค้นหา
+        const matchesSearch = po.po_number.toLowerCase().includes(searchTerm.toLowerCase()) || (po.supplier_name || '').toLowerCase().includes(searchTerm.toLowerCase());
+        // 2. กรอง Tab สถานะ
+        let matchesTab = true;
+        if (activePoTab === 'active') matchesTab = status === 'pending' || status === 'partially received';
+        else if (activePoTab === 'history') matchesTab = status === 'received';
+        else if (activePoTab === 'cancelled') matchesTab = status === 'cancelled';
+        // 3. กรองวันที่
+        const matchesDate = checkDateMatch(po.order_date);
+        return matchesSearch && matchesTab && matchesDate;
     });
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900 overflow-x-hidden",
@@ -950,7 +1144,7 @@ function POListPage() {
                 onClick: ()=>setIsSidebarOpen(false)
             }, void 0, false, {
                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                lineNumber: 187,
+                lineNumber: 248,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
@@ -963,29 +1157,29 @@ function POListPage() {
                             onClose: ()=>setIsSidebarOpen(false)
                         }, void 0, false, {
                             fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                            lineNumber: 195,
+                            lineNumber: 253,
                             columnNumber: 16
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                        lineNumber: 194,
+                        lineNumber: 252,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                    lineNumber: 193,
+                    lineNumber: 251,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                lineNumber: 192,
+                lineNumber: 250,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
                 className: "flex-1 w-full lg:ml-64 p-4 md:p-8 transition-all duration-300 min-h-screen flex flex-col",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4",
+                        className: "flex flex-col xl:flex-row justify-between items-start xl:items-end mb-6 gap-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex items-center gap-3",
@@ -997,106 +1191,298 @@ function POListPage() {
                                             size: 24
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                            lineNumber: 205,
+                                            lineNumber: 264,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                        lineNumber: 204,
+                                        lineNumber: 263,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                                className: "text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight",
-                                                children: "รายการใบสั่งซื้อ (PO List)"
-                                            }, void 0, false, {
+                                                className: "text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$cart$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingCart$3e$__["ShoppingCart"], {
+                                                        className: "text-blue-600",
+                                                        size: 28
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                        lineNumber: 268,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    " ศูนย์เอกสารจัดซื้อ"
+                                                ]
+                                            }, void 0, true, {
                                                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                lineNumber: 209,
+                                                lineNumber: 267,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                 className: "text-slate-500 text-xs md:text-sm mt-1",
-                                                children: "ติดตามสถานะและจัดการเอกสารสั่งซื้อ"
+                                                children: "ติดตามสถานะและจัดการเอกสารขอซื้อ / สั่งซื้อ"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                lineNumber: 210,
+                                                lineNumber: 270,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                        lineNumber: 208,
+                                        lineNumber: 266,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                lineNumber: 203,
+                                lineNumber: 262,
                                 columnNumber: 11
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/purchasing/create-po",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    className: "bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 md:py-3 rounded-xl font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transition active:scale-95 text-sm md:text-base whitespace-nowrap",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
-                                            size: 20,
-                                            strokeWidth: 3
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                            lineNumber: 216,
-                                            columnNumber: 15
-                                        }, this),
-                                        " เปิดบิลใหม่"
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                    lineNumber: 215,
-                                    columnNumber: 13
-                                }, this)
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex space-x-2 bg-slate-200/60 p-1.5 rounded-2xl w-fit border border-slate-200 self-start xl:self-end",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>{
+                                            setActiveMainTab('PR');
+                                            setSearchTerm('');
+                                            setStartDate('');
+                                            setEndDate('');
+                                        },
+                                        className: `flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeMainTab === 'PR' ? 'bg-white text-blue-700 shadow-sm ring-1 ring-slate-200' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`,
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
+                                                size: 18
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                lineNumber: 277,
+                                                columnNumber: 19
+                                            }, this),
+                                            " ใบขอซื้อ (PR)"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                        lineNumber: 275,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>{
+                                            setActiveMainTab('PO');
+                                            setSearchTerm('');
+                                            setStartDate('');
+                                            setEndDate('');
+                                        },
+                                        className: `flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeMainTab === 'PO' ? 'bg-blue-700 text-white shadow-md' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`,
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$cart$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingCart$3e$__["ShoppingCart"], {
+                                                size: 18
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                lineNumber: 281,
+                                                columnNumber: 19
+                                            }, this),
+                                            " ใบสั่งซื้อ (PO)"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                        lineNumber: 279,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                lineNumber: 214,
+                                lineNumber: 274,
                                 columnNumber: 11
+                            }, this),
+                            activeMainTab === 'PR' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>router.push('/purchasing/pr'),
+                                className: "w-full xl:w-auto bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white border border-blue-200 px-5 py-2.5 md:py-3 rounded-xl font-bold shadow-sm flex items-center justify-center gap-2 transition active:scale-95 text-sm md:text-base whitespace-nowrap",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                                        size: 20,
+                                        strokeWidth: 3
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                        lineNumber: 287,
+                                        columnNumber: 17
+                                    }, this),
+                                    " สร้างใบ PR"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                lineNumber: 286,
+                                columnNumber: 15
+                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>router.push('/purchasing/create-po'),
+                                className: "w-full xl:w-auto bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 md:py-3 rounded-xl font-bold shadow-lg shadow-blue-200 flex items-center justify-center gap-2 transition active:scale-95 text-sm md:text-base whitespace-nowrap",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                                        size: 20,
+                                        strokeWidth: 3
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                        lineNumber: 291,
+                                        columnNumber: 17
+                                    }, this),
+                                    " เปิดบิล PO ใหม่"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                lineNumber: 290,
+                                columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                        lineNumber: 202,
+                        lineNumber: 261,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-6 flex items-center gap-3",
+                        className: "bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-6 flex flex-col xl:flex-row gap-4",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
-                                className: "text-slate-400",
-                                size: 20
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "relative flex-1 flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 focus-within:ring-2 focus-within:ring-blue-100 transition",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
+                                        className: "text-slate-400 mr-3",
+                                        size: 20
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                        lineNumber: 301,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        type: "text",
+                                        placeholder: `ค้นหาเลขที่ ${activeMainTab}...`,
+                                        className: "w-full outline-none text-slate-700 placeholder:text-slate-400 font-medium bg-transparent text-sm",
+                                        value: searchTerm,
+                                        onChange: (e)=>setSearchTerm(e.target.value)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                        lineNumber: 302,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                lineNumber: 222,
+                                lineNumber: 300,
                                 columnNumber: 11
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                type: "text",
-                                placeholder: "ค้นหาเลขที่ PO หรือ ชื่อผู้ขาย...",
-                                className: "flex-1 outline-none text-slate-700 placeholder:text-slate-400 font-medium bg-transparent",
-                                value: searchTerm,
-                                onChange: (e)=>setSearchTerm(e.target.value)
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex flex-wrap items-center gap-2",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 focus-within:ring-2 focus-within:ring-blue-100 transition w-full sm:w-auto",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2d$days$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CalendarDays$3e$__["CalendarDays"], {
+                                                className: "text-slate-400 mr-2",
+                                                size: 18
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                lineNumber: 314,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-xs font-bold text-slate-500 mr-2 whitespace-nowrap",
+                                                children: "จาก:"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                lineNumber: 315,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                type: "date",
+                                                className: "bg-transparent outline-none text-sm font-bold text-slate-700 cursor-pointer w-full sm:w-auto",
+                                                value: startDate,
+                                                onChange: (e)=>setStartDate(e.target.value)
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                lineNumber: 316,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                        lineNumber: 313,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-slate-400 font-bold hidden sm:block",
+                                        children: "-"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                        lineNumber: 319,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 focus-within:ring-2 focus-within:ring-blue-100 transition w-full sm:w-auto",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2d$days$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CalendarDays$3e$__["CalendarDays"], {
+                                                className: "text-slate-400 mr-2",
+                                                size: 18
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                lineNumber: 322,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-xs font-bold text-slate-500 mr-2 whitespace-nowrap",
+                                                children: "ถึง:"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                lineNumber: 323,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                type: "date",
+                                                className: "bg-transparent outline-none text-sm font-bold text-slate-700 cursor-pointer w-full sm:w-auto",
+                                                value: endDate,
+                                                onChange: (e)=>setEndDate(e.target.value)
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                lineNumber: 324,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                        lineNumber: 321,
+                                        columnNumber: 13
+                                    }, this),
+                                    (startDate || endDate) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>{
+                                            setStartDate('');
+                                            setEndDate('');
+                                        },
+                                        className: "p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition",
+                                        title: "ล้างตัวกรองวันที่",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                            size: 20
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                            lineNumber: 333,
+                                            columnNumber: 21
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                        lineNumber: 329,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                lineNumber: 223,
+                                lineNumber: 312,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                        lineNumber: 221,
+                        lineNumber: 297,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex gap-2 mb-4 overflow-x-auto pb-2 custom-scrollbar",
-                        children: [
+                        children: activeMainTab === 'PR' ? [
                             {
                                 id: 'all',
                                 label: 'ทั้งหมด',
@@ -1104,32 +1490,32 @@ function POListPage() {
                                     size: 16
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                    lineNumber: 234,
-                                    columnNumber: 54
+                                    lineNumber: 344,
+                                    columnNumber: 58
                                 }, this),
                                 activeClass: 'bg-slate-800 text-white'
                             },
                             {
-                                id: 'active',
-                                label: 'รอรับของ',
+                                id: 'pending',
+                                label: 'รอสั่งซื้อ',
                                 icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
                                     size: 16
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                    lineNumber: 235,
-                                    columnNumber: 58
+                                    lineNumber: 345,
+                                    columnNumber: 65
                                 }, this),
-                                activeClass: 'bg-blue-600 text-white'
+                                activeClass: 'bg-orange-500 text-white'
                             },
                             {
-                                id: 'history',
-                                label: 'ประวัติ/สำเร็จ',
+                                id: 'po_created',
+                                label: 'ออก PO แล้ว / สำเร็จ',
                                 icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
                                     size: 16
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                    lineNumber: 236,
-                                    columnNumber: 65
+                                    lineNumber: 346,
+                                    columnNumber: 78
                                 }, this),
                                 activeClass: 'bg-green-600 text-white'
                             },
@@ -1140,16 +1526,14 @@ function POListPage() {
                                     size: 16
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                    lineNumber: 237,
-                                    columnNumber: 68
+                                    lineNumber: 347,
+                                    columnNumber: 72
                                 }, this),
                                 activeClass: 'bg-red-500 text-white'
                             }
                         ].map((tab)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: ()=>setActiveTab(tab.id),
-                                className: `px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 transition whitespace-nowrap shadow-sm
-                        ${activeTab === tab.id ? tab.activeClass : 'bg-white text-slate-500 hover:bg-slate-100'}
-                    `,
+                                onClick: ()=>setActivePrTab(tab.id),
+                                className: `px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 transition whitespace-nowrap shadow-sm ${activePrTab === tab.id ? tab.activeClass : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-100'}`,
                                 children: [
                                     tab.icon,
                                     " ",
@@ -1157,90 +1541,206 @@ function POListPage() {
                                 ]
                             }, tab.id, true, {
                                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                lineNumber: 239,
-                                columnNumber: 17
+                                lineNumber: 349,
+                                columnNumber: 21
+                            }, this)) : [
+                            {
+                                id: 'all',
+                                label: 'ทั้งหมด',
+                                icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$funnel$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Filter$3e$__["Filter"], {
+                                    size: 16
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                    lineNumber: 355,
+                                    columnNumber: 58
+                                }, this),
+                                activeClass: 'bg-slate-800 text-white'
+                            },
+                            {
+                                id: 'active',
+                                label: 'รอรับของ',
+                                icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
+                                    size: 16
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                    lineNumber: 356,
+                                    columnNumber: 62
+                                }, this),
+                                activeClass: 'bg-blue-600 text-white'
+                            },
+                            {
+                                id: 'history',
+                                label: 'ประวัติ/สำเร็จ',
+                                icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
+                                    size: 16
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                    lineNumber: 357,
+                                    columnNumber: 69
+                                }, this),
+                                activeClass: 'bg-green-600 text-white'
+                            },
+                            {
+                                id: 'cancelled',
+                                label: 'รายการที่ยกเลิก',
+                                icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__XCircle$3e$__["XCircle"], {
+                                    size: 16
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                    lineNumber: 358,
+                                    columnNumber: 72
+                                }, this),
+                                activeClass: 'bg-red-500 text-white'
+                            }
+                        ].map((tab)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>setActivePoTab(tab.id),
+                                className: `px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 transition whitespace-nowrap shadow-sm ${activePoTab === tab.id ? tab.activeClass : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-100'}`,
+                                children: [
+                                    tab.icon,
+                                    " ",
+                                    tab.label
+                                ]
+                            }, tab.id, true, {
+                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                lineNumber: 360,
+                                columnNumber: 21
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                        lineNumber: 232,
+                        lineNumber: 341,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white rounded-3xl border border-slate-200 shadow-lg overflow-hidden min-h-[400px]",
+                        className: "bg-white rounded-3xl border border-slate-200 shadow-lg overflow-hidden flex-1",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "overflow-x-auto custom-scrollbar",
+                            className: "overflow-x-auto custom-scrollbar h-full",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                className: "w-full text-sm text-left border-collapse min-w-[800px]",
+                                className: "w-full text-sm text-left border-collapse min-w-[900px]",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
                                         className: "bg-slate-50 text-slate-500 font-bold uppercase text-[11px] tracking-wider border-b border-slate-200",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                        children: activeMainTab === 'PR' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                     className: "p-4 pl-6 w-[15%]",
-                                                    children: "เลขที่ PO"
+                                                    children: "เลขที่ PR"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                    lineNumber: 256,
-                                                    columnNumber: 19
+                                                    lineNumber: 374,
+                                                    columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                     className: "p-4 w-[15%]",
-                                                    children: "วันที่สั่ง"
+                                                    children: "วันที่ขอ"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                    lineNumber: 257,
-                                                    columnNumber: 19
+                                                    lineNumber: 375,
+                                                    columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                     className: "p-4 w-[25%]",
-                                                    children: "ผู้ขาย (Supplier)"
+                                                    children: "โครงการ / สาขา"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                    lineNumber: 258,
-                                                    columnNumber: 19
+                                                    lineNumber: 376,
+                                                    columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                     className: "p-4 text-center w-[10%]",
                                                     children: "รายการ"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                    lineNumber: 259,
-                                                    columnNumber: 19
+                                                    lineNumber: 377,
+                                                    columnNumber: 25
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                    className: "p-4 w-[15%]",
+                                                    children: "สถานะ"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                    lineNumber: 378,
+                                                    columnNumber: 25
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                    className: "p-4 text-center w-[20%]",
+                                                    children: "จัดการ"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                    lineNumber: 379,
+                                                    columnNumber: 25
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                            lineNumber: 373,
+                                            columnNumber: 21
+                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                    className: "p-4 pl-6 w-[15%]",
+                                                    children: "เลขที่ PO"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                    lineNumber: 383,
+                                                    columnNumber: 25
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                    className: "p-4 w-[15%]",
+                                                    children: "วันที่สั่ง"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                    lineNumber: 384,
+                                                    columnNumber: 25
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                    className: "p-4 w-[25%]",
+                                                    children: "ผู้ขาย (Supplier)"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                    lineNumber: 385,
+                                                    columnNumber: 25
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                    className: "p-4 text-center w-[10%]",
+                                                    children: "รายการ"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                    lineNumber: 386,
+                                                    columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                     className: "p-4 text-right w-[15%]",
                                                     children: "ยอดรวม"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                    lineNumber: 260,
-                                                    columnNumber: 19
+                                                    lineNumber: 387,
+                                                    columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                     className: "p-4 w-[10%]",
                                                     children: "สถานะ"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                    lineNumber: 261,
-                                                    columnNumber: 19
+                                                    lineNumber: 388,
+                                                    columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                     className: "p-4 text-center w-[10%]",
                                                     children: "จัดการ"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                    lineNumber: 262,
-                                                    columnNumber: 19
+                                                    lineNumber: 389,
+                                                    columnNumber: 25
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                            lineNumber: 255,
-                                            columnNumber: 17
+                                            lineNumber: 382,
+                                            columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                        lineNumber: 254,
+                                        lineNumber: 371,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1254,41 +1754,41 @@ function POListPage() {
                                                         className: "animate-spin inline mr-2"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                        lineNumber: 267,
+                                                        lineNumber: 395,
                                                         columnNumber: 83
                                                     }, this),
                                                     " กำลังโหลดข้อมูล..."
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                lineNumber: 267,
+                                                lineNumber: 395,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                            lineNumber: 267,
+                                            lineNumber: 395,
                                             columnNumber: 19
-                                        }, this) : filteredList.length > 0 ? filteredList.map((po)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                className: "bg-white hover:bg-blue-50/30 transition-colors duration-150",
+                                        }, this) : activeMainTab === 'PR' ? filteredPRList.length > 0 ? filteredPRList.map((pr)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                className: "bg-white hover:bg-orange-50/30 transition-colors duration-150",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "p-4 pl-6 font-mono font-bold text-blue-600 flex items-center gap-2",
+                                                        className: "p-4 pl-6 font-mono font-bold text-orange-600 flex items-center gap-2",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
                                                                 size: 16,
                                                                 className: "text-slate-400"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                                lineNumber: 272,
-                                                                columnNumber: 25
+                                                                lineNumber: 401,
+                                                                columnNumber: 37
                                                             }, this),
                                                             " ",
-                                                            po.po_number
+                                                            pr.pr_number
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                        lineNumber: 271,
-                                                        columnNumber: 23
+                                                        lineNumber: 400,
+                                                        columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "p-4 text-slate-600",
@@ -1300,28 +1800,241 @@ function POListPage() {
                                                                     className: "text-slate-400"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                                    lineNumber: 276,
-                                                                    columnNumber: 27
+                                                                    lineNumber: 404,
+                                                                    columnNumber: 78
+                                                                }, this),
+                                                                " ",
+                                                                new Date(pr.request_date).toLocaleDateString('th-TH')
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                            lineNumber: 404,
+                                                            columnNumber: 37
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                        lineNumber: 403,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                        className: "p-4 font-bold text-slate-700",
+                                                        children: pr.project_name || '-'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                        lineNumber: 406,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                        className: "p-4 text-center text-slate-500 text-xs",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "bg-slate-100 px-2 py-1 rounded-md",
+                                                            children: [
+                                                                pr.item_count,
+                                                                " รายการ"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                            lineNumber: 407,
+                                                            columnNumber: 88
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                        lineNumber: 407,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                        className: "p-4",
+                                                        children: getPRStatusBadge(pr.status)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                        lineNumber: 408,
+                                                        columnNumber: 33
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                        className: "p-4 text-center",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex justify-center items-center gap-1.5",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                    onClick: ()=>router.push(`/purchasing/pr/print/${pr.id}`),
+                                                                    className: "p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 border border-transparent hover:border-blue-200 rounded-lg transition",
+                                                                    title: "พิมพ์ใบ PR",
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__["Printer"], {
+                                                                        size: 16
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                                        lineNumber: 411,
+                                                                        columnNumber: 267
+                                                                    }, this)
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                                    lineNumber: 411,
+                                                                    columnNumber: 41
+                                                                }, this),
+                                                                pr.status === 'Pending' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                            onClick: ()=>router.push(`/purchasing/pr?edit=${pr.id}`),
+                                                                            className: "p-2 text-slate-400 hover:text-amber-500 hover:bg-amber-50 border border-transparent hover:border-amber-200 rounded-lg transition",
+                                                                            title: "แก้ไข",
+                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Edit$3e$__["Edit"], {
+                                                                                size: 16
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                                                lineNumber: 415,
+                                                                                columnNumber: 272
+                                                                            }, this)
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                                            lineNumber: 415,
+                                                                            columnNumber: 49
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                            onClick: ()=>handleCancelPR(pr.id, pr.pr_number),
+                                                                            className: "p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 border border-transparent hover:border-red-200 rounded-lg transition",
+                                                                            title: "ยกเลิกเอกสาร",
+                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$ban$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Ban$3e$__["Ban"], {
+                                                                                size: 16
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                                                lineNumber: 418,
+                                                                                columnNumber: 53
+                                                                            }, this)
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                                            lineNumber: 417,
+                                                                            columnNumber: 49
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                            onClick: ()=>router.push(`/purchasing/create-po?pr_id=${pr.id}`),
+                                                                            className: "ml-1 px-3 py-1.5 bg-[#22c55e] hover:bg-[#16a34a] text-white text-xs font-bold rounded-lg transition shadow-sm flex items-center gap-1",
+                                                                            title: "นำไปสร้างใบสั่งซื้อ (PO)",
+                                                                            children: [
+                                                                                "ออก PO ",
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
+                                                                                    size: 14
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                                                    lineNumber: 422,
+                                                                                    columnNumber: 60
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                                            lineNumber: 421,
+                                                                            columnNumber: 49
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    className: "text-[10px] text-gray-400 italic px-2 py-1 bg-gray-50 rounded-md ml-2 border border-dashed border-gray-200",
+                                                                    children: "ล็อกเอกสาร"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                                    lineNumber: 426,
+                                                                    columnNumber: 45
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                            lineNumber: 410,
+                                                            columnNumber: 37
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                        lineNumber: 409,
+                                                        columnNumber: 33
+                                                    }, this)
+                                                ]
+                                            }, pr.id, true, {
+                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                lineNumber: 399,
+                                                columnNumber: 29
+                                            }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                colSpan: "7",
+                                                className: "p-20 text-center text-slate-400 flex flex-col items-center gap-2",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
+                                                        size: 48,
+                                                        className: "text-slate-200 mb-2"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                        lineNumber: 433,
+                                                        columnNumber: 122
+                                                    }, this),
+                                                    " ",
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-lg font-bold text-slate-300",
+                                                        children: "ไม่พบใบขอซื้อตามเงื่อนไข"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                        lineNumber: 433,
+                                                        columnNumber: 177
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                lineNumber: 433,
+                                                columnNumber: 29
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                            lineNumber: 433,
+                                            columnNumber: 25
+                                        }, this) : filteredPOList.length > 0 ? filteredPOList.map((po)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                className: "bg-white hover:bg-blue-50/30 transition-colors duration-150",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                        className: "p-4 pl-6 font-mono font-bold text-blue-600 flex items-center gap-2",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$text$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FileText$3e$__["FileText"], {
+                                                                size: 16,
+                                                                className: "text-slate-400"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                                lineNumber: 440,
+                                                                columnNumber: 33
+                                                            }, this),
+                                                            " ",
+                                                            po.po_number
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                        lineNumber: 439,
+                                                        columnNumber: 29
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                        className: "p-4 text-slate-600",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex items-center gap-2",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__["Calendar"], {
+                                                                    size: 14,
+                                                                    className: "text-slate-400"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/purchasing/po-list/page.jsx",
+                                                                    lineNumber: 444,
+                                                                    columnNumber: 33
                                                                 }, this),
                                                                 new Date(po.order_date).toLocaleDateString('th-TH')
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                            lineNumber: 275,
-                                                            columnNumber: 25
+                                                            lineNumber: 443,
+                                                            columnNumber: 33
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                        lineNumber: 274,
-                                                        columnNumber: 23
+                                                        lineNumber: 442,
+                                                        columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "p-4 font-bold text-slate-700",
                                                         children: po.supplier_name || '-'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                        lineNumber: 280,
-                                                        columnNumber: 23
+                                                        lineNumber: 448,
+                                                        columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "p-4 text-center text-slate-500 text-xs",
@@ -1333,13 +2046,13 @@ function POListPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                            lineNumber: 282,
-                                                            columnNumber: 25
+                                                            lineNumber: 450,
+                                                            columnNumber: 33
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                        lineNumber: 281,
-                                                        columnNumber: 23
+                                                        lineNumber: 449,
+                                                        columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "p-4 text-right font-black text-slate-800",
@@ -1349,16 +2062,16 @@ function POListPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                        lineNumber: 284,
-                                                        columnNumber: 23
+                                                        lineNumber: 452,
+                                                        columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "p-4",
-                                                        children: getStatusBadge(po.status)
+                                                        children: getPOStatusBadge(po.status)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                        lineNumber: 285,
-                                                        columnNumber: 23
+                                                        lineNumber: 453,
+                                                        columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "p-4 text-center",
@@ -1366,20 +2079,20 @@ function POListPage() {
                                                             className: "flex justify-center gap-2",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                    onClick: ()=>handleView(po),
+                                                                    onClick: ()=>handleViewPO(po),
                                                                     className: "p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition",
                                                                     title: "ดูรายละเอียด",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
                                                                         size: 18
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                                        lineNumber: 290,
-                                                                        columnNumber: 29
+                                                                        lineNumber: 458,
+                                                                        columnNumber: 37
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                                    lineNumber: 289,
-                                                                    columnNumber: 27
+                                                                    lineNumber: 457,
+                                                                    columnNumber: 33
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                                     onClick: ()=>router.push(`/purchasing/edit-po/${po.id}`),
@@ -1390,32 +2103,32 @@ function POListPage() {
                                                                         size: 18
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                                        lineNumber: 304,
-                                                                        columnNumber: 31
+                                                                        lineNumber: 467,
+                                                                        columnNumber: 37
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                                    lineNumber: 294,
-                                                                    columnNumber: 27
+                                                                    lineNumber: 461,
+                                                                    columnNumber: 33
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                    onClick: ()=>handlePrint(po),
+                                                                    onClick: ()=>handlePrintPO(po),
                                                                     className: "p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition",
                                                                     title: "พิมพ์ใบสั่งซื้อ",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__["Printer"], {
                                                                         size: 18
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                                        lineNumber: 308,
-                                                                        columnNumber: 29
+                                                                        lineNumber: 471,
+                                                                        columnNumber: 37
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                                    lineNumber: 307,
-                                                                    columnNumber: 27
+                                                                    lineNumber: 470,
+                                                                    columnNumber: 33
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                    onClick: ()=>handleCancel(po),
+                                                                    onClick: ()=>handleCancelPO(po),
                                                                     disabled: po.status !== 'Pending',
                                                                     className: `p-2 rounded-lg transition ${po.status === 'Pending' ? 'text-slate-400 hover:text-red-600 hover:bg-red-50' : 'text-slate-200 cursor-not-allowed'}`,
                                                                     title: po.status === 'Pending' ? "ยกเลิกใบสั่งซื้อ" : "ไม่สามารถยกเลิกได้",
@@ -1423,30 +2136,30 @@ function POListPage() {
                                                                         size: 18
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                                        lineNumber: 321,
-                                                                        columnNumber: 31
+                                                                        lineNumber: 480,
+                                                                        columnNumber: 37
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                                    lineNumber: 311,
-                                                                    columnNumber: 27
+                                                                    lineNumber: 474,
+                                                                    columnNumber: 33
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                            lineNumber: 287,
-                                                            columnNumber: 25
+                                                            lineNumber: 455,
+                                                            columnNumber: 33
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                        lineNumber: 286,
-                                                        columnNumber: 23
+                                                        lineNumber: 454,
+                                                        columnNumber: 29
                                                     }, this)
                                                 ]
                                             }, po.id, true, {
                                                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                lineNumber: 270,
-                                                columnNumber: 21
+                                                lineNumber: 438,
+                                                columnNumber: 29
                                             }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 colSpan: "7",
@@ -1457,67 +2170,60 @@ function POListPage() {
                                                         className: "text-slate-200 mb-2"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                        lineNumber: 329,
-                                                        columnNumber: 23
+                                                        lineNumber: 487,
+                                                        columnNumber: 122
                                                     }, this),
+                                                    " ",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         className: "text-lg font-bold text-slate-300",
-                                                        children: "ไม่มีข้อมูลในหมวดนี้"
+                                                        children: "ไม่พบใบสั่งซื้อตามเงื่อนไข"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                        lineNumber: 330,
-                                                        columnNumber: 23
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "text-sm text-slate-400",
-                                                        children: "ลองเปลี่ยน Tab หรือสร้างรายการใหม่"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                        lineNumber: 331,
-                                                        columnNumber: 23
+                                                        lineNumber: 487,
+                                                        columnNumber: 180
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                                lineNumber: 328,
-                                                columnNumber: 23
+                                                lineNumber: 487,
+                                                columnNumber: 29
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                            lineNumber: 328,
-                                            columnNumber: 19
+                                            lineNumber: 487,
+                                            columnNumber: 25
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                        lineNumber: 265,
+                                        lineNumber: 393,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                                lineNumber: 253,
+                                lineNumber: 370,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                            lineNumber: 252,
+                            lineNumber: 369,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                        lineNumber: 251,
+                        lineNumber: 368,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-                lineNumber: 200,
+                lineNumber: 258,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/purchasing/po-list/page.jsx",
-        lineNumber: 185,
+        lineNumber: 246,
         columnNumber: 5
     }, this);
 }

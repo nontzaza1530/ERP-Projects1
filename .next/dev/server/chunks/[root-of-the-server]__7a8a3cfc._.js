@@ -170,22 +170,18 @@ async function GET(request) {
         const { searchParams } = new URL(request.url);
         const category = searchParams.get('category');
         const search = searchParams.get('search');
-        // ✅ แก้ไข: เริ่มต้นด้วยการกรองเฉพาะ is_deleted = 0
         let sql = 'SELECT * FROM products WHERE is_deleted = 0';
         const values = [];
         const conditions = [];
-        // กรองตามหมวดหมู่
         if (category) {
             conditions.push('category = ?');
             values.push(category);
         }
-        // ค้นหา (ชื่อ หรือ รหัส)
         if (search) {
             conditions.push('(name LIKE ? OR product_code LIKE ?)');
             const searchPattern = `%${search}%`;
             values.push(searchPattern, searchPattern);
         }
-        // ถ้ามีการส่ง filter มา ให้ใช้ AND ต่อจาก WHERE is_deleted = 0
         if (conditions.length > 0) {
             sql += ' AND ' + conditions.join(' AND ');
         }
@@ -212,6 +208,8 @@ async function POST(request) {
         const price = body.price || body.cost_price || 0;
         const location = body.location || '-';
         const min_level = body.min_level || 5;
+        // ✅ 1. รับค่า source_link จากหน้าเว็บ (ถ้าไม่มีให้เป็น null)
+        const source_link = body.source_link || null;
         // 1. Validation
         if (!product_code || !name) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
@@ -220,7 +218,7 @@ async function POST(request) {
                 status: 400
             });
         }
-        // 2. เช็คสินค้าซ้ำ (เช็คเฉพาะสินค้าที่ยังไม่ถูกลบ เพื่อให้สามารถนำรหัสสินค้าเก่าที่ลบไปแล้วกลับมาใช้ใหม่ได้ ถ้าต้องการ)
+        // 2. เช็คสินค้าซ้ำ 
         const [existing] = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query('SELECT id FROM products WHERE product_code = ? AND is_deleted = 0', [
             product_code
         ]);
@@ -231,10 +229,10 @@ async function POST(request) {
                 status: 400
             });
         }
-        // 3. บันทึก (Insert) พร้อมกำหนด is_deleted = 0
+        // ✅ 3. บันทึก (Insert) เพิ่มคอลัมน์ source_link เข้าไป
         const sql = `
-      INSERT INTO products (product_code, name, category, quantity, unit, price, location, min_level, is_deleted)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)
+      INSERT INTO products (product_code, name, category, quantity, unit, price, location, min_level, source_link, is_deleted)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
     `;
         const values = [
             product_code,
@@ -244,7 +242,8 @@ async function POST(request) {
             unit,
             price,
             location,
-            min_level
+            min_level,
+            source_link
         ];
         await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(sql, values);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({

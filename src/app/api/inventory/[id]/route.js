@@ -7,20 +7,22 @@ export async function PUT(request, { params }) {
     const { id } = await params;
     const body = await request.json();
     
-    // ดึงค่าจาก body
-    const { product_code, name, category, quantity, unit, price, location, min_level } = body;
+    // ✅ 1. ดึงค่า source_link เพิ่มเติมจาก body
+    const { product_code, name, category, quantity, unit, price, location, min_level, source_link } = body;
 
     // ตรวจสอบค่าเบื้องต้น (Validation)
     if (!product_code || !name) {
       return NextResponse.json({ error: 'กรุณาระบุรหัสและชื่อสินค้า' }, { status: 400 });
     }
 
+    // ✅ 2. เพิ่ม source_link=? ในคำสั่ง UPDATE
     const sql = `
       UPDATE products 
-      SET product_code=?, name=?, category=?, quantity=?, unit=?, price=?, location=?, min_level=?
+      SET product_code=?, name=?, category=?, quantity=?, unit=?, price=?, location=?, min_level=?, source_link=?
       WHERE id=?
     `;
-    const values = [product_code, name, category, quantity, unit, price, location, min_level, id];
+    // ✅ 3. ใส่ตัวแปร source_link ลงใน array ลำดับให้ตรงกับ SQL
+    const values = [product_code, name, category, quantity, unit, price, location, min_level, source_link, id];
 
     const [result] = await pool.query(sql, values);
 
@@ -40,8 +42,6 @@ export async function DELETE(request, { params }) {
   try {
     const { id } = await params;
 
-    // เปลี่ยนจาก DELETE FROM products ... 
-    // เป็นการ UPDATE แทน เพื่อเก็บประวัติไว้ในระบบ
     const sql = `UPDATE products SET is_deleted = 1 WHERE id = ?`;
     
     const [result] = await pool.query(sql, [id]);

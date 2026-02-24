@@ -166,7 +166,7 @@ __turbopack_context__.s([
     ()=>PUT
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/lib/db.js [app-route] (ecmascript)"); // ✅ ใช้ @/lib/db เพื่อความชัวร์เรื่อง Path
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/lib/db.js [app-route] (ecmascript)");
 ;
 ;
 async function GET(request) {
@@ -176,7 +176,6 @@ async function GET(request) {
         let sql = `SELECT * FROM suppliers`;
         let params = [];
         if (search) {
-            // ค้นหาครอบคลุมถึงชื่อผู้ติดต่อและเบอร์โทร
             sql += ` WHERE name LIKE ? OR code LIKE ? OR contact_name LIKE ? OR phone LIKE ?`;
             params = [
                 `%${search}%`,
@@ -199,8 +198,9 @@ async function GET(request) {
 async function POST(request) {
     try {
         const body = await request.json();
-        // รับค่า 4 ตัวใหม่ (sub_district, district, province, zipcode)
-        const { code, name, contact_name, address, sub_district, district, province, zipcode, phone, email, tax_id, credit_term } = body;
+        // รับค่า branch และ fax เพิ่มเติม
+        const { code, name, contact_name, address, sub_district, district, province, zipcode, phone, email, tax_id, credit_term, branch, fax// <--- มารับค่าตรงนี้
+         } = body;
         // Validation
         if (!code || !name) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
@@ -225,9 +225,9 @@ async function POST(request) {
             (
                 code, name, contact_name, 
                 address, sub_district, district, province, zipcode, 
-                phone, email, tax_id, credit_term
+                phone, email, tax_id, credit_term, branch, fax
             ) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const values = [
             code,
@@ -241,7 +241,9 @@ async function POST(request) {
             phone || '',
             email || '',
             tax_id || '',
-            credit_term || 0
+            credit_term || 0,
+            branch || '',
+            fax || '' // <--- บันทึกแฟกซ์
         ];
         await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(sql, values);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
@@ -260,12 +262,13 @@ async function POST(request) {
 async function PUT(request) {
     try {
         const body = await request.json();
-        const { id, code, name, contact_name, address, sub_district, district, province, zipcode, phone, email, tax_id, credit_term } = body;
+        const { id, code, name, contact_name, address, sub_district, district, province, zipcode, phone, email, tax_id, credit_term, branch, fax// <--- มารับค่าตรงนี้
+         } = body;
         const sql = `
             UPDATE suppliers SET 
             code=?, name=?, contact_name=?, 
             address=?, sub_district=?, district=?, province=?, zipcode=?, 
-            phone=?, email=?, tax_id=?, credit_term=? 
+            phone=?, email=?, tax_id=?, credit_term=?, branch=?, fax=? 
             WHERE id=?
         `;
         const values = [
@@ -281,6 +284,8 @@ async function PUT(request) {
             email,
             tax_id,
             credit_term,
+            branch || '',
+            fax || '',
             id
         ];
         await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].query(sql, values);

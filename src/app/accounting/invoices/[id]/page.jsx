@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-// ✅ Import ครบถ้วน
 import { Printer, ArrowLeft, Download } from 'lucide-react';
 
 // --- ⚙️ Config: จำนวนรายการต่อ 1 หน้า ---
@@ -63,8 +62,6 @@ export default function InvoiceViewPage() {
     const [invoice, setInvoice] = useState(null);
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    // ✅ ประกาศ State กัน Error
     const [isDownloading, setIsDownloading] = useState(false);
 
     useEffect(() => {
@@ -97,7 +94,7 @@ export default function InvoiceViewPage() {
                     scale: 2,
                     logging: false,
                     useCORS: true,
-                    backgroundColor: '#ffffff' // ✅ บังคับพื้นหลังขาว แก้ปัญหา Lab Color
+                    backgroundColor: '#ffffff' 
                 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
@@ -123,12 +120,10 @@ export default function InvoiceViewPage() {
         }
     }
 
-    // กำหนดสี Theme (ใช้ Hex Code ตรงๆ เพื่อความชัวร์)
     const themeColor = "#002060";
     const redHighlight = "#C00000";
 
     return (
-        // ใช้ bg-[#f3f4f6] แทน bg-gray-100 เพื่อเลี่ยง variable
         <div className="min-h-screen bg-[#f3f4f6] p-8 font-sans print:bg-white print:p-0">
 
             <style jsx global>{`
@@ -169,7 +164,6 @@ export default function InvoiceViewPage() {
                     return (
                         <div
                             key={pageIndex}
-                            // ✅ เปลี่ยน bg-white เป็น bg-[#ffffff] และ text-black เป็น text-[#000000] เพื่อแก้ปัญหา Lab Color
                             className="w-[210mm] min-h-[296mm] mx-auto bg-[#ffffff] p-8 shadow-lg print:shadow-none print:w-[210mm] print:h-[296mm] print:overflow-hidden relative flex flex-col text-[12px] leading-snug text-[#000000] mb-8 print:mb-0"
                             style={{ pageBreakAfter: 'always' }}
                         >
@@ -189,7 +183,6 @@ export default function InvoiceViewPage() {
                                     </p>
                                     <img src="/MSTrack_Logo_2.png" alt="Company Logo" className="h-16 w-auto object-contain" />
                                 </div>
-                                {/* ใช้ text-[#ffffff] แทน text-white */}
                                 <div className="w-full text-[#ffffff] text-center py-2 font-bold text-xl print:bg-[#002060] print:text-white mb-0" style={{ backgroundColor: themeColor }}>
                                     ใบแจ้งหนี้ (INVOICE)
                                 </div>
@@ -214,7 +207,6 @@ export default function InvoiceViewPage() {
 
                             {/* 3. Table */}
                             <div className="">
-                                {/* เปลี่ยน border-black เป็น border-[#000000] */}
                                 <table className="w-full border-collapse text-xs border-t border-r border-[#000000]">
                                     <thead>
                                         <tr className="text-[#ffffff] text-center font-bold print:bg-[#002060]" style={{ backgroundColor: themeColor }}>
@@ -233,12 +225,10 @@ export default function InvoiceViewPage() {
                                                 <td className="border-r border-[#000000] py-1 px-2 leading-relaxed">
                                                     {item.description}
                                                 </td>
-                                                {/* ✅ แก้ไข: ดึงจำนวนจริงมาแสดงผล */}
                                                 <td className="border-r border-[#000000] py-1 text-center">
                                                     {item.quantity}
                                                 </td>
                                                 <td className="border-r border-[#000000] py-1 text-center">ชุด</td>
-                                                {/* ✅ แก้ไข: คำนวณราคาต่อหน่วยจริง (ยอดรวม / จำนวน) */}
                                                 <td className="border-r border-[#000000] py-1 text-right px-2">
                                                     {(parseFloat(item.total) / (item.quantity || 1)).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                                                 </td>
@@ -264,7 +254,6 @@ export default function InvoiceViewPage() {
                                     {isLastPage && (
                                         <tfoot>
                                             <tr className="border-t border-[#000000]">
-                                                {/* ✅ BahtText */}
                                                 <td colSpan={4} rowSpan={3} className="border-r border-b border-[#000000] align-middle text-center px-4 font-bold italic text-[11px]" style={{ color: themeColor }}>
                                                     ( {THBText(invoice.grand_total)} )
                                                 </td>
@@ -277,7 +266,8 @@ export default function InvoiceViewPage() {
                                             </tr>
                                             <tr>
                                                 <td className="border-r border-b border-[#000000] py-1 pl-2 font-bold text-[11px]" style={{ color: themeColor }}>
-                                                    ภาษีมูลค่าเพิ่ม 7%
+                                                    {/* ✅ เปลี่ยนให้โชว์เรท VAT แบบไดนามิก (รองรับบิลเก่าที่ไม่มีข้อมูล vat_rate โดยเช็คว่ามียอด VAT ไหม) */}
+                                                    ภาษีมูลค่าเพิ่ม {invoice.vat_rate !== undefined && invoice.vat_rate !== null ? parseFloat(invoice.vat_rate) : (parseFloat(invoice.vat_amount) > 0 ? 7 : 0)}%
                                                 </td>
                                                 <td className="border-b border-[#000000] py-1 text-right pr-2 font-medium text-[11px]">
                                                     {parseFloat(invoice.vat_amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
@@ -312,12 +302,22 @@ export default function InvoiceViewPage() {
                                             <p>หลังชำระเรียบร้อย กรุณาติดต่อฝ่ายบัญชี/การเงิน 044-300659</p>
                                             <p>หรือเพิ่มเพื่อนทางไลน์ ID : 5477208</p>
                                         </div>
+                                        
                                         <div className="text-right space-y-5 text-[15px]">
-                                            <p className=" text-[#dc2626]">กรุณาส่ง "ใบหัก ณ ที่จ่าย" พร้อมหลักฐานการชำระเงิน</p>
-                                            <div className="flex justify-end items-center gap-19 text-[#dc2626]">
-                                                <span>หักภาษี ณ ที่จ่าย/TAX (3%)</span>
-                                                <span className="text-red w-20 text-right">{((parseFloat(invoice.subtotal) * 0.03)).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
-                                            </div>
+                                            {/* ✅ เช็คว่ามี หัก ณ ที่จ่าย หรือไม่ ถ้ามีก็โชว์ ถ้าไม่มีก็ซ่อน */}
+                                            {parseFloat(invoice.wht_rate) > 0 ? (
+                                                <>
+                                                    <p className=" text-[#dc2626]">กรุณาส่ง "ใบหัก ณ ที่จ่าย" พร้อมหลักฐานการชำระเงิน</p>
+                                                    <div className="flex justify-end items-center gap-19 text-[#dc2626]">
+                                                        <span>หักภาษี ณ ที่จ่าย/TAX ({parseFloat(invoice.wht_rate)}%)</span>
+                                                        <span className="text-red w-20 text-right">
+                                                            {parseFloat(invoice.wht_amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                                        </span>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <div className="h-[50px]"></div> // ดัน Layout ไม่ให้เพี้ยนกรณีไม่มีหัก ณ ที่จ่าย
+                                            )}
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-3 text-center text-[10px]">

@@ -1,21 +1,19 @@
 import { NextResponse } from 'next/server';
 import pool from '../../lib/db'; 
 
-// --- GET: ดึงข้อมูลสรุปบัญชี (รวมทุกอย่าง: ขาย + ซื้อ + จ่ายทั่วไป) ---
+// --- GET: ดึงข้อมูลสรุปบัญชี (รวมทุกอย่าง: ขาย + ซื้อ + จ่ายทั่วไป + แจ้งหนี้/ใบเสร็จ) ---
 export async function GET() {
   try {
     // ------------------------------------------------------------------
     // 1. คำนวณรายรับ (Income)
     // ------------------------------------------------------------------
     
-    // 1.1 ยอดขายจาก Orders (ถ้ามีตาราง orders)
-    // *หมายเหตุ: ถ้ายังไม่ได้ทำตาราง orders ให้คอมเมนต์บรรทัดนี้แล้วให้ totalSales = 0
+    // 1.1 ยอดขายจาก Orders
     let totalSales = 0;
     try {
         const [salesResult] = await pool.query("SELECT SUM(total_amount) as total FROM orders");
         totalSales = Number(salesResult[0].total || 0);
     } catch (e) {
-        // ดัก Error ไว้ก่อน เผื่อยังไม่มีตาราง orders
         console.log("⚠️ ยังไม่มีตาราง Orders ข้ามการคำนวณส่วนนี้");
     }
 
@@ -23,83 +21,62 @@ export async function GET() {
     const [otherIncomeResult] = await pool.query("SELECT SUM(amount) as total FROM transactions WHERE type = 'Income'");
     const totalOtherIncome = Number(otherIncomeResult[0].total || 0);
 
-    const totalIncome = totalSales + totalOtherIncome;
+    // ✨ [เพิ่มใหม่] 1.3 รายรับจาก ใบเสร็จรับเงิน (Receipts) ที่เก็บเงินลูกค้าได้แล้ว
+    let totalReceiptIncome = 0;
+    try {
+        const [receiptResult] = await pool.query("SELECT SUM(net_amount) as total FROM receipts");
+        totalReceiptIncome = Number(receiptResult[0].total || 0);
+    } catch (e) {
+        console.log("⚠️ ยังไม่มีตาราง Receipts ข้ามการคำนวณส่วนนี้");
+    }
+
+    // ✅ รวมรายรับทั้งหมด (ขายหน้าร้าน + กรอกมือ + ใบเสร็จรับเงิน)
+    const totalIncome = totalSales + totalOtherIncome + totalReceiptIncome;
 
     // ------------------------------------------------------------------
-    // 2. คำนวณรายจ่าย (Expenses)
+    // 2. คำนวณรายจ่าย (Expenses) (คงเดิม 100%)
     // ------------------------------------------------------------------
 
-    // 2.1 ต้นทุนสินค้าจาก PO (Purchase Orders) - เฉพาะที่ไม่ยกเลิก
     const [poExpenseResult] = await pool.query("SELECT SUM(total_amount) as total FROM purchase_orders WHERE status != 'Cancelled'");
     const totalPOExpense = Number(poExpenseResult[0].total || 0);
 
-    // 2.2 รายจ่ายทั่วไปจาก Transactions (Manual Input)
     const [manualExpenseResult] = await pool.query("SELECT SUM(amount) as total FROM transactions WHERE type = 'Expense'");
     const totalManualExpense = Number(manualExpenseResult[0].total || 0);
 
     const totalExpenses = totalPOExpense + totalManualExpense;
 
     // ------------------------------------------------------------------
-    // 3. กำไรสุทธิ
+    // 3. กำไรสุทธิ และ ยอดรอเก็บเงิน
     // ------------------------------------------------------------------
     const netProfit = totalIncome - totalExpenses;
 
+    // ✨ [เพิ่มใหม่] 3.1 ยอดลูกหนี้รอเก็บเงิน (Pending Invoices)
+    let totalPendingIncome = 0;
+    try {
+        const [pendingResult] = await pool.query("SELECT SUM(grand_total) as total FROM invoices WHERE status IN ('sent', 'pending')");
+        totalPendingIncome = Number(pendingResult[0].total || 0);
+    } catch (e) {
+        console.log("⚠️ ยังไม่มีตาราง Invoices ข้ามการคำนวณส่วนนี้");
+    }
+
     // ------------------------------------------------------------------
-    // 4. ดึงรายการเคลื่อนไหวล่าสุด (รวม 3 ทหารเสือ: Orders + PO + Manual)
+    // 4. ดึงรายการเคลื่อนไหวล่าสุด (รวมของเดิม: Orders + PO + Manual)
     // ------------------------------------------------------------------
-    
-    // ใช้ UNION ALL เพื่อรวมข้อมูลจาก 3 ตาราง แล้วเรียงตามวันที่
     const sqlRecent = `
-      /* ส่วนที่ 1: รายการซื้อของ (PO) */
-      SELECT 
-        CONCAT('PO-', id) as id,    -- สร้าง ID ปลอมไม่ให้ซ้ำ เช่น PO-1
-        po_number as ref_number,
-        'Expense' as type, 
-        'จัดซื้อสินค้า' as category, 
-        total_amount as amount, 
-        CONCAT('สั่งซื้อจาก ', (SELECT name FROM suppliers WHERE id = purchase_orders.supplier_id)) as description, 
-        order_date as date 
-      FROM purchase_orders 
-      WHERE status != 'Cancelled'
-
+      SELECT CONCAT('PO-', id) as id, po_number as ref_number, 'Expense' as type, 'จัดซื้อสินค้า' as category, total_amount as amount, CONCAT('สั่งซื้อจาก ', (SELECT name FROM suppliers WHERE id = purchase_orders.supplier_id)) as description, order_date as date FROM purchase_orders WHERE status != 'Cancelled'
       UNION ALL
-
-      /* ส่วนที่ 2: รายการทั่วไป (Transactions) */
-      SELECT 
-        CONCAT('TX-', id) as id,    -- สร้าง ID ปลอม เช่น TX-1
-        '-' as ref_number,
-        type, 
-        category, 
-        amount, 
-        description, 
-        transaction_date as date 
-      FROM transactions
-
-      /* ส่วนที่ 3: รายการขาย (Orders) - ถ้ามี */
-      /* ถ้ายังไม่มีตาราง orders ให้ลบ UNION ส่วนนี้ออกได้ครับ */
+      SELECT CONCAT('TX-', id) as id, '-' as ref_number, type, category, amount, description, transaction_date as date FROM transactions
       UNION ALL
-      SELECT 
-        CONCAT('ORD-', id) as id, 
-        CAST(id AS CHAR) as ref_number,
-        'Income' as type, 
-        'ยอดขายสินค้า' as category, 
-        total_amount as amount, 
-        CONCAT('Order ขายสินค้าให้ ', customer_name) as description, 
-        sale_date as date 
-      FROM orders
-
-      ORDER BY date DESC 
-      LIMIT 100
+      SELECT CONCAT('ORD-', id) as id, CAST(id AS CHAR) as ref_number, 'Income' as type, 'ยอดขายสินค้า' as category, total_amount as amount, CONCAT('Order ขายสินค้าให้ ', customer_name) as description, sale_date as date FROM orders
+      ORDER BY date DESC LIMIT 100
     `;
 
-    // *หมายเหตุ: ถ้ายังไม่มีตาราง orders ให้เอา SQL ส่วน Orders ออก ไม่งั้นจะ Error
     let recentTransactions = [];
     try {
         const [result] = await pool.query(sqlRecent);
         recentTransactions = result;
     } catch (e) {
-        // Fallback: ถ้า Query รวมพัง (เช่นไม่มีตาราง Order) ให้ดึงแค่ PO กับ Transaction
-        console.log("⚠️ Query รวมมีปัญหา (อาจจะไม่มีตาราง orders) -> ใช้โหมดสำรอง");
+        console.log("⚠️ Query รวมมีปัญหา -> ใช้โหมดสำรอง");
         const sqlBackup = `
             SELECT CONCAT('PO-', id) as id, po_number as ref_number, 'Expense' as type, 'จัดซื้อสินค้า' as category, total_amount as amount, CONCAT('สั่งซื้อจาก Supplier ID:', supplier_id) as description, order_date as date FROM purchase_orders WHERE status != 'Cancelled'
             UNION ALL
@@ -110,13 +87,45 @@ export async function GET() {
         recentTransactions = resultBackup;
     }
 
+    // ------------------------------------------------------------------
+    // ✨ 5. [เพิ่มใหม่] นำรายการ ใบเสร็จ & ใบแจ้งหนี้ มาผสมกับประวัติเดิม
+    // ------------------------------------------------------------------
+    let newTransactions = [];
+    try {
+        // ดึงประวัติใบเสร็จ (รายรับ)
+        const [receiptRows] = await pool.query(`
+            SELECT r.id, r.doc_number as ref_number, 'Income' as type, 'รับชำระจากใบแจ้งหนี้' as category, r.net_amount as amount, CONCAT('รับชำระจาก: ', COALESCE(i.customer_name, 'ลูกค้า')) as description, COALESCE(r.doc_date, r.created_at) as date 
+            FROM receipts r LEFT JOIN invoices i ON r.invoice_id = i.id
+        `);
+        newTransactions.push(...receiptRows.map(r => ({ ...r, id: `RC-${r.id}` })));
+
+        // ดึงประวัติใบแจ้งหนี้ที่รอชำระ (Pending)
+        const [invoiceRows] = await pool.query(`
+            SELECT id, doc_number as ref_number, 'Pending' as type, 'ลูกหนี้รอเรียกเก็บ' as category, grand_total as amount, CONCAT('รอชำระจาก: ', customer_name) as description, COALESCE(doc_date, created_at) as date 
+            FROM invoices WHERE status IN ('sent', 'pending')
+        `);
+        newTransactions.push(...invoiceRows.map(inv => ({ ...inv, id: `INV-${inv.id}` })));
+
+    } catch (e) {
+        console.log("⚠️ ไม่สามารถดึงประวัติ Invoices/Receipts ได้");
+    }
+
+    // นำ Array เดิม มาต่อกับ Array ใหม่ แล้วเรียงวันที่ใหม่ทั้งหมด
+    let combinedTransactions = [...recentTransactions, ...newTransactions];
+    combinedTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+    combinedTransactions = combinedTransactions.slice(0, 100); // ตัดเอาแค่ 100 รายการล่าสุด เพื่อไม่ให้เว็บค้าง
+
+    // ------------------------------------------------------------------
+    // 6. ส่งข้อมูลกลับไปให้หน้า Frontend
+    // ------------------------------------------------------------------
     return NextResponse.json({
       summary: {
         income: totalIncome,
         expenses: totalExpenses,
-        profit: netProfit
+        profit: netProfit,
+        pendingIncome: totalPendingIncome // ✅ แนบยอดรอเก็บเงินส่งไปด้วย
       },
-      transactions: recentTransactions
+      transactions: combinedTransactions // ✅ ใช้ชื่อ transactions เหมือนเดิม หน้าบ้านจะได้ไม่ต้องแก้เยอะ
     });
 
   } catch (error) {
@@ -125,7 +134,7 @@ export async function GET() {
   }
 }
 
-// --- POST: บันทึกรายรับ/รายจ่าย เพิ่มเติม (Manual Entry) ---
+// --- POST: บันทึกรายรับ/รายจ่าย เพิ่มเติม (Manual Entry) (คงเดิม 100%) ---
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -135,7 +144,6 @@ export async function POST(request) {
       return NextResponse.json({ error: 'กรุณากรอกข้อมูลหมวดหมู่และจำนวนเงิน' }, { status: 400 });
     }
 
-    // ใช้ NOW() เพื่อบันทึกเวลาปัจจุบันลง transaction_date
     const sql = `INSERT INTO transactions (type, category, amount, description, transaction_date) VALUES (?, ?, ?, ?, NOW())`;
     await pool.query(sql, [type, category, amount, description]);
 

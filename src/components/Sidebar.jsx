@@ -44,7 +44,6 @@ export default function Sidebar({ onClose }) {
 
   useEffect(() => {
       if (pathname.startsWith('/hr')) setExpandedMenu('HR Management');
-      // เช็ค path เพื่อเปิดเมนูบัญชีอัตโนมัติ ถ้าเราอยู่ในหน้า Invoice
       else if (pathname.startsWith('/accounting')) setExpandedMenu('บัญชี');
       else if (pathname.startsWith('/purchasing')) setExpandedMenu('ฝ่ายจัดซื้อ (Purchasing)');
   }, [pathname]);
@@ -144,6 +143,11 @@ export default function Sidebar({ onClose }) {
                 roles: ['super_admin', 'admin'] 
             },
             { 
+                name: 'ใบขอซื้อ (PR)', 
+                href: '/purchasing/pr', 
+                roles: ['super_admin', 'admin'] 
+            },
+            { 
                 name: 'สร้างใบสั่งซื้อ (PO)', 
                 href: '/purchasing/create-po', 
                 roles: ['super_admin', 'admin'] 
@@ -183,18 +187,22 @@ export default function Sidebar({ onClose }) {
         icon: FileText, 
         roles: ['super_admin', 'admin', 'employee'], 
         subItems: [
-            // ✅ เพิ่มตรงนี้: เมนูใบแจ้งหนี้ (Invoices)
             { 
                 name: 'ภาพรวมบัญชี', 
                 href: '/accounting', 
                 roles: ['super_admin', 'admin'] 
             },
+            // ✅ เพิ่มตรงนี้: เมนู ใบเสนอราคา (Quotations) ให้อยู่เหนือใบแจ้งหนี้
+            { 
+                name: 'ใบเสนอราคา (Quotations)', 
+                href: '/accounting/project-quotations', 
+                roles: ['super_admin', 'admin'] 
+            },
             { 
                 name: 'ใบแจ้งหนี้ (Invoices)', 
                 href: '/accounting/invoices', 
-                roles: ['super_admin', 'admin'] // จำกัดสิทธิ์เฉพาะ Admin
+                roles: ['super_admin', 'admin'] 
             },
-            // ✅ เพิ่มตรงนี้: เมนูใบเสร็จ (เตรียมไว้ให้อนาคต)
             { 
                 name: 'ใบเสร็จรับเงิน (Receipts)', 
                 href: '/accounting/receipts', 

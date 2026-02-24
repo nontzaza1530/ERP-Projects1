@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar';
 import { 
-  Package, Search, Plus, Filter, AlertTriangle, Edit, Trash2, X, Box, CheckCircle, Menu 
+  Package, Search, Plus, Filter, AlertTriangle, Edit, Trash2, X, Box, CheckCircle, Menu,
+  ChevronLeft, ChevronRight, ExternalLink // ✅ 1. Import ไอคอน ExternalLink สำหรับปุ่มลิงก์
 } from 'lucide-react';
 import Swal from 'sweetalert2';
 
@@ -13,10 +14,12 @@ export default function InventoryPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   
-  // UI State (สำหรับ Sidebar ในมือถือ)
+  // State สำหรับระบบแบ่งหน้า (Pagination)
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 10; 
+  
+  // UI State
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   
@@ -30,13 +33,19 @@ export default function InventoryPage() {
     unit: 'ชิ้น',
     price: 0,
     location: '',
-    min_level: 5 
+    min_level: 5,
+    source_link: '' // ✅ 2. เพิ่ม state สำหรับเก็บ URL
   });
 
   // --- 2. Fetch Data ---
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  // รีเซ็ตกลับไปหน้า 1 เสมอเมื่อมีการพิมพ์ค้นหาใหม่
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -56,19 +65,33 @@ export default function InventoryPage() {
   const lowStockItems = products.filter(p => p.quantity <= p.min_level).length;
   const totalValue = products.reduce((sum, p) => sum + (Number(p.price) * Number(p.quantity)), 0);
 
-  // --- 4. Handlers ---
+  // --- 4. Filtering & Pagination ---
+  const filteredProducts = products.filter(p => 
+    p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    p.product_code.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // คำนวณการตัดแบ่งหน้า
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  // --- 5. Handlers ---
   const openAddModal = () => {
     setIsEditMode(false);
     setFormData({ 
       id: null, product_code: '', name: '', category: 'Finished Goods', 
-      quantity: 0, unit: 'ชิ้น', price: 0, location: '', min_level: 5 
+      quantity: 0, unit: 'ชิ้น', price: 0, location: '', min_level: 5, source_link: '' // ✅ รีเซ็ตลิงก์
     });
     setIsModalOpen(true);
   };
 
   const openEditModal = (item) => {
     setIsEditMode(true);
-    setFormData(item);
+    setFormData({
+        ...item,
+        source_link: item.source_link || '' // ✅ ดึงลิงก์เดิมมาแสดง
+    });
     setIsModalOpen(true);
   };
 
@@ -138,11 +161,12 @@ export default function InventoryPage() {
     });
   };
 
-  // --- 5. Filtering ---
-  const filteredProducts = products.filter(p => 
-    p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    p.product_code.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // ✅ ฟังก์ชันช่วยจัดฟอร์แมต URL เผื่อผู้ใช้ลืมพิมพ์ http://
+  const formatExternalLink = (url) => {
+    if (!url) return '#';
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    return `https://${url}`;
+  };
 
   // --- 6. Render UI ---
   return (
@@ -155,7 +179,6 @@ export default function InventoryPage() {
         <Sidebar />
       </div>
 
-      {/* Overlay สำหรับปิด Sidebar ในมือถือ */}
       {isSidebarOpen && (
         <div 
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -163,13 +186,11 @@ export default function InventoryPage() {
         ></div>
       )}
       
-      {/* --- Main Content --- */}
       <main className="flex-1 p-4 md:p-8 w-full h-screen overflow-y-auto bg-gray-50">
         
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
           <div className="flex items-center gap-3">
-            {/* Hamburger Menu (เฉพาะมือถือ) */}
             <button 
               onClick={() => setIsSidebarOpen(true)}
               className="p-2 bg-white rounded-lg shadow-sm border border-gray-100 lg:hidden text-gray-600 hover:text-blue-600 active:scale-95 transition"
@@ -192,7 +213,7 @@ export default function InventoryPage() {
           </button>
         </div>
 
-        {/* Stats Dashboard Cards (Responsive Grid) */}
+        {/* Stats Dashboard Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
             <div>
@@ -213,11 +234,10 @@ export default function InventoryPage() {
             </div>
           </div>
 
-          {/* การ์ดมูลค่าสินค้ารวม (กินพื้นที่ 2 ช่องในแท็บเล็ต) */}
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between sm:col-span-2 lg:col-span-1">
             <div>
               <p className="text-gray-500 text-sm font-medium">มูลค่าสินค้ารวม</p>
-              <h3 className="text-3xl font-bold text-green-600 mt-1">฿{totalValue.toLocaleString()}</h3>
+              <h3 className="text-3xl font-bold text-green-600 mt-1">฿{totalValue.toLocaleString(undefined, {minimumFractionDigits: 2})}</h3>
             </div>
             <div className="p-3 bg-green-50 text-green-600 rounded-lg flex items-center justify-center w-14 h-14">
                 <span className="text-2xl font-bold">฿</span>
@@ -232,7 +252,7 @@ export default function InventoryPage() {
             <input 
               type="text" 
               placeholder="ค้นหาชื่อสินค้า หรือ สแกนรหัส Barcode..." 
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition text-gray-900 placeholder-gray-500"
+              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition text-gray-900 placeholder-gray-500 font-medium"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               autoFocus 
@@ -243,9 +263,8 @@ export default function InventoryPage() {
           </button>
         </div>
 
-        {/* Data Table (Responsive Scroll) */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          {/* overflow-x-auto ช่วยให้ตารางเลื่อนแนวนอนได้ในจอมือถือ */}
+        {/* Data Table */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[1000px]">
               <thead className="bg-gray-50 text-gray-600 text-sm uppercase font-semibold border-b border-gray-200">
@@ -254,6 +273,7 @@ export default function InventoryPage() {
                   <th className="p-4">ชื่อสินค้า</th>
                   <th className="p-4">หมวดหมู่</th>
                   <th className="p-4">สถานที่เก็บ</th>
+                  <th className="p-4 text-center">ที่มา (สั่งซื้อ)</th> 
                   <th className="p-4 text-center">คงเหลือ</th>
                   <th className="p-4 text-right">ต้นทุน/หน่วย</th>
                   <th className="p-4 text-center">สถานะ</th>
@@ -262,29 +282,47 @@ export default function InventoryPage() {
               </thead>
               <tbody className="divide-y divide-gray-100 text-sm text-gray-700">
                 {loading ? (
-                  <tr><td colSpan="8" className="p-12 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr>
-                ) : filteredProducts.length === 0 ? (
-                  <tr><td colSpan="8" className="p-12 text-center text-gray-400">ไม่พบสินค้าที่ค้นหา</td></tr>
+                  <tr><td colSpan="9" className="p-12 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr>
+                ) : paginatedProducts.length === 0 ? (
+                  <tr><td colSpan="9" className="p-12 text-center text-gray-400">ไม่พบสินค้าที่ค้นหา</td></tr>
                 ) : (
-                  filteredProducts.map((p) => (
+                  paginatedProducts.map((p) => (
                     <tr key={p.id} className="hover:bg-blue-50/30 transition duration-150">
                       <td className="p-4 font-mono text-blue-600 font-medium">{p.product_code}</td>
                       <td className="p-4 font-medium text-gray-900">{p.name}</td>
                       <td className="p-4">
                         <span className={`px-2.5 py-1 rounded-full text-xs font-bold border ${
-                          p.category === 'Raw Material' 
+                          p.category === 'Raw Material' || p.category === 'วัตถุดิบ'
                             ? 'bg-orange-50 text-orange-700 border-orange-100' 
                             : 'bg-purple-50 text-purple-700 border-purple-100'
                         }`}>
-                          {p.category === 'Raw Material' ? 'วัตถุดิบ' : 'สินค้าพร้อมขาย'}
+                          {p.category === 'Raw Material' || p.category === 'วัตถุดิบ' ? 'วัตถุดิบ' : 'สินค้าพร้อมขาย'}
                         </span>
                       </td>
                       <td className="p-4 text-gray-500">{p.location || '-'}</td>
+                      
+                      
+                      <td className="p-4 text-center">
+                          {p.source_link ? (
+                              <a 
+                                href={formatExternalLink(p.source_link)} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 text-indigo-600 border border-indigo-100 hover:bg-indigo-600 hover:text-white rounded-lg transition-colors text-xs font-bold shadow-sm"
+                                title={p.source_link}
+                              >
+                                  <ExternalLink size={14} /> เปิดดู
+                              </a>
+                          ) : (
+                              <span className="text-gray-300">-</span>
+                          )}
+                      </td>
+
                       <td className="p-4 text-center">
                         <span className="font-bold text-gray-800 text-base">{p.quantity}</span> 
                         <span className="text-xs text-gray-400 ml-1">{p.unit}</span>
                       </td>
-                      <td className="p-4 text-right font-medium text-gray-600">{Number(p.price).toLocaleString()}</td>
+                      <td className="p-4 text-right font-medium text-gray-600">{Number(p.price).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                       <td className="p-4 text-center">
                         {p.quantity <= p.min_level ? (
                           <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-red-100 text-red-600 text-xs font-bold border border-red-200">
@@ -310,6 +348,50 @@ export default function InventoryPage() {
               </tbody>
             </table>
           </div>
+
+          {/* แถบ Pagination Footer */}
+          {!loading && filteredProducts.length > 0 && (
+              <div className="p-4 border-t border-gray-200 bg-gray-50 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-600">
+                  <div>
+                      แสดง <span className="font-bold text-gray-800">{startIndex + 1}</span> ถึง <span className="font-bold text-gray-800">{Math.min(startIndex + ITEMS_PER_PAGE, filteredProducts.length)}</span> จากทั้งหมด <span className="font-bold text-gray-800">{filteredProducts.length}</span> รายการ
+                  </div>
+                  {totalPages > 1 && (
+                      <div className="flex items-center gap-1 bg-white border border-gray-200 rounded-lg p-1 shadow-sm">
+                          <button 
+                              onClick={() => setCurrentPage(p => Math.max(1, p - 1))} 
+                              disabled={currentPage === 1} 
+                              className="p-1.5 rounded-md hover:bg-gray-100 disabled:opacity-30 disabled:hover:bg-transparent transition"
+                          >
+                              <ChevronLeft size={18} />
+                          </button>
+                          
+                          <div className="flex items-center gap-1 px-2">
+                              {[...Array(totalPages)].map((_, i) => (
+                                  <button 
+                                      key={i} 
+                                      onClick={() => setCurrentPage(i + 1)} 
+                                      className={`w-8 h-8 rounded-md font-bold text-xs transition ${
+                                          currentPage === i + 1 
+                                          ? 'bg-blue-600 text-white shadow-md' 
+                                          : 'hover:bg-gray-100 text-gray-600'
+                                      }`}
+                                  >
+                                      {i + 1}
+                                  </button>
+                              ))}
+                          </div>
+
+                          <button 
+                              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} 
+                              disabled={currentPage === totalPages} 
+                              className="p-1.5 rounded-md hover:bg-gray-100 disabled:opacity-30 disabled:hover:bg-transparent transition"
+                          >
+                              <ChevronRight size={18} />
+                          </button>
+                      </div>
+                  )}
+              </div>
+          )}
         </div>
 
         {/* --- MODAL (Responsive Form) --- */}
@@ -317,7 +399,6 @@ export default function InventoryPage() {
           <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-all">
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden transform transition-all scale-100 flex flex-col max-h-[90vh]">
               
-              {/* Modal Header */}
               <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50 shrink-0">
                 <h3 className="font-bold text-xl text-gray-800 flex items-center gap-2">
                    <Package className="text-blue-600" size={24}/>
@@ -331,11 +412,8 @@ export default function InventoryPage() {
                 </button>
               </div>
 
-              {/* Form Body (Scrollable ในมือถือ) */}
               <div className="overflow-y-auto p-6">
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  
-                  {/* แถว 1 */}
                   <div className="col-span-1 md:col-span-1">
                     <div className="flex justify-between items-center mb-1">
                         <label className="text-xs font-bold text-gray-500 uppercase">รหัสสินค้า (Barcode/RFID) <span className="text-red-500">*</span></label>
@@ -362,7 +440,6 @@ export default function InventoryPage() {
                     />
                   </div>
 
-                  {/* แถว 2 */}
                   <div>
                     <label className="block text-xs font-bold text-gray-500 uppercase mb-1">หมวดหมู่</label>
                     <select 
@@ -384,10 +461,23 @@ export default function InventoryPage() {
                       onChange={e => setFormData({...formData, location: e.target.value})} 
                     />
                   </div>
+
+                  {/* ✅ ช่องกรอก URL ลิงก์ที่มาของสินค้า (กินพื้นที่ 2 คอลัมน์) */}
+                  <div className="col-span-1 md:col-span-2">
+                    <label className="text-xs font-bold text-gray-500 uppercase mb-1 flex items-center gap-1">
+                        <ExternalLink size={14}/> ลิงก์อ้างอิง / ที่มาของสินค้า (URL)
+                    </label>
+                    <input 
+                      type="url" 
+                      placeholder="เช่น https://shopee.co.th/... หรือเว็บ Supplier"
+                      className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition text-blue-600 font-medium placeholder-gray-400"
+                      value={formData.source_link} 
+                      onChange={e => setFormData({...formData, source_link: e.target.value})} 
+                    />
+                  </div>
                   
                   <div className="border-t col-span-1 md:col-span-2 my-2 border-gray-100"></div>
 
-                  {/* แถว 3 */}
                   <div>
                     <label className="block text-xs font-bold text-gray-500 uppercase mb-1">จำนวนคงเหลือ</label>
                     <input 
@@ -408,11 +498,11 @@ export default function InventoryPage() {
                     />
                   </div>
 
-                  {/* แถว 4 */}
                    <div>
                     <label className="block text-xs font-bold text-gray-500 uppercase mb-1">ต้นทุนต่อหน่วย (บาท)</label>
                     <input 
                       type="number" 
+                      step="0.01"
                       className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition text-gray-900 placeholder-gray-500"
                       value={formData.price} 
                       onChange={e => setFormData({...formData, price: e.target.value})} 
@@ -430,7 +520,6 @@ export default function InventoryPage() {
                     />
                   </div>
 
-                  {/* ปุ่ม Action */}
                   <div className="col-span-1 md:col-span-2 flex gap-3 mt-4 pt-4 border-t border-gray-100">
                     <button 
                       type="button" 
